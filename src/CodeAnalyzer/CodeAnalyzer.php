@@ -5,19 +5,14 @@ namespace CodeAnalyzer;
 class CodeAnalyzer
 {
 
-    protected static $configuration;
+    protected static $configuration = null;
 
-    public static function getConfiguration()
+    public static function configure(\Closure $configurator)
     {
         if (static::$configuration === null) {
             static::$configuration = new Configuration;
         }
-        return static::$configuration;
-    }
-
-    public static function configure(\Closure $configurator)
-    {
-        $configurator(static::getConfiguration());
+        $configurator(static::$configuration);
     }
 
 }
