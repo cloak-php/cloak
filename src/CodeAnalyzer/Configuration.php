@@ -20,12 +20,12 @@ class Configuration
         return $this;
     }
 
-    public function includeBy(\Closure $filter)
+    public function includeFile(\Closure $filter)
     {
         return $this;
     }
 
-    public function excludeBy(\Closure $filter)
+    public function excludeFile(\Closure $filter)
     {
         return $this;
     }

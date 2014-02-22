@@ -26,9 +26,9 @@ describe('Configuration', function() {
         });
     });
 
-    describe('#includeBy', function() {
+    describe('#includeFile', function() {
         before(function() {
-            $this->returnValue = $this->configuration->includeBy(function($file) {
+            $this->returnValue = $this->configuration->includeFile(function($file) {
 
             });
         });
@@ -37,9 +37,9 @@ describe('Configuration', function() {
         });
     });
 
-    describe('#excludeBy', function() {
+    describe('#excludeFile', function() {
         before(function() {
-            $this->returnValue = $this->configuration->excludeBy(function($file) {
+            $this->returnValue = $this->configuration->excludeFile(function($file) {
 
             });
         });
