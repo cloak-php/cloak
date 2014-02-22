@@ -1,0 +1,13 @@
+{
+    "name": "shared-hat/code-analyzer",
+    "require-dev": {
+        "danielstjules/pho": "1.0.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "holyshared",
+            "email": "holy.shared.design@gmail.com"
+        }
+    ]
+}
