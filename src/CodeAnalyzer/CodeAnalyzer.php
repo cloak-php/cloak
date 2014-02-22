@@ -19,11 +19,13 @@ class CodeAnalyzer
 
     public function start()
     {
+        \xdebug_start_code_coverage();
         $this->started = true;
     }
 
     public function stop()
     {
+        \xdebug_stop_code_coverage();
         $this->started = false;
     }
 
