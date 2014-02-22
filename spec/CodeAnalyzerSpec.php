@@ -5,18 +5,21 @@ use CodeAnalyzer\Configuration;
 
 describe('CodeAnalyzer', function() {
 
-    describe('#configure', function() {
-        $subject = $this->subject = new \stdClass();
-        $subject->called = 0;
-        $subject->configuration = null;
+    $subject = $this->subject = new \stdClass();
+    $subject->called = 0;
+    $subject->configuration = null;
 
-        $this->configurator = function(Configuration $configuration) use ($subject) {
-            $subject->called++;
-            $subject->configuration = $configuration;
-        };
-        before(function() {
-            CodeAnalyzer::configure($this->configurator);
-        });
+    $this->configurator = function(Configuration $configuration) use ($subject) {
+        $subject->called++;
+        $subject->configuration = $configuration;
+    };
+    $this->analyzer = new CodeAnalyzer(); 
+
+    before(function() {
+        CodeAnalyzer::configure($this->configurator);
+    });
+
+    describe('#configure', function() {
         it('should called once', function() {
             expect($this->subject->called)->toBe(1);
         });
@@ -25,12 +28,38 @@ describe('CodeAnalyzer', function() {
         });
     });
 
+    describe('#isStarted', function() {
+        context('when started', function() {
+            it('should return true', function() {
+                $this->analyzer->start();
+                expect($this->analyzer->isStarted())->toBeTrue();
+            });
+        });
+        context('when stoped', function() {
+            it('should return false', function() {
+                $this->analyzer->start();
+                $this->analyzer->stop();
+                expect($this->analyzer->isStarted())->toBeFalse();
+            });
+        });
+    });
+
     describe('#start', function() {
-        it('should analyze start');
+        before(function() {
+            $this->analyzer->start();
+        });
+        it('should analyze start', function() {
+            expect($this->analyzer->isStarted())->toBeTrue();
+        });
     });
 
     describe('#stop', function() {
-        it('should analyze stop');
+        before(function() {
+            $this->analyzer->stop();
+        });
+        it('should analyze stop', function() {
+            expect($this->analyzer->isStarted())->toBeFalse();
+        });
     });
 
 });
