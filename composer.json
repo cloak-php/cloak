@@ -1,5 +1,11 @@
 {
     "name": "shared-hat/code-analyzer",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": { "code-analyzer": "src/" }
+    },
     "require-dev": {
         "danielstjules/pho": "1.0.*"
     },
