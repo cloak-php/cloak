@@ -2,13 +2,16 @@
 
 namespace CodeAnalyzer;
 
+use \PhpCollection\Sequence;
+
 class Result
 {
 
-    private $files = array(); 
+    private $files = null; 
 
     public function __construct(array $result)
     {
+        $this->files = new Sequence(); 
         $this->parseResult($result);
     }
 
@@ -20,8 +23,9 @@ class Result
     public function parseResult(array $result)
     {
         foreach ($result as $path => $lines) {
-            $this->files[] = new File($path, $lines);
+            $this->files->add(new File($path, $lines));
         }
+        return $this;
     }
 
 }
