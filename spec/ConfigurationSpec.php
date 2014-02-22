@@ -1,6 +1,7 @@
 <?php
 
 use CodeAnalyzer\Configuration;
+use CodeAnalyzer\File;
 
 describe('Configuration', function() {
 
@@ -37,7 +38,7 @@ describe('Configuration', function() {
         });
         context('when arguments is not null', function() {
             before(function() {
-                $this->returnValue = $this->configuration->includeFile(function($file) {
+                $this->returnValue = $this->configuration->includeFile(function(File $file) {
                 });
             });
             it('should return CodeAnalyzer\Configuration instance', function() {
@@ -57,7 +58,7 @@ describe('Configuration', function() {
         });
         context('when arguments is not null', function() {
             before(function() {
-                $this->returnValue = $this->configuration->excludeFile(function($file) {
+                $this->returnValue = $this->configuration->excludeFile(function(File $file) {
                 });
             });
             it('should return CodeAnalyzer\Configuration instance', function() {
