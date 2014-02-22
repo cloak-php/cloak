@@ -6,6 +6,8 @@ class Configuration
 {
 
     private $collect = null;
+    private $includeFiles = array();
+    private $excludeFiles = array();
 
     public function __construct()
     {
@@ -20,13 +22,19 @@ class Configuration
         return $this;
     }
 
-    public function includeFile(\Closure $filter)
+    public function includeFile(\Closure $filter = null)
     {
+        if (is_null($filter)) {
+            return $this->includeFiles;
+        }
         return $this;
     }
 
-    public function excludeFile(\Closure $filter)
+    public function excludeFile(\Closure $filter = null)
     {
+        if (is_null($filter)) {
+            return $this->excludeFiles;
+        }
         return $this;
     }
 
