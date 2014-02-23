@@ -13,11 +13,16 @@ class Line
     private $lineNumber = null;
     private $analyzeResult = null;
 
-    public function __construct($lineNumber, $analyzeResult = self::EXECUTED, File $file = null)
+    public function __construct($lineNumber = 0, $analyzeResult = self::EXECUTED, File $file = null)
     {
         $this->lineNumber = $lineNumber;
         $this->analyzeResult = $analyzeResult;
         $this->file = $file;
+    }
+
+    public function isFileAssociated()
+    {
+        return is_null($this->file);
     }
 
     public function setFile(File $file = null)
@@ -53,6 +58,12 @@ class Line
     public function isExecuted()
     {
         return $this->analyzeResult === self::EXECUTED;
+    }
+
+    public function isValid()
+    {
+        $analyzeResult = ($this->isDead() || $this->isExecuted() || $this->isUnused());
+        return $this->getLineNumber() > 0 && $analyzeResult === true;
     }
 
     public function equals(Line $line)
