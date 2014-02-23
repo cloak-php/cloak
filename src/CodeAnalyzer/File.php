@@ -79,6 +79,11 @@ class File
         return $lines->count();
     }
 
+    public function getExecutableLineCount()
+    {
+        return $this->getUnusedLineCount() + $this->getExecutedLineCount();
+    }
+
     public function selectLines(\Closure $filter)
     {
         $lines = $this->lines->filter($filter);
