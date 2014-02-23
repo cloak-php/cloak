@@ -17,6 +17,7 @@ class Line
     {
         $this->lineNumber = $lineNumber;
         $this->analyzeResult = $analyzeResult;
+        $this->file = $file;
     }
 
     public function setFile(File $file = null)
@@ -27,6 +28,16 @@ class Line
     public function getFile()
     {
         return $this->file;
+    }
+
+    public function getLineNumber()
+    {
+        return $this->lineNumber;
+    }
+
+    public function getAnalyzeResult()
+    {
+        return $this->analyzeResult;
     }
 
     public function isDead()
@@ -42,6 +53,11 @@ class Line
     public function isExecuted()
     {
         return $this->analyzeResult === self::EXECUTED;
+    }
+
+    public function equals(Line $line)
+    {
+        return ($line->getLineNumber() === $line->getLineNumber() && $line->getFile() === $line->getFile());
     }
 
 }
