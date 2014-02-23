@@ -24,8 +24,7 @@ describe('Result', function() {
 
     describe('#parseResult', function() {
         before(function() {
-            $this->result = new Result();
-            $this->returnValue = $this->result->parseResult(array(
+            $this->returnValue = Result::parseResult(array(
                 'example.php' => array(
                     1 => Line::EXECUTED,
                     2 => Line::UNUSED,

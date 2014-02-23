@@ -9,17 +9,19 @@ class Result
 
     private $files = null; 
 
-    public function __construct(array $result)
+    public function __construct(Sequence $files)
     {
-        $this->files = $this->parseResult($result);
+        $this->files = $files;
     }
 
-    public function from(array $result)
+    public static function from(array $result)
     {
-        return new self($result);
+        $files = static::parseResult($result);
+
+        return new self($files);
     }
 
-    public function parseResult(array $result)
+    public static function parseResult(array $result)
     {
         $files = new Sequence(); 
 
@@ -31,14 +33,14 @@ class Result
 
     public function includeFile(\Closure $filter)
     {
-        $this->files = $this->files->filter($filter);
-        return $this;
+        $files = $this->files->filter($filter);
+        return new self($files);
     }
 
     public function excludeFile(\Closure $filter)
     {
-        $this->files = $this->files->filterNot($filter);
-        return $this;
+        $files = $this->files->filterNot($filter);
+        return new self($files);
     }
 
 }
