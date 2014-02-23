@@ -57,7 +57,7 @@ class Line
 
     public function equals(Line $line)
     {
-        return ($line->getLineNumber() === $line->getLineNumber() && $line->getFile() === $line->getFile());
+        return ($line->getLineNumber() === $this->getLineNumber() && $line->getFile() === $this->getFile());
     }
 
 }

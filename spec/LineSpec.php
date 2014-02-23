@@ -1,13 +1,29 @@
 <?php
 
 use CodeAnalyzer\Line;
+use CodeAnalyzer\File;
 
 describe('Line', function() {
 
     before(function() {
-        $this->deadLine = new Line(1, Line::DEAD);
-        $this->unusedLine = new Line(1, Line::UNUSED);
-        $this->executedLine = new Line(1, Line::EXECUTED);
+        $this->file = new File('some.php');
+        $this->deadLine = new Line(1, Line::DEAD, $this->file);
+        $this->unusedLine = new Line(1, Line::UNUSED, $this->file);
+        $this->executedLine = new Line(1, Line::EXECUTED, $this->file);
+    });
+
+    describe('#equals', function() {
+        context('when file and line number at the same', function() {
+            it('should return true', function() {
+                expect($this->deadLine->equals($this->unusedLine))->toBeTrue();
+            });
+        });
+        context('when file and line number are not the same', function() {
+            it('should return false', function() {
+                $this->unusedLine->setFile(null);
+                expect($this->deadLine->equals($this->unusedLine))->toBeFalse();
+            });
+        });
     });
 
     describe('#isDead', function() {
