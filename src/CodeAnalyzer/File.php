@@ -55,4 +55,34 @@ class File
         return $file->getPath() === $this->getPath();
     }
 
+    public function getDeadLineCount()
+    {
+        $lines = $this->selectLines(function(Line $line) {
+            return $line->isDead();
+        });
+        return $lines->count();
+    }
+
+    public function getUnusedLineCount()
+    {
+        $lines = $this->selectLines(function(Line $line) {
+            return $line->isUnused();
+        });
+        return $lines->count();
+    }
+
+    public function getExecutedLineCount()
+    {
+        $lines = $this->selectLines(function(Line $line) {
+            return $line->isExecuted();
+        });
+        return $lines->count();
+    }
+
+    public function selectLines(\Closure $filter)
+    {
+        $lines = $this->lines->filter($filter);
+        return $lines;
+    }
+
 }

@@ -67,4 +67,43 @@ describe('File', function() {
         });
     });
 
+    describe('#getDeadLineCount', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->deadLine = new Line(1, Line::DEAD);
+            $this->executedLine = new Line(2, Line::EXECUTED);
+            $this->file->addLine($this->deadLine);
+            $this->file->addLine($this->executedLine);
+        });
+        it('', function() {
+            expect($this->file->getDeadLineCount())->toBe(1);
+        });
+    });
+
+    describe('#getUnusedLineCount', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->deadLine = new Line(1, Line::DEAD);
+            $this->executedLine = new Line(2, Line::UNUSED);
+            $this->file->addLine($this->deadLine);
+            $this->file->addLine($this->executedLine);
+        });
+        it('', function() {
+            expect($this->file->getUnusedLineCount())->toBe(1);
+        });
+    });
+
+    describe('#getExecutedLineCount', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->deadLine = new Line(1, Line::DEAD);
+            $this->executedLine = new Line(2, Line::EXECUTED);
+            $this->file->addLine($this->deadLine);
+            $this->file->addLine($this->executedLine);
+        });
+        it('', function() {
+            expect($this->file->getExecutedLineCount())->toBe(1);
+        });
+    });
+
 });

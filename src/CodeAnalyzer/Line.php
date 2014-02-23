@@ -29,4 +29,19 @@ class Line
         return $this->file;
     }
 
+    public function isDead()
+    {
+        return $this->analyzeResult === self::DEAD;
+    }
+
+    public function isUnused()
+    {
+        return $this->analyzeResult === self::UNUSED;
+    }
+
+    public function isExecuted()
+    {
+        return $this->analyzeResult === self::EXECUTED;
+    }
+
 }
