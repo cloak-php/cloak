@@ -26,6 +26,12 @@ class File
         return $this->lines;
     }
 
+    public function setLines(Sequence $lines)
+    {
+        $this->lines = $lines;
+        return $this;
+    }
+
     public function addLine(Line $line)
     {
         $line->setFile($this);

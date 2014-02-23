@@ -2,8 +2,47 @@
 
 use CodeAnalyzer\File;
 use CodeAnalyzer\Line;
+use PhpCollection\Sequence;
 
 describe('File', function() {
+
+    describe('#getLines', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+        });
+        context('when line is empty', function() {
+            it('should return PhpCollection\Sequence instance', function() {
+                expect($this->file->getLines())->toBeAnInstanceOf('PhpCollection\Sequence');
+            });
+        });
+        context('when there is a line', function() {
+            it('should return PhpCollection\Sequence instance', function() {
+                $this->file->addLine(new Line('foo.php'));
+                expect($this->file->getLines())->toBeAnInstanceOf('PhpCollection\Sequence');
+                expect($this->file->getLines()->count())->toBe(1);
+            });
+        });
+    });
+
+    describe('#setLines', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+        });
+        it('should return CodeAnalyzer\File instance', function() {
+            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('CodeAnalyzer\File');
+        });
+    });
+
+    describe('#equals', function() {
+        before(function() {
+            $this->file1 = new File('foo.php');
+            $this->file2 = new File('foo.php');
+        });
+        it('', function() {
+            $result = $this->file1->equals($this->file2);
+            expect($result)->toBeTrue();
+        });
+    });
 
     describe('#addLine', function() {
         before(function() {
