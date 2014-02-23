@@ -34,13 +34,15 @@ describe('File', function() {
     });
 
     describe('#equals', function() {
-        before(function() {
-            $this->file1 = new File('foo.php');
-            $this->file2 = new File('foo.php');
-        });
-        it('', function() {
-            $result = $this->file1->equals($this->file2);
-            expect($result)->toBeTrue();
+        context('when path equals', function() {
+            before(function() {
+                $this->file1 = new File('foo.php');
+                $this->file2 = new File('foo.php');
+            });
+            it('should return true', function() {
+                $result = $this->file1->equals($this->file2);
+                expect($result)->toBeTrue();
+            });
         });
     });
 
@@ -49,7 +51,7 @@ describe('File', function() {
             $this->file = new File('foo.php');
             $this->line = new Line(2, Line::EXECUTED);
         });
-        it('', function() {
+        it('should add line', function() {
             $this->file->addLine($this->line);
             expect($this->file->getLines()->last()->get())->toEqual($this->line);
         });
@@ -60,7 +62,7 @@ describe('File', function() {
             $this->file = new File('foo.php');
             $this->line = new Line(2, Line::EXECUTED);
         });
-        it('', function() {
+        it('should remove line', function() {
             $this->file->addLine($this->line);
             $this->file->removeLine($this->line);
             expect($this->file->getLines()->count())->toBe(0);
@@ -75,7 +77,7 @@ describe('File', function() {
             $this->file->addLine($this->deadLine);
             $this->file->addLine($this->executedLine);
         });
-        it('', function() {
+        it('should return total number of lines is dead', function() {
             expect($this->file->getDeadLineCount())->toBe(1);
         });
     });
@@ -88,7 +90,7 @@ describe('File', function() {
             $this->file->addLine($this->deadLine);
             $this->file->addLine($this->executedLine);
         });
-        it('', function() {
+        it('should return total number of lines is unused', function() {
             expect($this->file->getUnusedLineCount())->toBe(1);
         });
     });
@@ -101,7 +103,7 @@ describe('File', function() {
             $this->file->addLine($this->deadLine);
             $this->file->addLine($this->executedLine);
         });
-        it('', function() {
+        it('should return total number of lines is executed', function() {
             expect($this->file->getExecutedLineCount())->toBe(1);
         });
     });
