@@ -5,8 +5,18 @@ namespace CodeAnalyzer;
 class File
 {
 
-    public function __construct($filePath, $lines)
+    private $path = null;
+    private $lines = null;
+
+    public function __construct($path, array $lines)
     {
+        $this->path = $path;
+        $this->lines = $lines;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
     }
 
 }

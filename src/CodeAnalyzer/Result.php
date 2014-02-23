@@ -4,21 +4,14 @@ namespace CodeAnalyzer;
 
 use \PhpCollection\Sequence;
 
-class Result
+class Result extends Sequence
 {
-
-    private $files = null; 
-
-    public function __construct(Sequence $files)
-    {
-        $this->files = $files;
-    }
 
     public static function from(array $result)
     {
         $files = static::parseResult($result);
 
-        return new self($files);
+        return new self($files->all());
     }
 
     public static function parseResult(array $result)
@@ -28,19 +21,20 @@ class Result
         foreach ($result as $path => $lines) {
             $files->add(new File($path, $lines));
         }
+
         return $files;
     }
 
     public function includeFile(\Closure $filter)
     {
-        $files = $this->files->filter($filter);
-        return new self($files);
+        $files = $this->filter($filter);
+        return $files;
     }
 
     public function excludeFile(\Closure $filter)
     {
-        $files = $this->files->filterNot($filter);
-        return new self($files);
+        $files = $this->filterNot($filter);
+        return $files;
     }
 
 }
