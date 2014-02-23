@@ -33,8 +33,8 @@ describe('Result', function() {
                 )
             ));
         });
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->result)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return PhpCollection\Sequence instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
         });
     });
 
