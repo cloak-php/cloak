@@ -37,4 +37,22 @@ class Result extends Sequence
         return $files;
     }
 
+    public function addFile(File $file)
+    {
+        $this->add($file);
+        return $this;
+    }
+
+    public function removeFile(File $file)
+    {
+        $indexAt = $this->indexOf($file);
+
+        if ($indexAt === -1) {
+            return $this;
+        }
+        $this->remove($indexAt);
+
+        return $this;
+    }
+
 }
