@@ -2,6 +2,7 @@
 
 namespace CodeAnalyzer;
 
+use CodeAnalyzer\Result\File;
 use \PhpCollection\Sequence;
 
 class Result extends Sequence

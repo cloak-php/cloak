@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeAnalyzer;
+namespace CodeAnalyzer\Result;
 
 use \PhpCollection\Sequence;
 

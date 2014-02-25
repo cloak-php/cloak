@@ -1,8 +1,8 @@
 <?php
 
 use CodeAnalyzer\Result;
-use CodeAnalyzer\Line;
-use CodeAnalyzer\File;
+use CodeAnalyzer\Result\Line;
+use CodeAnalyzer\Result\File;
 
 describe('Result', function() {
 
