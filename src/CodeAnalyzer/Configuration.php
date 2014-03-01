@@ -53,4 +53,17 @@ class Configuration
         return $this->includeFiles;
     }
 
+    public function excludeFiles(array $filters)
+    {
+        foreach ($filters as $filter) {
+            $this->excludeFile($filter);
+        }
+        return $this;
+    }
+
+    public function getExcludeFilters()
+    {
+        return $this->excludeFiles;
+    }
+
 }

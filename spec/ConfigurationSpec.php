@@ -75,7 +75,6 @@ describe('Configuration', function() {
             $this->configuration = new Configuration(); 
             $this->returnValue = $this->configuration->excludeFile();
         });
-
         context('when arguments is null', function() {
             before(function() {
                 $this->returnValue = $this->configuration->excludeFile();
@@ -92,6 +91,24 @@ describe('Configuration', function() {
             it('should return CodeAnalyzer\Configuration instance', function() {
                 expect($this->returnValue)->toEqual($this->configuration);
             });
+        });
+    });
+
+    describe('#excludeFiles', function() {
+        before(function() {
+            $filter1 = function(File $file){};
+            $filter2 = function(File $file){};
+            $this->configuration = new Configuration(); 
+            $this->returnValue = $this->configuration->excludeFiles(array(
+                $filter1, $filter2
+            ));
+        });
+        it('should add filters', function() {
+            $filters = $this->configuration->getExcludeFilters();
+            expect(count($filters))->toBe(2);
+        });
+        it('should return CodeAnalyzer\Configuration instance', function() {
+            expect($this->returnValue)->toEqual($this->configuration);
         });
     });
 
