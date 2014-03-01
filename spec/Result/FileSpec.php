@@ -1,7 +1,7 @@
 <?php
 
-use CodeAnalyzer\File;
-use CodeAnalyzer\Line;
+use CodeAnalyzer\Result\File;
+use CodeAnalyzer\Result\Line;
 use PhpCollection\Sequence;
 
 describe('File', function() {
@@ -28,8 +28,8 @@ describe('File', function() {
         before(function() {
             $this->file = new File('foo.php');
         });
-        it('should return CodeAnalyzer\File instance', function() {
-            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('CodeAnalyzer\File');
+        it('should return CodeAnalyzer\Result\File instance', function() {
+            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('CodeAnalyzer\Result\File');
         });
     });
 

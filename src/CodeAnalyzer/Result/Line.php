@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeAnalyzer;
+namespace CodeAnalyzer\Result;
 
 class Line
 {
@@ -25,9 +25,14 @@ class Line
         return is_null($this->file);
     }
 
-    public function setFile(File $file = null)
+    public function link(File $file)
     {
         $this->file = $file;
+    }
+
+    public function unlink()
+    {
+        $this->file = null;
     }
 
     public function getFile()

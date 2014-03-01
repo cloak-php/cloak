@@ -1,7 +1,7 @@
 <?php
 
-use CodeAnalyzer\Line;
-use CodeAnalyzer\File;
+use CodeAnalyzer\Result\Line;
+use CodeAnalyzer\Result\File;
 
 describe('Line', function() {
 
@@ -12,6 +12,27 @@ describe('Line', function() {
         $this->executedLine = new Line(1, Line::EXECUTED, $this->file);
     });
 
+    describe('#link', function() {
+        before(function() {
+            $this->linkLine = new Line(5, Line::EXECUTED);
+            $this->linkLine->link($this->file);
+        });
+        it('should link to file', function() {
+            expect($this->linkLine->getFile())->toEqual($this->file);
+        });
+    });
+
+    describe('#unlink', function() {
+        before(function() {
+            $this->linkLine = new Line(5, Line::EXECUTED);
+            $this->linkLine->link($this->file);
+            $this->linkLine->unlink();
+        });
+        it('should link to file', function() {
+            expect($this->linkLine->getFile())->toBeNull();
+        });
+    });
+
     describe('#equals', function() {
         context('when file and line number at the same', function() {
             it('should return true', function() {
@@ -20,7 +41,7 @@ describe('Line', function() {
         });
         context('when file and line number are not the same', function() {
             it('should return false', function() {
-                $this->unusedLine->setFile(null);
+                $this->unusedLine->unlink();
                 expect($this->deadLine->equals($this->unusedLine))->toBeFalse();
             });
         });

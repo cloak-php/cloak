@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeAnalyzer;
+namespace CodeAnalyzer\Result;
 
 use \PhpCollection\Sequence;
 
@@ -34,13 +34,13 @@ class File
 
     public function addLine(Line $line)
     {
-        $line->setFile($this);
+        $line->link($this);
         $this->lines->add($line);
     }
 
     public function removeLine(Line $line)
     {
-        $line->setFile(null);
+        $line->unlink();
         $indexAt = $this->lines->indexOf($line);
 
         if ($indexAt === -1) {

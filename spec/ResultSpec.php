@@ -1,8 +1,8 @@
 <?php
 
 use CodeAnalyzer\Result;
-use CodeAnalyzer\Line;
-use CodeAnalyzer\File;
+use CodeAnalyzer\Result\Line;
+use CodeAnalyzer\Result\File;
 
 describe('Result', function() {
 
@@ -90,6 +90,36 @@ describe('Result', function() {
         it('should exclude only those that match element', function() {
             expect($this->returnValue->count())->toBe(1);
             expect($this->returnValue->last()->get()->getPath())->toEqual('example1.php');
+        });
+    });
+
+
+    describe('#addFile', function() {
+        before(function() {
+            $this->result = new Result();
+            $this->file = new File('test.php');
+            $this->returnValue = $this->result->addFile($this->file);
+        });
+        it('should add file', function() {
+            expect($this->returnValue->last()->get()->getPath())->toEqual($this->file->getPath());
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toEqual($this->result);
+        });
+    });
+
+    describe('#removeFile', function() {
+        before(function() {
+            $this->result = new Result();
+            $this->file = new File('test.php');
+            $this->result->addFile($this->file);
+            $this->returnValue = $this->result->removeFile($this->file);
+        });
+        it('should remove file', function() {
+            expect($this->returnValue->count())->toBe(0);
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toEqual($this->result);
         });
     });
 
