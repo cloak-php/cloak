@@ -16,15 +16,12 @@ describe('Configuration', function() {
     });
 
     describe('#includeFile', function() {
-        context('when arguments is not null', function() {
-            before(function() {
-                $this->configuration = new Configuration();
-                $this->returnValue = $this->configuration->includeFile(function(File $file) {
-                });
-            });
-            it('should return CodeAnalyzer\Configuration instance', function() {
-                expect($this->returnValue)->toEqual($this->configuration);
-            });
+        before(function() {
+            $this->configuration = new Configuration();
+            $this->returnValue = $this->configuration->includeFile(function(File $file) {});
+        });
+        it('should return CodeAnalyzer\Configuration instance', function() {
+            expect($this->returnValue)->toEqual($this->configuration);
         });
     });
 
@@ -49,24 +46,10 @@ describe('Configuration', function() {
     describe('#excludeFile', function() {
         before(function() {
             $this->configuration = new Configuration(); 
-            $this->returnValue = $this->configuration->excludeFile();
+            $this->returnValue = $this->configuration->excludeFile(function(File $file) {});
         });
-        context('when arguments is null', function() {
-            before(function() {
-                $this->returnValue = $this->configuration->excludeFile();
-            });
-            it('should return callback filter', function() {
-                expect($this->returnValue)->toEqual(array());
-            });
-        });
-        context('when arguments is not null', function() {
-            before(function() {
-                $this->returnValue = $this->configuration->excludeFile(function(File $file) {
-                });
-            });
-            it('should return CodeAnalyzer\Configuration instance', function() {
-                expect($this->returnValue)->toEqual($this->configuration);
-            });
+        it('should return CodeAnalyzer\Configuration instance', function() {
+            expect($this->returnValue)->toEqual($this->configuration);
         });
     });
 

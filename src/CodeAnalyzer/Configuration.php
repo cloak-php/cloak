@@ -14,28 +14,20 @@ class Configuration
         $this->collect = XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE;
     }
 
-    public function collect($collect = null)
+    public function collect($collect)
     {
-        if (is_null($collect)) {
-            return $this->collect;
-        }
+        $this->collect = $collect;
         return $this;
     }
 
-    public function includeFile(\Closure $filter = null)
+    public function includeFile(\Closure $filter)
     {
-        if (is_null($filter)) {
-            return $this->includeFiles;
-        }
         $this->includeFiles[] = $filter;
         return $this;
     }
 
-    public function excludeFile(\Closure $filter = null)
+    public function excludeFile(\Closure $filter)
     {
-        if (is_null($filter)) {
-            return $this->excludeFiles;
-        }
         $this->excludeFiles[] = $filter;
         return $this;
     }

@@ -21,7 +21,7 @@ class CodeAnalyzer
     public function start()
     {
         $configuration = static::$configuration;
-        xdebug_start_code_coverage($configuration->collect());
+        xdebug_start_code_coverage($configuration->collect);
         $this->started = true;
     }
 
@@ -31,8 +31,8 @@ class CodeAnalyzer
         xdebug_stop_code_coverage();
 
         $configuration = static::$configuration;
-        $includeFiles = $configuration->includeFile();
-        $excludeFiles = $configuration->excludeFile();
+        $includeFiles = $configuration->includeFiles;
+        $excludeFiles = $configuration->excludeFiles;
 
         $this->analyzeResult = Result::from($result);
 
