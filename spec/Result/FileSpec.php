@@ -108,4 +108,15 @@ describe('File', function() {
         });
     });
 
+    describe('#getCodeCoverage', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->file->addLine( new Line(1, Line::UNUSED) );
+            $this->file->addLine( new Line(1, Line::EXECUTED) );
+        });
+        it('should return The value of code coverage', function() {
+            expect($this->file->getCodeCoverage())->toBe(50.00);
+        });
+    });
+
 });

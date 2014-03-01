@@ -90,4 +90,12 @@ class File
         return $lines;
     }
 
+    /**
+     * @return double The value of code coverage
+     */
+    public function getCodeCoverage()
+    {
+        return $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+    }
+
 }
