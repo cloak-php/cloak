@@ -62,4 +62,15 @@ describe('CodeAnalyzer', function() {
         });
     });
 
+    describe('#getResult', function() {
+        before(function() {
+            $this->analyzer->start();
+            $this->analyzer->stop();
+            $this->result = $this->analyzer->getResult();
+        });
+        it('should return an instance of CodeAnalyzer\Result', function() {
+            expect($this->result)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        });
+    });
+
 });

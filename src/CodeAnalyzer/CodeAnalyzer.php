@@ -8,6 +8,7 @@ class CodeAnalyzer
     protected static $configuration = null;
 
     protected $started = false;
+    protected $analyzeResult = null;
 
     public static function configure(\Closure $configurator)
     {
@@ -19,19 +20,28 @@ class CodeAnalyzer
 
     public function start()
     {
-        \xdebug_start_code_coverage();
+        xdebug_start_code_coverage();
         $this->started = true;
     }
 
     public function stop()
     {
-        \xdebug_stop_code_coverage();
+        $result = xdebug_get_code_coverage();
+        $this->analyzeResult = Result::from($result);
+
+        xdebug_stop_code_coverage();
+
         $this->started = false;
     }
 
     public function isStarted()
     {
         return $this->started;
+    }
+
+    public function getResult()
+    {
+        return $this->analyzeResult;
     }
 
 }
