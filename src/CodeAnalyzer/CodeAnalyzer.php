@@ -20,13 +20,15 @@ class CodeAnalyzer
 
     public function start()
     {
-        xdebug_start_code_coverage();
+        $configuration = static::$configuration;
+        xdebug_start_code_coverage($configuration->collect());
         $this->started = true;
     }
 
     public function stop()
     {
         $result = xdebug_get_code_coverage();
+        xdebug_stop_code_coverage();
 
         $configuration = static::$configuration;
         $includeFiles = $configuration->includeFile();
@@ -45,8 +47,6 @@ class CodeAnalyzer
                 $this->analyzeResult = $this->analyzeResult->excludeFile($filter);
             }
         }
-
-        xdebug_stop_code_coverage();
 
         $this->started = false;
     }

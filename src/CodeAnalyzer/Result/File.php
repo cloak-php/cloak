@@ -13,7 +13,7 @@ class File
     public function __construct($path, array $lines)
     {
         $this->path = $path;
-        $this->lines = new Sequence($lines);
+        $this->lines = $this->createLines($lines);
     }
 
     public function getPath()
@@ -103,6 +103,18 @@ class File
     public function getCodeCoverage()
     {
         return $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+    }
+
+    protected function createLines(array $lineResults)
+    {
+
+        $results = array(); 
+
+        foreach ($lineResults as $lineNumber => $analyzeResult) {
+            $results[] = new Line($lineNumber, $analyzeResult, $this);
+        }
+
+        return new Sequence($results);
     }
 
 }
