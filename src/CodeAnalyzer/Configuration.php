@@ -48,11 +48,6 @@ class Configuration
         return $this;
     }
 
-    public function getIncludeFilters()
-    {
-        return $this->includeFiles;
-    }
-
     public function excludeFiles(array $filters)
     {
         foreach ($filters as $filter) {
@@ -61,9 +56,9 @@ class Configuration
         return $this;
     }
 
-    public function getExcludeFilters()
+    public function __get($name)
     {
-        return $this->excludeFiles;
+        return $this->$name;
     }
 
 }
