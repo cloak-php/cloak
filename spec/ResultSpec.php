@@ -3,6 +3,7 @@
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
+use PhpCollection\Sequence;
 
 describe('Result', function() {
 
@@ -93,6 +94,19 @@ describe('Result', function() {
         });
     });
 
+    describe('#setFiles', function() {
+        before(function() {
+            $this->files = new Sequence();
+            $this->result = new Result();
+            $this->returnValue = $this->result->setFiles($this->files);
+        });
+        it('should should the files is replaced', function() {
+            expect($this->result->getFiles())->toEqual($this->files);
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toEqual($this->result);
+        });
+    });
 
     describe('#addFile', function() {
         before(function() {

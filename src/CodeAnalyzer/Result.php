@@ -8,6 +8,14 @@ use \PhpCollection\Sequence;
 class Result extends Sequence
 {
 
+    private $files = null;
+
+    public function __construct(array $result)
+    {
+        $this->files = new Sequence();
+        parent::__construct($result);
+    }
+
     public static function from(array $result)
     {
         $files = static::parseResult($result);
@@ -36,6 +44,17 @@ class Result extends Sequence
     {
         $files = $this->filterNot($filter);
         return $files;
+    }
+
+    public function setFiles(Sequence $files)
+    {
+        $this->files = $files;
+        return $this;
+    }
+
+    public function getFiles()
+    {
+        return $this->files;
     }
 
     public function addFile(File $file)
