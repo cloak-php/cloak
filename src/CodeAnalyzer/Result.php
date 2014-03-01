@@ -46,7 +46,7 @@ class Result extends Sequence
         return $files;
     }
 
-    public function setFiles(Sequence $files)
+    public function setFiles(AbstractSequence $files)
     {
         $this->files = $files;
         return $this;
