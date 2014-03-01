@@ -31,7 +31,7 @@ example\example1();
 
 $analyzer->stop();
 
-$result = $analyzer->getResult();
+$result = $analyzer->getResult()->getFiles();
 
 foreach ($result as $file) {
     $result = sprintf("%s > %0.2f%% (%d/%d)",

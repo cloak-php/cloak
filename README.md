@@ -55,7 +55,7 @@ After you can get the report, you need to run the **getResult** method.
 
 	$analyzer->stop();
 
-	$result = $analyzer->getResult();
+	$result = $analyzer->getResult()->getFiles();
 
 	foreach ($result as $file) {
 		$result = sprintf("%s > %0.2f%% (%d/%d)",
