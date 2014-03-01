@@ -5,10 +5,11 @@ use CodeAnalyzer\File;
 
 describe('Configuration', function() {
 
-    $this->returnValue = null;
-    $this->configuration = new Configuration(); 
-
     describe('#collect', function() {
+        before(function() {
+            $this->configuration = new Configuration(); 
+            $this->returnValue = null;
+        });
         context('when arguments is null', function() {
             before(function() {
                 $this->returnValue = $this->configuration->collect();
@@ -28,6 +29,10 @@ describe('Configuration', function() {
     });
 
     describe('#includeFile', function() {
+        before(function() {
+            $this->configuration = new Configuration(); 
+            $this->returnValue = null;
+        });
         context('when arguments is null', function() {
             before(function() {
                 $this->returnValue = $this->configuration->includeFile();
@@ -47,7 +52,30 @@ describe('Configuration', function() {
         });
     });
 
+    describe('#includeFiles', function() {
+        before(function() {
+            $filter1 = function(File $file){};
+            $filter2 = function(File $file){};
+            $this->configuration = new Configuration(); 
+            $this->returnValue = $this->configuration->includeFiles(array(
+                $filter1, $filter2
+            ));
+        });
+        it('should add filters', function() {
+            $filters = $this->configuration->getIncludeFilters();
+            expect(count($filters))->toBe(2);
+        });
+        it('should return CodeAnalyzer\Configuration instance', function() {
+            expect($this->returnValue)->toEqual($this->configuration);
+        });
+    });
+
     describe('#excludeFile', function() {
+        before(function() {
+            $this->configuration = new Configuration(); 
+            $this->returnValue = $this->configuration->excludeFile();
+        });
+
         context('when arguments is null', function() {
             before(function() {
                 $this->returnValue = $this->configuration->excludeFile();

@@ -40,4 +40,17 @@ class Configuration
         return $this;
     }
 
+    public function includeFiles(array $filters)
+    {
+        foreach ($filters as $filter) {
+            $this->includeFile($filter);
+        }
+        return $this;
+    }
+
+    public function getIncludeFilters()
+    {
+        return $this->includeFiles;
+    }
+
 }
