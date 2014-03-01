@@ -27,7 +27,24 @@ class CodeAnalyzer
     public function stop()
     {
         $result = xdebug_get_code_coverage();
+
+        $configuration = static::$configuration;
+        $includeFiles = $configuration->includeFile();
+        $excludeFiles = $configuration->excludeFile();
+
         $this->analyzeResult = Result::from($result);
+
+        if (is_null($includeFiles) === false) {
+            foreach ($includeFiles as $filter) {
+                $this->analyzeResult = $this->analyzeResult->includeFile($filter);
+            }
+        }
+
+        if (is_null($excludeFiles) === false) {
+            foreach ($excludeFiles as $filter) {
+                $this->analyzeResult = $this->analyzeResult->excludeFile($filter);
+            }
+        }
 
         xdebug_stop_code_coverage();
 

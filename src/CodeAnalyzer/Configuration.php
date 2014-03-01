@@ -27,6 +27,7 @@ class Configuration
         if (is_null($filter)) {
             return $this->includeFiles;
         }
+        $this->includeFiles[] = $filter;
         return $this;
     }
 
@@ -35,6 +36,7 @@ class Configuration
         if (is_null($filter)) {
             return $this->excludeFiles;
         }
+        $this->excludeFiles[] = $filter;
         return $this;
     }
 

@@ -21,6 +21,13 @@ class File
         return $this->path;
     }
 
+    public function matchPath($value)
+    {
+        $result = preg_match("/" . $value . "/", $this->getPath());
+
+        return ($result === 0) ? false : true;
+    }
+
     public function getLines()
     {
         return $this->lines;

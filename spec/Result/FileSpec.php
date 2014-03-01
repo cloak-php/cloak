@@ -46,6 +46,24 @@ describe('File', function() {
         });
     });
 
+    describe('#matchPath', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+        });
+        context('when included in the path', function() {
+            it('should return true', function() {
+                $result = $this->file->matchPath('foo');
+                expect($result)->toBeTrue();
+            });
+        });
+        context('when not included in the path', function() {
+            it('should return false', function() {
+                $result = $this->file->matchPath('bar');
+                expect($result)->toBeFalse();
+            });
+        });
+    });
+
     describe('#addLine', function() {
         before(function() {
             $this->file = new File('foo.php');

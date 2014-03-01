@@ -2,6 +2,7 @@
 
 use CodeAnalyzer\CodeAnalyzer;
 use CodeAnalyzer\Configuration;
+use CodeAnalyzer\Result\File;
 
 describe('CodeAnalyzer', function() {
 
@@ -64,12 +65,20 @@ describe('CodeAnalyzer', function() {
 
     describe('#getResult', function() {
         before(function() {
+            CodeAnalyzer::configure(function(Configuration $configuration) {
+                $configuration->includeFile(function(File $file) {
+                    return $file->matchPath('src');
+                })->excludeFile(function(File $file) {
+                    return $file->matchPath('vendor');
+                });
+            });
             $this->analyzer->start();
             $this->analyzer->stop();
             $this->result = $this->analyzer->getResult();
         });
         it('should return an instance of CodeAnalyzer\Result', function() {
             expect($this->result)->toBeAnInstanceOf('CodeAnalyzer\Result');
+            expect($this->result->count())->toBe(1);
         });
     });
 
