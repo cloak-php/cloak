@@ -58,12 +58,13 @@ describe('Result', function() {
                 return $file->getPath() === 'example2.php';
             });
         });
-        it('should return PhpCollection\Sequence instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
         it('should include only those that match element', function() {
-            expect($this->returnValue->count())->toBe(1);
-            expect($this->returnValue->last()->get()->getPath())->toEqual('example2.php');
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
+            expect($files->last()->get()->getPath())->toEqual('example2.php');
         });
     });
 
@@ -85,12 +86,13 @@ describe('Result', function() {
                 return $file->getPath() === 'example2.php';
             });
         });
-        it('should return PhpCollection\Sequence instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
         it('should exclude only those that match element', function() {
-            expect($this->returnValue->count())->toBe(1);
-            expect($this->returnValue->last()->get()->getPath())->toEqual('example1.php');
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
+            expect($files->last()->get()->getPath())->toEqual('example1.php');
         });
     });
 
@@ -115,7 +117,8 @@ describe('Result', function() {
             $this->returnValue = $this->result->addFile($this->file);
         });
         it('should add file', function() {
-            expect($this->returnValue->last()->get()->getPath())->toEqual($this->file->getPath());
+            $files = $this->returnValue->getFiles();
+            expect($files->last()->get()->getPath())->toEqual($this->file->getPath());
         });
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
@@ -130,7 +133,8 @@ describe('Result', function() {
             $this->returnValue = $this->result->removeFile($this->file);
         });
         it('should remove file', function() {
-            expect($this->returnValue->count())->toBe(0);
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(0);
         });
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
@@ -138,3 +142,4 @@ describe('Result', function() {
     });
 
 });
+

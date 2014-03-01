@@ -3,24 +3,28 @@
 namespace CodeAnalyzer;
 
 use CodeAnalyzer\Result\File;
-use \PhpCollection\Sequence;
+use PhpCollection\Sequence;
+use PhpCollection\AbstractSequence;
 
-class Result extends Sequence
+class Result
 {
 
     private $files = null;
 
-    public function __construct(array $result)
+    public function __construct(AbstractSequence $files = null)
     {
-        $this->files = new Sequence();
-        parent::__construct($result);
+        if (is_null($files)) {
+            $this->files = new Sequence();
+        } else {
+            $this->files = $files;
+        }
     }
 
     public static function from(array $result)
     {
         $files = static::parseResult($result);
 
-        return new self($files->all());
+        return new self($files);
     }
 
     public static function parseResult(array $result)
@@ -36,14 +40,14 @@ class Result extends Sequence
 
     public function includeFile(\Closure $filter)
     {
-        $files = $this->filter($filter);
-        return $files;
+        $files = $this->files->filter($filter);
+        return new self($files);
     }
 
     public function excludeFile(\Closure $filter)
     {
-        $files = $this->filterNot($filter);
-        return $files;
+        $files = $this->files->filterNot($filter);
+        return new self($files);
     }
 
     public function setFiles(AbstractSequence $files)
@@ -59,18 +63,18 @@ class Result extends Sequence
 
     public function addFile(File $file)
     {
-        $this->add($file);
+        $this->files->add($file);
         return $this;
     }
 
     public function removeFile(File $file)
     {
-        $indexAt = $this->indexOf($file);
+        $indexAt = $this->files->indexOf($file);
 
         if ($indexAt === -1) {
             return $this;
         }
-        $this->remove($indexAt);
+        $this->files->remove($indexAt);
 
         return $this;
     }

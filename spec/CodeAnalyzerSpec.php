@@ -77,8 +77,9 @@ describe('CodeAnalyzer', function() {
             $this->result = $this->analyzer->getResult();
         });
         it('should return an instance of CodeAnalyzer\Result', function() {
+            $files = $this->result->getFiles();
+            expect($files->count())->toBe(1);
             expect($this->result)->toBeAnInstanceOf('CodeAnalyzer\Result');
-            expect($this->result->count())->toBe(1);
         });
     });
 
