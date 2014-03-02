@@ -10,7 +10,8 @@
         "psr-0": { "CodeAnalyzer": "src/" }
     },
     "require-dev": {
-        "danielstjules/pho": "1.0.*"
+        "danielstjules/pho": "1.0.*",
+        "jaz303/phake": "0.6.0"
     },
     "license": "MIT",
     "authors": [
