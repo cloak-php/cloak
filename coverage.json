@@ -1,0 +1,15 @@
+{
+  "service_name": "travis-ci",
+  "source_files": [
+    {
+      "name": "example.rb",
+      "source": "def four\n  4\nend",
+      "coverage": [null, 1, null]
+    },
+    {
+      "name": "two.rb",
+      "source": "def seven\n  eight\n  nine\nend",
+      "coverage": [null, 1, 0, null]
+    }
+  ]
+}
