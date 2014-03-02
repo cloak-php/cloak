@@ -1,15 +1,24 @@
 {
-  "service_name": "travis-ci",
-  "source_files": [
-    {
-      "name": "example.rb",
-      "source": "def four\n  4\nend",
-      "coverage": [null, 1, null]
-    },
-    {
-      "name": "two.rb",
-      "source": "def seven\n  eight\n  nine\nend",
-      "coverage": [null, 1, 0, null]
-    }
-  ]
+    "repo_token": "jesEbmJxLyHbB2Lnl1wvqkMK1TRH9qjHW",
+    "source_files": [
+        {
+            "name": "src/functions.php",
+            "source": "<?php\n\nnamespace Example;\n\nfunction example1()\n{\n    return \"example1 called\\n\";\n}\n\nfunction example2()\n{\n    return \"example2 called\\n\";\n}",
+            "coverage": [
+                null,
+                null,
+                null,
+                null,
+                1,
+                null,
+                0,
+                null,
+                null,
+                1,
+                null,
+                0,
+                null
+            ]
+        }
+    ]
 }
