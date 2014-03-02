@@ -8,5 +8,5 @@ before_install:
 script:
   - ./vendor/bin/pho --reporter spec
 env:
-  - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=jUiZAATYplPIeW66eqYAziuDqwollrfLe
+  - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=jesEbmJxLyHbB2Lnl1wvqkMK1TRH9qjHW
 after_script: php coveralls.php
