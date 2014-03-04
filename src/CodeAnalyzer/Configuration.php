@@ -14,12 +14,6 @@ class Configuration
         $this->collect = XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE;
     }
 
-    public function collect($collect)
-    {
-        $this->collect = $collect;
-        return $this;
-    }
-
     public function includeFile(\Closure $filter)
     {
         $this->includeFiles[] = $filter;

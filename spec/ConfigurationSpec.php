@@ -5,16 +5,6 @@ use CodeAnalyzer\File;
 
 describe('Configuration', function() {
 
-    describe('#collect', function() {
-        before(function() {
-            $this->configuration = new Configuration(); 
-            $this->returnValue = $this->configuration->collect(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-        });
-        it('should return CodeAnalyzer\Configuration instance', function() {
-            expect($this->returnValue)->toEqual($this->configuration);
-        });
-    });
-
     describe('#includeFile', function() {
         before(function() {
             $this->configuration = new Configuration();
