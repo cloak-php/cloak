@@ -9,13 +9,12 @@ use Gitonomy\Git\Repository;
 
 CodeAnalyzer::configure(function(Configuration $configuration) {
 
-    $configuration->collect(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE)
-        ->includeFile(function(File $file) {
-            return $file->matchPath('\/src');
-        })
-        ->excludeFile(function(File $file) {
-            return $file->matchPath('\/spec') || $file->matchPath('\/vendor');
-        });
+    $configuration->includeFile(function(File $file) {
+        return $file->matchPath('\/src');
+    })
+    ->excludeFile(function(File $file) {
+        return $file->matchPath('\/spec') || $file->matchPath('\/vendor');
+    });
 
 });
 
@@ -129,4 +128,3 @@ $request = $client->post('https://coveralls.io/api/v1/jobs')
     ));
 
 $request->send();
-
