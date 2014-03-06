@@ -46,6 +46,24 @@ describe('File', function() {
         });
     });
 
+    describe('#matchPath', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+        });
+        context('when included in the path', function() {
+            it('should return true', function() {
+                $result = $this->file->matchPath('foo');
+                expect($result)->toBeTrue();
+            });
+        });
+        context('when not included in the path', function() {
+            it('should return false', function() {
+                $result = $this->file->matchPath('bar');
+                expect($result)->toBeFalse();
+            });
+        });
+    });
+
     describe('#addLine', function() {
         before(function() {
             $this->file = new File('foo.php');
@@ -105,6 +123,17 @@ describe('File', function() {
         });
         it('should return total number of lines is executed', function() {
             expect($this->file->getExecutedLineCount())->toBe(1);
+        });
+    });
+
+    describe('#getCodeCoverage', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->file->addLine( new Line(1, Line::UNUSED) );
+            $this->file->addLine( new Line(1, Line::EXECUTED) );
+        });
+        it('should return The value of code coverage', function() {
+            expect($this->file->getCodeCoverage())->toBe(50.00);
         });
     });
 

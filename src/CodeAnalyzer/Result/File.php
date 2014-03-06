@@ -13,12 +13,19 @@ class File
     public function __construct($path, array $lines)
     {
         $this->path = $path;
-        $this->lines = new Sequence($lines);
+        $this->lines = $this->createLines($lines);
     }
 
     public function getPath()
     {
         return $this->path;
+    }
+
+    public function matchPath($value)
+    {
+        $result = preg_match("/" . $value . "/", $this->getPath());
+
+        return ($result === 0) ? false : true;
     }
 
     public function getLines()
@@ -88,6 +95,26 @@ class File
     {
         $lines = $this->lines->filter($filter);
         return $lines;
+    }
+
+    /**
+     * @return double The value of code coverage
+     */
+    public function getCodeCoverage()
+    {
+        return $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+    }
+
+    protected function createLines(array $lineResults)
+    {
+
+        $results = array(); 
+
+        foreach ($lineResults as $lineNumber => $analyzeResult) {
+            $results[] = new Line($lineNumber, $analyzeResult, $this);
+        }
+
+        return new Sequence($results);
     }
 
 }
