@@ -1,8 +1,8 @@
-[![Stories in Ready](https://badge.waffle.io/holyshared/code-analyzer.png?label=ready&title=Ready)](https://waffle.io/holyshared/code-analyzer)
 CodeAnalyzer
 =============================
 
 [![Build Status](https://travis-ci.org/holyshared/code-analyzer.png?branch=master)](https://travis-ci.org/holyshared/code-analyzer)
+[![Stories in Ready](https://badge.waffle.io/holyshared/code-analyzer.png?label=ready&title=Ready)](https://waffle.io/holyshared/code-analyzer)
 
 CodeAnalyzer is a library that takes a code coverage.  
 This library works with **PHP5.4 or more**.
