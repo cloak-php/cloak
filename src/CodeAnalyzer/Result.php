@@ -2,6 +2,7 @@
 
 namespace CodeAnalyzer;
 
+use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;

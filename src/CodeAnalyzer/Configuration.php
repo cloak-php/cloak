@@ -2,6 +2,8 @@
 
 namespace CodeAnalyzer;
 
+use CodeAnalyzer\Result;
+
 class Configuration
 {
 
@@ -34,6 +36,14 @@ class Configuration
             $this->excludeFile($filter);
         }
         return $this;
+    }
+
+    public function apply(Result $result)
+    {
+
+        return $result->includeFiles($this->includeFiles)
+            ->excludeFiles($this->excludeFiles);
+
     }
 
     public function __get($name)

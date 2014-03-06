@@ -1,7 +1,8 @@
 <?php
 
 use CodeAnalyzer\Configuration;
-use CodeAnalyzer\File;
+use CodeAnalyzer\Result;
+use CodeAnalyzer\Result\File;
 
 describe('Configuration', function() {
 
@@ -58,6 +59,35 @@ describe('Configuration', function() {
         });
         it('should return CodeAnalyzer\Configuration instance', function() {
             expect($this->returnValue)->toEqual($this->configuration);
+        });
+    });
+
+    describe('#apply', function() {
+        before(function() {
+            $filter1 = function(File $file) {
+                return $file->matchPath('test');
+            };
+            $filter2 = function(File $file) {
+                return $file->matchPath('test2');
+            };
+            $this->result = new Result();
+            $this->result->addFile(new File('test1.php'));
+            $this->result->addFile(new File('test2.php'));
+            $this->result->addFile(new File('example3.php'));
+
+            $this->configuration = new Configuration(); 
+            $this->configuration->includeFile($filter1)
+                ->excludeFile($filter2);
+
+            $this->returnValue = $this->configuration->apply($this->result);
+        });
+        it('should apply configuration', function() {
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
+            expect($files->last()->get()->getPath())->toEqual('test1.php');
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
     });
 

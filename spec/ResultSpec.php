@@ -3,6 +3,7 @@
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
+use CodeAnalyzer\Configuration;
 use PhpCollection\Sequence;
 
 describe('Result', function() {

@@ -31,12 +31,7 @@ class CodeAnalyzer
 
         $configuration = static::$configuration;
 
-        //FIXME Would like to have in Configration a method to apply a filter
-        //ex) $configuration->applyTo(Result);
-        $this->analyzeResult = Result::from($result)
-            ->includeFiles($configuration->includeFiles)
-            ->excludeFiles($configuration->excludeFiles);
-
+        $this->analyzeResult = $configuration->apply( Result::from($result) );
         $this->started = false;
     }
 
