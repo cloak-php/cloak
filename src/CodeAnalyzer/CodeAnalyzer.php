@@ -31,20 +31,12 @@ class CodeAnalyzer
         xdebug_stop_code_coverage();
 
         $configuration = static::$configuration;
-        $includeFiles = $configuration->includeFiles;
-        $excludeFiles = $configuration->excludeFiles;
 
-        $this->analyzeResult = Result::from($result);
-
-        if (empty($includeFiles) === false) {
-            $this->analyzeResult = $this->analyzeResult->includeFiles($includeFiles);
-        }
-
-        if (empty($excludeFiles) === false) {
-            foreach ($excludeFiles as $filter) {
-                $this->analyzeResult = $this->analyzeResult->excludeFile($filter);
-            }
-        }
+        //FIXME Would like to have in Configration a method to apply a filter
+        //ex) $configuration->applyTo(Result);
+        $this->analyzeResult = Result::from($result)
+            ->includeFiles($configuration->includeFiles)
+            ->excludeFiles($configuration->excludeFiles);
 
         $this->started = false;
     }
