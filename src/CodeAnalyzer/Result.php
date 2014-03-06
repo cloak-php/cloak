@@ -61,6 +61,17 @@ class Result
         return new self($files);
     }
 
+    public function excludeFiles(array $filters)
+    {
+        $files = $this->files;
+
+        foreach ($filters as $filter) {
+            $files = $files->filterNot($filter);
+        }
+
+        return new self($files);
+    }
+
     public function setFiles(AbstractSequence $files)
     {
         $this->files = $files;

@@ -120,6 +120,29 @@ describe('Result', function() {
         });
     });
 
+    describe('#excludeFiles', function() {
+        before(function() {
+            $this->result = Result::from(array(
+                'example1.php' => array( 1 => Line::EXECUTED ),
+                'example2.php' => array( 1 => Line::EXECUTED )
+            ));
+            $filter1 = function(File $file) {
+                return $file->getPath() === 'example1.php';
+            };
+            $filter2 = function(File $file) {
+                return $file->getPath() === 'example2.php';
+            };
+            $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        });
+        it('should exclude only those that match element', function() {
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(0);
+        });
+    });
+
     describe('#setFiles', function() {
         before(function() {
             $this->files = new Sequence();
