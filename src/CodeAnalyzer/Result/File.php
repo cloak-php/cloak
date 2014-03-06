@@ -23,7 +23,8 @@ class File
 
     public function matchPath($value)
     {
-        $result = preg_match("/" . $value . "/", $this->getPath());
+        $pathPattern = preg_quote($value, '/');
+        $result = preg_match("/" . $pathPattern . "/", $this->getPath());
 
         return ($result === 0) ? false : true;
     }
