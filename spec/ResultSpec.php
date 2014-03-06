@@ -79,12 +79,6 @@ describe('Result', function() {
                 return $file->matchPath('example1.php');
             };
             $filter2 = function(File $file) {
-
-
-
-
-
-
                 return $file->matchPath('/foo');
             };
             $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));

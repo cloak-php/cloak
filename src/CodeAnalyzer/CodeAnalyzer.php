@@ -36,13 +36,11 @@ class CodeAnalyzer
 
         $this->analyzeResult = Result::from($result);
 
-        if (is_null($includeFiles) === false) {
-            foreach ($includeFiles as $filter) {
-                $this->analyzeResult = $this->analyzeResult->includeFile($filter);
-            }
+        if (empty($includeFiles) === false) {
+            $this->analyzeResult = $this->analyzeResult->includeFiles($includeFiles);
         }
 
-        if (is_null($excludeFiles) === false) {
+        if (empty($excludeFiles) === false) {
             foreach ($excludeFiles as $filter) {
                 $this->analyzeResult = $this->analyzeResult->excludeFile($filter);
             }
