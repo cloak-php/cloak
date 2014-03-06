@@ -44,6 +44,17 @@ class Result
         return new self($files);
     }
 
+    public function includeFiles(array $filters)
+    {
+        $files = $this->files;
+
+        foreach ($filters as $filter) {
+            $files = $files->filter($filter);
+        }
+
+        return new self($files);
+    }
+
     public function excludeFile(\Closure $filter)
     {
         $files = $this->files->filterNot($filter);

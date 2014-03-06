@@ -68,6 +68,36 @@ describe('Result', function() {
         });
     });
 
+    describe('#includeFiles', function() {
+        before(function() {
+            $this->result = Result::from(array(
+                'src/example1.php' => array( 1 => Line::EXECUTED ),
+                'src/foo/example1.php' => array( 1 => Line::EXECUTED ),
+                'example2.php' => array( 1 => Line::EXECUTED )
+            ));
+            $filter1 = function(File $file) {
+                return $file->matchPath('example1.php');
+            };
+            $filter2 = function(File $file) {
+
+
+
+
+
+
+                return $file->matchPath('/foo');
+            };
+            $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        });
+        it('should include only those that match element', function() {
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
+        });
+    });
+
     describe('#excludeFile', function() {
         before(function() {
             $this->result = Result::from(array(
