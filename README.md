@@ -33,13 +33,13 @@ Run the **configure** method to be set up.
 
 	CodeAnalyzer::configure(function(Configuration $configuration) {
 
-		$configuration->collect(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE)
-			->includeFile(function(File $file) {
-				return $file->matchPath('\/example\/src');
-			})
-			->excludeFile(function(File $file) {
-				return $file->matchPath('\/spec');
-			});
+	    $configuration->includeFile(function(File $file) {
+	        return $file->matchPath('\/example\/src');
+	    })
+	    ->excludeFile(function(File $file) {
+	        return $file->matchPath('\/spec');
+	    });
+
 	});
 
 ### Take the code coverage
@@ -72,3 +72,9 @@ How to run the test
 
 	composer install
 	./vendor/bin/pho --reporter spec
+
+How to run the example
+------------------------------------------------
+
+	composer install
+	vendor/bin/phake example:basic

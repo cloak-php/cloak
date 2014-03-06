@@ -13,13 +13,12 @@ use Example as example;
 
 CodeAnalyzer::configure(function(Configuration $configuration) {
 
-    $configuration->collect(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE)
-        ->includeFile(function(File $file) {
-            return $file->matchPath('\/example\/src');
-        })
-        ->excludeFile(function(File $file) {
-            return $file->matchPath('\/spec');
-        });
+    $configuration->includeFile(function(File $file) {
+        return $file->matchPath('\/example\/src');
+    })
+    ->excludeFile(function(File $file) {
+        return $file->matchPath('\/spec');
+    });
 
 });
 
