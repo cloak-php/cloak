@@ -10,10 +10,10 @@ use Gitonomy\Git\Repository;
 CodeAnalyzer::configure(function(Configuration $configuration) {
 
     $configuration->includeFile(function(File $file) {
-        return $file->matchPath('\/src');
+        return $file->matchPath('/src');
     })
     ->excludeFile(function(File $file) {
-        return $file->matchPath('\/spec') || $file->matchPath('\/vendor');
+        return $file->matchPath('/spec') || $file->matchPath('/vendor');
     });
 
 });

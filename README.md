@@ -35,10 +35,10 @@ Run the **configure** method to be set up.
 	CodeAnalyzer::configure(function(Configuration $configuration) {
 
 	    $configuration->includeFile(function(File $file) {
-	        return $file->matchPath('\/example\/src');
+	        return $file->matchPath('/example/src');
 	    })
 	    ->excludeFile(function(File $file) {
-	        return $file->matchPath('\/spec');
+	        return $file->matchPath('/spec');
 	    });
 
 	});
