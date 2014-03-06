@@ -70,8 +70,14 @@ After you can get the report, you need to run the **getResult** method.
 How to run the test
 ------------------------------------------------
 
+### Run only unit test
 	composer install
-	./vendor/bin/pho --reporter spec
+	vendor/bin/phake test:unit
+
+### Run the code coverage display and unit test
+
+	composer install
+	vendor/bin/phake test:coverage
 
 How to run the example
 ------------------------------------------------
