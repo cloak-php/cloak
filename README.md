@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/holyshared/code-analyzer.png?label=ready&title=Ready)](https://waffle.io/holyshared/code-analyzer)
 CodeAnalyzer
 =============================
 
