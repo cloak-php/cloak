@@ -5,14 +5,8 @@ namespace CodeAnalyzer;
 class Configuration
 {
 
-    private $collect = null;
     private $includeFiles = array();
     private $excludeFiles = array();
-
-    public function __construct()
-    {
-        $this->collect = XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE;
-    }
 
     public function includeFile(\Closure $filter)
     {

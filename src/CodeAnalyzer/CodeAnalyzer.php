@@ -20,8 +20,7 @@ class CodeAnalyzer
 
     public function start()
     {
-        $configuration = static::$configuration;
-        xdebug_start_code_coverage($configuration->collect);
+        xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
         $this->started = true;
     }
 
