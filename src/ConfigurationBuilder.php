@@ -49,11 +49,12 @@ class ConfigurationBuilder
 
     public function build()
     {
-        $configuration = new Configuration();
-        $configuration->includeFiles($this->includeFiles)
-            ->excludeFiles($this->excludeFiles);
+        $values = array(
+            'includeFiles' => $this->includeFiles,
+            'excludeFiles' => $this->excludeFiles
+        );
 
-        return $configuration;
+        return new Configuration($values);
     }
 
     public function __set($name, $value)

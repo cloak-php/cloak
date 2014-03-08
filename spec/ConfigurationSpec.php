@@ -10,11 +10,13 @@
  */
 
 use CodeAnalyzer\Configuration;
+use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\File;
 
 describe('Configuration', function() {
 
+/*
     describe('#includeFile', function() {
         before(function() {
             $this->configuration = new Configuration();
@@ -70,6 +72,10 @@ describe('Configuration', function() {
             expect($this->returnValue)->toEqual($this->configuration);
         });
     });
+*/
+
+
+
 
     describe('#apply', function() {
         before(function() {
@@ -84,10 +90,15 @@ describe('Configuration', function() {
             $this->result->addFile(new File('test2.php'));
             $this->result->addFile(new File('example3.php'));
 
+            $builder = new ConfigurationBuilder();
+            $this->configuration = $builder->includeFile($filter1)
+                ->excludeFile($filter2)
+                ->build();
+/*
             $this->configuration = new Configuration(); 
             $this->configuration->includeFile($filter1)
                 ->excludeFile($filter2);
-
+*/
             $this->returnValue = $this->configuration->apply($this->result);
         });
         it('should apply configuration', function() {

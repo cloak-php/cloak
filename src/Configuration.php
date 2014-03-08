@@ -19,32 +19,14 @@ class Configuration
     private $includeFiles = array();
     private $excludeFiles = array();
 
-    public function includeFile(\Closure $filter)
+    public function __construct(array $values)
     {
-        $this->includeFiles[] = $filter;
-        return $this;
-    }
-
-    public function excludeFile(\Closure $filter)
-    {
-        $this->excludeFiles[] = $filter;
-        return $this;
-    }
-
-    public function includeFiles(array $filters)
-    {
-        foreach ($filters as $filter) {
-            $this->includeFile($filter);
+        foreach ($values as $key => $value) {
+            if (property_exists($this, $key) === false) {
+                continue;
+            }
+            $this->$key = $value;
         }
-        return $this;
-    }
-
-    public function excludeFiles(array $filters)
-    {
-        foreach ($filters as $filter) {
-            $this->excludeFile($filter);
-        }
-        return $this;
     }
 
     public function apply(Result $result)
