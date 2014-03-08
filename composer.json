@@ -7,10 +7,14 @@
         "phpcollection/phpcollection": "0.3.*"
     },
     "autoload": {
-        "psr-0": { "CodeAnalyzer": "src/" }
+        "psr-4": { "CodeAnalyzer\\": "src/" }
     },
     "require-dev": {
-        "danielstjules/pho": "1.0.*"
+        "danielstjules/pho": "1.0.*",
+        "jaz303/phake": "0.6.0",
+        "guzzle/guzzle": "3.8.*",
+        "gitonomy/gitlib": "0.1.*",
+        "mockery/mockery": "dev-master"
     },
     "license": "MIT",
     "authors": [

@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
+use CodeAnalyzer\Configuration;
+use PhpCollection\Sequence;
 
 describe('Result', function() {
 
@@ -57,12 +68,37 @@ describe('Result', function() {
                 return $file->getPath() === 'example2.php';
             });
         });
-        it('should return PhpCollection\Sequence instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
         it('should include only those that match element', function() {
-            expect($this->returnValue->count())->toBe(1);
-            expect($this->returnValue->last()->get()->getPath())->toEqual('example2.php');
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
+            expect($files->last()->get()->getPath())->toEqual('example2.php');
+        });
+    });
+
+    describe('#includeFiles', function() {
+        before(function() {
+            $this->result = Result::from(array(
+                'src/example1.php' => array( 1 => Line::EXECUTED ),
+                'src/foo/example1.php' => array( 1 => Line::EXECUTED ),
+                'example2.php' => array( 1 => Line::EXECUTED )
+            ));
+            $filter1 = function(File $file) {
+                return $file->matchPath('example1.php');
+            };
+            $filter2 = function(File $file) {
+                return $file->matchPath('/foo');
+            };
+            $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        });
+        it('should include only those that match element', function() {
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
         });
     });
 
@@ -84,15 +120,52 @@ describe('Result', function() {
                 return $file->getPath() === 'example2.php';
             });
         });
-        it('should return PhpCollection\Sequence instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
         it('should exclude only those that match element', function() {
-            expect($this->returnValue->count())->toBe(1);
-            expect($this->returnValue->last()->get()->getPath())->toEqual('example1.php');
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(1);
+            expect($files->last()->get()->getPath())->toEqual('example1.php');
         });
     });
 
+    describe('#excludeFiles', function() {
+        before(function() {
+            $this->result = Result::from(array(
+                'example1.php' => array( 1 => Line::EXECUTED ),
+                'example2.php' => array( 1 => Line::EXECUTED )
+            ));
+            $filter1 = function(File $file) {
+                return $file->getPath() === 'example1.php';
+            };
+            $filter2 = function(File $file) {
+                return $file->getPath() === 'example2.php';
+            };
+            $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        });
+        it('should exclude only those that match element', function() {
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(0);
+        });
+    });
+
+    describe('#setFiles', function() {
+        before(function() {
+            $this->files = new Sequence();
+            $this->result = new Result();
+            $this->returnValue = $this->result->setFiles($this->files);
+        });
+        it('should should the files is replaced', function() {
+            expect($this->result->getFiles())->toEqual($this->files);
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->returnValue)->toEqual($this->result);
+        });
+    });
 
     describe('#addFile', function() {
         before(function() {
@@ -101,7 +174,8 @@ describe('Result', function() {
             $this->returnValue = $this->result->addFile($this->file);
         });
         it('should add file', function() {
-            expect($this->returnValue->last()->get()->getPath())->toEqual($this->file->getPath());
+            $files = $this->returnValue->getFiles();
+            expect($files->last()->get()->getPath())->toEqual($this->file->getPath());
         });
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
@@ -116,7 +190,8 @@ describe('Result', function() {
             $this->returnValue = $this->result->removeFile($this->file);
         });
         it('should remove file', function() {
-            expect($this->returnValue->count())->toBe(0);
+            $files = $this->returnValue->getFiles();
+            expect($files->count())->toBe(0);
         });
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
@@ -124,3 +199,4 @@ describe('Result', function() {
     });
 
 });
+

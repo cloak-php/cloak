@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Result\Line;
 use PhpCollection\Sequence;
@@ -48,17 +57,17 @@ describe('File', function() {
 
     describe('#matchPath', function() {
         before(function() {
-            $this->file = new File('foo.php');
+            $this->file = new File('/foo/foo.php');
         });
         context('when included in the path', function() {
             it('should return true', function() {
-                $result = $this->file->matchPath('foo');
+                $result = $this->file->matchPath('/foo');
                 expect($result)->toBeTrue();
             });
         });
         context('when not included in the path', function() {
             it('should return false', function() {
-                $result = $this->file->matchPath('bar');
+                $result = $this->file->matchPath('/bar');
                 expect($result)->toBeFalse();
             });
         });
