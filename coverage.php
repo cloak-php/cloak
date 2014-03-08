@@ -6,17 +6,6 @@ use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 
-Analyzer::configure(function(Configuration $configuration) {
-
-    $configuration->includeFile(function(File $file) {
-        return $file->matchPath('/src');
-    })
-    ->excludeFile(function(File $file) {
-        return $file->matchPath('/spec') || $file->matchPath('/vendor');
-    });
-
-});
-
 $analyzer = new Analyzer();
 $analyzer->start();
 
@@ -26,12 +15,22 @@ $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
     'spec/ResultSpec.php',
     'spec/Result/FileSpec.php',
-    'spec/Result/LineSpec.php'
+    'spec/Result/LineSpec.php',
+    'spec/AnalyzerSpec.php'
 ));
 
 require_once __DIR__ . "/vendor/bin/pho";
 
 $analyzer->stop();
+
+$result = $analyzer->getResult();
+$result = $result->includeFile(function(File $file) {
+    return $file->matchPath('/src');
+})
+->excludeFile(function(File $file) {
+    return $file->matchPath('/spec') || $file->matchPath('/vendor');
+});
+
 
 $result = $analyzer->getResult()->getFiles();
 

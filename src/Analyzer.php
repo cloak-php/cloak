@@ -43,11 +43,6 @@ class Analyzer
     public function stop()
     {
         $this->driver->stop();
-
-        $configuration = static::$configuration;
-        $analyzeResult = $this->driver->getResult();
-
-        $this->analyzeResult = $configuration->apply( Result::from($analyzeResult) );
     }
 
     public function isStarted()
@@ -57,7 +52,10 @@ class Analyzer
 
     public function getResult()
     {
-        return $this->analyzeResult;
+        $configuration = static::$configuration;
+        $analyzeResult = $this->driver->getResult();
+
+        return  $configuration->apply( Result::from($analyzeResult) );
     }
 
 }
