@@ -18,12 +18,12 @@ describe('TextReporter', function() {
     describe('stop', function() {
         before(function() {
             $this->result = Result::from(array(
-                'path/to/foo.php' => array(
+                '/Users/shared-hat/Documents/develop/code-analyzer/src/Driver/XdebugDriver.php' => array(
                     1 => Line::EXECUTED,
                     2 => Line::EXECUTED,
                     3 => Line::UNUSED
                 ),
-                'path/to/bar.php' => array(
+                '/Users/shared-hat/Documents/develop/code-analyzer/src/Result/File.php' => array(
                     1 => Line::EXECUTED,
                     2 => Line::EXECUTED,
                     3 => Line::UNUSED
@@ -33,8 +33,8 @@ describe('TextReporter', function() {
         });
         it('should output coverage', function() {
             $output  = "";
-            $output .= "path/to/foo.php > 66.67% (2/3)" . PHP_EOL;
-            $output .= "path/to/bar.php > 66.67% (2/3)" . PHP_EOL;
+            $output .= "src/Driver/XdebugDriver.php > 66.67% (2/3)" . PHP_EOL;
+            $output .= "src/Result/File.php > 66.67% (2/3)" . PHP_EOL;
 
             expect(function() {
                 $this->reporter->stop($this->result);

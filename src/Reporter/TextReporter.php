@@ -17,11 +17,13 @@ class TextReporter {
 
     public function stop(Result $result)
     {
+        $currentDirectory = getcwd();
         $files = $result->getFiles();
 
         foreach ($files as $file) {
+            $filePath = str_replace($currentDirectory . '/', '', $file->getPath());
             $result = sprintf("%s > %0.2f%% (%d/%d)",
-                $file->getPath(),
+                $filePath,
                 $file->getCodeCoverage(),
                 $file->getExecutedLineCount(),
                 $file->getExecutableLineCount()
