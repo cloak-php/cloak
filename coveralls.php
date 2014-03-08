@@ -33,7 +33,13 @@ $result = $result->includeFile(function(File $file) {
 
 $result = $result->getFiles();
 
+
+$jobId = getenv('TRAVIS_JOB_ID');
+$jobNumber = getenv('TRAVIS_JOB_NUMBER');
+
 $coveralls = array(
+    'service_name' => 'travis-ci',
+    'service_job_id' => strval($jobId) . '.' . strval($jobNumber),
     'repo_token' => 'jesEbmJxLyHbB2Lnl1wvqkMK1TRH9qjHW',
     'source_files' => array()
 );
