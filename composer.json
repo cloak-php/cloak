@@ -13,7 +13,8 @@
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.0",
         "guzzle/guzzle": "3.8.*",
-        "gitonomy/gitlib": "0.1.*"
+        "gitonomy/gitlib": "0.1.*",
+        "mockery/mockery": "dev-master"
     },
     "license": "MIT",
     "authors": [
