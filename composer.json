@@ -7,7 +7,7 @@
         "phpcollection/phpcollection": "0.3.*"
     },
     "autoload": {
-        "psr-0": { "CodeAnalyzer": "src/" }
+        "psr-4": { "CodeAnalyzer\\": "src/" }
     },
     "require-dev": {
         "danielstjules/pho": "1.0.*",
