@@ -21,9 +21,8 @@ class TextReporter {
         $files = $result->getFiles();
 
         foreach ($files as $file) {
-            $filePath = str_replace($currentDirectory . '/', '', $file->getPath());
             $result = sprintf("%s > %0.2f%% (%d/%d)",
-                $filePath,
+                $file->getRelativePath($currentDirectory),
                 $file->getCodeCoverage(),
                 $file->getExecutedLineCount(),
                 $file->getExecutableLineCount()

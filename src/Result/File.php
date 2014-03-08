@@ -32,7 +32,7 @@ class File
 
     public function getRelativePath($directoryPath)
     {
-        $directory = dirname($directoryPath) . "/";
+        $directory = realpath($directoryPath) . "/";
 
         return str_replace($directory, "", $this->getPath());
     }

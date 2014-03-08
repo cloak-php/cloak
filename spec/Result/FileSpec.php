@@ -20,7 +20,7 @@ describe('File', function() {
             $this->file = new File(__FILE__);
         });
         it('should return relative path', function() {
-            expect($this->file->getRelativePath(__FILE__))->toEqual('FileSpec.php');
+            expect($this->file->getRelativePath(__DIR__))->toEqual('FileSpec.php');
         });
     });
 
