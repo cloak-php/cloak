@@ -11,6 +11,7 @@
 
 use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
+use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Driver\DriverInterface;
@@ -23,20 +24,20 @@ describe('Analyzer', function() {
     $subject->called = 0;
     $subject->configuration = null;
 
-    $this->configurator = function(Configuration $configuration) use ($subject) {
+    $this->builder = function(ConfigurationBuilder $builder) use ($subject) {
         $subject->called++;
-        $subject->configuration = $configuration;
+        $subject->builder = $builder;
     };
 
     describe('#configure', function() {
         before(function() {
-            Analyzer::configure($this->configurator);
+            Analyzer::configure($this->builder);
         });
         it('should called once', function() {
             expect($this->subject->called)->toBe(1);
         });
-        it('should argument is an instance of CodeAnalyzer\Configuration', function() {
-            expect($this->subject->configuration)->toBeAnInstanceOf('CodeAnalyzer\Configuration');
+        it('should argument is an instance of CodeAnalyzer\ConfigurationBuilder', function() {
+            expect($this->subject->builder)->toBeAnInstanceOf('CodeAnalyzer\ConfigurationBuilder');
         });
     });
 

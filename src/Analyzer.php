@@ -13,6 +13,8 @@ namespace CodeAnalyzer;
 
 use CodeAnalyzer\Driver\DriverInterface;
 use CodeAnalyzer\Driver\XdebugDriver;
+use CodeAnalyzer\ConfigurationBuilder;
+
 
 class Analyzer
 {
@@ -29,10 +31,11 @@ class Analyzer
 
     public static function configure(\Closure $configurator)
     {
-        if (static::$configuration === null) {
-            static::$configuration = new Configuration;
-        }
-        $configurator(static::$configuration);
+        $builder = new ConfigurationBuilder();
+        $configurator($builder);
+        $configuration = $builder->build();
+
+        static::$configuration = $configuration;
     }
 
     public function start()
