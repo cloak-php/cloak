@@ -19,7 +19,7 @@ class File
     private $path = null;
     private $lines = null;
 
-    public function __construct($path, array $lines)
+    public function __construct($path, array $lines = array())
     {
         $this->path = $path;
         $this->lines = $this->createLines($lines);
