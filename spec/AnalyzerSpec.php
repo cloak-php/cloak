@@ -10,7 +10,6 @@
  */
 
 use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\Configuration;
 use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
@@ -63,7 +62,7 @@ describe('Analyzer', function() {
                 $this->driver->shouldReceive('start')->once();
                 $this->driver->shouldReceive('stop')->once();
                 $this->driver->shouldReceive('getResult')->once()->andReturn(array(
-                    'foo.php' => array( Line::EXECUTED => 1 )
+                    'foo.php' => array( 1 => Line::EXECUTED )
                 ));
                 $this->driver->shouldReceive('isStarted')->once()->andReturn(false);
                 $this->analyzer = new Analyzer($this->driver);
@@ -85,13 +84,13 @@ describe('Analyzer', function() {
             $this->driver->shouldReceive('start')->once();
             $this->driver->shouldReceive('stop')->once();
             $this->driver->shouldReceive('getResult')->once()->andReturn(array(
-                'src/foo.php' => array( Line::EXECUTED => 1 ),
-                'src/bar.php' => array( Line::EXECUTED => 1 ),
-                'src/vendor/foo1.php' => array( Line::EXECUTED => 1 ),
-                'src/vendor/foo2.php' => array( Line::EXECUTED => 1 )
+                'src/foo.php' => array( 1 => Line::EXECUTED ),
+                'src/bar.php' => array( 1 => Line::EXECUTED ),
+                'src/vendor/foo1.php' => array( 1 => Line::EXECUTED ),
+                'src/vendor/foo2.php' => array( 1 => Line::EXECUTED )
             ));
-            Analyzer::configure(function(Configuration $configuration) {
-                $configuration->includeFile(function(File $file) {
+            Analyzer::configure(function(ConfigurationBuilder $builder) {
+                $builder->includeFile(function(File $file) {
                     return $file->matchPath('src');
                 })->excludeFile(function(File $file) {
                     return $file->matchPath('vendor');
