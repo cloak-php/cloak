@@ -5,13 +5,13 @@ namespace Example;
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/src/functions.php";
 
-use CodeAnalyzer\CodeAnalyzer;
+use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 
 use Example as example;
 
-CodeAnalyzer::configure(function(Configuration $configuration) {
+Analyzer::configure(function(Configuration $configuration) {
 
     $configuration->includeFile(function(File $file) {
         return $file->matchPath('/example/src');
@@ -22,7 +22,7 @@ CodeAnalyzer::configure(function(Configuration $configuration) {
 
 });
 
-$analyzer = new CodeAnalyzer();
+$analyzer = new Analyzer();
 $analyzer->start();
 
 //I write code here want to take code coverage

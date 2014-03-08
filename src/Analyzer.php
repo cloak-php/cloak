@@ -11,7 +11,7 @@
 
 namespace CodeAnalyzer;
 
-class CodeAnalyzer
+class Analyzer
 {
 
     protected static $configuration = null;

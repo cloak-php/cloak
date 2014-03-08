@@ -2,12 +2,12 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use CodeAnalyzer\CodeAnalyzer;
+use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 use Gitonomy\Git\Repository;
 
-CodeAnalyzer::configure(function(Configuration $configuration) {
+Analyzer::configure(function(Configuration $configuration) {
 
     $configuration->includeFile(function(File $file) {
         return $file->matchPath('/src');
@@ -19,7 +19,7 @@ CodeAnalyzer::configure(function(Configuration $configuration) {
 });
 
 
-$analyzer = new CodeAnalyzer();
+$analyzer = new Analyzer();
 $analyzer->start();
 
 $defaultArgv = array('./vendor/bin/pho', '--reporter', 'spec');

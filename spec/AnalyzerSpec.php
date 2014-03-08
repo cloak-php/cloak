@@ -1,10 +1,10 @@
 <?php
 
-use CodeAnalyzer\CodeAnalyzer;
+use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 
-describe('CodeAnalyzer', function() {
+describe('Analyzer', function() {
 
     $subject = $this->subject = new \stdClass();
     $subject->called = 0;
@@ -14,10 +14,10 @@ describe('CodeAnalyzer', function() {
         $subject->called++;
         $subject->configuration = $configuration;
     };
-    $this->analyzer = new CodeAnalyzer(); 
+    $this->analyzer = new Analyzer(); 
 
     before(function() {
-        CodeAnalyzer::configure($this->configurator);
+        Analyzer::configure($this->configurator);
     });
 
     describe('#configure', function() {
@@ -65,7 +65,7 @@ describe('CodeAnalyzer', function() {
 
     describe('#getResult', function() {
         before(function() {
-            CodeAnalyzer::configure(function(Configuration $configuration) {
+            Analyzer::configure(function(Configuration $configuration) {
                 $configuration->includeFile(function(File $file) {
                     return $file->matchPath('src');
                 })->excludeFile(function(File $file) {
