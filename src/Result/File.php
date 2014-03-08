@@ -30,6 +30,13 @@ class File
         return $this->path;
     }
 
+    public function getRelativePath($directoryPath)
+    {
+        $directory = dirname($directoryPath) . "/";
+
+        return str_replace($directory, "", $this->getPath());
+    }
+
     public function matchPath($value)
     {
         $pathPattern = preg_quote($value, '/');

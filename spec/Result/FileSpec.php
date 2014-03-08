@@ -15,6 +15,15 @@ use PhpCollection\Sequence;
 
 describe('File', function() {
 
+    describe('#getRelativePath', function() {
+        before(function() {
+            $this->file = new File(__FILE__);
+        });
+        it('should return relative path', function() {
+            expect($this->file->getRelativePath(__FILE__))->toEqual('FileSpec.php');
+        });
+    });
+
     describe('#getLines', function() {
         before(function() {
             $this->file = new File('foo.php');
