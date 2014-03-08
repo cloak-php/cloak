@@ -1,10 +1,11 @@
-<?php
+*<?php
 
 require_once __DIR__ . "/vendor/autoload.php";
 
 use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
+use CodeAnalyzer\Reporter\TextReporter;
 
 $analyzer = new Analyzer();
 $analyzer->start();
@@ -31,15 +32,5 @@ $result = $result->includeFile(function(File $file) {
     return $file->matchPath('/spec') || $file->matchPath('/vendor');
 });
 
-
-$result = $analyzer->getResult()->getFiles();
-
-foreach ($result as $file) {
-    $result = sprintf("%s > %0.2f%% (%d/%d)",
-        $file->getPath(),
-        $file->getCodeCoverage(),
-        $file->getExecutedLineCount(),
-        $file->getExecutableLineCount()
-    );
-    echo $result . "\n";
-}
+$reporter = new TextReporter();
+$reporter->stop($result);
