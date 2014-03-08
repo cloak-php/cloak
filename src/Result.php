@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace CodeAnalyzer;
 
+use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
@@ -44,9 +54,31 @@ class Result
         return new self($files);
     }
 
+    public function includeFiles(array $filters)
+    {
+        $files = $this->files;
+
+        foreach ($filters as $filter) {
+            $files = $files->filter($filter);
+        }
+
+        return new self($files);
+    }
+
     public function excludeFile(\Closure $filter)
     {
         $files = $this->files->filterNot($filter);
+        return new self($files);
+    }
+
+    public function excludeFiles(array $filters)
+    {
+        $files = $this->files;
+
+        foreach ($filters as $filter) {
+            $files = $files->filterNot($filter);
+        }
+
         return new self($files);
     }
 

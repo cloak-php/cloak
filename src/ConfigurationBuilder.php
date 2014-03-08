@@ -1,24 +1,23 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace CodeAnalyzer;
 
-class Configuration
+use CodeAnalyzer\Configuration;
+
+class ConfigurationBuilder
 {
 
-    private $collect = null;
     private $includeFiles = array();
     private $excludeFiles = array();
-
-    public function __construct()
-    {
-        $this->collect = XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE;
-    }
-
-    public function collect($collect)
-    {
-        $this->collect = $collect;
-        return $this;
-    }
 
     public function includeFile(\Closure $filter)
     {
@@ -46,6 +45,21 @@ class Configuration
             $this->excludeFile($filter);
         }
         return $this;
+    }
+
+    public function build()
+    {
+        $values = array(
+            'includeFiles' => $this->includeFiles,
+            'excludeFiles' => $this->excludeFiles
+        );
+
+        return new Configuration($values);
+    }
+
+    public function __set($name, $value)
+    {
+        return call_user_method(array($this, $name), $value);
     }
 
     public function __get($name)

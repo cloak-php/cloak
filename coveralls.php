@@ -2,25 +2,12 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use CodeAnalyzer\CodeAnalyzer;
+use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Result\File;
 use Gitonomy\Git\Repository;
 
-CodeAnalyzer::configure(function(Configuration $configuration) {
-
-    $configuration->collect(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE)
-        ->includeFile(function(File $file) {
-            return $file->matchPath('\/src');
-        })
-        ->excludeFile(function(File $file) {
-            return $file->matchPath('\/spec') || $file->matchPath('\/vendor');
-        });
-
-});
-
-
-$analyzer = new CodeAnalyzer();
+$analyzer = new Analyzer();
 $analyzer->start();
 
 $defaultArgv = array('./vendor/bin/pho', '--reporter', 'spec');
@@ -29,18 +16,30 @@ $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
     'spec/ResultSpec.php',
     'spec/Result/FileSpec.php',
-    'spec/Result/LineSpec.php'
+    'spec/Result/LineSpec.php',
+    'spec/AnalyzerSpec.php'
 ));
 
 require_once __DIR__ . "/vendor/bin/pho";
 
-
 $analyzer->stop();
 
-$result = $analyzer->getResult()->getFiles();
+$result = $analyzer->getResult();
+$result = $result->includeFile(function(File $file) {
+    return $file->matchPath('/src');
+})->excludeFile(function(File $file) {
+    return $file->matchPath('/spec') || $file->matchPath('/vendor');
+});
 
+$result = $result->getFiles();
+
+
+$jobId = getenv('TRAVIS_JOB_ID');
+$jobNumber = getenv('TRAVIS_JOB_NUMBER');
 
 $coveralls = array(
+    'service_name' => 'travis-ci',
+    'service_job_id' => strval($jobId) . '.' . strval($jobNumber),
     'repo_token' => 'jesEbmJxLyHbB2Lnl1wvqkMK1TRH9qjHW',
     'source_files' => array()
 );
@@ -129,4 +128,3 @@ $request = $client->post('https://coveralls.io/api/v1/jobs')
     ));
 
 $request->send();
-

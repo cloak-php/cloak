@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace CodeAnalyzer\Result;
 
 use \PhpCollection\Sequence;
@@ -23,7 +32,8 @@ class File
 
     public function matchPath($value)
     {
-        $result = preg_match("/" . $value . "/", $this->getPath());
+        $pathPattern = preg_quote($value, '/');
+        $result = preg_match("/" . $pathPattern . "/", $this->getPath());
 
         return ($result === 0) ? false : true;
     }
