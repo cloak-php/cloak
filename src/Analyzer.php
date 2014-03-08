@@ -11,13 +11,21 @@
 
 namespace CodeAnalyzer;
 
+use CodeAnalyzer\Driver\DriverInterface;
+use CodeAnalyzer\Driver\XdebugDriver;
+
 class Analyzer
 {
 
     protected static $configuration = null;
 
-    protected $started = false;
+    protected $driver = null;
     protected $analyzeResult = null;
+
+    public function __construct(DriverInterface $driver = null)
+    {
+        $this->driver = ($driver === null) ? new XdebugDriver() : $driver;
+    }
 
     public static function configure(\Closure $configurator)
     {
@@ -29,24 +37,22 @@ class Analyzer
 
     public function start()
     {
-        xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-        $this->started = true;
+        $this->driver->start();
     }
 
     public function stop()
     {
-        $result = xdebug_get_code_coverage();
-        xdebug_stop_code_coverage();
+        $this->driver->stop();
 
         $configuration = static::$configuration;
+        $analyzeResult = $this->driver->getResult();
 
-        $this->analyzeResult = $configuration->apply( Result::from($result) );
-        $this->started = false;
+        $this->analyzeResult = $configuration->apply( Result::from($analyzeResult) );
     }
 
     public function isStarted()
     {
-        return $this->started;
+        return $this->driver->isStarted();
     }
 
     public function getResult()
