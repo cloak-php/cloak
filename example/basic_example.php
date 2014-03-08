@@ -6,17 +6,16 @@ require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/src/functions.php";
 
 use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\Configuration;
+use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
 
 use Example as example;
 
-Analyzer::configure(function(Configuration $configuration) {
+Analyzer::configure(function(ConfigurationBuilder $builder) {
 
-    $configuration->includeFile(function(File $file) {
+    $builder->includeFile(function(File $file) {
         return $file->matchPath('/example/src');
-    })
-    ->excludeFile(function(File $file) {
+    })->excludeFile(function(File $file) {
         return $file->matchPath('/spec');
     });
 
