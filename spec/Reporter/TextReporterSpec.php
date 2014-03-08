@@ -15,7 +15,7 @@ use CodeAnalyzer\Reporter\TextReporter;
 
 describe('TextReporter', function() {
 
-    describe('TextReporter', function() {
+    describe('stop', function() {
         before(function() {
             $this->result = Result::from(array(
                 'path/to/foo.php' => array(
