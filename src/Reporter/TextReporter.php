@@ -35,7 +35,7 @@ class TextReporter {
         $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
         $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
 
-        $result = sprintf('%s %0.2f%% (%d/%d)',
+        $result = sprintf("%s %6.2f%% (%2d/%2d)",
             $filePathReport,
             $file->getCodeCoverage(),
             $file->getExecutedLineCount(),
