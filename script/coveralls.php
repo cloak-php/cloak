@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\ConfigurationBuilder;
@@ -21,7 +21,7 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 $analyzer->start();
 
 
-$defaultArgv = array('./vendor/bin/pho', '--reporter', 'spec');
+$defaultArgv = array('../vendor/bin/pho', '--reporter', 'spec');
 
 $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
@@ -32,7 +32,7 @@ $argv = array_merge($defaultArgv, array(
     'spec/AnalyzerSpec.php'
 ));
 
-require_once __DIR__ . "/vendor/bin/pho";
+require_once __DIR__ . "/../vendor/bin/pho";
 
 $analyzer->stop();
 
@@ -72,7 +72,7 @@ foreach ($result as $file) {
     );
 }
 
-$repository = new Repository('./');
+$repository = new Repository('.');
 $commit = $repository->getHeadCommit();
 $branches = $repository->getReferences()->resolveBranches($commit);
 

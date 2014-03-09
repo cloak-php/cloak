@@ -16,7 +16,7 @@ group('test', function() {
 
     desc('Print a report of code coverage');
     task('coverage', function() {
-        echo shell_exec('php coverage.php');
+        echo shell_exec('php script/coverage.php');
     });
 
 });
