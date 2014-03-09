@@ -123,7 +123,7 @@ $git = array(
 $coveralls['git'] = $git;
 $coveralls['source_files'] = $sourceFiles;
 
-file_put_contents('coverage.json', json_encode($coveralls));
+file_put_contents(__DIR__ . '/coverage.json', json_encode($coveralls));
 
 
 use Guzzle\Http\Client;
