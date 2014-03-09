@@ -13,11 +13,24 @@ namespace CodeAnalyzer\Reporter;
 
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\File;
+use Colors\Color;
 
 class TextReporter {
 
     const PAD_CHARACTER = '.';
     const PAD_CHARACTER_LENGTH = 70;
+
+    const DEFAULT_LOW_BOUND = 35.0;
+    const DEFAULT_HIGH_BOUND = 70.0;
+
+    private $lowUpperBound;
+    private $highLowerBound;
+
+    public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
+    {
+        $this->lowUpperBound = (float) $lowUpperBound;
+        $this->highLowerBound = (float) $highLowerBound;
+    }
 
     public function stop(Result $result)
     {
@@ -35,14 +48,29 @@ class TextReporter {
         $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
         $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
 
-        $result = sprintf("%s %6.2f%% (%2d/%2d)",
+        $coverage = $this->coverageReportFrom($file->getCodeCoverage());
+
+        $result = sprintf("%s %s (%2d/%2d)",
             $filePathReport,
-            $file->getCodeCoverage(),
+            $coverage,
             $file->getExecutedLineCount(),
             $file->getExecutableLineCount()
         );
 
         return $result;
+    }
+
+    protected function coverageReportFrom($coverage)
+    {
+        $color = new Color(sprintf('%6.2f%%', (float) $coverage));
+        $color->setForceStyle(true);
+
+        if ($coverage >= $this->highLowerBound) {
+            $color->green();
+        } else if ($coverage <= $this->lowUpperBound) {
+            $color->yellow();
+        }
+        return $color;
     }
 
 }
