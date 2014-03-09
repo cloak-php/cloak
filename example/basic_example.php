@@ -11,7 +11,7 @@ use CodeAnalyzer\Result\File;
 
 use Example as example;
 
-Analyzer::configure(function(ConfigurationBuilder $builder) {
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
     $builder->includeFile(function(File $file) {
         return $file->matchPath('/example/src');
@@ -21,7 +21,6 @@ Analyzer::configure(function(ConfigurationBuilder $builder) {
 
 });
 
-$analyzer = new Analyzer();
 $analyzer->start();
 
 //I write code here want to take code coverage
