@@ -19,11 +19,9 @@ class TextReporter {
     public function stop(Result $result)
     {
         $files = $result->getFiles();
-
-        foreach ($files as $file) {
-            $result = $this->reportFrom($file);
-            echo $result . PHP_EOL;
-        }
+        $files->map(function(File $file) {
+            echo $this->reportFrom($file) . PHP_EOL;
+        });
     }
 
     protected function reportFrom(File $file)
