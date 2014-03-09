@@ -13,6 +13,7 @@ namespace CodeAnalyzer;
 
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\Driver\DriverInterface;
+use CodeAnalyzer\Driver\XdebugDriver;
 
 class ConfigurationBuilder
 {
@@ -65,8 +66,10 @@ class ConfigurationBuilder
 
     public function build()
     {
+        $driver = ($this->driver === null) ? new XdebugDriver() : $this->driver;
+
         $values = array(
-            'driver' => $this->driver,
+            'driver' => $driver,
             'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
             'excludeFiles' => $this->excludeFiles
