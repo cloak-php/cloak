@@ -40,6 +40,29 @@ describe('Analyzer', function() {
         });
     });
 
+    describe('#factory', function() {
+        before(function() {
+            $subject = $this->subject = new \stdClass();
+            $subject->called = 0;
+            $subject->configuration = null;
+
+            $this->builder = function(ConfigurationBuilder $builder) use ($subject) {
+                $subject->called++;
+                $subject->builder = $builder;
+            };
+            $this->returnValue = Analyzer::factory($this->builder);
+        });
+        it('should called once', function() {
+            expect($this->subject->called)->toBe(1);
+        });
+        it('should argument is an instance of CodeAnalyzer\ConfigurationBuilder', function() {
+            expect($this->subject->builder)->toBeAnInstanceOf('CodeAnalyzer\ConfigurationBuilder');
+        });
+        it('should return an instance of CodeAnalyzer\Analyzer', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Analyzer');
+        });
+    });
+
     describe('#isStarted', function() {
         context('when started', function() {
             before(function() {

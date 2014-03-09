@@ -38,6 +38,18 @@ class Analyzer
         static::$configuration = $configuration;
     }
 
+
+    public static function factory(\Closure $configurator)
+    {
+        $builder = new ConfigurationBuilder();
+        $configurator($builder);
+        $configuration = $builder->build();
+
+        static::$configuration = $configuration;
+
+        return new Analyzer();
+    }
+
     public function start()
     {
         $this->driver->start();
