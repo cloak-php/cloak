@@ -33,8 +33,8 @@ describe('TextReporter', function() {
         });
         it('should output coverage', function() {
             $output  = "";
-            $output .= "src/Driver/XdebugDriver.php .......................................... 66.67% (2/3)" . PHP_EOL;
-            $output .= "src/Result/File.php .................................................. 66.67% (2/3)" . PHP_EOL;
+            $output .= "src/Driver/XdebugDriver.php ..........................................  66.67% ( 2/ 3)" . PHP_EOL;
+            $output .= "src/Result/File.php ..................................................  66.67% ( 2/ 3)" . PHP_EOL;
 
             expect(function() {
                 $this->reporter->stop($this->result);
