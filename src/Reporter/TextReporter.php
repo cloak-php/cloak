@@ -12,23 +12,32 @@
 namespace CodeAnalyzer\Reporter;
 
 use CodeAnalyzer\Result;
+use CodeAnalyzer\Result\File;
 
 class TextReporter {
 
     public function stop(Result $result)
     {
-        $currentDirectory = getcwd();
         $files = $result->getFiles();
 
         foreach ($files as $file) {
-            $result = sprintf("%s > %0.2f%% (%d/%d)",
-                $file->getRelativePath($currentDirectory),
-                $file->getCodeCoverage(),
-                $file->getExecutedLineCount(),
-                $file->getExecutableLineCount()
-            );
+            $result = $this->reportFrom($file);
             echo $result . PHP_EOL;
         }
+    }
+
+    protected function reportFrom(File $file)
+    {
+
+        $currentDirectory = getcwd();
+        $result = sprintf("%s > %0.2f%% (%d/%d)",
+            $file->getRelativePath($currentDirectory),
+            $file->getCodeCoverage(),
+            $file->getExecutedLineCount(),
+            $file->getExecutableLineCount()
+        );
+
+        return $result;
     }
 
 }
