@@ -16,8 +16,16 @@ use CodeAnalyzer\Configuration;
 class ConfigurationBuilder
 {
 
+    private $reporter = null;
     private $includeFiles = array();
     private $excludeFiles = array();
+
+    //FIXME type hinting
+    public function reporter($reporter)
+    {
+        $this->reporter = $reporter;
+        return $this;
+    }
 
     public function includeFile(\Closure $filter)
     {
@@ -50,6 +58,7 @@ class ConfigurationBuilder
     public function build()
     {
         $values = array(
+            'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
             'excludeFiles' => $this->excludeFiles
         );

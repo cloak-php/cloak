@@ -11,7 +11,7 @@
 
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\ConfigurationBuilder;
-
+use CodeAnalyzer\Reporter\TextReporter;
 
 describe('ConfigurationBuilder', function() {
 
@@ -57,15 +57,21 @@ describe('ConfigurationBuilder', function() {
             $this->filter2 = function(File $file){};
             $this->filter3 = function(File $file){};
             $this->filter4 = function(File $file){};
+            $this->reporter = new TextReporter();
 
             $this->builder = new ConfigurationBuilder(); 
-            $this->builder->includeFiles(array( $this->filter1, $this->filter2 ));
-            $this->builder->excludeFiles(array( $this->filter3, $this->filter4 ));
+            $this->builder->reporter($this->reporter)
+                ->includeFiles(array( $this->filter1, $this->filter2 ))
+                ->excludeFiles(array( $this->filter3, $this->filter4 ));
 
             $this->returnValue = $this->builder->build();
         });
         it('should return CodeAnalyzer\Configuration instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Configuration');
+        });
+        it('should apply reporter configration', function() {
+            $reporter = $this->returnValue->reporter;
+            expect($reporter)->toEqual($this->reporter);
         });
         it('should apply includeFiles configration', function() {
             $filters = $this->returnValue->includeFiles;
