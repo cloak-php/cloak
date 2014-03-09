@@ -130,6 +130,9 @@ class File
         return (float) $this->getCodeCoverage() < (float) $coverage;
     }
 
+    /**
+     * @return boolean
+     */
     public function isCoverageGreaterThan($coverage)
     {
         return (float) $this->getCodeCoverage() >= (float) $coverage;
