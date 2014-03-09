@@ -155,4 +155,40 @@ describe('File', function() {
         });
     });
 
+    describe('#isCoverageLowerThan', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->file->addLine( new Line(1, Line::UNUSED) );
+            $this->file->addLine( new Line(1, Line::EXECUTED) );
+        });
+        context('when lower than 51% of coverage', function() {
+            it('should return true', function() {
+                expect($this->file->isCoverageLowerThan(51))->toBeTrue();
+            });
+        });
+        context('when greater than 50% of coverage', function() {
+            it('should return false', function() {
+                expect($this->file->isCoverageLowerThan(50))->toBeFalse();
+            });
+        });
+    });
+
+    describe('#isCoverageGreaterThan', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->file->addLine( new Line(1, Line::UNUSED) );
+            $this->file->addLine( new Line(1, Line::EXECUTED) );
+        });
+        context('when lower than 51% of coverage', function() {
+            it('should return false', function() {
+                expect($this->file->isCoverageGreaterThan(51))->toBeFalse();
+            });
+        });
+        context('when greater than 50% of coverage', function() {
+            it('should return true', function() {
+                expect($this->file->isCoverageGreaterThan(50))->toBeTrue();
+            });
+        });
+    });
+
 });
