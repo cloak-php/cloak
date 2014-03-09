@@ -1,16 +1,27 @@
 <?php
 
-require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\Configuration;
+use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
 use Gitonomy\Git\Repository;
 
-$analyzer = new Analyzer();
+
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+
+    $builder->includeFile(function(File $file) {
+        return $file->matchPath('/src');
+    })->excludeFile(function(File $file) {
+        return $file->matchPath('/spec') || $file->matchPath('/vendor');
+    });
+
+});
+
 $analyzer->start();
 
-$defaultArgv = array('./vendor/bin/pho', '--reporter', 'spec');
+
+$defaultArgv = array('../vendor/bin/pho', '--reporter', 'spec');
 
 $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
@@ -21,18 +32,12 @@ $argv = array_merge($defaultArgv, array(
     'spec/AnalyzerSpec.php'
 ));
 
-require_once __DIR__ . "/vendor/bin/pho";
+require_once __DIR__ . "/../vendor/bin/pho";
 
 $analyzer->stop();
 
-$result = $analyzer->getResult();
-$result = $result->includeFile(function(File $file) {
-    return $file->matchPath('/src');
-})->excludeFile(function(File $file) {
-    return $file->matchPath('/spec') || $file->matchPath('/vendor');
-});
 
-$result = $result->getFiles();
+$result = $analyzer->getResult()->getFiles();
 
 
 $jobId = getenv('TRAVIS_JOB_ID');
@@ -67,7 +72,7 @@ foreach ($result as $file) {
     );
 }
 
-$repository = new Repository('./');
+$repository = new Repository('.');
 $commit = $repository->getHeadCommit();
 $branches = $repository->getReferences()->resolveBranches($commit);
 
@@ -119,6 +124,7 @@ $coveralls['git'] = $git;
 $coveralls['source_files'] = $sourceFiles;
 
 file_put_contents('coverage.json', json_encode($coveralls));
+
 
 use Guzzle\Http\Client;
 

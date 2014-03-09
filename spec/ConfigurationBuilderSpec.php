@@ -11,7 +11,9 @@
 
 use CodeAnalyzer\Configuration;
 use CodeAnalyzer\ConfigurationBuilder;
+use CodeAnalyzer\Driver\DriverInterface;
 use CodeAnalyzer\Reporter\TextReporter;
+use Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
 
@@ -59,15 +61,26 @@ describe('ConfigurationBuilder', function() {
             $this->filter4 = function(File $file){};
             $this->reporter = new TextReporter();
 
+            $this->driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+
             $this->builder = new ConfigurationBuilder(); 
-            $this->builder->reporter($this->reporter)
+            $this->builder->driver($this->driver)
+                ->reporter($this->reporter)
                 ->includeFiles(array( $this->filter1, $this->filter2 ))
                 ->excludeFiles(array( $this->filter3, $this->filter4 ));
 
             $this->returnValue = $this->builder->build();
         });
+        after(function() {
+            Mock::close();
+        });
+
         it('should return CodeAnalyzer\Configuration instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Configuration');
+        });
+        it('should apply driver configration', function() {
+            $driver = $this->returnValue->driver;
+            expect($driver)->toEqual($this->driver);
         });
         it('should apply reporter configration', function() {
             $reporter = $this->returnValue->reporter;

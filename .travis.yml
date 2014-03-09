@@ -9,4 +9,4 @@ script:
   - ./vendor/bin/pho --reporter spec
 env:
   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=jesEbmJxLyHbB2Lnl1wvqkMK1TRH9qjHW
-after_script: php coveralls.php
+after_script: php script/coveralls.php
