@@ -16,9 +16,10 @@ use CodeAnalyzer\Result;
 class Configuration
 {
 
+    private $driver = null;
+    private $reporter = null;
     private $includeFiles = array();
     private $excludeFiles = array();
-    private $reporter = null;
 
     public function __construct(array $values)
     {

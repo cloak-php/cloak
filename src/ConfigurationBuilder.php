@@ -12,13 +12,21 @@
 namespace CodeAnalyzer;
 
 use CodeAnalyzer\Configuration;
+use CodeAnalyzer\Driver\DriverInterface;
 
 class ConfigurationBuilder
 {
 
+    private $driver = null;
     private $reporter = null;
     private $includeFiles = array();
     private $excludeFiles = array();
+
+    public function driver(DriverInterface $driver)
+    {
+        $this->driver = $driver;
+        return $this;
+    }
 
     //FIXME type hinting
     public function reporter($reporter)
@@ -58,6 +66,7 @@ class ConfigurationBuilder
     public function build()
     {
         $values = array(
+            'driver' => $this->driver,
             'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
             'excludeFiles' => $this->excludeFiles
