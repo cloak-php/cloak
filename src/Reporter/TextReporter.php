@@ -16,6 +16,9 @@ use CodeAnalyzer\Result\File;
 
 class TextReporter {
 
+    const PAD_CHARACTER = '.';
+    const PAD_CHARACTER_LENGTH = 70;
+
     public function stop(Result $result)
     {
         $files = $result->getFiles();
@@ -28,8 +31,12 @@ class TextReporter {
     {
 
         $currentDirectory = getcwd();
-        $result = sprintf("%s > %0.2f%% (%d/%d)",
-            $file->getRelativePath($currentDirectory),
+
+        $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
+        $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
+
+        $result = sprintf('%s %0.2f%% (%d/%d)',
+            $filePathReport,
             $file->getCodeCoverage(),
             $file->getExecutedLineCount(),
             $file->getExecutableLineCount()
