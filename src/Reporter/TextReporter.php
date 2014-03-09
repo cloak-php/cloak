@@ -48,7 +48,7 @@ class TextReporter {
         $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
         $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
 
-        $coverage = $this->coverageReportFrom($file->getCodeCoverage());
+        $coverage = $this->coverageReportFrom($file);
 
         $result = sprintf("%s %s (%2d/%2d)",
             $filePathReport,
@@ -60,17 +60,19 @@ class TextReporter {
         return $result;
     }
 
-    protected function coverageReportFrom($coverage)
+    protected function coverageReportFrom(File $file)
     {
-        $color = new Color(sprintf('%6.2f%%', (float) $coverage));
+
+        $color = new Color(sprintf('%6.2f%%', (float) $file->getCodeCoverage()));
         $color->setForceStyle(true);
 
-        if ($coverage >= $this->highLowerBound) {
+        if ($file->isCoverageGreaterThan($this->highLowerBound)) {
             $color->green();
-        } else if ($coverage <= $this->lowUpperBound) {
+        } else if ($file->isCoverageLowerThan($this->lowUpperBound)) {
             $color->yellow();
         }
         return $color;
+
     }
 
 }
