@@ -3,11 +3,21 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\Configuration;
+use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Reporter\TextReporter;
 
-$analyzer = new Analyzer();
+
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+
+    $builder->includeFile(function(File $file) {
+        return $file->matchPath('/src');
+    })->excludeFile(function(File $file) {
+        return $file->matchPath('/spec') || $file->matchPath('/vendor');
+    });
+
+});
+
 $analyzer->start();
 
 $defaultArgv = array('./vendor/bin/pho', '--reporter', 'spec');
@@ -26,12 +36,6 @@ require_once __DIR__ . "/vendor/bin/pho";
 $analyzer->stop();
 
 $result = $analyzer->getResult();
-$result = $result->includeFile(function(File $file) {
-    return $file->matchPath('/src');
-})
-->excludeFile(function(File $file) {
-    return $file->matchPath('/spec') || $file->matchPath('/vendor');
-});
 
 $reporter = new TextReporter();
 $reporter->stop($result);
