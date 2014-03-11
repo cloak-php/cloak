@@ -105,4 +105,11 @@ describe('Coverage', function() {
         });
     });
 
+    describe('#__toString', function() {
+        it('should return string value', function() {
+            $v = new Coverage(11);
+            expect( $v->__toString() )->toBeA('string');
+        });
+    });
+
 });
