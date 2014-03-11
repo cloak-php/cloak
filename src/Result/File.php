@@ -127,7 +127,7 @@ class File
     /**
      * @return boolean
      */
-    public function isCoverageLowerThan(Coverage $coverage)
+    public function isCoverageLessThan(Coverage $coverage)
     {
         return $this->getCodeCoverage()->lessThan($coverage);
     }
@@ -135,7 +135,7 @@ class File
     /**
      * @return boolean
      */
-    public function isCoverageGreaterThan(Coverage $coverage)
+    public function isCoverageGreaterEqual(Coverage $coverage)
     {
         return $this->getCodeCoverage()->greaterEqual($coverage);
     }

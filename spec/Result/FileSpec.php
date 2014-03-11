@@ -156,42 +156,42 @@ describe('File', function() {
         });
     });
 
-    describe('#isCoverageLowerThan', function() {
+    describe('#isCoverageLessThan', function() {
         before(function() {
             $this->file = new File('foo.php');
             $this->file->addLine( new Line(1, Line::UNUSED) );
             $this->file->addLine( new Line(1, Line::EXECUTED) );
         });
-        context('when lower than 51% of coverage', function() {
+        context('when less than 51% of coverage', function() {
             it('should return true', function() {
                 $coverage = new Coverage(51);
-                expect($this->file->isCoverageLowerThan($coverage))->toBeTrue();
+                expect($this->file->isCoverageLessThan($coverage))->toBeTrue();
             });
         });
         context('when greater than 50% of coverage', function() {
             it('should return false', function() {
                 $coverage = new Coverage(50);
-                expect($this->file->isCoverageLowerThan($coverage))->toBeFalse();
+                expect($this->file->isCoverageLessThan($coverage))->toBeFalse();
             });
         });
     });
 
-    describe('#isCoverageGreaterThan', function() {
+    describe('#isCoverageGreaterEqual', function() {
         before(function() {
             $this->file = new File('foo.php');
             $this->file->addLine( new Line(1, Line::UNUSED) );
             $this->file->addLine( new Line(1, Line::EXECUTED) );
         });
-        context('when lower than 51% of coverage', function() {
+        context('when less than 51% of coverage', function() {
             it('should return false', function() {
                 $coverage = new Coverage(51);
-                expect($this->file->isCoverageGreaterThan($coverage))->toBeFalse();
+                expect($this->file->isCoverageGreaterEqual($coverage))->toBeFalse();
             });
         });
         context('when greater than 50% of coverage', function() {
             it('should return true', function() {
                 $coverage = new Coverage(50);
-                expect($this->file->isCoverageGreaterThan($coverage))->toBeTrue();
+                expect($this->file->isCoverageGreaterEqual($coverage))->toBeTrue();
             });
         });
     });

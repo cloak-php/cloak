@@ -67,11 +67,12 @@ class TextReporter {
         $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->valueOf()));
         $color->setForceStyle(true);
 
-        if ($file->isCoverageGreaterThan($this->highLowerBound)) {
+        if ($file->isCoverageGreaterEqual($this->highLowerBound)) {
             $color->green();
-        } else if ($file->isCoverageLowerThan($this->lowUpperBound)) {
+        } else if ($file->isCoverageLessThan($this->lowUpperBound)) {
             $color->yellow();
         }
+
         return $color;
 
     }
