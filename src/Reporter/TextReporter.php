@@ -13,6 +13,7 @@ namespace CodeAnalyzer\Reporter;
 
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\File;
+use CodeAnalyzer\Result\Coverage;
 use Colors\Color;
 
 class TextReporter {
@@ -28,8 +29,8 @@ class TextReporter {
 
     public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
-        $this->lowUpperBound = (float) $lowUpperBound;
-        $this->highLowerBound = (float) $highLowerBound;
+        $this->lowUpperBound = new Coverage($lowUpperBound);
+        $this->highLowerBound = new Coverage($highLowerBound);
     }
 
     public function stop(Result $result)
@@ -63,7 +64,7 @@ class TextReporter {
     protected function coverageReportFrom(File $file)
     {
 
-        $color = new Color(sprintf('%6.2f%%', (float) $file->getCodeCoverage()));
+        $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->valueOf()));
         $color->setForceStyle(true);
 
         if ($file->isCoverageGreaterThan($this->highLowerBound)) {
