@@ -12,10 +12,11 @@
 namespace CodeAnalyzer\Reporter;
 
 use Zend\EventManager\ListenerAggregateInterface;
+use Zend\EventManager\EventInterface;
 
 interface ReporterInterface extends ListenerAggregateInterface
 {
 
-    public function onStop();
+    public function onStop(EventInterface $event);
 
 }
