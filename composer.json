@@ -5,7 +5,8 @@
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.3.*",
-        "kevinlebrun/colors.php": "0.*"
+        "kevinlebrun/colors.php": "0.*",
+        "zendframework/zend-eventmanager": "2.2.6"
     },
     "autoload": {
         "psr-4": { "CodeAnalyzer\\": "src/" }
