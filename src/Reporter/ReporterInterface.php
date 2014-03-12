@@ -15,4 +15,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 
 interface ReporterInterface extends ListenerAggregateInterface
 {
+
+    public function onStop();
+
 }
