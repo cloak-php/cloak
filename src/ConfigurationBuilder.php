@@ -12,8 +12,9 @@
 namespace CodeAnalyzer;
 
 use CodeAnalyzer\Configuration;
-use CodeAnalyzer\Driver\DriverInterface;
 use CodeAnalyzer\Driver\XdebugDriver;
+use CodeAnalyzer\Driver\DriverInterface;
+use CodeAnalyzer\Reporter\ReporterInterface;
 
 class ConfigurationBuilder
 {
@@ -30,7 +31,7 @@ class ConfigurationBuilder
     }
 
     //FIXME type hinting
-    public function reporter($reporter)
+    public function reporter(ReporterInterface $reporter)
     {
         $this->reporter = $reporter;
         return $this;
