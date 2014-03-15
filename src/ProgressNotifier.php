@@ -30,7 +30,7 @@ class ProgressNotifier implements EventManagerAwareInterface
     public function notifyStop(Result $result)
     {
         $event = new Event(Event::STOP, $this, [ 'result' => $result ]);
-        $this->getEventManager()->trigger(Event::STOP, $event);
+        $this->getEventManager()->trigger($event);
     }
 
 }
