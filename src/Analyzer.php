@@ -29,7 +29,7 @@ class Analyzer implements EventManagerAwareInterface
 
     public function __construct(Configuration $configuration)
     {
-        $this->configuration = $configuration;
+        $this->init($configuration);
     }
 
     public static function factory(\Closure $configurator)
@@ -49,17 +49,7 @@ class Analyzer implements EventManagerAwareInterface
     public function stop()
     {
         $this->driver()->stop();
-
-        if ($this->configuration->reporter === null) {
-            return;
-        }
-
-        $eventManager = $this->getEventManager();
-        $this->configuration->reporter->attach($eventManager);
-
-        $args = [ 'result' => $this->getResult() ];
-        $event = new Event(null, $this, $args);
-        $eventManager->trigger('stop', $event);
+        $this->notifyStop();
     }
 
     public function isStarted()
@@ -76,6 +66,25 @@ class Analyzer implements EventManagerAwareInterface
     protected function driver()
     {
         return $this->configuration->driver;
+    }
+
+    protected function init(Configuration $configuration)
+    {
+        $this->configuration = $configuration;
+
+        if ($configuration->reporter === null) {
+            return;
+        }
+
+        $configuration->reporter->attach( $this->getEventManager() );
+    }
+
+    protected function notifyStop()
+    {
+        $args = [ 'result' => $this->getResult() ];
+        $event = new Event(null, $this, $args);
+
+        $this->getEventManager()->trigger('stop', $event);
     }
 
 }
