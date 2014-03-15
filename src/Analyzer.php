@@ -15,9 +15,9 @@ use CodeAnalyzer\Driver\DriverInterface;
 use CodeAnalyzer\Driver\XdebugDriver;
 use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Configuration;
-use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerAwareTrait;
 use Zend\EventManager\EventManagerAwareInterface;
+
 
 class Analyzer implements EventManagerAwareInterface
 {
@@ -84,7 +84,7 @@ class Analyzer implements EventManagerAwareInterface
         $args = [ 'result' => $this->getResult() ];
         $event = new Event(null, $this, $args);
 
-        $this->getEventManager()->trigger('stop', $event);
+        $this->getEventManager()->trigger(Event::STOP, $event);
     }
 
 }
