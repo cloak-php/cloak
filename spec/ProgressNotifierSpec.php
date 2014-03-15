@@ -46,7 +46,7 @@ describe('ProgressNotifier', function() {
         });
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
-            expect($event)->toBeAnInstanceOf('Zend\EventManager\EventInterface');
+            expect($event)->toBeAnInstanceOf('CodeAnalyzer\EventInterface');
         });
         it('should include the results', function() {
             $result = $this->subject->event->getResult();
