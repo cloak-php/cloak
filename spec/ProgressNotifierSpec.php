@@ -48,7 +48,7 @@ describe('ProgressNotifier', function() {
             $event = $this->subject->event;
             expect($event)->toBeAnInstanceOf('Zend\EventManager\EventInterface');
         });
-        it('should ', function() {
+        it('should include the results', function() {
             $result = $this->subject->event->getParam('result');
             expect($result)->toEqual($this->result);
         });
