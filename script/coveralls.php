@@ -29,6 +29,7 @@ $argv = array_merge($defaultArgv, array(
     'spec/Result/FileSpec.php',
     'spec/Result/LineSpec.php',
     'spec/Result/CoverageSpec.php',
+    'spec/Reporter/ReportableSpec.php',
     'spec/Reporter/TextReporterSpec.php',
     'spec/AnalyzerSpec.php'
 ));

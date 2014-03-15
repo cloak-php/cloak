@@ -14,8 +14,9 @@ use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Driver\DriverInterface;
+use CodeAnalyzer\Reporter\ReporterInterface;
+use Zend\EventManager\EventInterface;
 use Mockery as Mock;
-
 
 describe('Analyzer', function() {
 
@@ -71,7 +72,24 @@ describe('Analyzer', function() {
         });
         context('when stoped', function() {
             before(function() {
-                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+                $subject = new stdClass();
+                $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
+
+                $attach = Mockery::on(function($eventManager) use ($reporter) {
+                    $eventManager->attach('stop', array($reporter, 'onStop'));
+                    return true;
+                });
+                $onStop = Mockery::on(function($event) use($subject) {
+                    $subject->event = $event;
+                    return true;
+                });
+
+                $reporter->shouldReceive('attach')->once()->with($attach);
+                $reporter->shouldReceive('onStop')->once()->with($onStop);
+
+                $this->subject = $subject;
+
+                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) use ($reporter) {
                     $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
                     $driver->shouldReceive('start')->once();
                     $driver->shouldReceive('stop')->once();
@@ -80,22 +98,31 @@ describe('Analyzer', function() {
                     ));
                     $driver->shouldReceive('isStarted')->once()->andReturn(false);
                     $builder->driver($driver);
+                    $builder->reporter($reporter);
                 });
+
                 $this->analyzer->start();
+                $this->analyzer->stop();
             });
             after(function() {
                 Mock::close();
             });
             it('should return false', function() {
-                $this->analyzer->stop();
                 expect($this->analyzer->isStarted())->toBeFalse();
+            });
+            it('should should notify the reporter that it has stopped', function() {
+                $event = $this->subject->event;
+                expect($event)->toBeAnInstanceOf('Zend\EventManager\EventInterface');
             });
         });
     });
 
     describe('#getResult', function() {
         before(function() {
-            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+            $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
+            $reporter->shouldReceive('attach')->once()->with(Mockery::any());
+
+            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) use ($reporter) {
                 $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('stop')->once();
@@ -112,7 +139,10 @@ describe('Analyzer', function() {
                     })->excludeFile(function(File $file) {
                         return $file->matchPath('vendor');
                     });
+
+                $builder->reporter($reporter);
             });
+
             $this->analyzer->start();
             $this->analyzer->stop();
             $this->result = $this->analyzer->getResult();

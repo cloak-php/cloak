@@ -10,6 +10,7 @@ use Zend\EventManager\Event;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
+    $builder->reporter(new TextReporter());
     $builder->includeFile(function(File $file) {
         return $file->matchPath('/src');
     })->excludeFile(function(File $file) {
@@ -28,6 +29,7 @@ $argv = array_merge($defaultArgv, array(
     'spec/Result/FileSpec.php',
     'spec/Result/LineSpec.php',
     'spec/Result/CoverageSpec.php',
+    'spec/Reporter/ReportableSpec.php',
     'spec/Reporter/TextReporterSpec.php',
     'spec/AnalyzerSpec.php'
 ));
@@ -35,10 +37,3 @@ $argv = array_merge($defaultArgv, array(
 require_once __DIR__ . "/../vendor/bin/pho";
 
 $analyzer->stop();
-
-$result = $analyzer->getResult();
-
-$event = new Event('stop', $analyzer, [ 'result' => $result ]);
-
-$reporter = new TextReporter();
-$reporter->onStop($event);
