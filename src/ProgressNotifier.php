@@ -15,9 +15,8 @@ use CodeAnalyzer\Event;
 use CodeAnalyzer\Result;
 use CodeAnalyzer\Reporter\ReporterInterface;
 use Zend\EventManager\EventManagerAwareTrait;
-use Zend\EventManager\EventManagerAwareInterface;
 
-class ProgressNotifier implements EventManagerAwareInterface
+class ProgressNotifier implements ProgressNotifierInterface
 {
 
     use EventManagerAwareTrait;
