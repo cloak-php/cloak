@@ -28,12 +28,12 @@ example\example1();
 
 $analyzer->stop();
 
-$result = $analyzer->getResult()->getFiles();
+$files = $analyzer->getResult()->getFiles();
 
-foreach ($result as $file) {
-    $result = sprintf("%s > %0.2f%% (%d/%d)",
+foreach ($files as $file) {
+    $result = sprintf("%s > %6.2f%% (%d/%d)",
         $file->getPath(),
-        $file->getCodeCoverage(),
+        $file->getCodeCoverage()->valueOf(),
         $file->getExecutedLineCount(),
         $file->getExecutableLineCount()
     );
