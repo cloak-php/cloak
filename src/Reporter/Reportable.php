@@ -21,9 +21,9 @@ trait Reportable
 
     public function attach(EventManagerInterface $eventManager)
     {
-        $events = array(
+        $events = [
             'stop' => 'onStop'
-        );
+        ];
 
         foreach ($events as $event => $method) {
             if (method_exists($this, $method) === false) {
