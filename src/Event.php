@@ -13,9 +13,14 @@ namespace CodeAnalyzer;
 
 use Zend\EventManager\Event as BaseEvent;
 
-class Event extends BaseEvent
+class Event extends BaseEvent implements EventInterface
 {
 
     const STOP = 'stop';
+
+    public function getResult()
+    {
+        return $this->getParam('result', null);
+    }
 
 }
