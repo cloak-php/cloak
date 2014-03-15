@@ -30,7 +30,6 @@ class ConfigurationBuilder
         return $this;
     }
 
-    //FIXME type hinting
     public function reporter(ReporterInterface $reporter)
     {
         $this->reporter = $reporter;
