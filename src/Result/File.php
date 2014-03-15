@@ -115,27 +115,29 @@ class File
     }
 
     /**
-     * @return float The value of code coverage
+     * @return Coverage The value of code coverage
      */
     public function getCodeCoverage()
     {
-        return (float) $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+        $value = (float) $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+
+        return new Coverage($value);
     }
 
     /**
      * @return boolean
      */
-    public function isCoverageLowerThan($coverage)
+    public function isCoverageLessThan(Coverage $coverage)
     {
-        return (float) $this->getCodeCoverage() < (float) $coverage;
+        return $this->getCodeCoverage()->lessThan($coverage);
     }
 
     /**
      * @return boolean
      */
-    public function isCoverageGreaterThan($coverage)
+    public function isCoverageGreaterEqual(Coverage $coverage)
     {
-        return (float) $this->getCodeCoverage() >= (float) $coverage;
+        return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
     protected function createLines(array $lineResults)

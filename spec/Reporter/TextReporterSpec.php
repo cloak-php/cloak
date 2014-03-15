@@ -19,12 +19,12 @@ describe('TextReporter', function() {
     describe('stop', function() {
         before(function() {
             $this->result = Result::from(array(
-                '/Users/shared-hat/Documents/develop/code-analyzer/src/Driver/XdebugDriver.php' => array(
+                realpath(__DIR__ . '/../../src/Driver/XdebugDriver.php') => array(
                     1 => Line::EXECUTED,
                     2 => Line::EXECUTED,
                     3 => Line::UNUSED
                 ),
-                '/Users/shared-hat/Documents/develop/code-analyzer/src/Result/Line.php' => array(
+                realpath(__DIR__ . '/../../src/Result/Line.php') => array(
                     1 => Line::EXECUTED,
                     2 => Line::EXECUTED,
                     3 => Line::EXECUTED,
@@ -36,7 +36,7 @@ describe('TextReporter', function() {
                     9 => Line::UNUSED,
                    10 => Line::UNUSED
                 ),
-                '/Users/shared-hat/Documents/develop/code-analyzer/src/Result/File.php' => array(
+                realpath(__DIR__ . '/../../src/Result/File.php') => array(
                     1 => Line::EXECUTED,
                     2 => Line::EXECUTED,
                     3 => Line::UNUSED,
