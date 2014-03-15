@@ -12,11 +12,12 @@
 namespace CodeAnalyzer\Reporter;
 
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateTrait;
 
 trait Reportable
 {
 
-    protected $eventListeners = array();
+    use ListenerAggregateTrait;
 
     public function attach(EventManagerInterface $eventManager)
     {
@@ -28,14 +29,7 @@ trait Reportable
             if (method_exists($this, $method) === false) {
                 continue;
             }
-            $this->eventListeners[] = $eventManager->attach($event, array($this, $method));
-        }
-    }
-
-    public function detach(EventManagerInterface $eventManager)
-    {
-        foreach ($this->eventListeners as $listener) {
-            $eventManager->detach($listener);
+            $this->listeners[] = $eventManager->attach($event, array($this, $method));
         }
     }
 
