@@ -15,8 +15,12 @@ use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Result\Coverage;
 use Colors\Color;
+use Zend\EventManager\EventInterface;
 
-class TextReporter {
+class TextReporter implements ReporterInterface
+{
+
+    use Reportable;
 
     const PAD_CHARACTER = '.';
     const PAD_CHARACTER_LENGTH = 70;
@@ -33,8 +37,10 @@ class TextReporter {
         $this->highLowerBound = new Coverage($highLowerBound);
     }
 
-    public function stop(Result $result)
+    public function onStop(EventInterface $event)
     {
+        $result = $event->getParam('result');
+
         $files = $result->getFiles();
         $files->map(function(File $file) {
             echo $this->reportFrom($file) . PHP_EOL;
