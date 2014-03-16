@@ -17,6 +17,9 @@ use CodeAnalyzer\EventInterface,
 interface ReporterInterface extends ListenerAggregateInterface
 {
 
+    /**
+     * @return void
+     */
     public function onStop(EventInterface $event);
 
 }
