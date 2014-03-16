@@ -26,7 +26,7 @@ class ProgressNotifier implements ProgressNotifierInterface
         $reporter->attach( $this->getEventManager() );
     }
 
-    public function notifyStop(Result $result)
+    public function stop(Result $result)
     {
         $event = new Event(Event::STOP, $this, [ 'result' => $result ]);
         $this->getEventManager()->trigger($event);

@@ -17,6 +17,6 @@ use Zend\EventManager\EventManagerAwareInterface;
 interface ProgressNotifierInterface extends EventManagerAwareInterface
 {
 
-    public function notifyStop(Result $result);
+    public function stop(Result $result);
 
 }
