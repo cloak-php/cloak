@@ -11,13 +11,13 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Event;
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Reporter\ReporterInterface;
-use Zend\EventManager\EventManagerAwareTrait;
+use CodeAnalyzer\Event,
+    CodeAnalyzer\Result,
+    CodeAnalyzer\Reporter\ReporterInterface,
+    Zend\EventManager\EventManagerAwareTrait;
 
 //TODO setReporter / getReporter
-class ProgressNotifier implements ProgressNotifierInterface
+class Notifier implements NotifierInterface
 {
 
     use EventManagerAwareTrait;

@@ -11,12 +11,12 @@
 
 namespace CodeAnalyzer;
 
-trait ProvidesProgressNotifier
+trait ProvidesNotifier
 {
 
     protected $notifier = null;
 
-    public function setNotifier(ProgressNotifierInterface $notifier)
+    public function setNotifier(NotifierInterface $notifier)
     {
         $this->notifier = $notifier;
         return $this;

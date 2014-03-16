@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\Line;
-use CodeAnalyzer\ProgressNotifier;
-use Mockery as Mock;
+use CodeAnalyzer\Result,
+    CodeAnalyzer\Result\Line,
+    CodeAnalyzer\Notifier,
+    Mockery as Mock;
 
-describe('ProgressNotifier', function() {
+describe('Notifier', function() {
 
     describe('#stop', function() {
         before(function() {
@@ -41,7 +41,7 @@ describe('ProgressNotifier', function() {
                 })
             );
 
-            $this->progessNotifier = new ProgressNotifier($reporter);
+            $this->progessNotifier = new Notifier($reporter);
             $this->progessNotifier->stop($this->result);
         });
         it('should notify the reporter that it has stopped', function() {

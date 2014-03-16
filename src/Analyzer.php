@@ -15,14 +15,14 @@ use CodeAnalyzer\Driver\DriverInterface,
     CodeAnalyzer\Driver\XdebugDriver,
     CodeAnalyzer\ConfigurationBuilder,
     CodeAnalyzer\Configuration,
-    CodeAnalyzer\ProgressNotifier,
-    CodeAnalyzer\ProgressNotifierAwareInterface,
-    CodeAnalyzer\ProvidesProgressNotifier;
+    CodeAnalyzer\Notifier,
+    CodeAnalyzer\NotifierAwareInterface,
+    CodeAnalyzer\ProvidesNotifier;
 
-class Analyzer implements ProgressNotifierAwareInterface
+class Analyzer implements NotifierAwareInterface
 {
 
-    use ProvidesProgressNotifier;
+    use ProvidesNotifier;
 
     protected $configuration = null;
     protected $analyzeResult = null;
@@ -71,7 +71,7 @@ class Analyzer implements ProgressNotifierAwareInterface
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
-        $this->setNotifier( new ProgressNotifier($configuration->reporter) );
+        $this->setNotifier( new Notifier($configuration->reporter) );
     }
 
 }

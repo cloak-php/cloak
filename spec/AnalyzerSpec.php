@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\Line;
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Reporter\ReporterInterface;
-use Mockery as Mock;
+use CodeAnalyzer\Analyzer,
+    CodeAnalyzer\ConfigurationBuilder,
+    CodeAnalyzer\Result,
+    CodeAnalyzer\Result\Line,
+    CodeAnalyzer\Result\File,
+    CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Reporter\ReporterInterface,
+    Mockery as Mock;
 
 describe('Analyzer', function() {
 
@@ -65,7 +65,7 @@ describe('Analyzer', function() {
             });
 
             $subject = $this->subject = new \stdClass();
-            $this->notifier = Mock::mock('CodeAnalyzer\ProgressNotifierInterface');
+            $this->notifier = Mock::mock('CodeAnalyzer\NotifierInterface');
             $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
                 $subject->result = $result;
                 return true;

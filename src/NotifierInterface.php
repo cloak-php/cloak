@@ -11,13 +11,12 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\ProgressNotifierInterface;
+use CodeAnalyzer\Result,
+    Zend\EventManager\EventManagerAwareInterface;
 
-interface ProgressNotifierAwareInterface
+interface NotifierInterface extends EventManagerAwareInterface
 {
 
-    public function setNotifier(ProgressNotifierInterface $notifier);
-
-    public function getNotifier();
+    public function stop(Result $result);
 
 }
