@@ -15,14 +15,18 @@ use CodeAnalyzer\Driver\DriverInterface;
 use CodeAnalyzer\Driver\XdebugDriver;
 use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Configuration;
+use CodeAnalyzer\ProgressNotifier;
+use CodeAnalyzer\ProgressNotifierAwareInterface;
+use CodeAnalyzer\ProvidesProgressNotifier;
+
 use Zend\EventManager\EventManagerAwareTrait;
 use Zend\EventManager\EventManagerAwareInterface;
 
-
-class Analyzer implements EventManagerAwareInterface
+class Analyzer implements EventManagerAwareInterface, ProgressNotifierAwareInterface
 {
 
     use EventManagerAwareTrait;
+    use ProvidesProgressNotifier;
 
     protected $configuration = null;
     protected $analyzeResult = null;
@@ -50,6 +54,8 @@ class Analyzer implements EventManagerAwareInterface
     {
         $this->driver()->stop();
         $this->notifyStop();
+
+        $this->getNotifier()->stop( $this->getResult() );
     }
 
     public function isStarted()
@@ -77,6 +83,8 @@ class Analyzer implements EventManagerAwareInterface
         }
 
         $configuration->reporter->attach( $this->getEventManager() );
+
+        $this->setNotifier( new ProgressNotifier($configuration->reporter) );
     }
 
     protected function notifyStop()

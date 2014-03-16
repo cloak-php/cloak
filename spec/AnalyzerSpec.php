@@ -11,6 +11,7 @@
 
 use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\ConfigurationBuilder;
+use CodeAnalyzer\Result;
 use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Driver\DriverInterface;
@@ -51,6 +52,42 @@ describe('Analyzer', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Analyzer');
         });
     });
+
+
+
+
+    describe('#stop', function() {
+        before(function() {
+            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+                $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+                $driver->shouldReceive('start')->once();
+                $driver->shouldReceive('stop')->once();
+                $driver->shouldReceive('getResult')->once()->andReturn(array(
+                    'foo.php' => array( 1 => Line::EXECUTED )
+                ));
+                $builder->driver($driver);
+            });
+
+            $subject = $this->subject = new \stdClass();
+            $this->notifier = Mock::mock('CodeAnalyzer\ProgressNotifierInterface');
+            $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
+                $subject->result = $result;
+                return true;
+            }));
+
+            $this->analyzer->setNotifier($this->notifier);
+
+            $this->analyzer->start();
+            $this->analyzer->stop();
+        });
+        after(function() {
+            Mock::close();
+        });
+        it('should return CodeAnalyzer\Result instance', function() {
+            expect($this->subject->result)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        });
+    });
+
 
     describe('#isStarted', function() {
         context('when started', function() {
