@@ -6,7 +6,7 @@ The following thing can be used for the reporter of code coverage.
 TextReporter
 -------------------------------------
 
-You specify the **TextReporter** and to reporter to use.
+You specify the **TextReporter** and to reporter to use.  
 You can specify the reference value of the coverage in the argument.
 
 ### Syntax
