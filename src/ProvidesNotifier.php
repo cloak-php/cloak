@@ -16,12 +16,19 @@ trait ProvidesNotifier
 
     protected $notifier = null;
 
+    /**
+     * @param \CodeAnalyzer\NotifierInterface $notifier
+     * @return $this
+     */
     public function setNotifier(NotifierInterface $notifier)
     {
         $this->notifier = $notifier;
         return $this;
     }
 
+    /**
+     * @return \CodeAnalyzer\NotifierInterface
+     */
     public function getNotifier()
     {
         if ($this->notifier === null) {

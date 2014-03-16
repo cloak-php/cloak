@@ -17,6 +17,10 @@ use CodeAnalyzer\Result,
 interface NotifierInterface extends EventManagerAwareInterface
 {
 
+    /**
+     * @param \CodeAnalyzer\Result $result
+     * @return void
+     */
     public function stop(Result $result);
 
 }

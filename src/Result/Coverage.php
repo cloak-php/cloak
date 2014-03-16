@@ -17,6 +17,9 @@ class Coverage
 
     private $value = 0;
 
+    /**
+     * @param float $value
+     */
     public function __construct($value)
     {
         $this->value = (float) $value;
