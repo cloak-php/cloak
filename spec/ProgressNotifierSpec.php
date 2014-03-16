@@ -16,7 +16,7 @@ use Mockery as Mock;
 
 describe('ProgressNotifier', function() {
 
-    describe('#notifyStop', function() {
+    describe('#stop', function() {
         before(function() {
             $this->result = Result::from(array(
                 'foo.php' => array(
@@ -42,7 +42,7 @@ describe('ProgressNotifier', function() {
             );
 
             $this->progessNotifier = new ProgressNotifier($reporter);
-            $this->progessNotifier->notifyStop($this->result);
+            $this->progessNotifier->stop($this->result);
         });
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
