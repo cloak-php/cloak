@@ -53,8 +53,6 @@ class Analyzer implements EventManagerAwareInterface, ProgressNotifierAwareInter
     public function stop()
     {
         $this->driver()->stop();
-        $this->notifyStop();
-
         $this->getNotifier()->stop( $this->getResult() );
     }
 
@@ -77,22 +75,7 @@ class Analyzer implements EventManagerAwareInterface, ProgressNotifierAwareInter
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
-
-        if ($configuration->reporter === null) {
-            return;
-        }
-
-        $configuration->reporter->attach( $this->getEventManager() );
-
         $this->setNotifier( new ProgressNotifier($configuration->reporter) );
-    }
-
-    protected function notifyStop()
-    {
-        $args = [ 'result' => $this->getResult() ];
-        $event = new Event(null, $this, $args);
-
-        $this->getEventManager()->trigger(Event::STOP, $event);
     }
 
 }

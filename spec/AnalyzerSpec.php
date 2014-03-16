@@ -16,7 +16,6 @@ use CodeAnalyzer\Result\Line;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Driver\DriverInterface;
 use CodeAnalyzer\Reporter\ReporterInterface;
-use Zend\EventManager\EventInterface;
 use Mockery as Mock;
 
 describe('Analyzer', function() {
@@ -53,9 +52,6 @@ describe('Analyzer', function() {
         });
     });
 
-
-
-
     describe('#stop', function() {
         before(function() {
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
@@ -88,7 +84,6 @@ describe('Analyzer', function() {
         });
     });
 
-
     describe('#isStarted', function() {
         context('when started', function() {
             before(function() {
@@ -109,35 +104,13 @@ describe('Analyzer', function() {
         });
         context('when stoped', function() {
             before(function() {
-                $subject = new stdClass();
-                $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
-
-                $attach = Mockery::on(function($eventManager) use ($reporter) {
-                    $eventManager->attach('stop', array($reporter, 'onStop'));
-                    return true;
-                });
-                $onStop = Mockery::on(function($event) use($subject) {
-                    $subject->event = $event;
-                    return true;
-                });
-
-                $reporter->shouldReceive('attach')->once()->with($attach);
-                $reporter->shouldReceive('onStop')->once()->with($onStop);
-
-                $this->subject = $subject;
-
-                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) use ($reporter) {
+                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
                     $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
                     $driver->shouldReceive('start')->once();
                     $driver->shouldReceive('stop')->once();
-                    $driver->shouldReceive('getResult')->once()->andReturn(array(
-                        'foo.php' => array( 1 => Line::EXECUTED )
-                    ));
                     $driver->shouldReceive('isStarted')->once()->andReturn(false);
                     $builder->driver($driver);
-                    $builder->reporter($reporter);
                 });
-
                 $this->analyzer->start();
                 $this->analyzer->stop();
             });
@@ -147,18 +120,11 @@ describe('Analyzer', function() {
             it('should return false', function() {
                 expect($this->analyzer->isStarted())->toBeFalse();
             });
-            it('should should notify the reporter that it has stopped', function() {
-                $event = $this->subject->event;
-                expect($event)->toBeAnInstanceOf('Zend\EventManager\EventInterface');
-            });
         });
     });
 
     describe('#getResult', function() {
         before(function() {
-            $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
-            $reporter->shouldReceive('attach')->once()->with(Mockery::any());
-
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) use ($reporter) {
                 $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
                 $driver->shouldReceive('start')->once();

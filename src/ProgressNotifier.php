@@ -16,13 +16,17 @@ use CodeAnalyzer\Result;
 use CodeAnalyzer\Reporter\ReporterInterface;
 use Zend\EventManager\EventManagerAwareTrait;
 
+//TODO setReporter / getReporter
 class ProgressNotifier implements ProgressNotifierInterface
 {
 
     use EventManagerAwareTrait;
 
-    public function __construct(ReporterInterface $reporter)
+    public function __construct(ReporterInterface $reporter = null)
     {
+        if ($reporter === null) { 
+            return;
+        }
         $reporter->attach( $this->getEventManager() );
     }
 
