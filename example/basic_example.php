@@ -11,7 +11,7 @@ use CodeAnalyzer\Result\File;
 
 use Example as example;
 
-Analyzer::configure(function(ConfigurationBuilder $builder) {
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
     $builder->includeFile(function(File $file) {
         return $file->matchPath('/example/src');
@@ -21,7 +21,6 @@ Analyzer::configure(function(ConfigurationBuilder $builder) {
 
 });
 
-$analyzer = new Analyzer();
 $analyzer->start();
 
 //I write code here want to take code coverage
@@ -29,12 +28,12 @@ example\example1();
 
 $analyzer->stop();
 
-$result = $analyzer->getResult()->getFiles();
+$files = $analyzer->getResult()->getFiles();
 
-foreach ($result as $file) {
-    $result = sprintf("%s > %0.2f%% (%d/%d)",
+foreach ($files as $file) {
+    $result = sprintf("%s > %6.2f%% (%d/%d)",
         $file->getPath(),
-        $file->getCodeCoverage(),
+        $file->getCodeCoverage()->valueOf(),
         $file->getExecutedLineCount(),
         $file->getExecutableLineCount()
     );

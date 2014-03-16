@@ -11,13 +11,29 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Configuration;
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Reporter\ReporterInterface;
 
 class ConfigurationBuilder
 {
 
+    private $driver = null;
+    private $reporter = null;
     private $includeFiles = array();
     private $excludeFiles = array();
+
+    public function driver(DriverInterface $driver)
+    {
+        $this->driver = $driver;
+        return $this;
+    }
+
+    public function reporter(ReporterInterface $reporter)
+    {
+        $this->reporter = $reporter;
+        return $this;
+    }
 
     public function includeFile(\Closure $filter)
     {
@@ -49,7 +65,10 @@ class ConfigurationBuilder
 
     public function build()
     {
+
         $values = array(
+            'driver' => $this->driver,
+            'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
             'excludeFiles' => $this->excludeFiles
         );

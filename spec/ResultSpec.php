@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\Line;
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Configuration;
-use PhpCollection\Sequence;
+use CodeAnalyzer\Result,
+    CodeAnalyzer\Result\Line,
+    CodeAnalyzer\Result\File,
+    CodeAnalyzer\Configuration,
+    PhpCollection\Sequence;
 
 describe('Result', function() {
 

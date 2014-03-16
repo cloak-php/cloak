@@ -1,10 +1,12 @@
 {
     "name": "shared-hat/code-analyzer",
     "description": "CodeAnalyzer is a library that takes a code coverage.",
-    "version": "1.0.0-alpha2",
+    "version": "1.0.0",
     "require": {
         "php": ">=5.4.0",
-        "phpcollection/phpcollection": "0.3.*"
+        "phpcollection/phpcollection": "0.3.*",
+        "kevinlebrun/colors.php": "0.*",
+        "zendframework/zend-eventmanager": "2.2.6"
     },
     "autoload": {
         "psr-4": { "CodeAnalyzer\\": "src/" }

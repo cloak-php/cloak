@@ -9,9 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\ConfigurationBuilder;
-
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\ConfigurationBuilder,
+    CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Reporter\TextReporter,
+    Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
 
@@ -57,15 +59,32 @@ describe('ConfigurationBuilder', function() {
             $this->filter2 = function(File $file){};
             $this->filter3 = function(File $file){};
             $this->filter4 = function(File $file){};
+            $this->reporter = new TextReporter();
+
+            $this->driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
 
             $this->builder = new ConfigurationBuilder(); 
-            $this->builder->includeFiles(array( $this->filter1, $this->filter2 ));
-            $this->builder->excludeFiles(array( $this->filter3, $this->filter4 ));
+            $this->builder->driver($this->driver)
+                ->reporter($this->reporter)
+                ->includeFiles(array( $this->filter1, $this->filter2 ))
+                ->excludeFiles(array( $this->filter3, $this->filter4 ));
 
             $this->returnValue = $this->builder->build();
         });
+        after(function() {
+            Mock::close();
+        });
+
         it('should return CodeAnalyzer\Configuration instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Configuration');
+        });
+        it('should apply driver configration', function() {
+            $driver = $this->returnValue->driver;
+            expect($driver)->toEqual($this->driver);
+        });
+        it('should apply reporter configration', function() {
+            $reporter = $this->returnValue->reporter;
+            expect($reporter)->toEqual($this->reporter);
         });
         it('should apply includeFiles configration', function() {
             $filters = $this->returnValue->includeFiles;

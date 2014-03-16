@@ -33,23 +33,22 @@ Run the **configure** method to be set up.
 
 	use Example as example;
 
-	Analyzer::configure(function(ConfigurationBuilder $builder) {
+	$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
 	    $builder->includeFile(function(File $file) {
-	        return $file->matchPath('/example/src');
-	    })
-	    ->excludeFile(function(File $file) {
-	        return $file->matchPath('/spec');
+    	    return $file->matchPath('/example/src');
+    	})->excludeFile(function(File $file) {
+        	return $file->matchPath('/spec');
 	    });
 
 	});
+
 
 ### Take the code coverage
 
 Run the start / stop at the place where want to take the code coverage.  
 After you can get the report, you need to run the **getResult** method.
 
-	$analyzer = new Analyzer();
 	$analyzer->start();
 
 	//I write code here want to take code coverage
@@ -62,7 +61,7 @@ After you can get the report, you need to run the **getResult** method.
 	foreach ($result as $file) {
 		$result = sprintf("%s > %0.2f%% (%d/%d)",
         	$file->getPath(),
-        	$file->getCodeCoverage(),
+        	$file->getCodeCoverage()->valueOf(),
         	$file->getExecutedLineCount(),
         	$file->getExecutableLineCount()
 		);
@@ -73,16 +72,14 @@ How to run the test
 ------------------------------------------------
 
 ### Run only unit test
-	composer install
+
 	vendor/bin/phake test:unit
 
 ### Run the code coverage display and unit test
 
-	composer install
 	vendor/bin/phake test:coverage
 
 How to run the example
 ------------------------------------------------
 
-	composer install
 	vendor/bin/phake example:basic
