@@ -24,6 +24,10 @@ trait ProvidesNotifier
 
     public function getNotifier()
     {
+        if ($this->notifier === null) {
+            $this->notifier = new Notifier();
+        }
+
         return $this->notifier;
     }
 
