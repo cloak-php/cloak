@@ -6,7 +6,6 @@ use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
 use CodeAnalyzer\Reporter\TextReporter;
-use Zend\EventManager\Event;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
