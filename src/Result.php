@@ -11,10 +11,10 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\Result\File;
-use PhpCollection\Sequence;
-use PhpCollection\AbstractSequence;
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\Result\File,
+    PhpCollection\Sequence,
+    PhpCollection\AbstractSequence;
 
 class Result
 {

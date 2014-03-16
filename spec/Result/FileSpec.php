@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Result\Line;
-use CodeAnalyzer\Result\Coverage;
-use PhpCollection\Sequence;
+use CodeAnalyzer\Result\File,
+    CodeAnalyzer\Result\Line,
+    CodeAnalyzer\Result\Coverage,
+    PhpCollection\Sequence;
 
 describe('File', function() {
 

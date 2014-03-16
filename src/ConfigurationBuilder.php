@@ -11,9 +11,9 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Reporter\ReporterInterface;
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Reporter\ReporterInterface;
 
 class ConfigurationBuilder
 {
