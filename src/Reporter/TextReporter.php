@@ -39,9 +39,7 @@ class TextReporter implements ReporterInterface
 
     public function onStop(EventInterface $event)
     {
-        $result = $event->getParam('result');
-
-        $files = $result->getFiles();
+        $files = $event->getResult()->getFiles();
         $files->map(function(File $file) {
             echo $this->reportFrom($file) . PHP_EOL;
         });
