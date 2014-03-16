@@ -8,7 +8,7 @@ CodeAnalyzer
 CodeAnalyzer is a library that takes a code coverage.  
 This library works with **PHP5.4 or more**.
 
-Required modules
+Requirements
 ------------------------------------------------
 * xdebug >= **2.2.2**
 
@@ -67,6 +67,12 @@ After you can get the report, you need to run the **getResult** method.
 		);
 		echo $result . "\n";
 	}
+
+Other documents
+------------------------------------------------
+
+1. [Using the reporter](docs/reporter.md)
+
 
 How to run the test
 ------------------------------------------------
