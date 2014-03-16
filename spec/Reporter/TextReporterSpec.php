@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\Line;
-use CodeAnalyzer\Reporter\TextReporter;
-use Colors\Color;
-use Zend\EventManager\Event;
+use CodeAnalyzer\Analyzer,
+    CodeAnalyzer\Event,
+    CodeAnalyzer\Result,
+    CodeAnalyzer\Result\Line,
+    CodeAnalyzer\Reporter\TextReporter,
+    Colors\Color;
 
 describe('TextReporter', function() {
 

@@ -11,11 +11,11 @@
 
 namespace CodeAnalyzer\Reporter;
 
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Result\Coverage;
-use Colors\Color;
-use Zend\EventManager\EventInterface;
+use CodeAnalyzer\Result,
+    CodeAnalyzer\Result\File,
+    CodeAnalyzer\Result\Coverage,
+    CodeAnalyzer\EventInterface,
+    Colors\Color;
 
 class TextReporter implements ReporterInterface
 {

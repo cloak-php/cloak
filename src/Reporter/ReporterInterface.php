@@ -11,8 +11,8 @@
 
 namespace CodeAnalyzer\Reporter;
 
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\EventInterface;
+use CodeAnalyzer\EventInterface,
+    Zend\EventManager\ListenerAggregateInterface;
 
 interface ReporterInterface extends ListenerAggregateInterface
 {

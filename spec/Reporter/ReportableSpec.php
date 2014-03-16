@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\EventManager;
-use CodeAnalyzer\Reporter\Reportable;
-use CodeAnalyzer\Reporter\ReporterInterface;
-use Mockery as Mock;
+use CodeAnalyzer\EventInterface,
+    CodeAnalyzer\Reporter\Reportable,
+    CodeAnalyzer\Reporter\ReporterInterface,
+    Zend\EventManager\EventManager,
+    Mockery as Mock;
 
 class CodeAnalyzerReporter implements ReporterInterface
 {
