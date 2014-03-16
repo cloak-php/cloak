@@ -11,21 +11,25 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Driver\XdebugDriver;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Configuration;
+use CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Driver\XdebugDriver,
+    CodeAnalyzer\ConfigurationBuilder,
+    CodeAnalyzer\Configuration,
+    CodeAnalyzer\Notifier,
+    CodeAnalyzer\NotifierAwareInterface,
+    CodeAnalyzer\ProvidesNotifier;
 
-
-class Analyzer
+class Analyzer implements NotifierAwareInterface
 {
+
+    use ProvidesNotifier;
 
     protected $configuration = null;
     protected $analyzeResult = null;
 
     public function __construct(Configuration $configuration)
     {
-        $this->configuration = $configuration;
+        $this->init($configuration);
     }
 
     public static function factory(\Closure $configurator)
@@ -45,6 +49,7 @@ class Analyzer
     public function stop()
     {
         $this->driver()->stop();
+        $this->getNotifier()->stop( $this->getResult() );
     }
 
     public function isStarted()
@@ -61,6 +66,12 @@ class Analyzer
     protected function driver()
     {
         return $this->configuration->driver;
+    }
+
+    protected function init(Configuration $configuration)
+    {
+        $this->configuration = $configuration;
+        $this->setNotifier( new Notifier($configuration->reporter) );
     }
 
 }

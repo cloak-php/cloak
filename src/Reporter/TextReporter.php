@@ -11,12 +11,16 @@
 
 namespace CodeAnalyzer\Reporter;
 
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Result\Coverage;
-use Colors\Color;
+use CodeAnalyzer\Result,
+    CodeAnalyzer\Result\File,
+    CodeAnalyzer\Result\Coverage,
+    CodeAnalyzer\EventInterface,
+    Colors\Color;
 
-class TextReporter {
+class TextReporter implements ReporterInterface
+{
+
+    use Reportable;
 
     const PAD_CHARACTER = '.';
     const PAD_CHARACTER_LENGTH = 70;
@@ -33,9 +37,9 @@ class TextReporter {
         $this->highLowerBound = new Coverage($highLowerBound);
     }
 
-    public function stop(Result $result)
+    public function onStop(EventInterface $event)
     {
-        $files = $result->getFiles();
+        $files = $event->getResult()->getFiles();
         $files->map(function(File $file) {
             echo $this->reportFrom($file) . PHP_EOL;
         });

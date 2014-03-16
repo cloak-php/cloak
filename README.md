@@ -61,7 +61,7 @@ After you can get the report, you need to run the **getResult** method.
 	foreach ($result as $file) {
 		$result = sprintf("%s > %0.2f%% (%d/%d)",
         	$file->getPath(),
-        	$file->getCodeCoverage(),
+        	$file->getCodeCoverage()->valueOf(),
         	$file->getExecutedLineCount(),
         	$file->getExecutableLineCount()
 		);

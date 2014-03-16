@@ -30,6 +30,9 @@ class File
         return $this->path;
     }
 
+    /**
+     * @param string $directoryPath
+     */
     public function getRelativePath($directoryPath)
     {
         $directory = realpath($directoryPath) . "/";

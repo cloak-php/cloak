@@ -29,6 +29,7 @@ $argv = array_merge($defaultArgv, array(
     'spec/Result/FileSpec.php',
     'spec/Result/LineSpec.php',
     'spec/Result/CoverageSpec.php',
+    'spec/Reporter/ReportableSpec.php',
     'spec/Reporter/TextReporterSpec.php',
     'spec/AnalyzerSpec.php'
 ));
@@ -47,7 +48,7 @@ $jobNumber = getenv('TRAVIS_JOB_NUMBER');
 $coveralls = array(
     'service_name' => 'travis-ci',
     'service_job_id' => strval($jobId) . '.' . strval($jobNumber),
-    'repo_token' => 'jesEbmJxLyHbB2Lnl1wvqkMK1TRH9qjHW',
+    'repo_token' => '8CFNrlGgXsDPPR8r03VnIXJl6cCVnDhcO',
     'source_files' => array()
 );
 

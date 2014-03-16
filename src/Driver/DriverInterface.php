@@ -14,12 +14,24 @@ namespace CodeAnalyzer\Driver;
 interface DriverInterface
 {
 
+    /**
+     * @return void
+     */
     public function start();
 
+    /**
+     * @return void
+     */
     public function stop();
 
+    /**
+     * @return boolean
+     */
     public function isStarted();
 
+    /**
+     * @return array
+     */
     public function getResult();
 
 }

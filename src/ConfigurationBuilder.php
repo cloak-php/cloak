@@ -11,9 +11,9 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Driver\XdebugDriver;
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Reporter\ReporterInterface;
 
 class ConfigurationBuilder
 {
@@ -29,8 +29,7 @@ class ConfigurationBuilder
         return $this;
     }
 
-    //FIXME type hinting
-    public function reporter($reporter)
+    public function reporter(ReporterInterface $reporter)
     {
         $this->reporter = $reporter;
         return $this;
@@ -66,10 +65,9 @@ class ConfigurationBuilder
 
     public function build()
     {
-        $driver = ($this->driver === null) ? new XdebugDriver() : $this->driver;
 
         $values = array(
-            'driver' => $driver,
+            'driver' => $this->driver,
             'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
             'excludeFiles' => $this->excludeFiles

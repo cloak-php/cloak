@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Reporter\TextReporter;
-use Mockery as Mock;
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\ConfigurationBuilder,
+    CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Reporter\TextReporter,
+    Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
 

@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Result;
-use CodeAnalyzer\Result\File;
+use CodeAnalyzer\Configuration,
+    CodeAnalyzer\ConfigurationBuilder,
+    CodeAnalyzer\Result,
+    CodeAnalyzer\Result\File;
 
 describe('Configuration', function() {
 

@@ -11,7 +11,8 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Result;
+use CodeAnalyzer\Result,
+    CodeAnalyzer\Driver\XdebugDriver;
 
 class Configuration
 {
@@ -31,6 +32,14 @@ class Configuration
         }
     }
 
+    protected function getDriver()
+    {
+        if ($this->driver === null) {
+            $this->driver = new XdebugDriver();
+        }
+        return $this->driver;
+    }
+
     public function apply(Result $result)
     {
 
@@ -41,6 +50,11 @@ class Configuration
 
     public function __get($name)
     {
+        $getter = 'get' . ucwords($name);
+
+        if (method_exists($this, $getter) === true) {
+            return $this->$getter();
+        }
         return $this->$name;
     }
 
