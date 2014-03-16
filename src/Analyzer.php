@@ -11,21 +11,17 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Driver\XdebugDriver;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Configuration;
-use CodeAnalyzer\ProgressNotifier;
-use CodeAnalyzer\ProgressNotifierAwareInterface;
-use CodeAnalyzer\ProvidesProgressNotifier;
+use CodeAnalyzer\Driver\DriverInterface,
+    CodeAnalyzer\Driver\XdebugDriver,
+    CodeAnalyzer\ConfigurationBuilder,
+    CodeAnalyzer\Configuration,
+    CodeAnalyzer\ProgressNotifier,
+    CodeAnalyzer\ProgressNotifierAwareInterface,
+    CodeAnalyzer\ProvidesProgressNotifier;
 
-use Zend\EventManager\EventManagerAwareTrait;
-use Zend\EventManager\EventManagerAwareInterface;
-
-class Analyzer implements EventManagerAwareInterface, ProgressNotifierAwareInterface
+class Analyzer implements ProgressNotifierAwareInterface
 {
 
-    use EventManagerAwareTrait;
     use ProvidesProgressNotifier;
 
     protected $configuration = null;
