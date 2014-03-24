@@ -36,6 +36,7 @@ describe('Line', function() {
         });
         it('should link to file', function() {
             expect($this->linkLine->getFile())->toEqual($this->file);
+            expect($this->linkLine->isFileAssociated())->toBeTrue();
         });
     });
 
@@ -47,6 +48,7 @@ describe('Line', function() {
         });
         it('should link to file', function() {
             expect($this->linkLine->getFile())->toBeNull();
+            expect($this->linkLine->isFileAssociated())->toBeFalse();
         });
     });
 
