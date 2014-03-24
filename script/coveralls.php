@@ -63,13 +63,18 @@ foreach ($result as $file) {
 
     $coverageLines = $file->getLines();
     foreach ($coverageLines as $line) {
-        if ($line->isExecuted() === false) {
-            continue;
-        }
         if ($line <= 0 || $line > $lineCount) {
             continue;
         }
-        $lineResults[$line->getLineNumber() - 1] = 1;
+
+        $result = null;
+
+        if ($line->isExecuted() === false) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+        $lineResults[$line->getLineNumber() - 1] = $result;
     }
     $sourceFiles[] = array(
         'name' => $file->getRelativePath(getcwd()),
