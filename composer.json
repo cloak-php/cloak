@@ -1,16 +1,23 @@
 {
     "name": "shared-hat/code-analyzer",
+    "keywords": [ "code coverage", "simple" ],
     "description": "CodeAnalyzer is a library that takes a code coverage.",
-    "version": "1.0.0-alpha1",
+    "version": "1.0.0",
     "require": {
         "php": ">=5.4.0",
-        "phpcollection/phpcollection": "0.3.*"
+        "phpcollection/phpcollection": "0.3.*",
+        "kevinlebrun/colors.php": "0.*",
+        "zendframework/zend-eventmanager": "2.3.0"
     },
     "autoload": {
-        "psr-0": { "CodeAnalyzer": "src/" }
+        "psr-4": { "CodeAnalyzer\\": "src/" }
     },
     "require-dev": {
-        "danielstjules/pho": "1.0.*"
+        "danielstjules/pho": "1.0.*",
+        "jaz303/phake": "0.6.0",
+        "guzzle/guzzle": "3.8.*",
+        "gitonomy/gitlib": "0.1.*",
+        "mockery/mockery": "dev-master"
     },
     "license": "MIT",
     "authors": [

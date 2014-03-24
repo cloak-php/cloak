@@ -1,10 +1,29 @@
 <?php
 
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Result\Line;
-use PhpCollection\Sequence;
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+use CodeAnalyzer\Result\File,
+    CodeAnalyzer\Result\Line,
+    CodeAnalyzer\Result\Coverage,
+    PhpCollection\Sequence;
 
 describe('File', function() {
+
+    describe('#getRelativePath', function() {
+        before(function() {
+            $this->file = new File(__FILE__);
+        });
+        it('should return relative path', function() {
+            expect($this->file->getRelativePath(__DIR__))->toEqual('FileSpec.php');
+        });
+    });
 
     describe('#getLines', function() {
         before(function() {
@@ -48,17 +67,17 @@ describe('File', function() {
 
     describe('#matchPath', function() {
         before(function() {
-            $this->file = new File('foo.php');
+            $this->file = new File('/foo/foo.php');
         });
         context('when included in the path', function() {
             it('should return true', function() {
-                $result = $this->file->matchPath('foo');
+                $result = $this->file->matchPath('/foo');
                 expect($result)->toBeTrue();
             });
         });
         context('when not included in the path', function() {
             it('should return false', function() {
-                $result = $this->file->matchPath('bar');
+                $result = $this->file->matchPath('/bar');
                 expect($result)->toBeFalse();
             });
         });
@@ -132,8 +151,48 @@ describe('File', function() {
             $this->file->addLine( new Line(1, Line::UNUSED) );
             $this->file->addLine( new Line(1, Line::EXECUTED) );
         });
-        it('should return The value of code coverage', function() {
-            expect($this->file->getCodeCoverage())->toBe(50.00);
+        it('should return the value of code coverage', function() {
+            expect($this->file->getCodeCoverage()->valueOf())->toBe(50.00);
+        });
+    });
+
+    describe('#isCoverageLessThan', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->file->addLine( new Line(1, Line::UNUSED) );
+            $this->file->addLine( new Line(1, Line::EXECUTED) );
+        });
+        context('when less than 51% of coverage', function() {
+            it('should return true', function() {
+                $coverage = new Coverage(51);
+                expect($this->file->isCoverageLessThan($coverage))->toBeTrue();
+            });
+        });
+        context('when greater than 50% of coverage', function() {
+            it('should return false', function() {
+                $coverage = new Coverage(50);
+                expect($this->file->isCoverageLessThan($coverage))->toBeFalse();
+            });
+        });
+    });
+
+    describe('#isCoverageGreaterEqual', function() {
+        before(function() {
+            $this->file = new File('foo.php');
+            $this->file->addLine( new Line(1, Line::UNUSED) );
+            $this->file->addLine( new Line(1, Line::EXECUTED) );
+        });
+        context('when less than 51% of coverage', function() {
+            it('should return false', function() {
+                $coverage = new Coverage(51);
+                expect($this->file->isCoverageGreaterEqual($coverage))->toBeFalse();
+            });
+        });
+        context('when greater than 50% of coverage', function() {
+            it('should return true', function() {
+                $coverage = new Coverage(50);
+                expect($this->file->isCoverageGreaterEqual($coverage))->toBeTrue();
+            });
         });
     });
 

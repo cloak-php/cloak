@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of CodeAnalyzer.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace CodeAnalyzer\Result;
 
 use \PhpCollection\Sequence;
@@ -10,7 +19,7 @@ class File
     private $path = null;
     private $lines = null;
 
-    public function __construct($path, array $lines)
+    public function __construct($path, array $lines = array())
     {
         $this->path = $path;
         $this->lines = $this->createLines($lines);
@@ -21,9 +30,20 @@ class File
         return $this->path;
     }
 
+    /**
+     * @param string $directoryPath
+     */
+    public function getRelativePath($directoryPath)
+    {
+        $directory = realpath($directoryPath) . "/";
+
+        return str_replace($directory, "", $this->getPath());
+    }
+
     public function matchPath($value)
     {
-        $result = preg_match("/" . $value . "/", $this->getPath());
+        $pathPattern = preg_quote($value, '/');
+        $result = preg_match("/" . $pathPattern . "/", $this->getPath());
 
         return ($result === 0) ? false : true;
     }
@@ -98,11 +118,29 @@ class File
     }
 
     /**
-     * @return double The value of code coverage
+     * @return Coverage The value of code coverage
      */
     public function getCodeCoverage()
     {
-        return $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+        $value = (float) $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+
+        return new Coverage($value);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCoverageLessThan(Coverage $coverage)
+    {
+        return $this->getCodeCoverage()->lessThan($coverage);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCoverageGreaterEqual(Coverage $coverage)
+    {
+        return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
     protected function createLines(array $lineResults)

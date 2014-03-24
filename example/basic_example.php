@@ -5,25 +5,22 @@ namespace Example;
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/src/functions.php";
 
-use CodeAnalyzer\CodeAnalyzer;
-use CodeAnalyzer\Configuration;
+use CodeAnalyzer\Analyzer;
+use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
 
 use Example as example;
 
-CodeAnalyzer::configure(function(Configuration $configuration) {
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-    $configuration->collect(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE)
-        ->includeFile(function(File $file) {
-            return $file->matchPath('\/example\/src');
-        })
-        ->excludeFile(function(File $file) {
-            return $file->matchPath('\/spec');
-        });
+    $builder->includeFile(function(File $file) {
+        return $file->matchPath('/example/src');
+    })->excludeFile(function(File $file) {
+        return $file->matchPath('/spec');
+    });
 
 });
 
-$analyzer = new CodeAnalyzer();
 $analyzer->start();
 
 //I write code here want to take code coverage
@@ -31,12 +28,12 @@ example\example1();
 
 $analyzer->stop();
 
-$result = $analyzer->getResult();
+$files = $analyzer->getResult()->getFiles();
 
-foreach ($result as $file) {
-    $result = sprintf("%s > %0.2f%% (%d/%d)",
+foreach ($files as $file) {
+    $result = sprintf("%s > %6.2f%% (%d/%d)",
         $file->getPath(),
-        $file->getCodeCoverage(),
+        $file->getCodeCoverage()->valueOf(),
         $file->getExecutedLineCount(),
         $file->getExecutableLineCount()
     );
