@@ -12,6 +12,26 @@ Requirements
 ------------------------------------------------
 * xdebug >= **2.2.2**
 
+Installation
+------------------------------------------------
+
+### Composer setting
+
+CodeAnalyzer can be installed using [Composer](https://getcomposer.org/).  
+Please add a description to the **composer.json** in the configuration file.
+
+	{
+		"require-dev": {
+			"holyshared/code-analyzer": "1.0.0"
+		}
+	}
+
+### Install CodeAnalyzer
+
+Please execute **composer update** command.
+
+	composer update
+
 How to use
 ------------------------------------------------
 
