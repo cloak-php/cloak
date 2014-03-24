@@ -24,12 +24,14 @@ $defaultArgv = array('../vendor/bin/pho', '--reporter', 'spec');
 
 $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
+    'spec/ConfigurationBuilderSpec.php',
     'spec/ResultSpec.php',
     'spec/Result/FileSpec.php',
     'spec/Result/LineSpec.php',
     'spec/Result/CoverageSpec.php',
     'spec/Reporter/ReportableSpec.php',
     'spec/Reporter/TextReporterSpec.php',
+    'spec/ProgressNotifierSpec.php',
     'spec/AnalyzerSpec.php'
 ));
 
