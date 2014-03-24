@@ -58,17 +58,21 @@ foreach ($result as $file) {
     $source = trim(file_get_contents($file->getPath()));
 
     $lines = explode("\n", $source);
-    $lineResults = array_pad(array(), count($lines), null);
+    $lineCount = count($lines);
+    $lineResults = array_pad(array(), $lineCount, null);
 
     $coverageLines = $file->getLines();
     foreach ($coverageLines as $line) {
         if ($line->isExecuted() === false) {
             continue;
         }
+        if ($line <= 0 || $line > $lineCount) {
+            continue;
+        }
         $lineResults[$line->getLineNumber() - 1] = 1;
     }
     $sourceFiles[] = array(
-        'name' => $file->getPath(),
+        'name' => $file->getRelativePath(getcwd()),
         'source' => $source,
         'coverage' => array_values($lineResults),
     );
