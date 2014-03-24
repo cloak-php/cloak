@@ -63,7 +63,7 @@ foreach ($result as $file) {
 
     $coverageLines = $file->getLines();
     foreach ($coverageLines as $line) {
-        if ($line <= 0 || $line > $lineCount) {
+        if ($line->getLineNumber() <= 0 || $line->getLineNumber() > $lineCount) {
             continue;
         }
 
