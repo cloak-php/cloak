@@ -69,9 +69,9 @@ foreach ($result as $file) {
 
         $result = null;
 
-        if ($line->isExecuted() === false) {
+        if ($line->isExecuted()) {
             $result = 1;
-        } else {
+        } else if ($line->isUnused()) {
             $result = 0;
         }
         $lineResults[$line->getLineNumber() - 1] = $result;
