@@ -51,21 +51,24 @@ describe('Result', function() {
 
     describe('#includeFile', function() {
         before(function() {
+            $rootDirectory = __DIR__ . '/fixtures/src/';
+            $coverageResults = [
+                $rootDirectory . 'foo.php' => [
+                    1 => Line::EXECUTED,
+                    2 => Line::UNUSED,
+                    3 => Line::DEAD
+                ],
+                $rootDirectory . 'bar.php' => [
+                    1 => Line::EXECUTED,
+                    2 => Line::UNUSED,
+                    3 => Line::DEAD
+                ]
+            ];
 
-            $this->result = Result::from(array(
-                'example1.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                ),
-                'example2.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                )
-            ));
+            $this->result = Result::from($coverageResults);
+
             $this->returnValue = $this->result->includeFile(function(File $file) {
-                return $file->getPath() === 'example2.php';
+                return $file->matchPath('bar.php');
             });
         });
         it('should return CodeAnalyzer\Result instance', function() {
@@ -74,7 +77,7 @@ describe('Result', function() {
         it('should include only those that match element', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->getPath())->toEqual('example2.php');
+            expect($files->last()->get()->matchPath('bar.php'))->toBeTrue();
         });
     });
 
