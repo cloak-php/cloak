@@ -34,13 +34,20 @@ describe('Result', function() {
     describe('#parseResult', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [
-            $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ]
+            $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $rootDirectory . 'not_found.php' => [ 1 => Line::EXECUTED ]
         ];
 
         $this->returnValue = Result::parseResult($coverageResults);
 
         it('should return PhpCollection\Sequence instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
+        });
+
+        context('when a file that does not exist is included', function() {
+            it('should not included in the result', function() {
+                expect($this->returnValue->count())->toBe(1);
+            });
         });
     });
 
