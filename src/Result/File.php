@@ -20,11 +20,11 @@ class File
     private $lineCount = null;
     private $lines = null;
 
-    public function __construct($path, array $lines = array())
+    public function __construct($path, array $lineResults = [])
     {
         $this->path = $path;
         $this->resolveLineRange();
-        $this->resolveLineCoverages($lines);
+        $this->resolveLineCoverages($lineResults);
     }
 
     public function getPath()
