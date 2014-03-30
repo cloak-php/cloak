@@ -17,12 +17,14 @@ class File
 {
 
     private $path = null;
+    private $lineCount = null;
     private $lines = null;
 
     public function __construct($path, array $lines = array())
     {
         $this->path = $path;
-        $this->lines = $this->createLines($lines);
+        $this->resolveLineRange();
+        $this->resolveLineCoverages($lines);
     }
 
     public function getPath()
@@ -46,6 +48,22 @@ class File
         $result = preg_match("/" . $pathPattern . "/", $this->getPath());
 
         return ($result === 0) ? false : true;
+    }
+
+    protected function resolveLineRange()
+    {
+        $content = file_get_contents($this->getPath());
+        $lineContents = explode(PHP_EOL, trim($content));
+        $lineCount = count($lineContents);
+
+        unset($content, $lineContents);
+
+        $this->lineCount = $lineCount;
+    }
+
+    public function getLineCount()
+    {
+        return $this->lineCount;
     }
 
     public function getLines()
@@ -143,16 +161,19 @@ class File
         return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
-    protected function createLines(array $lineResults)
+    protected function resolveLineCoverages(array $lineResults)
     {
 
         $results = array(); 
 
         foreach ($lineResults as $lineNumber => $analyzeResult) {
+            if ($lineNumber <= 0 || $lineNumber > $this->getLineCount()) {
+                continue;
+            }
             $results[] = new Line($lineNumber, $analyzeResult, $this);
         }
 
-        return new Sequence($results);
+        $this->lines = new Sequence($results);
     }
 
 }
