@@ -126,15 +126,19 @@ describe('Analyzer', function() {
     describe('#getResult', function() {
         before(function() {
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) use ($reporter) {
+                $rootDirectory = __DIR__ . '/fixtures/src/';
+
+                $coverageResults = [
+                    $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED ),
+                    $rootDirectory . 'bar.php' => array( 1 => Line::EXECUTED ),
+                    $rootDirectory . 'vendor/foo1.php' => array( 1 => Line::EXECUTED ),
+                    $rootDirectory . 'vendor/foo2.php' => array( 1 => Line::EXECUTED )
+                ];
+
                 $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getResult')->once()->andReturn(array(
-                    'src/foo.php' => array( 1 => Line::EXECUTED ),
-                    'src/bar.php' => array( 1 => Line::EXECUTED ),
-                    'src/vendor/foo1.php' => array( 1 => Line::EXECUTED ),
-                    'src/vendor/foo2.php' => array( 1 => Line::EXECUTED )
-                ));
+                $driver->shouldReceive('getResult')->once()->andReturn($coverageResults);
 
                 $builder->driver($driver)
                     ->includeFile(function(File $file) {
