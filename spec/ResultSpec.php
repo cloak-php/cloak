@@ -112,20 +112,17 @@ describe('Result', function() {
 
     describe('#excludeFile', function() {
         before(function() {
-            $this->result = Result::from(array(
-                'example1.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                ),
-                'example2.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                )
-            ));
+            $rootDirectory = __DIR__ . '/fixtures/src/';
+
+            $coverageResults = [
+                $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+                $rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            ];
+
+            $this->result = Result::from($coverageResults);
+
             $this->returnValue = $this->result->excludeFile(function(File $file) {
-                return $file->getPath() === 'example2.php';
+                return $file->matchPath('foo.php');
             });
         });
         it('should return CodeAnalyzer\Result instance', function() {
@@ -134,7 +131,7 @@ describe('Result', function() {
         it('should exclude only those that match element', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->getPath())->toEqual('example1.php');
+            expect($files->last()->get()->matchPath('bar.php'))->toBeTrue();
         });
     });
 
