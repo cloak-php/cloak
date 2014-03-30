@@ -17,12 +17,12 @@ use CodeAnalyzer\Result,
 
 describe('Result', function() {
 
+    $this->rootDirectory = __DIR__ . '/fixtures/src/';
     $this->returnValue = null;
 
     describe('#from', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [
-            $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ]
         ];
         $this->returnValue = Result::from($coverageResults);
 
@@ -32,10 +32,9 @@ describe('Result', function() {
     });
 
     describe('#parseResult', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [
-            $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
-            $rootDirectory . 'not_found.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'not_found.php' => [ 1 => Line::EXECUTED ]
         ];
 
         $this->returnValue = Result::parseResult($coverageResults);
@@ -52,14 +51,13 @@ describe('Result', function() {
     });
 
     describe('#includeFile', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [
-            $rootDirectory . 'foo.php' => [
+            $this->rootDirectory . 'foo.php' => [
                 1 => Line::EXECUTED,
                 2 => Line::UNUSED,
                 3 => Line::DEAD
             ],
-            $rootDirectory . 'bar.php' => [
+            $this->rootDirectory . 'bar.php' => [
                 1 => Line::EXECUTED,
                 2 => Line::UNUSED,
                 3 => Line::DEAD
@@ -82,12 +80,10 @@ describe('Result', function() {
     });
 
     describe('#includeFiles', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
-
         $coverageResults = [
-            $rootDirectory . 'foo1.php' => [ 1 => Line::EXECUTED ],
-            $rootDirectory . 'vendor/foo1.php' => [ 1 => Line::EXECUTED ],
-            $rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo1.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'vendor/foo1.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
         $this->result = Result::from($coverageResults);
@@ -109,11 +105,9 @@ describe('Result', function() {
     });
 
     describe('#excludeFile', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
-
         $coverageResults = [
-            $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
-            $rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
         $this->result = Result::from($coverageResults);
@@ -133,11 +127,9 @@ describe('Result', function() {
     });
 
     describe('#excludeFiles', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
-
         $coverageResults = [
-            $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
-            $rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
         $this->result = Result::from($coverageResults);
@@ -173,8 +165,7 @@ describe('Result', function() {
     });
 
     describe('#addFile', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
-        $file = $rootDirectory . 'foo.php';
+        $file = $this->rootDirectory . 'foo.php';
 
         $this->result = new Result();
         $this->file = new File($file);
@@ -190,8 +181,7 @@ describe('Result', function() {
     });
 
     describe('#removeFile', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
-        $file = $rootDirectory . 'foo.php';
+        $file = $this->rootDirectory . 'foo.php';
 
         $this->result = new Result();
         $this->file = new File($file);
