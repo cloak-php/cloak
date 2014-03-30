@@ -137,15 +137,20 @@ describe('Result', function() {
 
     describe('#excludeFiles', function() {
         before(function() {
-            $this->result = Result::from(array(
-                'example1.php' => array( 1 => Line::EXECUTED ),
-                'example2.php' => array( 1 => Line::EXECUTED )
-            ));
+            $rootDirectory = __DIR__ . '/fixtures/src/';
+
+            $coverageResults = [
+                $rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+                $rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            ];
+
+            $this->result = Result::from($coverageResults);
+
             $filter1 = function(File $file) {
-                return $file->getPath() === 'example1.php';
+                return $file->matchPath('foo.php');
             };
             $filter2 = function(File $file) {
-                return $file->getPath() === 'example2.php';
+                return $file->matchPath('bar.php');
             };
             $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
         });
