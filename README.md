@@ -23,7 +23,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"holyshared/code-analyzer": "1.0.0"
+			"holyshared/code-analyzer": "1.0.2"
 		}
 	}
 
