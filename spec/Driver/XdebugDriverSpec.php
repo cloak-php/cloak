@@ -14,8 +14,9 @@ use CodeAnalyzer\Driver\XdebugDriver;
 describe('XdebugDriver', function() {
 
     describe('#start', function() {
+        $this->driver = new XdebugDriver();
+
         before(function() {
-            $this->driver = new XdebugDriver();
             $this->driver->start();
         });
         it('should analyze start', function() {
@@ -25,8 +26,9 @@ describe('XdebugDriver', function() {
     });
 
     describe('#stop', function() {
+        $this->driver = new XdebugDriver();
+
         before(function() {
-            $this->driver = new XdebugDriver();
             $this->driver->start();
             $this->driver->stop();
         });

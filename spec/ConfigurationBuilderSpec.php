@@ -18,14 +18,12 @@ use CodeAnalyzer\Configuration,
 describe('ConfigurationBuilder', function() {
 
     describe('#includeFiles', function() {
-        before(function() {
-            $filter1 = function(File $file){};
-            $filter2 = function(File $file){};
-            $this->builder = new ConfigurationBuilder(); 
-            $this->returnValue = $this->builder->includeFiles(array(
-                $filter1, $filter2
-            ));
-        });
+        $this->filter1 = function(File $file){};
+        $this->filter2 = function(File $file){};
+        $this->builder = new ConfigurationBuilder(); 
+        $this->returnValue = $this->builder->includeFiles([
+            $this->filter1, $this->filter2
+        ]);
         it('should add filters', function() {
             $filters = $this->builder->includeFiles;
             expect(count($filters))->toBe(2);
@@ -36,14 +34,13 @@ describe('ConfigurationBuilder', function() {
     });
 
     describe('#excludeFiles', function() {
-        before(function() {
-            $filter1 = function(File $file){};
-            $filter2 = function(File $file){};
-            $this->builder = new ConfigurationBuilder(); 
-            $this->returnValue = $this->builder->excludeFiles(array(
-                $filter1, $filter2
-            ));
-        });
+        $this->filter1 = function(File $file){};
+        $this->filter2 = function(File $file){};
+        $this->builder = new ConfigurationBuilder(); 
+        $this->returnValue = $this->builder->excludeFiles([
+            $this->filter1, $this->filter2
+        ]);
+
         it('should add filters', function() {
             $filters = $this->builder->excludeFiles;
             expect(count($filters))->toBe(2);
@@ -54,23 +51,22 @@ describe('ConfigurationBuilder', function() {
     });
 
     describe('#build', function() {
-        before(function() {
-            $this->filter1 = function(File $file){};
-            $this->filter2 = function(File $file){};
-            $this->filter3 = function(File $file){};
-            $this->filter4 = function(File $file){};
-            $this->reporter = new TextReporter();
+        $this->filter1 = function(File $file){};
+        $this->filter2 = function(File $file){};
+        $this->filter3 = function(File $file){};
+        $this->filter4 = function(File $file){};
+        $this->reporter = new TextReporter();
 
-            $this->driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+        $this->driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
 
-            $this->builder = new ConfigurationBuilder(); 
-            $this->builder->driver($this->driver)
-                ->reporter($this->reporter)
-                ->includeFiles(array( $this->filter1, $this->filter2 ))
-                ->excludeFiles(array( $this->filter3, $this->filter4 ));
+        $this->builder = new ConfigurationBuilder(); 
+        $this->builder->driver($this->driver)
+            ->reporter($this->reporter)
+            ->includeFiles(array( $this->filter1, $this->filter2 ))
+            ->excludeFiles(array( $this->filter3, $this->filter4 ));
 
-            $this->returnValue = $this->builder->build();
-        });
+        $this->returnValue = $this->builder->build();
+
         after(function() {
             Mock::close();
         });

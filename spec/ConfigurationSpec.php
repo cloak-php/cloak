@@ -17,29 +17,31 @@ use CodeAnalyzer\Configuration,
 describe('Configuration', function() {
 
     describe('#apply', function() {
-        before(function() {
-            $filter1 = function(File $file) {
-                return $file->matchPath('test');
-            };
-            $filter2 = function(File $file) {
-                return $file->matchPath('test2');
-            };
-            $this->result = new Result();
-            $this->result->addFile(new File('test1.php'));
-            $this->result->addFile(new File('test2.php'));
-            $this->result->addFile(new File('example3.php'));
+        $filter1 = function(File $file) {
+            return $file->matchPath('foo');
+        };
+        $filter2 = function(File $file) {
+            return $file->matchPath('vendor/foo1.php');
+        };
 
-            $builder = new ConfigurationBuilder();
-            $this->configuration = $builder->includeFile($filter1)
-                ->excludeFile($filter2)
-                ->build();
+        $rootDirectory = __DIR__ . '/fixtures/src/';
 
-            $this->returnValue = $this->configuration->apply($this->result);
-        });
+        $this->result = new Result();
+        $this->result->addFile(new File($rootDirectory . 'foo.php'));
+        $this->result->addFile(new File($rootDirectory . 'bar.php'));
+        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php'));
+
+        $builder = new ConfigurationBuilder();
+        $this->configuration = $builder->includeFile($filter1)
+            ->excludeFile($filter2)
+            ->build();
+
+        $this->returnValue = $this->configuration->apply($this->result);
+
         it('should apply configuration', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->getPath())->toEqual('test1.php');
+            expect($files->last()->get()->matchPath('/foo.php'))->toBeTrue();
         });
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
