@@ -20,7 +20,7 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
 $analyzer->start();
 
-$defaultArgv = array('../vendor/bin/pho', '--reporter', 'spec');
+$defaultArgv = array('../vendor/bin/pho');
 
 $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
