@@ -83,16 +83,21 @@ describe('Result', function() {
 
     describe('#includeFiles', function() {
         before(function() {
-            $this->result = Result::from(array(
-                'src/example1.php' => array( 1 => Line::EXECUTED ),
-                'src/foo/example1.php' => array( 1 => Line::EXECUTED ),
-                'example2.php' => array( 1 => Line::EXECUTED )
-            ));
+            $rootDirectory = __DIR__ . '/fixtures/src/';
+
+            $coverageResults = [
+                $rootDirectory . 'foo1.php' => [ 1 => Line::EXECUTED ],
+                $rootDirectory . 'vendor/foo1.php' => [ 1 => Line::EXECUTED ],
+                $rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            ];
+
+            $this->result = Result::from($coverageResults);
+
             $filter1 = function(File $file) {
-                return $file->matchPath('example1.php');
+                return $file->matchPath('foo1.php');
             };
             $filter2 = function(File $file) {
-                return $file->matchPath('/foo');
+                return $file->matchPath('/vendor');
             };
             $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
         });
