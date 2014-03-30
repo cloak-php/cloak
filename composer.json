@@ -16,8 +16,6 @@
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.0",
         "holyshared/coverallskit": "1.1.*",
-        "guzzle/guzzle": "3.8.*",
-        "gitonomy/gitlib": "0.1.*",
         "mockery/mockery": "dev-master"
     },
     "license": "MIT",
