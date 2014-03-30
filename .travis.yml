@@ -6,7 +6,7 @@ before_install:
   - composer self-update
   - composer install
 script:
-  - ./vendor/bin/pho --reporter spec
+  - ./vendor/bin/pho
 env:
   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=8CFNrlGgXsDPPR8r03VnIXJl6cCVnDhcO
 after_script: php script/coveralls.php
