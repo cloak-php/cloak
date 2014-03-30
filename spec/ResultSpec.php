@@ -173,8 +173,11 @@ describe('Result', function() {
     });
 
     describe('#addFile', function() {
+        $rootDirectory = __DIR__ . '/fixtures/src/';
+        $file = $rootDirectory . 'foo.php';
+
         $this->result = new Result();
-        $this->file = new File('test.php');
+        $this->file = new File($file);
         $this->returnValue = $this->result->addFile($this->file);
 
         it('should add file', function() {
@@ -187,8 +190,11 @@ describe('Result', function() {
     });
 
     describe('#removeFile', function() {
+        $rootDirectory = __DIR__ . '/fixtures/src/';
+        $file = $rootDirectory . 'foo.php';
+
         $this->result = new Result();
-        $this->file = new File('test.php');
+        $this->file = new File($file);
         $this->result->addFile($this->file);
         $this->returnValue = $this->result->removeFile($this->file);
 
