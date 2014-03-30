@@ -29,11 +29,11 @@ class CodeAnalyzerReporter implements ReporterInterface
 describe('Reportable', function() {
 
     describe('#attach', function() {
-        before(function() {
-            $this->reporter = Mock::mock('CodeAnalyzerReporter');
-            $this->reporter->makePartial();
-            $this->reporter->shouldReceive('onStop')->once();
+        $this->reporter = Mock::mock('CodeAnalyzerReporter');
+        $this->reporter->makePartial();
+        $this->reporter->shouldReceive('onStop')->once();
 
+        before(function() {
             $this->eventManager = new EventManager();
             $this->eventManager->attach($this->reporter);
         });
@@ -47,11 +47,11 @@ describe('Reportable', function() {
     });
 
     describe('#detach', function() {
-        before(function() {
-            $this->reporter = Mock::mock('CodeAnalyzerReporter');
-            $this->reporter->makePartial();
-            $this->reporter->shouldReceive('onStop')->once();
+        $this->reporter = Mock::mock('CodeAnalyzerReporter');
+        $this->reporter->makePartial();
+        $this->reporter->shouldReceive('onStop')->once();
 
+        before(function() {
             $this->eventManager = new EventManager();
             $this->eventManager->attach($this->reporter);
             $this->eventManager->detach($this->reporter);
