@@ -14,12 +14,10 @@ use CodeAnalyzer\Result\Line,
 
 describe('Line', function() {
 
-    before(function() {
-        $this->file = new File('some.php');
-        $this->deadLine = new Line(1, Line::DEAD, $this->file);
-        $this->unusedLine = new Line(1, Line::UNUSED, $this->file);
-        $this->executedLine = new Line(1, Line::EXECUTED, $this->file);
-    });
+    $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+    $this->deadLine = new Line(1, Line::DEAD, $this->file);
+    $this->unusedLine = new Line(1, Line::UNUSED, $this->file);
+    $this->executedLine = new Line(1, Line::EXECUTED, $this->file);
 
     describe('#getAnalyzeResult', function() {
         it('should return result status', function() {
@@ -30,8 +28,9 @@ describe('Line', function() {
     });
 
     describe('#link', function() {
+        $this->linkLine = new Line(5, Line::EXECUTED);
+
         before(function() {
-            $this->linkLine = new Line(5, Line::EXECUTED);
             $this->linkLine->link($this->file);
         });
         it('should link to file', function() {
@@ -41,8 +40,9 @@ describe('Line', function() {
     });
 
     describe('#unlink', function() {
+        $this->linkLine = new Line(5, Line::EXECUTED);
+
         before(function() {
-            $this->linkLine = new Line(5, Line::EXECUTED);
             $this->linkLine->link($this->file);
             $this->linkLine->unlink();
         });
@@ -109,11 +109,10 @@ describe('Line', function() {
     });
 
     describe('#isValid', function() {
-        before(function() {
-            $this->validLine = new Line(1, Line::EXECUTED);
-            $this->lineNumberInvalidLine = new Line(0, Line::EXECUTED);
-            $this->statusInvalidLine = new Line(1, 99);
-        });
+        $this->validLine = new Line(1, Line::EXECUTED);
+        $this->lineNumberInvalidLine = new Line(0, Line::EXECUTED);
+        $this->statusInvalidLine = new Line(1, 99);
+
         context('when an valid line result', function() {
             it('should return true', function() {
                 expect($this->validLine->isValid())->toBeTrue();
