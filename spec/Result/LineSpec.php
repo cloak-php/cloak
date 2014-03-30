@@ -21,6 +21,14 @@ describe('Line', function() {
         $this->executedLine = new Line(1, Line::EXECUTED, $this->file);
     });
 
+    describe('#getAnalyzeResult', function() {
+        it('should return result status', function() {
+            expect($this->deadLine->getAnalyzeResult())->toEqual(Line::DEAD);
+            expect($this->unusedLine->getAnalyzeResult())->toEqual(Line::UNUSED);
+            expect($this->executedLine->getAnalyzeResult())->toEqual(Line::EXECUTED);
+        });
+    });
+
     describe('#link', function() {
         before(function() {
             $this->linkLine = new Line(5, Line::EXECUTED);
@@ -28,6 +36,7 @@ describe('Line', function() {
         });
         it('should link to file', function() {
             expect($this->linkLine->getFile())->toEqual($this->file);
+            expect($this->linkLine->isFileAssociated())->toBeTrue();
         });
     });
 
@@ -39,6 +48,7 @@ describe('Line', function() {
         });
         it('should link to file', function() {
             expect($this->linkLine->getFile())->toBeNull();
+            expect($this->linkLine->isFileAssociated())->toBeFalse();
         });
     });
 
@@ -94,6 +104,25 @@ describe('Line', function() {
             it('should return false', function() {
                 expect($this->deadLine->isExecuted())->toBeFalse();
                 expect($this->unusedLine->isExecuted())->toBeFalse();
+            });
+        });
+    });
+
+    describe('#isValid', function() {
+        before(function() {
+            $this->validLine = new Line(1, Line::EXECUTED);
+            $this->lineNumberInvalidLine = new Line(0, Line::EXECUTED);
+            $this->statusInvalidLine = new Line(1, 99);
+        });
+        context('when an valid line result', function() {
+            it('should return true', function() {
+                expect($this->validLine->isValid())->toBeTrue();
+            });
+        });
+        context('when an invalid line result', function() {
+            it('should return false', function() {
+                expect($this->lineNumberInvalidLine->isValid())->toBeFalse();
+                expect($this->statusInvalidLine->isValid())->toBeFalse();
             });
         });
     });

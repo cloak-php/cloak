@@ -1,5 +1,5 @@
 {
-    "name": "shared-hat/code-analyzer",
+    "name": "holyshared/code-analyzer",
     "keywords": [ "code coverage", "simple" ],
     "description": "CodeAnalyzer is a library that takes a code coverage.",
     "version": "1.0.0",
