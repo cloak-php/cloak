@@ -18,7 +18,7 @@ class File
 
     private $path = null;
     private $lineCount = null;
-    private $lines = null;
+    private $lineCoverages = null;
 
     public function __construct($path, array $lineResults = [])
     {
@@ -68,31 +68,31 @@ class File
 
     public function getLines()
     {
-        return $this->lines;
+        return $this->lineCoverages;
     }
 
     public function setLines(Sequence $lines)
     {
-        $this->lines = $lines;
+        $this->lineCoverages = $lines;
         return $this;
     }
 
     public function addLine(Line $line)
     {
         $line->link($this);
-        $this->lines->add($line);
+        $this->lineCoverages->add($line);
     }
 
     public function removeLine(Line $line)
     {
         $line->unlink();
-        $indexAt = $this->lines->indexOf($line);
+        $indexAt = $this->lineCoverages->indexOf($line);
 
         if ($indexAt === -1) {
             return;
         }
 
-        $this->lines->remove($indexAt);
+        $this->lineCoverages->remove($indexAt);
     }
 
     public function equals(File $file)
@@ -131,7 +131,7 @@ class File
 
     public function selectLines(\Closure $filter)
     {
-        $lines = $this->lines->filter($filter);
+        $lines = $this->lineCoverages->filter($filter);
         return $lines;
     }
 
@@ -173,7 +173,7 @@ class File
             $results[] = new Line($lineNumber, $analyzeResult, $this);
         }
 
-        $this->lines = new Sequence($results);
+        $this->lineCoverages = new Sequence($results);
     }
 
 }
