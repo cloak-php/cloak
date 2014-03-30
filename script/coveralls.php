@@ -78,4 +78,5 @@ foreach ($fileResults as $fileResult) {
 
 }
 
-$builder->build()->saveAs(__DIR__ . '/coverage.json');
+$builder->build()->saveAs(__DIR__ . '/coverage.json')->upload();
+
