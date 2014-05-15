@@ -47,7 +47,7 @@ $analyzer->stop();
 
 
 $builder = new JSONFileBuilder();
-$builder->token('8CFNrlGgXsDPPR8r03VnIXJl6cCVnDhcO')
+$builder->token(getenv('COVERALLS_REPO_TOKEN'))
     ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
 
@@ -79,4 +79,3 @@ foreach ($fileResults as $fileResult) {
 }
 
 $builder->build()->saveAs(__DIR__ . '/coverage.json')->upload();
-
