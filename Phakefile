@@ -11,7 +11,7 @@ group('test', function() {
 
     desc('Run unit tests');
     task('unit', function() {
-        echo shell_exec('./vendor/bin/pho --reporter spec');
+        echo shell_exec('./vendor/bin/pho');
     });
 
     desc('Print a report of code coverage');

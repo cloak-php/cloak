@@ -17,82 +17,84 @@ use CodeAnalyzer\Result,
 
 describe('Result', function() {
 
+    $this->rootDirectory = __DIR__ . '/fixtures/src/';
     $this->returnValue = null;
 
     describe('#from', function() {
-        before(function() {
-            $this->returnValue = Result::from(array(
-                'example.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                )
-            ));
-        });
+        $coverageResults = [
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ]
+        ];
+        $this->returnValue = Result::from($coverageResults);
+
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
     });
 
     describe('#parseResult', function() {
-        before(function() {
-            $this->returnValue = Result::parseResult(array(
-                'example.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                )
-            ));
-        });
+        $coverageResults = [
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'not_found.php' => [ 1 => Line::EXECUTED ]
+        ];
+
+        $this->returnValue = Result::parseResult($coverageResults);
+
         it('should return PhpCollection\Sequence instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
+        });
+
+        context('when a file that does not exist is included', function() {
+            it('should not included in the result', function() {
+                expect($this->returnValue->count())->toBe(1);
+            });
         });
     });
 
     describe('#includeFile', function() {
-        before(function() {
+        $coverageResults = [
+            $this->rootDirectory . 'foo.php' => [
+                1 => Line::EXECUTED,
+                2 => Line::UNUSED,
+                3 => Line::DEAD
+            ],
+            $this->rootDirectory . 'bar.php' => [
+                1 => Line::EXECUTED,
+                2 => Line::UNUSED,
+                3 => Line::DEAD
+            ]
+        ];
 
-            $this->result = Result::from(array(
-                'example1.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                ),
-                'example2.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                )
-            ));
-            $this->returnValue = $this->result->includeFile(function(File $file) {
-                return $file->getPath() === 'example2.php';
-            });
+        $this->result = Result::from($coverageResults);
+        $this->returnValue = $this->result->includeFile(function(File $file) {
+            return $file->matchPath('bar.php');
         });
+
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
         it('should include only those that match element', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->getPath())->toEqual('example2.php');
+            expect($files->last()->get()->matchPath('bar.php'))->toBeTrue();
         });
     });
 
     describe('#includeFiles', function() {
-        before(function() {
-            $this->result = Result::from(array(
-                'src/example1.php' => array( 1 => Line::EXECUTED ),
-                'src/foo/example1.php' => array( 1 => Line::EXECUTED ),
-                'example2.php' => array( 1 => Line::EXECUTED )
-            ));
-            $filter1 = function(File $file) {
-                return $file->matchPath('example1.php');
-            };
-            $filter2 = function(File $file) {
-                return $file->matchPath('/foo');
-            };
-            $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
-        });
+        $coverageResults = [
+            $this->rootDirectory . 'foo1.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'vendor/foo1.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+        ];
+
+        $this->result = Result::from($coverageResults);
+        $filter1 = function(File $file) {
+            return $file->matchPath('foo1.php');
+        };
+        $filter2 = function(File $file) {
+            return $file->matchPath('/vendor');
+        };
+        $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
+
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
@@ -103,47 +105,43 @@ describe('Result', function() {
     });
 
     describe('#excludeFile', function() {
-        before(function() {
-            $this->result = Result::from(array(
-                'example1.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                ),
-                'example2.php' => array(
-                    1 => Line::EXECUTED,
-                    2 => Line::UNUSED,
-                    3 => Line::DEAD,
-                )
-            ));
-            $this->returnValue = $this->result->excludeFile(function(File $file) {
-                return $file->getPath() === 'example2.php';
-            });
+        $coverageResults = [
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+        ];
+
+        $this->result = Result::from($coverageResults);
+
+        $this->returnValue = $this->result->excludeFile(function(File $file) {
+            return $file->matchPath('foo.php');
         });
+
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
         it('should exclude only those that match element', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->getPath())->toEqual('example1.php');
+            expect($files->last()->get()->matchPath('bar.php'))->toBeTrue();
         });
     });
 
     describe('#excludeFiles', function() {
-        before(function() {
-            $this->result = Result::from(array(
-                'example1.php' => array( 1 => Line::EXECUTED ),
-                'example2.php' => array( 1 => Line::EXECUTED )
-            ));
+        $coverageResults = [
+            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+        ];
+
+        $this->result = Result::from($coverageResults);
+
             $filter1 = function(File $file) {
-                return $file->getPath() === 'example1.php';
+                return $file->matchPath('foo.php');
             };
             $filter2 = function(File $file) {
-                return $file->getPath() === 'example2.php';
+                return $file->matchPath('bar.php');
             };
             $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
-        });
+
         it('should return CodeAnalyzer\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
         });
@@ -154,11 +152,10 @@ describe('Result', function() {
     });
 
     describe('#setFiles', function() {
-        before(function() {
-            $this->files = new Sequence();
-            $this->result = new Result();
-            $this->returnValue = $this->result->setFiles($this->files);
-        });
+        $this->files = new Sequence();
+        $this->result = new Result();
+        $this->returnValue = $this->result->setFiles($this->files);
+
         it('should should the files is replaced', function() {
             expect($this->result->getFiles())->toEqual($this->files);
         });
@@ -168,11 +165,12 @@ describe('Result', function() {
     });
 
     describe('#addFile', function() {
-        before(function() {
-            $this->result = new Result();
-            $this->file = new File('test.php');
-            $this->returnValue = $this->result->addFile($this->file);
-        });
+        $file = $this->rootDirectory . 'foo.php';
+
+        $this->result = new Result();
+        $this->file = new File($file);
+        $this->returnValue = $this->result->addFile($this->file);
+
         it('should add file', function() {
             $files = $this->returnValue->getFiles();
             expect($files->last()->get()->getPath())->toEqual($this->file->getPath());
@@ -183,12 +181,13 @@ describe('Result', function() {
     });
 
     describe('#removeFile', function() {
-        before(function() {
-            $this->result = new Result();
-            $this->file = new File('test.php');
-            $this->result->addFile($this->file);
-            $this->returnValue = $this->result->removeFile($this->file);
-        });
+        $file = $this->rootDirectory . 'foo.php';
+
+        $this->result = new Result();
+        $this->file = new File($file);
+        $this->result->addFile($this->file);
+        $this->returnValue = $this->result->removeFile($this->file);
+
         it('should remove file', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(0);
@@ -199,4 +198,3 @@ describe('Result', function() {
     });
 
 });
-

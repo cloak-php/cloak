@@ -31,7 +31,7 @@ class Line
 
     public function isFileAssociated()
     {
-        return is_null($this->file);
+        return is_null($this->file) === false;
     }
 
     public function link(File $file)

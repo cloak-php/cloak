@@ -17,18 +17,16 @@ use CodeAnalyzer\Result\File,
 describe('File', function() {
 
     describe('#getRelativePath', function() {
-        before(function() {
-            $this->file = new File(__FILE__);
-        });
+        $this->file = new File(__FILE__);
+
         it('should return relative path', function() {
             expect($this->file->getRelativePath(__DIR__))->toEqual('FileSpec.php');
         });
     });
 
     describe('#getLines', function() {
-        before(function() {
-            $this->file = new File('foo.php');
-        });
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+
         context('when line is empty', function() {
             it('should return PhpCollection\Sequence instance', function() {
                 expect($this->file->getLines())->toBeAnInstanceOf('PhpCollection\Sequence');
@@ -44,9 +42,8 @@ describe('File', function() {
     });
 
     describe('#setLines', function() {
-        before(function() {
-            $this->file = new File('foo.php');
-        });
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+
         it('should return CodeAnalyzer\Result\File instance', function() {
             expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('CodeAnalyzer\Result\File');
         });
@@ -54,10 +51,9 @@ describe('File', function() {
 
     describe('#equals', function() {
         context('when path equals', function() {
-            before(function() {
-                $this->file1 = new File('foo.php');
-                $this->file2 = new File('foo.php');
-            });
+            $this->file1 = new File(__DIR__ . '/../fixtures/src/foo.php');
+            $this->file2 = new File(__DIR__ . '/../fixtures/src/foo.php');
+
             it('should return true', function() {
                 $result = $this->file1->equals($this->file2);
                 expect($result)->toBeTrue();
@@ -66,9 +62,8 @@ describe('File', function() {
     });
 
     describe('#matchPath', function() {
-        before(function() {
-            $this->file = new File('/foo/foo.php');
-        });
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+
         context('when included in the path', function() {
             it('should return true', function() {
                 $result = $this->file->matchPath('/foo');
@@ -84,10 +79,9 @@ describe('File', function() {
     });
 
     describe('#addLine', function() {
-        before(function() {
-            $this->file = new File('foo.php');
-            $this->line = new Line(2, Line::EXECUTED);
-        });
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+        $this->line = new Line(2, Line::EXECUTED);
+
         it('should add line', function() {
             $this->file->addLine($this->line);
             expect($this->file->getLines()->last()->get())->toEqual($this->line);
@@ -95,10 +89,9 @@ describe('File', function() {
     });
 
     describe('#removeLine', function() {
-        before(function() {
-            $this->file = new File('foo.php');
-            $this->line = new Line(2, Line::EXECUTED);
-        });
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+        $this->line = new Line(2, Line::EXECUTED);
+
         it('should remove line', function() {
             $this->file->addLine($this->line);
             $this->file->removeLine($this->line);
@@ -107,10 +100,11 @@ describe('File', function() {
     });
 
     describe('#getDeadLineCount', function() {
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+        $this->deadLine = new Line(1, Line::DEAD);
+        $this->executedLine = new Line(2, Line::EXECUTED);
+
         before(function() {
-            $this->file = new File('foo.php');
-            $this->deadLine = new Line(1, Line::DEAD);
-            $this->executedLine = new Line(2, Line::EXECUTED);
             $this->file->addLine($this->deadLine);
             $this->file->addLine($this->executedLine);
         });
@@ -120,10 +114,11 @@ describe('File', function() {
     });
 
     describe('#getUnusedLineCount', function() {
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+        $this->deadLine = new Line(1, Line::DEAD);
+        $this->executedLine = new Line(2, Line::UNUSED);
+
         before(function() {
-            $this->file = new File('foo.php');
-            $this->deadLine = new Line(1, Line::DEAD);
-            $this->executedLine = new Line(2, Line::UNUSED);
             $this->file->addLine($this->deadLine);
             $this->file->addLine($this->executedLine);
         });
@@ -133,10 +128,11 @@ describe('File', function() {
     });
 
     describe('#getExecutedLineCount', function() {
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+        $this->deadLine = new Line(1, Line::DEAD);
+        $this->executedLine = new Line(2, Line::EXECUTED);
+
         before(function() {
-            $this->file = new File('foo.php');
-            $this->deadLine = new Line(1, Line::DEAD);
-            $this->executedLine = new Line(2, Line::EXECUTED);
             $this->file->addLine($this->deadLine);
             $this->file->addLine($this->executedLine);
         });
@@ -146,8 +142,9 @@ describe('File', function() {
     });
 
     describe('#getCodeCoverage', function() {
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+
         before(function() {
-            $this->file = new File('foo.php');
             $this->file->addLine( new Line(1, Line::UNUSED) );
             $this->file->addLine( new Line(1, Line::EXECUTED) );
         });
@@ -157,8 +154,9 @@ describe('File', function() {
     });
 
     describe('#isCoverageLessThan', function() {
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+
         before(function() {
-            $this->file = new File('foo.php');
             $this->file->addLine( new Line(1, Line::UNUSED) );
             $this->file->addLine( new Line(1, Line::EXECUTED) );
         });
@@ -177,11 +175,13 @@ describe('File', function() {
     });
 
     describe('#isCoverageGreaterEqual', function() {
+        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+
         before(function() {
-            $this->file = new File('foo.php');
             $this->file->addLine( new Line(1, Line::UNUSED) );
             $this->file->addLine( new Line(1, Line::EXECUTED) );
         });
+
         context('when less than 51% of coverage', function() {
             it('should return false', function() {
                 $coverage = new Coverage(51);

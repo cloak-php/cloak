@@ -22,7 +22,7 @@ class Configuration
     private $includeFiles = array();
     private $excludeFiles = array();
 
-    public function __construct(array $values)
+    public function __construct(array $values = [])
     {
         foreach ($values as $key => $value) {
             if (property_exists($this, $key) === false) {

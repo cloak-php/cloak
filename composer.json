@@ -2,7 +2,7 @@
     "name": "holyshared/code-analyzer",
     "keywords": [ "code coverage", "simple" ],
     "description": "CodeAnalyzer is a library that takes a code coverage.",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.3.*",
@@ -15,8 +15,7 @@
     "require-dev": {
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.0",
-        "guzzle/guzzle": "3.8.*",
-        "gitonomy/gitlib": "0.1.*",
+        "holyshared/coverallskit": "1.1.*",
         "mockery/mockery": "dev-master"
     },
     "license": "MIT",

@@ -42,6 +42,9 @@ class Result
         $files = new Sequence(); 
 
         foreach ($result as $path => $lines) {
+            if (file_exists($path) === false) {
+                continue;
+            }
             $files->add(new File($path, $lines));
         }
 

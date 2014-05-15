@@ -17,40 +17,42 @@ use CodeAnalyzer\Result,
 describe('Notifier', function() {
 
     describe('#stop', function() {
-        before(function() {
-            $this->result = Result::from(array(
-                'foo.php' => array(
-                    1 => Line::EXECUTED
-                )
-            ));
+        $rootDirectory = __DIR__ . '/fixtures/src/';
+        $coverageResults = [
+            $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
+        ];
 
-            $subject = $this->subject = new \stdClass();
-            $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
+        $this->result = Result::from($coverageResults);
 
-            $reporter->shouldReceive('attach')->once()->with(
-                Mockery::on(function($eventManager) use ($reporter) {
-                    $eventManager->attach('stop', array($reporter, 'onStop'));
-                    return true;
-                })
-            );
+        $subject = $this->subject = new \stdClass();
+        $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
 
-            $reporter->shouldReceive('onStop')->once()->with(
-                Mockery::on(function($event) use($subject) {
-                    $subject->event = $event;
-                    return true;
-                })
-            );
+        $reporter->shouldReceive('attach')->once()->with(
+            Mockery::on(function($eventManager) use ($reporter) {
+                $eventManager->attach('stop', array($reporter, 'onStop'));
+                return true;
+            })
+        );
 
-            $this->progessNotifier = new Notifier($reporter);
-            $this->progessNotifier->stop($this->result);
-        });
+        $reporter->shouldReceive('onStop')->once()->with(
+            Mockery::on(function($event) use($subject) {
+                $subject->event = $event;
+                return true;
+            })
+        );
+
+        $this->progessNotifier = new Notifier($reporter);
+        $this->progessNotifier->stop($this->result);
+
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
             expect($event)->toBeAnInstanceOf('CodeAnalyzer\EventInterface');
         });
+
         it('should include the results', function() {
             $result = $this->subject->event->getResult();
             expect($result)->toEqual($this->result);
+            expect(count($result->getFiles()))->toBe(1);
         });
     });
 

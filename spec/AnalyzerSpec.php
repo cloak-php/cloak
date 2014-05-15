@@ -30,17 +30,16 @@ describe('Analyzer', function() {
     };
 
     describe('#factory', function() {
-        before(function() {
-            $subject = $this->subject = new \stdClass();
-            $subject->called = 0;
-            $subject->configuration = null;
+        $subject = $this->subject = new \stdClass();
+        $subject->called = 0;
+        $subject->configuration = null;
 
-            $this->builder = function(ConfigurationBuilder $builder) use ($subject) {
-                $subject->called++;
-                $subject->builder = $builder;
-            };
-            $this->returnValue = Analyzer::factory($this->builder);
-        });
+        $this->builder = function(ConfigurationBuilder $builder) use ($subject) {
+            $subject->called++;
+            $subject->builder = $builder;
+        };
+        $this->returnValue = Analyzer::factory($this->builder);
+
         it('should called once', function() {
             expect($this->subject->called)->toBe(1);
         });
@@ -53,26 +52,25 @@ describe('Analyzer', function() {
     });
 
     describe('#stop', function() {
+        $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+            $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+            $driver->shouldReceive('start')->once();
+            $driver->shouldReceive('stop')->once();
+            $driver->shouldReceive('getResult')->once()->andReturn(array(
+                'foo.php' => array( 1 => Line::EXECUTED )
+            ));
+            $builder->driver($driver);
+        });
+
+        $subject = $this->subject = new \stdClass();
+        $this->notifier = Mock::mock('CodeAnalyzer\NotifierInterface');
+        $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
+            $subject->result = $result;
+            return true;
+        }));
+
         before(function() {
-            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
-                $driver->shouldReceive('start')->once();
-                $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getResult')->once()->andReturn(array(
-                    'foo.php' => array( 1 => Line::EXECUTED )
-                ));
-                $builder->driver($driver);
-            });
-
-            $subject = $this->subject = new \stdClass();
-            $this->notifier = Mock::mock('CodeAnalyzer\NotifierInterface');
-            $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
-                $subject->result = $result;
-                return true;
-            }));
-
             $this->analyzer->setNotifier($this->notifier);
-
             $this->analyzer->start();
             $this->analyzer->stop();
         });
@@ -86,13 +84,11 @@ describe('Analyzer', function() {
 
     describe('#isStarted', function() {
         context('when started', function() {
-            before(function() {
-                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                    $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
-                    $driver->shouldReceive('start')->once();
-                    $driver->shouldReceive('isStarted')->once()->andReturn(true);
-                    $builder->driver($driver);
-                });
+            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+                $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+                $driver->shouldReceive('start')->once();
+                $driver->shouldReceive('isStarted')->once()->andReturn(true);
+                $builder->driver($driver);
             });
             after(function() {
                 Mock::close();
@@ -103,14 +99,14 @@ describe('Analyzer', function() {
             });
         });
         context('when stoped', function() {
+            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+                $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+                $driver->shouldReceive('start')->once();
+                $driver->shouldReceive('stop')->once();
+                $driver->shouldReceive('isStarted')->once()->andReturn(false);
+                $builder->driver($driver);
+            });
             before(function() {
-                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                    $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
-                    $driver->shouldReceive('start')->once();
-                    $driver->shouldReceive('stop')->once();
-                    $driver->shouldReceive('isStarted')->once()->andReturn(false);
-                    $builder->driver($driver);
-                });
                 $this->analyzer->start();
                 $this->analyzer->stop();
             });
@@ -124,28 +120,30 @@ describe('Analyzer', function() {
     });
 
     describe('#getResult', function() {
+        $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+            $rootDirectory = __DIR__ . '/fixtures/src/';
+
+            $coverageResults = [
+                $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED ),
+                $rootDirectory . 'bar.php' => array( 1 => Line::EXECUTED ),
+                $rootDirectory . 'vendor/foo1.php' => array( 1 => Line::EXECUTED ),
+                $rootDirectory . 'vendor/foo2.php' => array( 1 => Line::EXECUTED )
+            ];
+
+            $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+            $driver->shouldReceive('start')->once();
+            $driver->shouldReceive('stop')->once();
+            $driver->shouldReceive('getResult')->once()->andReturn($coverageResults);
+
+            $builder->driver($driver)
+                ->includeFile(function(File $file) {
+                    return $file->matchPath('src');
+                })->excludeFile(function(File $file) {
+                    return $file->matchPath('vendor');
+                });
+        });
+
         before(function() {
-            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) use ($reporter) {
-                $driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
-                $driver->shouldReceive('start')->once();
-                $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getResult')->once()->andReturn(array(
-                    'src/foo.php' => array( 1 => Line::EXECUTED ),
-                    'src/bar.php' => array( 1 => Line::EXECUTED ),
-                    'src/vendor/foo1.php' => array( 1 => Line::EXECUTED ),
-                    'src/vendor/foo2.php' => array( 1 => Line::EXECUTED )
-                ));
-
-                $builder->driver($driver)
-                    ->includeFile(function(File $file) {
-                        return $file->matchPath('src');
-                    })->excludeFile(function(File $file) {
-                        return $file->matchPath('vendor');
-                    });
-
-                $builder->reporter($reporter);
-            });
-
             $this->analyzer->start();
             $this->analyzer->stop();
             $this->result = $this->analyzer->getResult();

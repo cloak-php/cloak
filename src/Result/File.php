@@ -17,12 +17,14 @@ class File
 {
 
     private $path = null;
-    private $lines = null;
+    private $lineCount = null;
+    private $lineCoverages = null;
 
-    public function __construct($path, array $lines = array())
+    public function __construct($path, array $lineResults = [])
     {
         $this->path = $path;
-        $this->lines = $this->createLines($lines);
+        $this->resolveLineRange();
+        $this->resolveLineCoverages($lineResults);
     }
 
     public function getPath()
@@ -48,33 +50,49 @@ class File
         return ($result === 0) ? false : true;
     }
 
+    protected function resolveLineRange()
+    {
+        $content = file_get_contents($this->getPath());
+        $lineContents = explode(PHP_EOL, trim($content));
+        $lineCount = count($lineContents);
+
+        unset($content, $lineContents);
+
+        $this->lineCount = $lineCount;
+    }
+
+    public function getLineCount()
+    {
+        return $this->lineCount;
+    }
+
     public function getLines()
     {
-        return $this->lines;
+        return $this->lineCoverages;
     }
 
     public function setLines(Sequence $lines)
     {
-        $this->lines = $lines;
+        $this->lineCoverages = $lines;
         return $this;
     }
 
     public function addLine(Line $line)
     {
         $line->link($this);
-        $this->lines->add($line);
+        $this->lineCoverages->add($line);
     }
 
     public function removeLine(Line $line)
     {
         $line->unlink();
-        $indexAt = $this->lines->indexOf($line);
+        $indexAt = $this->lineCoverages->indexOf($line);
 
         if ($indexAt === -1) {
             return;
         }
 
-        $this->lines->remove($indexAt);
+        $this->lineCoverages->remove($indexAt);
     }
 
     public function equals(File $file)
@@ -113,7 +131,7 @@ class File
 
     public function selectLines(\Closure $filter)
     {
-        $lines = $this->lines->filter($filter);
+        $lines = $this->lineCoverages->filter($filter);
         return $lines;
     }
 
@@ -143,16 +161,19 @@ class File
         return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
-    protected function createLines(array $lineResults)
+    protected function resolveLineCoverages(array $lineResults)
     {
 
         $results = array(); 
 
         foreach ($lineResults as $lineNumber => $analyzeResult) {
+            if ($lineNumber <= 0 || $lineNumber > $this->getLineCount()) {
+                continue;
+            }
             $results[] = new Line($lineNumber, $analyzeResult, $this);
         }
 
-        return new Sequence($results);
+        $this->lineCoverages = new Sequence($results);
     }
 
 }
