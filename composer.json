@@ -5,17 +5,17 @@
     "version": "1.0.2",
     "require": {
         "php": ">=5.4.0",
-        "phpcollection/phpcollection": "0.3.*",
-        "kevinlebrun/colors.php": "0.*",
-        "zendframework/zend-eventmanager": "2.3.0"
+        "phpcollection/phpcollection": "0.4.*",
+        "kevinlebrun/colors.php": "0.3.*",
+        "zendframework/zend-eventmanager": "2.3.*"
     },
     "autoload": {
         "psr-4": { "CodeAnalyzer\\": "src/" }
     },
     "require-dev": {
         "danielstjules/pho": "1.0.*",
-        "jaz303/phake": "0.6.0",
-        "holyshared/coverallskit": "1.1.*",
+        "jaz303/phake": "0.6.*",
+        "holyshared/coverallskit": "dev-master",
         "mockery/mockery": "dev-master"
     },
     "license": "MIT",
