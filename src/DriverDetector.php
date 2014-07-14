@@ -11,6 +11,8 @@
 
 namespace CodeAnalyzer;
 
+use CodeAnalyzer\Driver\XdebugDriver;
+
 class DriverDetector implements DriverDetectorInterface
 {
 
@@ -20,6 +22,7 @@ class DriverDetector implements DriverDetectorInterface
      */
     public function detect()
     {
+        return new XdebugDriver();
     }
 
 }
