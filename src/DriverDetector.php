@@ -11,8 +11,7 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\DriverNotFoundException;
-use Exception;
+use CodeAnalyzer\Driver\DriverNotAvailableException;
 
 /**
  * Class DriverDetector
@@ -46,7 +45,7 @@ class DriverDetector implements DriverDetectorInterface
         foreach ($this->drivers as $driver) {
             try {
                 $result = new $driver();
-            } catch (Exception $exception) { //FIXME Replace to DriverNotAvailableException
+            } catch (DriverNotAvailableException $exception) {
                 $exceptions[] = $exception->getMessage();
             }
         }
