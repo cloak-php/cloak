@@ -5,7 +5,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
-use coverallskit\JSONFileBuilder;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
@@ -47,7 +47,7 @@ require_once __DIR__ . "/../vendor/bin/pho";
 $analyzer->stop();
 
 
-$builder = new JSONFileBuilder();
+$builder = new ReportBuilder();
 $builder->token(getenv('COVERALLS_REPO_TOKEN'))
     ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
