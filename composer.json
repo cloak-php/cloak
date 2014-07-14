@@ -2,7 +2,7 @@
     "name": "holyshared/code-analyzer",
     "keywords": [ "code coverage", "simple" ],
     "description": "CodeAnalyzer is a library that takes a code coverage.",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.4.*",
