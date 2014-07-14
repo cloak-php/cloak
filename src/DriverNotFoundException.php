@@ -15,4 +15,10 @@ use Exception;
 
 class DriverNotFoundException extends Exception
 {
+
+    public function __construct(array $messages)
+    {
+        parent::__construct(implode("\n", $messages));
+    }
+
 }

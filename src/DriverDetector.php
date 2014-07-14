@@ -11,10 +11,28 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Driver\XdebugDriver;
+use CodeAnalyzer\DriverNotFoundException;
+use Exception;
 
+/**
+ * Class DriverDetector
+ * @package CodeAnalyzer
+ */
 class DriverDetector implements DriverDetectorInterface
 {
+
+    /**
+     * @var array
+     */
+    private $drivers;
+
+    /**
+     * @param array $drivers
+     */
+    public function __construct(array $drivers)
+    {
+        $this->drivers = $drivers;
+    }
 
     /**
      * @return \CodeAnalyzer\Driver\DriverInterface
@@ -22,7 +40,22 @@ class DriverDetector implements DriverDetectorInterface
      */
     public function detect()
     {
-        return new XdebugDriver();
+        $result = null;
+        $exceptions = [];
+
+        foreach ($this->drivers as $driver) {
+            try {
+                $result = new $driver();
+            } catch (Exception $exception) { //FIXME Replace to DriverNotAvailableException
+                $exceptions[] = $exception->getMessage();
+            }
+        }
+
+        if (!empty($exceptions)) {
+            throw new DriverNotFoundException($exceptions);
+        }
+
+        return $result;
     }
 
 }

@@ -14,13 +14,27 @@ use CodeAnalyzer\DriverDetector;
 describe('DriverDetector', function() {
 
     describe('#detect', function() {
-        before(function() {
-            $this->detector = new DriverDetector();
-        });
-        context('xdebug enabled', function() {
-            it('should return xdebug driver instance', function() {
+        context('when enabled', function() {
+            before(function() {
+                $this->detector = new DriverDetector([
+                    'CodeAnalyzer\Driver\XdebugDriver'
+                ]);
+            });
+            it('should return driver instance', function() {
                 $driver = $this->detector->detect();
-                expect($driver)->toBeAnInstanceOf('CodeAnalyzer\Driver\XdebugDriver');
+                expect($driver)->toBeAnInstanceOf('CodeAnalyzer\Driver\DriverInterface');
+            });
+        });
+        context('when not enabled', function() {
+            before(function() {
+                $this->detector = new DriverDetector([
+                    'CodeAnalyzer\Spec\Driver\FixtureDriver'
+                ]);
+            });
+            it('should throw CodeAnalyzer\DriverNotFoundException', function() {
+                expect(function() {
+                    $this->detector->detect();
+                })->toThrow('CodeAnalyzer\DriverNotFoundException');
             });
         });
     });

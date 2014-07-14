@@ -12,6 +12,9 @@
     "autoload": {
         "psr-4": { "CodeAnalyzer\\": "src/" }
     },
+    "autoload-dev": {
+        "psr-4": { "CodeAnalyzer\\Spec\\Driver\\": "spec/fixtures/" }
+    },
     "require-dev": {
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.*",
