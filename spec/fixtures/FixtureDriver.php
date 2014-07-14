@@ -3,14 +3,14 @@
 namespace CodeAnalyzer\Spec\Driver;
 
 use CodeAnalyzer\Driver\DriverInterface;
-use Exception;
+use CodeAnalyzer\Driver\DriverNotAvailableException;
 
 class FixtureDriver implements DriverInterface
 {
 
     public function __construct()
     {
-        throw new Exception();
+        throw new DriverNotAvailableException();
     }
 
     public function start()
