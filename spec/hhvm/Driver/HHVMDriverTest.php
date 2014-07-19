@@ -29,10 +29,15 @@ class HHVMDriverTest extends PHPUnit_Framework_TestCase
     public function takeCodeCoverage()
     {
         $this->assertFalse($this->driver->isStarted());
+
         $this->driver->start();
         $this->assertTrue($this->driver->isStarted());
+
         $this->driver->stop();
         $this->assertFalse($this->driver->isStarted());
+
+        $result = $this->driver->getResult();
+        $this->assertNotEmpty($result);
     }
 
 }
