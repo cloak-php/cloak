@@ -17,7 +17,7 @@ class HHVMDriver extends AbstractDriver
     public function __construct()
     {
         if (defined('HHVM_VERSION') === false) {
-            throw new DriverNotAvailableException('Can not be used in the current environment');
+            throw new DriverNotAvailableException('This driver requires hhvm');
         }
     }
 

@@ -20,11 +20,8 @@ class XdebugDriver extends AbstractDriver
             throw new DriverNotAvailableException('This driver requires Xdebug');
         }
 
-        if (version_compare(phpversion('xdebug'), '2.2.0-dev', '>=') &&
-            !ini_get('xdebug.coverage_enable')) {
-            throw new DriverNotAvailableException(
-                'xdebug.coverage_enable=On has to be set in php.ini'
-            );
+        if ($this->isSupportXdebugVersion() && $this->isXdebugCoverageEnabled()) {
+            throw new DriverNotAvailableException('xdebug.coverage_enable=On has to be set in php.ini');
         }
     }
 
@@ -41,6 +38,22 @@ class XdebugDriver extends AbstractDriver
 
         $this->analyzeResult = $result;
         $this->started = false;
+    }
+
+    /**
+     * @return boolean
+     */
+    private function isSupportXdebugVersion()
+    {
+        return version_compare(phpversion('xdebug'), '2.2.0-dev', '>=');
+    }
+
+    /**
+     * @return boolean
+     */
+    private function isXdebugCoverageEnabled()
+    {
+        return !ini_get('xdebug.coverage_enable');
     }
 
 }
