@@ -5,7 +5,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use CodeAnalyzer\Analyzer;
 use CodeAnalyzer\ConfigurationBuilder;
 use CodeAnalyzer\Result\File;
-use coverallskit\JSONFileBuilder;
+use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
@@ -38,7 +38,8 @@ $argv = array_merge($defaultArgv, array(
     'spec/Reporter/ReportableSpec.php',
     'spec/Reporter/TextReporterSpec.php',
     'spec/ProgressNotifierSpec.php',
-    'spec/AnalyzerSpec.php'
+    'spec/AnalyzerSpec.php',
+    'spec/DriverDetectorSpec.php',
 ));
 
 require_once __DIR__ . "/../vendor/bin/pho";
@@ -46,8 +47,8 @@ require_once __DIR__ . "/../vendor/bin/pho";
 $analyzer->stop();
 
 
-$builder = new JSONFileBuilder();
-$builder->token('8CFNrlGgXsDPPR8r03VnIXJl6cCVnDhcO')
+$builder = new ReportBuilder();
+$builder->token(getenv('COVERALLS_REPO_TOKEN'))
     ->service(Travis::travisCI())
     ->repository(new Repository(__DIR__ . '/../'));
 
@@ -79,4 +80,3 @@ foreach ($fileResults as $fileResult) {
 }
 
 $builder->build()->saveAs(__DIR__ . '/coverage.json')->upload();
-

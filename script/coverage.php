@@ -32,7 +32,8 @@ $argv = array_merge($defaultArgv, array(
     'spec/Reporter/ReportableSpec.php',
     'spec/Reporter/TextReporterSpec.php',
     'spec/ProgressNotifierSpec.php',
-    'spec/AnalyzerSpec.php'
+    'spec/AnalyzerSpec.php',
+    'spec/DriverDetectorSpec.php',
 ));
 
 require_once __DIR__ . "/../vendor/bin/pho";
