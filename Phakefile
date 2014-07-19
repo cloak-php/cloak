@@ -32,7 +32,7 @@ group('test', function() {
     desc('Run unit tests');
     task('hhvm_unit', function() {
         $output = [];
-        $command = './vendor/bin/phpspec run spec/hhvm/Driver/HHVMDriverSpec.php';
+        $command = './vendor/bin/phpunit';
         exec($command, $output, $status);
         echo implode("\n", array_merge($output, array("")));
         exit($status);
