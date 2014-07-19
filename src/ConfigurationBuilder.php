@@ -79,6 +79,8 @@ class ConfigurationBuilder
 
     public function build()
     {
+        $this->detectDriver();
+
         $values = [
             'driver' => $this->driver,
             'reporter' => $this->reporter,

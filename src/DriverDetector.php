@@ -50,7 +50,7 @@ class DriverDetector implements DriverDetectorInterface
             }
         }
 
-        if (!empty($exceptions)) {
+        if (count($exceptions) === count($this->drivers)) {
             throw new DriverNotFoundException($exceptions);
         }
 

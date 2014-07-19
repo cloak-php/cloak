@@ -12,7 +12,10 @@
 use CodeAnalyzer\Driver\HHVMDriver;
 use \PHPUnit_Framework_TestCase;
 
-class HHVMDriverTest extends PHPUnit_Framework_TestCase
+//
+
+//class HHVMDriverTest extends PHPUnit_Framework_TestCase
+class HHVMDriverTest extends \mageekguy\atoum\test
 {
 
     /**
@@ -26,7 +29,7 @@ class HHVMDriverTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function takeCodeCoverage()
+    public function testTakeCodeCoverage()
     {
         $this->assertFalse($this->driver->isStarted());
 
