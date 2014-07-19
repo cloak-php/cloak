@@ -14,8 +14,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CodeAnalyzer\\Spec\\Driver\\": "spec/fixtures/",
-            "spec\\hhvm\\Driver\\": "spec/hhvm/"
+            "CodeAnalyzer\\Spec\\Driver\\": "spec/fixtures/"
         }
     },
     "require-dev": {
