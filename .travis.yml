@@ -9,3 +9,6 @@ before_install:
 script:
   - ./vendor/bin/phake test:unit
 after_script: ./vendor/bin/phake test:coveralls
+env:
+  - HTTP_PROXY_REQUEST_FULLURI=0
+  - HTTPS_PROXY_REQUEST_FULLURI=0
