@@ -11,11 +11,8 @@
 
 namespace CodeAnalyzer\Driver;
 
-class XdebugDriver implements DriverInterface
+class XdebugDriver extends AbstractDriver
 {
-
-    protected $started = false;
-    protected $analyzeResult = null;
 
     public function start()
     {
@@ -30,16 +27,6 @@ class XdebugDriver implements DriverInterface
 
         $this->analyzeResult = $result;
         $this->started = false;
-    }
-
-    public function isStarted()
-    {
-        return $this->started;
-    }
-
-    public function getResult()
-    {
-        return $this->analyzeResult;
     }
 
 }

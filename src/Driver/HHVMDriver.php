@@ -11,26 +11,22 @@
 
 namespace CodeAnalyzer\Driver;
 
-class HHVMDriver implements DriverInterface
+class HHVMDriver extends AbstractDriver
 {
-
-    protected $started = false;
-    protected $analyzeResult = null;
 
     public function start()
     {
+        fb_enable_code_coverage();
+        $this->started = true;
     }
 
     public function stop()
     {
-    }
+        $result = fb_get_code_coverage(true);
+        fb_disable_code_coverage();
 
-    public function isStarted()
-    {
-    }
-
-    public function getResult()
-    {
+        $this->analyzeResult = $result;
+        $this->started = false;
     }
 
 }

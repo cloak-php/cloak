@@ -20,7 +20,7 @@ describe('XdebugDriver', function() {
             $this->driver->start();
         });
         it('should analyze start', function() {
-            expect($this->driver->getResult())->toBeNull();
+            expect($this->driver->getResult())->toBeEmpty();
             expect($this->driver->isStarted())->toBeTrue();
         });
     });
