@@ -13,7 +13,10 @@
         "psr-4": { "CodeAnalyzer\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "CodeAnalyzer\\Spec\\Driver\\": "spec/fixtures/" }
+        "psr-4": {
+            "CodeAnalyzer\\Spec\\Driver\\": "spec/fixtures/",
+            "spec\\hhvm\\Driver\\": "spec/hhvm/"
+        }
     },
     "require-dev": {
         "danielstjules/pho": "1.0.*",

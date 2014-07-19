@@ -11,11 +11,19 @@
 
 namespace CodeAnalyzer\Driver;
 
-class XdebugDriver implements DriverInterface
+class XdebugDriver extends AbstractDriver
 {
 
-    protected $started = false;
-    protected $analyzeResult = null;
+    public function __construct()
+    {
+        if (!extension_loaded('xdebug')) {
+            throw new DriverNotAvailableException('This driver requires Xdebug');
+        }
+
+        if ($this->isSupportXdebugVersion() && $this->isXdebugCoverageEnabled()) {
+            throw new DriverNotAvailableException('xdebug.coverage_enable=On has to be set in php.ini');
+        }
+    }
 
     public function start()
     {
@@ -32,14 +40,20 @@ class XdebugDriver implements DriverInterface
         $this->started = false;
     }
 
-    public function isStarted()
+    /**
+     * @return boolean
+     */
+    private function isSupportXdebugVersion()
     {
-        return $this->started;
+        return version_compare(phpversion('xdebug'), '2.2.0-dev', '>=');
     }
 
-    public function getResult()
+    /**
+     * @return boolean
+     */
+    private function isXdebugCoverageEnabled()
     {
-        return $this->analyzeResult;
+        return !ini_get('xdebug.coverage_enable');
     }
 
 }
