@@ -1,5 +1,7 @@
 <?php
 
+use phake\Application;
+
 group('example', function() {
     desc('Run the example program basic');
     task('basic', function() {
@@ -8,6 +10,15 @@ group('example', function() {
 });
 
 group('test', function() {
+
+    desc('Run unit tests');
+    task('unit', function(Application $application) {
+        if (!defined('HHVM_VERSION')) {
+            $application->invoke('test:php_unit');
+        } else {
+            $application->invoke('test:hhvm_unit');
+        }
+    });
 
     desc('Run unit tests');
     task('php_unit', function() {
@@ -31,6 +42,19 @@ group('test', function() {
     task('coverage', function() {
         $output = [];
         $command = 'php script/coverage.php';
+        exec($command, $output, $status);
+        echo implode("\n", array_merge($output, array("")));
+        exit($status);
+    });
+
+    desc('Sent a report of code coverage');
+    task('coveralls', function() {
+        if (defined('HHVM_VERSION')) {
+            exit();
+        }
+
+        $output = [];
+        $command = 'php script/coveralls.php';
         exec($command, $output, $status);
         echo implode("\n", array_merge($output, array("")));
         exit($status);
