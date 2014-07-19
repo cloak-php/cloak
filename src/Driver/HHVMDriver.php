@@ -14,6 +14,13 @@ namespace CodeAnalyzer\Driver;
 class HHVMDriver extends AbstractDriver
 {
 
+    public function __construct()
+    {
+        if (defined('HHVM_VERSION') === false) {
+            throw new DriverNotAvailableException('Can not be used in the current environment');
+        }
+    }
+
     public function start()
     {
         fb_enable_code_coverage();
