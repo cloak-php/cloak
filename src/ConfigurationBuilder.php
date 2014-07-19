@@ -11,9 +11,8 @@
 
 namespace CodeAnalyzer;
 
-use CodeAnalyzer\Configuration,
-    CodeAnalyzer\Driver\DriverInterface,
-    CodeAnalyzer\Reporter\ReporterInterface;
+use CodeAnalyzer\Driver\DriverInterface;
+use CodeAnalyzer\Reporter\ReporterInterface;
 
 class ConfigurationBuilder
 {
@@ -63,22 +62,38 @@ class ConfigurationBuilder
         return $this;
     }
 
+    protected function detectDriver()
+    {
+        if ($this->driver instanceof DriverInterface) {
+            return;
+        }
+
+        $driverDetector = new DriverDetector([
+            '\CodeAnalyzer\Driver\XdebugDriver',
+            '\CodeAnalyzer\Driver\HHVMDriver'
+        ]);
+        $driver = $driverDetector->detect();
+
+        $this->driver = $driver;
+    }
+
     public function build()
     {
+        $this->detectDriver();
 
-        $values = array(
+        $values = [
             'driver' => $this->driver,
             'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
             'excludeFiles' => $this->excludeFiles
-        );
+        ];
 
         return new Configuration($values);
     }
 
     public function __set($name, $value)
     {
-        return call_user_method(array($this, $name), $value);
+        return call_user_func_array(array($this, $name), [$value]);
     }
 
     public function __get($name)

@@ -1,5 +1,7 @@
 <?php
 
+use phake\Application;
+
 group('example', function() {
     desc('Run the example program basic');
     task('basic', function() {
@@ -11,12 +13,29 @@ group('test', function() {
 
     desc('Run unit tests');
     task('unit', function() {
-        echo shell_exec('./vendor/bin/pho');
+        $output = [];
+        $command = './vendor/bin/pho';
+        exec($command, $output, $status);
+        echo implode("\n", array_merge($output, array("")));
+        exit($status);
     });
 
     desc('Print a report of code coverage');
     task('coverage', function() {
-        echo shell_exec('php script/coverage.php');
+        $output = [];
+        $command = 'php script/coverage.php';
+        exec($command, $output, $status);
+        echo implode("\n", array_merge($output, array("")));
+        exit($status);
+    });
+
+    desc('Sent a report of code coverage');
+    task('coveralls', function() {
+        $output = [];
+        $command = 'php script/coveralls.php';
+        exec($command, $output, $status);
+        echo implode("\n", array_merge($output, array("")));
+        exit($status);
     });
 
 });

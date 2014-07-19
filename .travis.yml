@@ -7,5 +7,5 @@ before_install:
   - composer self-update
   - composer install
 script:
-  - ./vendor/bin/pho
-after_script: php script/coveralls.php
+  - ./vendor/bin/phake test:unit
+after_script: ./vendor/bin/phake test:coveralls
