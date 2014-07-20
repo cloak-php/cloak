@@ -1,11 +1,12 @@
 Cloak
 =============================
 
-[![Build Status](https://travis-ci.org/holyshared/code/Users/shared-hat/Documents/develop/code-analyzer/README.md-analyzer.png?branch=master)](https://travis-ci.org/holyshared/code-analyzer)
-[![Stories in Ready](https://badge.waffle.io/holyshared/code-analyzer.png?label=ready&title=Ready)](https://waffle.io/holyshared/code-analyzer)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/holyshared/code-analyzer/badges/quality-score.png?s=bff77b48e6f3a15bad8f2e8e0153bb5e45e28cae)](https://scrutinizer-ci.com/g/holyshared/code-analyzer/)
-[![Coverage Status](https://coveralls.io/repos/holyshared/code-analyzer/badge.png?branch=master)](https://coveralls.io/r/holyshared/code-analyzer?branch=master)
-[![Dependencies Status](https://depending.in/holyshared/code-analyzer.png)](http://depending.in/holyshared/code-analyzer)
+[![Build Status](https://travis-ci.org/holyshared/cloak.svg?branch=master)](https://travis-ci.org/holyshared/cloak)
+[![Stories in Ready](https://badge.waffle.io/holyshared/cloak.png?label=ready&title=Ready)](https://waffle.io/holyshared/cloak)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/cloak/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/cloak/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/holyshared/cloak/badge.png)](https://coveralls.io/r/holyshared/cloak)
+[![Dependencies Status](https://depending.in/holyshared/cloak.png)](http://depending.in/holyshared/cloak)
+
 
 Cloak is a library that takes a code coverage.  
 This library works with **PHP5.4 or more**.
