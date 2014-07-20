@@ -11,9 +11,13 @@
 
 namespace easycoverage;
 
-use easycoverage\Result,
-    Zend\EventManager\EventManagerAwareInterface;
+use easycoverage\Result;
+use Zend\EventManager\EventManagerAwareInterface;
 
+/**
+ * Interface NotifierInterface
+ * @package easycoverage
+ */
 interface NotifierInterface extends EventManagerAwareInterface
 {
 

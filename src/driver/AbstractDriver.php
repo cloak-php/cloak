@@ -11,6 +11,10 @@
 
 namespace easycoverage\driver;
 
+/**
+ * Class AbstractDriver
+ * @package easycoverage\driver
+ */
 abstract class AbstractDriver implements DriverInterface
 {
 

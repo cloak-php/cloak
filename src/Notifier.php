@@ -11,12 +11,15 @@
 
 namespace easycoverage;
 
-use easycoverage\Event,
-    easycoverage\Result,
-    easycoverage\Reporter\ReporterInterface,
-    Zend\EventManager\EventManagerAwareTrait;
+use easycoverage\Result;
+use easycoverage\Reporter\ReporterInterface;
+use Zend\EventManager\EventManagerAwareTrait;
 
 //TODO setReporter / getReporter
+/**
+ * Class Notifier
+ * @package easycoverage
+ */
 class Notifier implements NotifierInterface
 {
 

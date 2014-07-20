@@ -11,9 +11,13 @@
 
 namespace easycoverage\reporter;
 
-use Zend\EventManager\EventManagerInterface,
-    Zend\EventManager\ListenerAggregateTrait;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateTrait;
 
+/**
+ * Trait Reportable
+ * @package easycoverage\reporter
+ */
 trait Reportable
 {
 

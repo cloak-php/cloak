@@ -11,6 +11,10 @@
 
 namespace easycoverage\driver;
 
+/**
+ * Class XdebugDriver
+ * @package easycoverage\driver
+ */
 class XdebugDriver extends AbstractDriver
 {
 

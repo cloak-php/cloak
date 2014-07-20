@@ -13,6 +13,10 @@ namespace easycoverage;
 
 use Zend\EventManager\Event as BaseEvent;
 
+/**
+ * Class Event
+ * @package easycoverage
+ */
 class Event extends BaseEvent implements EventInterface
 {
 

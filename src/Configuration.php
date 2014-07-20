@@ -11,9 +11,13 @@
 
 namespace easycoverage;
 
-use easycoverage\Result,
-    easycoverage\Driver\XdebugDriver;
+use easycoverage\Result;
+use easycoverage\driver\XdebugDriver;
 
+/**
+ * Class Configuration
+ * @package easycoverage
+ */
 class Configuration
 {
 

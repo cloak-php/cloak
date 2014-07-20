@@ -13,6 +13,10 @@ namespace easycoverage;
 
 use Exception;
 
+/**
+ * Class DriverNotFoundException
+ * @package easycoverage
+ */
 class DriverNotFoundException extends Exception
 {
 

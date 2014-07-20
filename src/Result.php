@@ -11,11 +11,14 @@
 
 namespace easycoverage;
 
-use easycoverage\Configuration,
-    easycoverage\Result\File,
-    PhpCollection\Sequence,
-    PhpCollection\AbstractSequence;
+use easycoverage\result\File;
+use PhpCollection\Sequence;
+use PhpCollection\AbstractSequence;
 
+/**
+ * Class Result
+ * @package easycoverage
+ */
 class Result
 {
 

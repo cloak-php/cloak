@@ -11,6 +11,10 @@
 
 namespace easycoverage\driver;
 
+/**
+ * Class HHVMDriver
+ * @package easycoverage\driver
+ */
 class HHVMDriver extends AbstractDriver
 {
 

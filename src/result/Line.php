@@ -11,6 +11,10 @@
 
 namespace easycoverage\result;
 
+/**
+ * Class Line
+ * @package easycoverage\result
+ */
 class Line
 {
 

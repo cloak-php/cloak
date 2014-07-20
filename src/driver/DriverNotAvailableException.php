@@ -13,6 +13,10 @@ namespace easycoverage\driver;
 
 use Exception;
 
+/**
+ * Class DriverNotAvailableException
+ * @package easycoverage\driver
+ */
 class DriverNotAvailableException extends Exception
 {
 }

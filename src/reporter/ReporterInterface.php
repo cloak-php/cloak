@@ -11,9 +11,13 @@
 
 namespace easycoverage\reporter;
 
-use easycoverage\EventInterface,
-    Zend\EventManager\ListenerAggregateInterface;
+use easycoverage\EventInterface;
+use Zend\EventManager\ListenerAggregateInterface;
 
+/**
+ * Interface ReporterInterface
+ * @package easycoverage\reporter
+ */
 interface ReporterInterface extends ListenerAggregateInterface
 {
 

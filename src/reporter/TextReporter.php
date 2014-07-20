@@ -11,12 +11,16 @@
 
 namespace easycoverage\reporter;
 
-use easycoverage\Result,
-    easycoverage\Result\File,
-    easycoverage\Result\Coverage,
-    easycoverage\EventInterface,
-    Colors\Color;
+use easycoverage\Result;
+use easycoverage\result\File;
+use easycoverage\result\Coverage;
+use easycoverage\EventInterface;
+use Colors\Color;
 
+/**
+ * Class TextReporter
+ * @package easycoverage\reporter
+ */
 class TextReporter implements ReporterInterface
 {
 

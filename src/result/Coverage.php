@@ -11,7 +11,10 @@
 
 namespace easycoverage\result;
 
-
+/***
+ * Class Coverage
+ * @package easycoverage\result
+ */
 class Coverage
 {
 

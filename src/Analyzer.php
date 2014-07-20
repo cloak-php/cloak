@@ -11,14 +11,12 @@
 
 namespace easycoverage;
 
-use easycoverage\Driver\DriverInterface,
-    easycoverage\Driver\XdebugDriver,
-    easycoverage\ConfigurationBuilder,
-    easycoverage\Configuration,
-    easycoverage\Notifier,
-    easycoverage\NotifierAwareInterface,
-    easycoverage\ProvidesNotifier;
+use easycoverage\ProvidesNotifier;
 
+/**
+ * Class Analyzer
+ * @package easycoverage
+ */
 class Analyzer implements NotifierAwareInterface
 {
 

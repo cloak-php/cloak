@@ -11,6 +11,10 @@
 
 namespace easycoverage;
 
+/**
+ * Class ProvidesNotifier
+ * @package easycoverage
+ */
 trait ProvidesNotifier
 {
 

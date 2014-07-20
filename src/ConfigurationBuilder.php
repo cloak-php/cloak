@@ -11,9 +11,13 @@
 
 namespace easycoverage;
 
-use easycoverage\Driver\DriverInterface;
-use easycoverage\Reporter\ReporterInterface;
+use easycoverage\driver\DriverInterface;
+use easycoverage\reporter\ReporterInterface;
 
+/**
+ * Class ConfigurationBuilder
+ * @package easycoverage
+ */
 class ConfigurationBuilder
 {
 
@@ -69,8 +73,8 @@ class ConfigurationBuilder
         }
 
         $driverDetector = new DriverDetector([
-            '\easycoverage\Driver\XdebugDriver',
-            '\easycoverage\Driver\HHVMDriver'
+            '\easycoverage\driver\XdebugDriver',
+            '\easycoverage\driver\HHVMDriver'
         ]);
         $driver = $driverDetector->detect();
 

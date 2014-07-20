@@ -11,6 +11,10 @@
 
 namespace easycoverage\driver;
 
+/**
+ * Interface DriverInterface
+ * @package easycoverage\driver
+ */
 interface DriverInterface
 {
 

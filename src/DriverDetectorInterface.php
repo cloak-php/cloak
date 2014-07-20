@@ -11,11 +11,15 @@
 
 namespace easycoverage;
 
+/**
+ * Interface DriverDetectorInterface
+ * @package easycoverage
+ */
 interface DriverDetectorInterface
 {
 
     /**
-     * @return \easycoverage\Driver\DriverInterface
+     * @return \easycoverage\driver\DriverInterface
      * @throws \easycoverage\DriverNotFoundException
      */
     public function detect();

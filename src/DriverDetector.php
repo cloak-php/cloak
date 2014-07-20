@@ -11,7 +11,7 @@
 
 namespace easycoverage;
 
-use easycoverage\Driver\DriverNotAvailableException;
+use easycoverage\driver\DriverNotAvailableException;
 
 /**
  * Class DriverDetector
@@ -34,7 +34,7 @@ class DriverDetector implements DriverDetectorInterface
     }
 
     /**
-     * @return \easycoverage\Driver\DriverInterface
+     * @return \easycoverage\driver\DriverInterface
      * @throws \easycoverage\DriverNotFoundException
      */
     public function detect()

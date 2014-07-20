@@ -11,8 +11,10 @@
 
 namespace easycoverage;
 
-use easycoverage\NotifierInterface;
-
+/**
+ * Interface NotifierAwareInterface
+ * @package easycoverage
+ */
 interface NotifierAwareInterface
 {
 

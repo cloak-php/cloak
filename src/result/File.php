@@ -13,6 +13,10 @@ namespace easycoverage\result;
 
 use \PhpCollection\Sequence;
 
+/**
+ * Class File
+ * @package easycoverage\result
+ */
 class File
 {
 
