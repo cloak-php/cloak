@@ -9,16 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\Result;
-use easycoverage\Reporter\ReporterInterface;
+use cloak\Result;
+use cloak\Reporter\ReporterInterface;
 use Zend\EventManager\EventManagerAwareTrait;
 
 //TODO setReporter / getReporter
 /**
  * Class Notifier
- * @package easycoverage
+ * @package cloak
  */
 class Notifier implements NotifierInterface
 {

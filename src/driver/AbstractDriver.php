@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\driver;
+namespace cloak\driver;
 
 /**
  * Class AbstractDriver
- * @package easycoverage\driver
+ * @package cloak\driver
  */
 abstract class AbstractDriver implements DriverInterface
 {

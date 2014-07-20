@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
 use Exception;
 
 /**
  * Class DriverNotFoundException
- * @package easycoverage
+ * @package cloak
  */
 class DriverNotFoundException extends Exception
 {

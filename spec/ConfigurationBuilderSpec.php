@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,8 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\ConfigurationBuilder;
-use easycoverage\reporter\TextReporter;
+use cloak\ConfigurationBuilder;
+use cloak\reporter\TextReporter;
 use Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
@@ -26,7 +26,7 @@ describe('ConfigurationBuilder', function() {
             $filters = $this->builder->includeFiles;
             expect(count($filters))->toBe(2);
         });
-        it('should return easycoverage\ConfigurationBuilder instance', function() {
+        it('should return cloak\ConfigurationBuilder instance', function() {
             expect($this->returnValue)->toEqual($this->builder);
         });
     });
@@ -43,7 +43,7 @@ describe('ConfigurationBuilder', function() {
             $filters = $this->builder->excludeFiles;
             expect(count($filters))->toBe(2);
         });
-        it('should return easycoverage\ConfigurationBuilder instance', function() {
+        it('should return cloak\ConfigurationBuilder instance', function() {
             expect($this->returnValue)->toEqual($this->builder);
         });
     });
@@ -55,7 +55,7 @@ describe('ConfigurationBuilder', function() {
         $this->filter4 = function(File $file){};
         $this->reporter = new TextReporter();
 
-        $this->driver = Mock::mock('easycoverage\driver\DriverInterface');
+        $this->driver = Mock::mock('cloak\driver\DriverInterface');
 
         $this->builder = new ConfigurationBuilder(); 
         $this->builder->driver($this->driver)
@@ -69,8 +69,8 @@ describe('ConfigurationBuilder', function() {
             Mock::close();
         });
 
-        it('should return easycoverage\Configuration instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Configuration');
+        it('should return cloak\Configuration instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('cloak\Configuration');
         });
         it('should apply driver configration', function() {
             $driver = $this->returnValue->driver;

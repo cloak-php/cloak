@@ -9,18 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
 /**
  * Interface DriverDetectorInterface
- * @package easycoverage
+ * @package cloak
  */
 interface DriverDetectorInterface
 {
 
     /**
-     * @return \easycoverage\driver\DriverInterface
-     * @throws \easycoverage\DriverNotFoundException
+     * @return \cloak\driver\DriverInterface
+     * @throws \cloak\DriverNotFoundException
      */
     public function detect();
 

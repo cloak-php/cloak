@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
 /**
  * Class ProvidesNotifier
- * @package easycoverage
+ * @package cloak
  */
 trait ProvidesNotifier
 {
@@ -21,7 +21,7 @@ trait ProvidesNotifier
     protected $notifier = null;
 
     /**
-     * @param \easycoverage\NotifierInterface $notifier
+     * @param \cloak\NotifierInterface $notifier
      * @return $this
      */
     public function setNotifier(NotifierInterface $notifier)
@@ -31,7 +31,7 @@ trait ProvidesNotifier
     }
 
     /**
-     * @return \easycoverage\NotifierInterface
+     * @return \cloak\NotifierInterface
      */
     public function getNotifier()
     {

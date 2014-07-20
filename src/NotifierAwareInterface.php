@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
 /**
  * Interface NotifierAwareInterface
- * @package easycoverage
+ * @package cloak
  */
 interface NotifierAwareInterface
 {

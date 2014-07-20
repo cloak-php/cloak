@@ -9,20 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\Result;
+use cloak\Result;
 use Zend\EventManager\EventManagerAwareInterface;
 
 /**
  * Interface NotifierInterface
- * @package easycoverage
+ * @package cloak
  */
 interface NotifierInterface extends EventManagerAwareInterface
 {
 
     /**
-     * @param \easycoverage\Result $result
+     * @param \cloak\Result $result
      * @return void
      */
     public function stop(Result $result);

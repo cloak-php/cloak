@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\driver\DriverNotAvailableException;
+use cloak\driver\DriverNotAvailableException;
 
 /**
  * Class DriverDetector
- * @package easycoverage
+ * @package cloak
  */
 class DriverDetector implements DriverDetectorInterface
 {
@@ -34,8 +34,8 @@ class DriverDetector implements DriverDetectorInterface
     }
 
     /**
-     * @return \easycoverage\driver\DriverInterface
-     * @throws \easycoverage\DriverNotFoundException
+     * @return \cloak\driver\DriverInterface
+     * @throws \cloak\DriverNotFoundException
      */
     public function detect()
     {

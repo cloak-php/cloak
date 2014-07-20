@@ -1,9 +1,9 @@
 <?php
 
-namespace easycoverage\spec\driver;
+namespace cloak\spec\driver;
 
-use easycoverage\driver\DriverInterface;
-use easycoverage\driver\DriverNotAvailableException;
+use cloak\driver\DriverInterface;
+use cloak\driver\DriverNotAvailableException;
 
 class FixtureDriver implements DriverInterface
 {

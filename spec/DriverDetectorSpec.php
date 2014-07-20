@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\DriverDetector;
+use cloak\DriverDetector;
 
 describe('DriverDetector', function() {
 
@@ -17,24 +17,24 @@ describe('DriverDetector', function() {
         context('when enabled', function() {
             before(function() {
                 $this->detector = new DriverDetector([
-                    'easycoverage\driver\XdebugDriver'
+                    'cloak\driver\XdebugDriver'
                 ]);
             });
             it('should return driver instance', function() {
                 $driver = $this->detector->detect();
-                expect($driver)->toBeAnInstanceOf('easycoverage\driver\DriverInterface');
+                expect($driver)->toBeAnInstanceOf('cloak\driver\DriverInterface');
             });
         });
         context('when not enabled', function() {
             before(function() {
                 $this->detector = new DriverDetector([
-                    'easycoverage\spec\driver\FixtureDriver'
+                    'cloak\spec\driver\FixtureDriver'
                 ]);
             });
-            it('should throw easycoverage\DriverNotFoundException', function() {
+            it('should throw cloak\DriverNotFoundException', function() {
                 expect(function() {
                     $this->detector->detect();
-                })->toThrow('easycoverage\DriverNotFoundException');
+                })->toThrow('cloak\DriverNotFoundException');
             });
         });
     });

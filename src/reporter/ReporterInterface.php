@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\reporter;
+namespace cloak\reporter;
 
-use easycoverage\EventInterface;
+use cloak\EventInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
 /**
  * Interface ReporterInterface
- * @package easycoverage\reporter
+ * @package cloak\reporter
  */
 interface ReporterInterface extends ListenerAggregateInterface
 {

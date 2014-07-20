@@ -2,9 +2,9 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use easycoverage\Analyzer;
-use easycoverage\ConfigurationBuilder;
-use easycoverage\Result\File;
+use cloak\Analyzer;
+use cloak\ConfigurationBuilder;
+use cloak\Result\File;
 use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;

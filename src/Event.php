@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
 use Zend\EventManager\Event as BaseEvent;
 
 /**
  * Class Event
- * @package easycoverage
+ * @package cloak
  */
 class Event extends BaseEvent implements EventInterface
 {

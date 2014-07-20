@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\driver\DriverInterface;
-use easycoverage\reporter\ReporterInterface;
+use cloak\driver\DriverInterface;
+use cloak\reporter\ReporterInterface;
 
 /**
  * Class ConfigurationBuilder
- * @package easycoverage
+ * @package cloak
  */
 class ConfigurationBuilder
 {
@@ -73,8 +73,8 @@ class ConfigurationBuilder
         }
 
         $driverDetector = new DriverDetector([
-            '\easycoverage\driver\XdebugDriver',
-            '\easycoverage\driver\HHVMDriver'
+            '\cloak\driver\XdebugDriver',
+            '\cloak\driver\HHVMDriver'
         ]);
         $driver = $driverDetector->detect();
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\result\File;
-use easycoverage\result\Line;
-use easycoverage\result\Coverage;
+use cloak\result\File;
+use cloak\result\Line;
+use cloak\result\Coverage;
 use PhpCollection\Sequence;
 
 describe('File', function() {
@@ -44,8 +44,8 @@ describe('File', function() {
     describe('#setLines', function() {
         $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
 
-        it('should return easycoverage\result\File instance', function() {
-            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('easycoverage\result\File');
+        it('should return cloak\result\File instance', function() {
+            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('cloak\result\File');
         });
     });
 

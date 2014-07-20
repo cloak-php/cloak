@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\ConfigurationBuilder;
-use easycoverage\Result;
-use easycoverage\result\File;
+use cloak\ConfigurationBuilder;
+use cloak\Result;
+use cloak\result\File;
 
 describe('Configuration', function() {
 
@@ -42,8 +42,8 @@ describe('Configuration', function() {
             expect($files->count())->toBe(1);
             expect($files->last()->get()->matchPath('/foo.php'))->toBeTrue();
         });
-        it('should return easycoverage\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
+        it('should return cloak\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
         });
     });
 

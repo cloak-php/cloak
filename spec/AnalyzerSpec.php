@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Analyzer;
-use easycoverage\ConfigurationBuilder;
-use easycoverage\Result;
-use easycoverage\result\Line;
-use easycoverage\result\File;
+use cloak\Analyzer;
+use cloak\ConfigurationBuilder;
+use cloak\Result;
+use cloak\result\Line;
+use cloak\result\File;
 use Mockery as Mock;
 
 describe('Analyzer', function() {
@@ -41,17 +41,17 @@ describe('Analyzer', function() {
         it('should called once', function() {
             expect($this->subject->called)->toBe(1);
         });
-        it('should argument is an instance of easycoverage\ConfigurationBuilder', function() {
-            expect($this->subject->builder)->toBeAnInstanceOf('easycoverage\ConfigurationBuilder');
+        it('should argument is an instance of cloak\ConfigurationBuilder', function() {
+            expect($this->subject->builder)->toBeAnInstanceOf('cloak\ConfigurationBuilder');
         });
-        it('should return an instance of easycoverage\Analyzer', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Analyzer');
+        it('should return an instance of cloak\Analyzer', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('cloak\Analyzer');
         });
     });
 
     describe('#stop', function() {
         $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-            $driver = Mock::mock('easycoverage\Driver\DriverInterface');
+            $driver = Mock::mock('cloak\Driver\DriverInterface');
             $driver->shouldReceive('start')->once();
             $driver->shouldReceive('stop')->once();
             $driver->shouldReceive('getResult')->once()->andReturn(array(
@@ -61,7 +61,7 @@ describe('Analyzer', function() {
         });
 
         $subject = $this->subject = new \stdClass();
-        $this->notifier = Mock::mock('easycoverage\NotifierInterface');
+        $this->notifier = Mock::mock('cloak\NotifierInterface');
         $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
             $subject->result = $result;
             return true;
@@ -75,15 +75,15 @@ describe('Analyzer', function() {
         after(function() {
             Mock::close();
         });
-        it('should return easycoverage\Result instance', function() {
-            expect($this->subject->result)->toBeAnInstanceOf('easycoverage\Result');
+        it('should return cloak\Result instance', function() {
+            expect($this->subject->result)->toBeAnInstanceOf('cloak\Result');
         });
     });
 
     describe('#isStarted', function() {
         context('when started', function() {
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                $driver = Mock::mock('easycoverage\driver\DriverInterface');
+                $driver = Mock::mock('cloak\driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('isStarted')->once()->andReturn(true);
                 $builder->driver($driver);
@@ -98,7 +98,7 @@ describe('Analyzer', function() {
         });
         context('when stoped', function() {
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                $driver = Mock::mock('easycoverage\driver\DriverInterface');
+                $driver = Mock::mock('cloak\driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('stop')->once();
                 $driver->shouldReceive('isStarted')->once()->andReturn(false);
@@ -128,7 +128,7 @@ describe('Analyzer', function() {
                 $rootDirectory . 'vendor/foo2.php' => array( 1 => Line::EXECUTED )
             ];
 
-            $driver = Mock::mock('easycoverage\driver\DriverInterface');
+            $driver = Mock::mock('cloak\driver\DriverInterface');
             $driver->shouldReceive('start')->once();
             $driver->shouldReceive('stop')->once();
             $driver->shouldReceive('getResult')->once()->andReturn($coverageResults);
@@ -149,11 +149,11 @@ describe('Analyzer', function() {
         after(function() {
             Mock::close();
         });
-        it('should return an instance of easycoverage\Result', function() {
+        it('should return an instance of cloak\Result', function() {
             $files = $this->result->getFiles();
 
             expect($files->count())->toBe(2);
-            expect($this->result)->toBeAnInstanceOf('easycoverage\Result');
+            expect($this->result)->toBeAnInstanceOf('cloak\Result');
         });
     });
 

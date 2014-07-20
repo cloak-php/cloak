@@ -9,17 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\reporter;
+namespace cloak\reporter;
 
-use easycoverage\Result;
-use easycoverage\result\File;
-use easycoverage\result\Coverage;
-use easycoverage\EventInterface;
+use cloak\Result;
+use cloak\result\File;
+use cloak\result\Coverage;
+use cloak\EventInterface;
 use Colors\Color;
 
 /**
  * Class TextReporter
- * @package easycoverage\reporter
+ * @package cloak\reporter
  */
 class TextReporter implements ReporterInterface
 {

@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\reporter;
+namespace cloak\reporter;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 
 /**
  * Trait Reportable
- * @package easycoverage\reporter
+ * @package cloak\reporter
  */
 trait Reportable
 {

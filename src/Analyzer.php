@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\ProvidesNotifier;
+use cloak\ProvidesNotifier;
 
 /**
  * Class Analyzer
- * @package easycoverage
+ * @package cloak
  */
 class Analyzer implements NotifierAwareInterface
 {

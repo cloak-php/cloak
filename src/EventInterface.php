@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
 use Zend\EventManager\EventInterface as BaseEventInterface;
 
 /**
  * Interface EventInterface
- * @package easycoverage
+ * @package cloak
  */
 interface EventInterface extends BaseEventInterface
 {

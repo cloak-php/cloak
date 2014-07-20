@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\result;
+namespace cloak\result;
 
 use \PhpCollection\Sequence;
 
 /**
  * Class File
- * @package easycoverage\result
+ * @package cloak\result
  */
 class File
 {

@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\Result;
-use easycoverage\driver\XdebugDriver;
+use cloak\Result;
+use cloak\driver\XdebugDriver;
 
 /**
  * Class Configuration
- * @package easycoverage
+ * @package cloak
  */
 class Configuration
 {

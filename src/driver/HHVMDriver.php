@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\driver;
+namespace cloak\driver;
 
 /**
  * Class HHVMDriver
- * @package easycoverage\driver
+ * @package cloak\driver
  */
 class HHVMDriver extends AbstractDriver
 {

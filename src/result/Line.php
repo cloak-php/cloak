@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\result;
+namespace cloak\result;
 
 /**
  * Class Line
- * @package easycoverage\result
+ * @package cloak\result
  */
 class Line
 {

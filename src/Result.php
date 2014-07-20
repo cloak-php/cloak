@@ -9,15 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage;
+namespace cloak;
 
-use easycoverage\result\File;
+use cloak\result\File;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
 
 /**
  * Class Result
- * @package easycoverage
+ * @package cloak
  */
 class Result
 {

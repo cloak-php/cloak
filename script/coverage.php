@@ -2,10 +2,10 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use easycoverage\Analyzer;
-use easycoverage\ConfigurationBuilder;
-use easycoverage\Result\File;
-use easycoverage\reporter\TextReporter;
+use cloak\Analyzer;
+use cloak\ConfigurationBuilder;
+use cloak\Result\File;
+use cloak\reporter\TextReporter;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 

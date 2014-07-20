@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Analyzer;
-use easycoverage\Configuration;
-use easycoverage\Event;
-use easycoverage\Result;
-use easycoverage\result\Line;
-use easycoverage\reporter\TextReporter;
+use cloak\Analyzer;
+use cloak\Configuration;
+use cloak\Event;
+use cloak\Result;
+use cloak\result\Line;
+use cloak\reporter\TextReporter;
 use Colors\Color;
 
 describe('TextReporter', function() {
