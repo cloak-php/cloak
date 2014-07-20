@@ -2,9 +2,9 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Result\File;
+use easycoverage\Analyzer;
+use easycoverage\ConfigurationBuilder;
+use easycoverage\Result\File;
 use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;
@@ -32,11 +32,11 @@ $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
     'spec/ConfigurationBuilderSpec.php',
     'spec/ResultSpec.php',
-    'spec/Result/FileSpec.php',
-    'spec/Result/LineSpec.php',
-    'spec/Result/CoverageSpec.php',
-    'spec/Reporter/ReportableSpec.php',
-    'spec/Reporter/TextReporterSpec.php',
+    'spec/result/FileSpec.php',
+    'spec/result/LineSpec.php',
+    'spec/result/CoverageSpec.php',
+    'spec/reporter/ReportableSpec.php',
+    'spec/reporter/TextReporterSpec.php',
     'spec/ProgressNotifierSpec.php',
     'spec/AnalyzerSpec.php',
     'spec/DriverDetectorSpec.php',

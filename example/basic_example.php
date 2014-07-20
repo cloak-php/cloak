@@ -5,9 +5,9 @@ namespace Example;
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/src/functions.php";
 
-use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Result\File;
+use easycoverage\Analyzer;
+use easycoverage\ConfigurationBuilder;
+use easycoverage\Result\File;
 
 use Example as example;
 
