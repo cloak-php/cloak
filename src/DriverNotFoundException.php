@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of easy-coverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *

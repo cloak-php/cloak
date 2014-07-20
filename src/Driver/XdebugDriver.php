@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of easycoverage.
+ * This file is part of easy-coverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace easycoverage\Driver;
+namespace easycoverage\driver;
 
 class XdebugDriver extends AbstractDriver
 {
