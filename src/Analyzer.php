@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,15 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace easycoverage;
 
-use CodeAnalyzer\Driver\DriverInterface,
-    CodeAnalyzer\Driver\XdebugDriver,
-    CodeAnalyzer\ConfigurationBuilder,
-    CodeAnalyzer\Configuration,
-    CodeAnalyzer\Notifier,
-    CodeAnalyzer\NotifierAwareInterface,
-    CodeAnalyzer\ProvidesNotifier;
+use easycoverage\Driver\DriverInterface,
+    easycoverage\Driver\XdebugDriver,
+    easycoverage\ConfigurationBuilder,
+    easycoverage\Configuration,
+    easycoverage\Notifier,
+    easycoverage\NotifierAwareInterface,
+    easycoverage\ProvidesNotifier;
 
 class Analyzer implements NotifierAwareInterface
 {

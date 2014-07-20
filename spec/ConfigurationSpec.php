@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Configuration,
-    CodeAnalyzer\ConfigurationBuilder,
-    CodeAnalyzer\Result,
-    CodeAnalyzer\Result\File;
+use easycoverage\Configuration,
+    easycoverage\ConfigurationBuilder,
+    easycoverage\Result,
+    easycoverage\Result\File;
 
 describe('Configuration', function() {
 
@@ -43,8 +43,8 @@ describe('Configuration', function() {
             expect($files->count())->toBe(1);
             expect($files->last()->get()->matchPath('/foo.php'))->toBeTrue();
         });
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return easycoverage\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
         });
     });
 

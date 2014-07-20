@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace easycoverage;
 
-use CodeAnalyzer\Driver\DriverNotAvailableException;
+use easycoverage\Driver\DriverNotAvailableException;
 
 /**
  * Class DriverDetector
- * @package CodeAnalyzer
+ * @package easycoverage
  */
 class DriverDetector implements DriverDetectorInterface
 {
@@ -34,8 +34,8 @@ class DriverDetector implements DriverDetectorInterface
     }
 
     /**
-     * @return \CodeAnalyzer\Driver\DriverInterface
-     * @throws \CodeAnalyzer\DriverNotFoundException
+     * @return \easycoverage\Driver\DriverInterface
+     * @throws \easycoverage\DriverNotFoundException
      */
     public function detect()
     {

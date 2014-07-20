@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer\Reporter;
+namespace easycoverage\Reporter;
 
-use CodeAnalyzer\Result,
-    CodeAnalyzer\Result\File,
-    CodeAnalyzer\Result\Coverage,
-    CodeAnalyzer\EventInterface,
+use easycoverage\Result,
+    easycoverage\Result\File,
+    easycoverage\Result\Coverage,
+    easycoverage\EventInterface,
     Colors\Color;
 
 class TextReporter implements ReporterInterface

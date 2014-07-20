@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,8 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Result\File;
+use easycoverage\Result\Line,
+    easycoverage\Result\File;
 
 describe('Line', function() {
 

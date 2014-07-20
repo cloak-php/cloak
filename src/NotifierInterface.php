@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,16 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace easycoverage;
 
-use CodeAnalyzer\Result,
+use easycoverage\Result,
     Zend\EventManager\EventManagerAwareInterface;
 
 interface NotifierInterface extends EventManagerAwareInterface
 {
 
     /**
-     * @param \CodeAnalyzer\Result $result
+     * @param \easycoverage\Result $result
      * @return void
      */
     public function stop(Result $result);

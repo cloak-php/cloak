@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Configuration,
-    CodeAnalyzer\ConfigurationBuilder,
-    CodeAnalyzer\Driver\DriverInterface,
-    CodeAnalyzer\Reporter\TextReporter,
+use easycoverage\Configuration,
+    easycoverage\ConfigurationBuilder,
+    easycoverage\Driver\DriverInterface,
+    easycoverage\Reporter\TextReporter,
     Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
@@ -28,7 +28,7 @@ describe('ConfigurationBuilder', function() {
             $filters = $this->builder->includeFiles;
             expect(count($filters))->toBe(2);
         });
-        it('should return CodeAnalyzer\ConfigurationBuilder instance', function() {
+        it('should return easycoverage\ConfigurationBuilder instance', function() {
             expect($this->returnValue)->toEqual($this->builder);
         });
     });
@@ -45,7 +45,7 @@ describe('ConfigurationBuilder', function() {
             $filters = $this->builder->excludeFiles;
             expect(count($filters))->toBe(2);
         });
-        it('should return CodeAnalyzer\ConfigurationBuilder instance', function() {
+        it('should return easycoverage\ConfigurationBuilder instance', function() {
             expect($this->returnValue)->toEqual($this->builder);
         });
     });
@@ -57,7 +57,7 @@ describe('ConfigurationBuilder', function() {
         $this->filter4 = function(File $file){};
         $this->reporter = new TextReporter();
 
-        $this->driver = Mock::mock('CodeAnalyzer\Driver\DriverInterface');
+        $this->driver = Mock::mock('easycoverage\Driver\DriverInterface');
 
         $this->builder = new ConfigurationBuilder(); 
         $this->builder->driver($this->driver)
@@ -71,8 +71,8 @@ describe('ConfigurationBuilder', function() {
             Mock::close();
         });
 
-        it('should return CodeAnalyzer\Configuration instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Configuration');
+        it('should return easycoverage\Configuration instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Configuration');
         });
         it('should apply driver configration', function() {
             $driver = $this->returnValue->driver;

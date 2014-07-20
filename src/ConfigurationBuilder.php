@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace easycoverage;
 
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Reporter\ReporterInterface;
+use easycoverage\Driver\DriverInterface;
+use easycoverage\Reporter\ReporterInterface;
 
 class ConfigurationBuilder
 {
@@ -69,8 +69,8 @@ class ConfigurationBuilder
         }
 
         $driverDetector = new DriverDetector([
-            '\CodeAnalyzer\Driver\XdebugDriver',
-            '\CodeAnalyzer\Driver\HHVMDriver'
+            '\easycoverage\Driver\XdebugDriver',
+            '\easycoverage\Driver\HHVMDriver'
         ]);
         $driver = $driverDetector->detect();
 

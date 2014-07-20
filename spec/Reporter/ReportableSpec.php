@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\EventInterface,
-    CodeAnalyzer\Reporter\Reportable,
-    CodeAnalyzer\Reporter\ReporterInterface,
+use easycoverage\EventInterface,
+    easycoverage\Reporter\Reportable,
+    easycoverage\Reporter\ReporterInterface,
     Zend\EventManager\EventManager,
     Mockery as Mock;
 
-class CodeAnalyzerReporter implements ReporterInterface
+class easycoverageReporter implements ReporterInterface
 {
 
     use Reportable;
@@ -29,7 +29,7 @@ class CodeAnalyzerReporter implements ReporterInterface
 describe('Reportable', function() {
 
     describe('#attach', function() {
-        $this->reporter = Mock::mock('CodeAnalyzerReporter');
+        $this->reporter = Mock::mock('easycoverageReporter');
         $this->reporter->makePartial();
         $this->reporter->shouldReceive('onStop')->once();
 
@@ -47,7 +47,7 @@ describe('Reportable', function() {
     });
 
     describe('#detach', function() {
-        $this->reporter = Mock::mock('CodeAnalyzerReporter');
+        $this->reporter = Mock::mock('easycoverageReporter');
         $this->reporter->makePartial();
         $this->reporter->shouldReceive('onStop')->once();
 

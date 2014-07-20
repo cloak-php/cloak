@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result,
-    CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Result\File,
-    CodeAnalyzer\Configuration,
+use easycoverage\Result,
+    easycoverage\Result\Line,
+    easycoverage\Result\File,
+    easycoverage\Configuration,
     PhpCollection\Sequence;
 
 describe('Result', function() {
@@ -26,8 +26,8 @@ describe('Result', function() {
         ];
         $this->returnValue = Result::from($coverageResults);
 
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return easycoverage\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
         });
     });
 
@@ -69,8 +69,8 @@ describe('Result', function() {
             return $file->matchPath('bar.php');
         });
 
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return easycoverage\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
         });
         it('should include only those that match element', function() {
             $files = $this->returnValue->getFiles();
@@ -95,8 +95,8 @@ describe('Result', function() {
         };
         $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
 
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return easycoverage\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
         });
         it('should include only those that match element', function() {
             $files = $this->returnValue->getFiles();
@@ -116,8 +116,8 @@ describe('Result', function() {
             return $file->matchPath('foo.php');
         });
 
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return easycoverage\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
         });
         it('should exclude only those that match element', function() {
             $files = $this->returnValue->getFiles();
@@ -142,8 +142,8 @@ describe('Result', function() {
             };
             $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
 
-        it('should return CodeAnalyzer\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('CodeAnalyzer\Result');
+        it('should return easycoverage\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('easycoverage\Result');
         });
         it('should exclude only those that match element', function() {
             $files = $this->returnValue->getFiles();
@@ -159,7 +159,7 @@ describe('Result', function() {
         it('should should the files is replaced', function() {
             expect($this->result->getFiles())->toEqual($this->files);
         });
-        it('should return CodeAnalyzer\Result instance', function() {
+        it('should return easycoverage\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
         });
     });
@@ -175,7 +175,7 @@ describe('Result', function() {
             $files = $this->returnValue->getFiles();
             expect($files->last()->get()->getPath())->toEqual($this->file->getPath());
         });
-        it('should return CodeAnalyzer\Result instance', function() {
+        it('should return easycoverage\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
         });
     });
@@ -192,7 +192,7 @@ describe('Result', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(0);
         });
-        it('should return CodeAnalyzer\Result instance', function() {
+        it('should return easycoverage\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
         });
     });

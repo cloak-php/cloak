@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeAnalyzer\Spec\Driver;
+namespace easycoverage\Spec\Driver;
 
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Driver\DriverNotAvailableException;
+use easycoverage\Driver\DriverInterface;
+use easycoverage\Driver\DriverNotAvailableException;
 
 class FixtureDriver implements DriverInterface
 {

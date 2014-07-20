@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Analyzer,
-    CodeAnalyzer\Configuration,
-    CodeAnalyzer\Event,
-    CodeAnalyzer\Result,
-    CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Reporter\TextReporter,
+use easycoverage\Analyzer,
+    easycoverage\Configuration,
+    easycoverage\Event,
+    easycoverage\Result,
+    easycoverage\Result\Line,
+    easycoverage\Reporter\TextReporter,
     Colors\Color;
 
 describe('TextReporter', function() {

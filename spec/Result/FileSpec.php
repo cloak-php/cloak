@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result\File,
-    CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Result\Coverage,
+use easycoverage\Result\File,
+    easycoverage\Result\Line,
+    easycoverage\Result\Coverage,
     PhpCollection\Sequence;
 
 describe('File', function() {
@@ -44,8 +44,8 @@ describe('File', function() {
     describe('#setLines', function() {
         $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
 
-        it('should return CodeAnalyzer\Result\File instance', function() {
-            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('CodeAnalyzer\Result\File');
+        it('should return easycoverage\Result\File instance', function() {
+            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('easycoverage\Result\File');
         });
     });
 

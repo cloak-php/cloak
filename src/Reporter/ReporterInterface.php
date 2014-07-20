@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer\Reporter;
+namespace easycoverage\Reporter;
 
-use CodeAnalyzer\EventInterface,
+use easycoverage\EventInterface,
     Zend\EventManager\ListenerAggregateInterface;
 
 interface ReporterInterface extends ListenerAggregateInterface

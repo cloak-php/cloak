@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of easycoverage.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace easycoverage;
 
-use CodeAnalyzer\Configuration,
-    CodeAnalyzer\Result\File,
+use easycoverage\Configuration,
+    easycoverage\Result\File,
     PhpCollection\Sequence,
     PhpCollection\AbstractSequence;
 
