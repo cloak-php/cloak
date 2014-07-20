@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,8 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Result\File;
+use cloak\result\Line;
+use cloak\result\File;
 
 describe('Line', function() {
 

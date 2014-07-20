@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,16 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
-use CodeAnalyzer\Result,
-    Zend\EventManager\EventManagerAwareInterface;
+use cloak\Result;
+use Zend\EventManager\EventManagerAwareInterface;
 
+/**
+ * Interface NotifierInterface
+ * @package cloak
+ */
 interface NotifierInterface extends EventManagerAwareInterface
 {
 
     /**
-     * @param \CodeAnalyzer\Result $result
+     * @param \cloak\Result $result
      * @return void
      */
     public function stop(Result $result);

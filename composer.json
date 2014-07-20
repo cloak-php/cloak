@@ -1,7 +1,7 @@
 {
-    "name": "holyshared/code-analyzer",
+    "name": "cloak/cloak",
     "keywords": [ "code coverage", "simple" ],
-    "description": "CodeAnalyzer is a library that takes a code coverage.",
+    "description": "cloak is a library that takes a code coverage.",
     "version": "1.1.0",
     "require": {
         "php": ">=5.4.0",
@@ -10,11 +10,11 @@
         "zendframework/zend-eventmanager": "2.3.*"
     },
     "autoload": {
-        "psr-4": { "CodeAnalyzer\\": "src/" }
+        "psr-4": { "cloak\\": "src/" }
     },
     "autoload-dev": {
         "psr-4": {
-            "CodeAnalyzer\\Spec\\Driver\\": "spec/fixtures/"
+            "cloak\\spec\\driver\\": "spec/fixtures/"
         }
     },
     "require-dev": {

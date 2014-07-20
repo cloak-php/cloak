@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,11 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
-use CodeAnalyzer\Result,
-    CodeAnalyzer\Driver\XdebugDriver;
+use cloak\Result;
+use cloak\driver\XdebugDriver;
 
+/**
+ * Class Configuration
+ * @package cloak
+ */
 class Configuration
 {
 

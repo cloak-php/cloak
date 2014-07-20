@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Result,
-    CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Notifier,
-    Mockery as Mock;
+use cloak\Result;
+use cloak\result\Line;
+use cloak\Notifier;
+use Mockery as Mock;
 
 describe('Notifier', function() {
 
@@ -25,7 +25,7 @@ describe('Notifier', function() {
         $this->result = Result::from($coverageResults);
 
         $subject = $this->subject = new \stdClass();
-        $reporter = $this->reporter = Mock::mock('CodeAnalyzer\Reporter\ReporterInterface');
+        $reporter = $this->reporter = Mock::mock('cloak\reporter\ReporterInterface');
 
         $reporter->shouldReceive('attach')->once()->with(
             Mockery::on(function($eventManager) use ($reporter) {
@@ -46,7 +46,7 @@ describe('Notifier', function() {
 
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
-            expect($event)->toBeAnInstanceOf('CodeAnalyzer\EventInterface');
+            expect($event)->toBeAnInstanceOf('cloak\EventInterface');
         });
 
         it('should include the results', function() {

@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * This file is part of cloak.
+ *
+ * (c) Noritaka Horio <holy.shared.design@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use CodeAnalyzer\Analyzer;
-use CodeAnalyzer\ConfigurationBuilder;
-use CodeAnalyzer\Result\File;
-use CodeAnalyzer\Reporter\TextReporter;
+use cloak\Analyzer;
+use cloak\ConfigurationBuilder;
+use cloak\Result\File;
+use cloak\reporter\TextReporter;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
@@ -26,11 +35,11 @@ $argv = array_merge($defaultArgv, array(
     'spec/ConfigurationSpec.php',
     'spec/ConfigurationBuilderSpec.php',
     'spec/ResultSpec.php',
-    'spec/Result/FileSpec.php',
-    'spec/Result/LineSpec.php',
-    'spec/Result/CoverageSpec.php',
-    'spec/Reporter/ReportableSpec.php',
-    'spec/Reporter/TextReporterSpec.php',
+    'spec/result/FileSpec.php',
+    'spec/result/LineSpec.php',
+    'spec/result/CoverageSpec.php',
+    'spec/reporter/ReportableSpec.php',
+    'spec/reporter/TextReporterSpec.php',
     'spec/ProgressNotifierSpec.php',
     'spec/AnalyzerSpec.php',
     'spec/DriverDetectorSpec.php',

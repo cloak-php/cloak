@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,13 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
-use CodeAnalyzer\Configuration,
-    CodeAnalyzer\Result\File,
-    PhpCollection\Sequence,
-    PhpCollection\AbstractSequence;
+use cloak\result\File;
+use PhpCollection\Sequence;
+use PhpCollection\AbstractSequence;
 
+/**
+ * Class Result
+ * @package cloak
+ */
 class Result
 {
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,11 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
-use CodeAnalyzer\Driver\DriverInterface;
-use CodeAnalyzer\Reporter\ReporterInterface;
+use cloak\driver\DriverInterface;
+use cloak\reporter\ReporterInterface;
 
+/**
+ * Class ConfigurationBuilder
+ * @package cloak
+ */
 class ConfigurationBuilder
 {
 
@@ -69,8 +73,8 @@ class ConfigurationBuilder
         }
 
         $driverDetector = new DriverDetector([
-            '\CodeAnalyzer\Driver\XdebugDriver',
-            '\CodeAnalyzer\Driver\HHVMDriver'
+            '\cloak\driver\XdebugDriver',
+            '\cloak\driver\HHVMDriver'
         ]);
         $driver = $driverDetector->detect();
 

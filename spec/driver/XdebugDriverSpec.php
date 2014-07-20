@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Driver\XdebugDriver;
+use cloak\driver\XdebugDriver;
 
 describe('XdebugDriver', function() {
 

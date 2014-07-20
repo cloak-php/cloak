@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,15 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
+/**
+ * Class ProvidesNotifier
+ * @package cloak
+ */
 trait ProvidesNotifier
 {
 
     protected $notifier = null;
 
     /**
-     * @param \CodeAnalyzer\NotifierInterface $notifier
+     * @param \cloak\NotifierInterface $notifier
      * @return $this
      */
     public function setNotifier(NotifierInterface $notifier)
@@ -27,7 +31,7 @@ trait ProvidesNotifier
     }
 
     /**
-     * @return \CodeAnalyzer\NotifierInterface
+     * @return \cloak\NotifierInterface
      */
     public function getNotifier()
     {

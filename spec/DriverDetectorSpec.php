@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\DriverDetector;
+use cloak\DriverDetector;
 
 describe('DriverDetector', function() {
 
@@ -17,24 +17,24 @@ describe('DriverDetector', function() {
         context('when enabled', function() {
             before(function() {
                 $this->detector = new DriverDetector([
-                    'CodeAnalyzer\Driver\XdebugDriver'
+                    'cloak\driver\XdebugDriver'
                 ]);
             });
             it('should return driver instance', function() {
                 $driver = $this->detector->detect();
-                expect($driver)->toBeAnInstanceOf('CodeAnalyzer\Driver\DriverInterface');
+                expect($driver)->toBeAnInstanceOf('cloak\driver\DriverInterface');
             });
         });
         context('when not enabled', function() {
             before(function() {
                 $this->detector = new DriverDetector([
-                    'CodeAnalyzer\Spec\Driver\FixtureDriver'
+                    'cloak\spec\driver\FixtureDriver'
                 ]);
             });
-            it('should throw CodeAnalyzer\DriverNotFoundException', function() {
+            it('should throw cloak\DriverNotFoundException', function() {
                 expect(function() {
                     $this->detector->detect();
-                })->toThrow('CodeAnalyzer\DriverNotFoundException');
+                })->toThrow('cloak\DriverNotFoundException');
             });
         });
     });

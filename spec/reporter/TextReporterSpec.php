@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,24 +9,24 @@
  * with this source code in the file LICENSE.
  */
 
-use CodeAnalyzer\Analyzer,
-    CodeAnalyzer\Configuration,
-    CodeAnalyzer\Event,
-    CodeAnalyzer\Result,
-    CodeAnalyzer\Result\Line,
-    CodeAnalyzer\Reporter\TextReporter,
-    Colors\Color;
+use cloak\Analyzer;
+use cloak\Configuration;
+use cloak\Event;
+use cloak\Result;
+use cloak\result\Line;
+use cloak\reporter\TextReporter;
+use Colors\Color;
 
 describe('TextReporter', function() {
 
     describe('onStop', function() {
         $coverages = [
-            realpath(__DIR__ . '/../../src/Driver/XdebugDriver.php') => [
+            realpath(__DIR__ . '/../../src/driver/XdebugDriver.php') => [
                 1 => Line::EXECUTED,
                 2 => Line::EXECUTED,
                 3 => Line::UNUSED
             ],
-            realpath(__DIR__ . '/../../src/Result/Line.php') => [
+            realpath(__DIR__ . '/../../src/result/Line.php') => [
                 1 => Line::EXECUTED,
                 2 => Line::EXECUTED,
                 3 => Line::EXECUTED,
@@ -38,7 +38,7 @@ describe('TextReporter', function() {
                 9 => Line::UNUSED,
                10 => Line::UNUSED
             ],
-            realpath(__DIR__ . '/../../src/Result/File.php') => [
+            realpath(__DIR__ . '/../../src/result/File.php') => [
                 1 => Line::EXECUTED,
                 2 => Line::EXECUTED,
                 3 => Line::UNUSED,
@@ -73,9 +73,9 @@ describe('TextReporter', function() {
         });
         it('should output coverage', function() {
             $output  = "";
-            $output .= "src/Driver/XdebugDriver.php .......................................... " . $this->normal . " ( 2/ 3)" . PHP_EOL;
-            $output .= 'src/Result/Line.php .................................................. ' . $this->high . ' ( 7/10)' . PHP_EOL;
-            $output .= "src/Result/File.php .................................................. " . $this->low . " ( 2/ 7)" . PHP_EOL;
+            $output .= "src/driver/XdebugDriver.php .......................................... " . $this->normal . " ( 2/ 3)" . PHP_EOL;
+            $output .= 'src/result/Line.php .................................................. ' . $this->high . ' ( 7/10)' . PHP_EOL;
+            $output .= "src/result/File.php .................................................. " . $this->low . " ( 2/ 7)" . PHP_EOL;
 
             expect(function() {
                 $this->reporter->onStop($this->event);

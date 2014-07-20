@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,14 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer\Reporter;
+namespace cloak\reporter;
 
-use CodeAnalyzer\Result,
-    CodeAnalyzer\Result\File,
-    CodeAnalyzer\Result\Coverage,
-    CodeAnalyzer\EventInterface,
-    Colors\Color;
+use cloak\Result;
+use cloak\result\File;
+use cloak\result\Coverage;
+use cloak\EventInterface;
+use Colors\Color;
 
+/**
+ * Class TextReporter
+ * @package cloak\reporter
+ */
 class TextReporter implements ReporterInterface
 {
 

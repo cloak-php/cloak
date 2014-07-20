@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,14 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
-use CodeAnalyzer\Event,
-    CodeAnalyzer\Result,
-    CodeAnalyzer\Reporter\ReporterInterface,
-    Zend\EventManager\EventManagerAwareTrait;
+use cloak\Result;
+use cloak\Reporter\ReporterInterface;
+use Zend\EventManager\EventManagerAwareTrait;
 
 //TODO setReporter / getReporter
+/**
+ * Class Notifier
+ * @package cloak
+ */
 class Notifier implements NotifierInterface
 {
 

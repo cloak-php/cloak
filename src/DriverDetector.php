@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of CodeAnalyzer.
+ * This file is part of cloak.
  *
  * (c) Noritaka Horio <holy.shared.design@gmail.com>
  *
@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeAnalyzer;
+namespace cloak;
 
-use CodeAnalyzer\Driver\DriverNotAvailableException;
+use cloak\driver\DriverNotAvailableException;
 
 /**
  * Class DriverDetector
- * @package CodeAnalyzer
+ * @package cloak
  */
 class DriverDetector implements DriverDetectorInterface
 {
@@ -34,8 +34,8 @@ class DriverDetector implements DriverDetectorInterface
     }
 
     /**
-     * @return \CodeAnalyzer\Driver\DriverInterface
-     * @throws \CodeAnalyzer\DriverNotFoundException
+     * @return \cloak\driver\DriverInterface
+     * @throws \cloak\DriverNotFoundException
      */
     public function detect()
     {
