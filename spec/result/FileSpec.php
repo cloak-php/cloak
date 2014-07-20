@@ -44,8 +44,8 @@ describe('File', function() {
     describe('#setLines', function() {
         $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
 
-        it('should return easycoverage\Result\File instance', function() {
-            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('easycoverage\Result\File');
+        it('should return easycoverage\result\File instance', function() {
+            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('easycoverage\result\File');
         });
     });
 

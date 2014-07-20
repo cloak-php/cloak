@@ -25,7 +25,7 @@ describe('Notifier', function() {
         $this->result = Result::from($coverageResults);
 
         $subject = $this->subject = new \stdClass();
-        $reporter = $this->reporter = Mock::mock('easycoverage\Reporter\ReporterInterface');
+        $reporter = $this->reporter = Mock::mock('easycoverage\reporter\ReporterInterface');
 
         $reporter->shouldReceive('attach')->once()->with(
             Mockery::on(function($eventManager) use ($reporter) {

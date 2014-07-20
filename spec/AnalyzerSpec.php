@@ -83,7 +83,7 @@ describe('Analyzer', function() {
     describe('#isStarted', function() {
         context('when started', function() {
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                $driver = Mock::mock('easycoverage\Driver\DriverInterface');
+                $driver = Mock::mock('easycoverage\driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('isStarted')->once()->andReturn(true);
                 $builder->driver($driver);
@@ -98,7 +98,7 @@ describe('Analyzer', function() {
         });
         context('when stoped', function() {
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                $driver = Mock::mock('easycoverage\Driver\DriverInterface');
+                $driver = Mock::mock('easycoverage\driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('stop')->once();
                 $driver->shouldReceive('isStarted')->once()->andReturn(false);
@@ -128,7 +128,7 @@ describe('Analyzer', function() {
                 $rootDirectory . 'vendor/foo2.php' => array( 1 => Line::EXECUTED )
             ];
 
-            $driver = Mock::mock('easycoverage\Driver\DriverInterface');
+            $driver = Mock::mock('easycoverage\driver\DriverInterface');
             $driver->shouldReceive('start')->once();
             $driver->shouldReceive('stop')->once();
             $driver->shouldReceive('getResult')->once()->andReturn($coverageResults);

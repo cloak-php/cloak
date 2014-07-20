@@ -55,7 +55,7 @@ describe('ConfigurationBuilder', function() {
         $this->filter4 = function(File $file){};
         $this->reporter = new TextReporter();
 
-        $this->driver = Mock::mock('easycoverage\Driver\DriverInterface');
+        $this->driver = Mock::mock('easycoverage\driver\DriverInterface');
 
         $this->builder = new ConfigurationBuilder(); 
         $this->builder->driver($this->driver)
