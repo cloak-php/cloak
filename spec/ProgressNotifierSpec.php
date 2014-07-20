@@ -10,7 +10,7 @@
  */
 
 use easycoverage\Result;
-use easycoverage\Result\Line;
+use easycoverage\result\Line;
 use easycoverage\Notifier;
 use Mockery as Mock;
 

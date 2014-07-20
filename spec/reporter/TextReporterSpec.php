@@ -13,7 +13,7 @@ use easycoverage\Analyzer;
 use easycoverage\Configuration;
 use easycoverage\Event;
 use easycoverage\Result;
-use easycoverage\Result\Line;
+use easycoverage\result\Line;
 use easycoverage\reporter\TextReporter;
 use Colors\Color;
 
