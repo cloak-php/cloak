@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Result\File,
-    easycoverage\Result\Line,
-    easycoverage\Result\Coverage,
+use easycoverage\result\File,
+    easycoverage\result\Line,
+    easycoverage\result\Coverage,
     PhpCollection\Sequence;
 
 describe('File', function() {

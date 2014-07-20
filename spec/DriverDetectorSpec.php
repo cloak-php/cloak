@@ -17,18 +17,18 @@ describe('DriverDetector', function() {
         context('when enabled', function() {
             before(function() {
                 $this->detector = new DriverDetector([
-                    'easycoverage\Driver\XdebugDriver'
+                    'easycoverage\driver\XdebugDriver'
                 ]);
             });
             it('should return driver instance', function() {
                 $driver = $this->detector->detect();
-                expect($driver)->toBeAnInstanceOf('easycoverage\Driver\DriverInterface');
+                expect($driver)->toBeAnInstanceOf('easycoverage\driver\DriverInterface');
             });
         });
         context('when not enabled', function() {
             before(function() {
                 $this->detector = new DriverDetector([
-                    'easycoverage\Spec\Driver\FixtureDriver'
+                    'easycoverage\spec\driver\FixtureDriver'
                 ]);
             });
             it('should throw easycoverage\DriverNotFoundException', function() {

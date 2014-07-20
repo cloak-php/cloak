@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Result,
-    easycoverage\Result\Line,
-    easycoverage\Result\File,
-    easycoverage\Configuration,
-    PhpCollection\Sequence;
+use easycoverage\Result;
+use easycoverage\result\Line;
+use easycoverage\result\File;
+use easycoverage\Configuration;
+use PhpCollection\Sequence;
 
-describe('Result', function() {
+describe('result', function() {
 
     $this->rootDirectory = __DIR__ . '/fixtures/src/';
     $this->returnValue = null;

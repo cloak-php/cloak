@@ -12,10 +12,10 @@
 use easycoverage\Analyzer,
     easycoverage\ConfigurationBuilder,
     easycoverage\Result,
-    easycoverage\Result\Line,
-    easycoverage\Result\File,
-    easycoverage\Driver\DriverInterface,
-    easycoverage\Reporter\ReporterInterface,
+    easycoverage\result\Line,
+    easycoverage\result\File,
+    easycoverage\driver\DriverInterface,
+    easycoverage\reporter\ReporterInterface,
     Mockery as Mock;
 
 describe('Analyzer', function() {

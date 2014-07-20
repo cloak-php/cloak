@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Result\Coverage;
+use easycoverage\result\Coverage;
 
 describe('Coverage', function() {
 

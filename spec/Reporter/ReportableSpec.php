@@ -10,8 +10,8 @@
  */
 
 use easycoverage\EventInterface,
-    easycoverage\Reporter\Reportable,
-    easycoverage\Reporter\ReporterInterface,
+    easycoverage\reporter\Reportable,
+    easycoverage\reporter\ReporterInterface,
     Zend\EventManager\EventManager,
     Mockery as Mock;
 

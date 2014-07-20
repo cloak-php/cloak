@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Driver\XdebugDriver;
+use easycoverage\driver\XdebugDriver;
 
 describe('XdebugDriver', function() {
 

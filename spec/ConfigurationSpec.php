@@ -12,7 +12,7 @@
 use easycoverage\Configuration,
     easycoverage\ConfigurationBuilder,
     easycoverage\Result,
-    easycoverage\Result\File;
+    easycoverage\result\File;
 
 describe('Configuration', function() {
 

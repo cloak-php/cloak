@@ -11,8 +11,8 @@
 
 use easycoverage\Configuration,
     easycoverage\ConfigurationBuilder,
-    easycoverage\Driver\DriverInterface,
-    easycoverage\Reporter\TextReporter,
+    easycoverage\driver\DriverInterface,
+    easycoverage\reporter\TextReporter,
     Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
