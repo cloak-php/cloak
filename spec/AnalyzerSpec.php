@@ -9,14 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Analyzer,
-    easycoverage\ConfigurationBuilder,
-    easycoverage\Result,
-    easycoverage\result\Line,
-    easycoverage\result\File,
-    easycoverage\driver\DriverInterface,
-    easycoverage\reporter\ReporterInterface,
-    Mockery as Mock;
+use easycoverage\Analyzer;
+use easycoverage\ConfigurationBuilder;
+use easycoverage\Result;
+use easycoverage\result\Line;
+use easycoverage\result\File;
+use Mockery as Mock;
 
 describe('Analyzer', function() {
 

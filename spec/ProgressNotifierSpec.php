@@ -9,10 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Result,
-    easycoverage\Result\Line,
-    easycoverage\Notifier,
-    Mockery as Mock;
+use easycoverage\Result;
+use easycoverage\Result\Line;
+use easycoverage\Notifier;
+use Mockery as Mock;
 
 describe('Notifier', function() {
 

@@ -9,11 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Configuration,
-    easycoverage\ConfigurationBuilder,
-    easycoverage\driver\DriverInterface,
-    easycoverage\reporter\TextReporter,
-    Mockery as Mock;
+use easycoverage\ConfigurationBuilder;
+use easycoverage\reporter\TextReporter;
+use Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
 

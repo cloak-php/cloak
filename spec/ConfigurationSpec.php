@@ -9,10 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\Configuration,
-    easycoverage\ConfigurationBuilder,
-    easycoverage\Result,
-    easycoverage\result\File;
+use easycoverage\ConfigurationBuilder;
+use easycoverage\Result;
+use easycoverage\result\File;
 
 describe('Configuration', function() {
 

@@ -12,7 +12,6 @@
 use easycoverage\Result;
 use easycoverage\result\Line;
 use easycoverage\result\File;
-use easycoverage\Configuration;
 use PhpCollection\Sequence;
 
 describe('result', function() {

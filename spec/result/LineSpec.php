@@ -9,8 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\result\Line,
-    easycoverage\result\File;
+use easycoverage\result\Line;
+use easycoverage\result\File;
 
 describe('Line', function() {
 

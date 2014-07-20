@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use easycoverage\EventInterface,
-    easycoverage\reporter\Reportable,
-    easycoverage\reporter\ReporterInterface,
-    Zend\EventManager\EventManager,
-    Mockery as Mock;
+use easycoverage\EventInterface;
+use easycoverage\reporter\Reportable;
+use easycoverage\reporter\ReporterInterface;
+use Zend\EventManager\EventManager;
+use Mockery as Mock;
 
 class easycoverageReporter implements ReporterInterface
 {
