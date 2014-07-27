@@ -15,39 +15,58 @@ use cloak\reporter\ReporterInterface;
 use Zend\EventManager\EventManager;
 use Mockery as Mock;
 
-class cloakReporter implements ReporterInterface
+class HaveMethodCloakReporter implements ReporterInterface
 {
-
     use Reportable;
 
-    public function onStop(StopEventInterface $event)
-    {
-    }
+    public function onStop(StopEventInterface $event) {}
+}
 
+class HaveNotMethodCloakReporter
+{
+    use Reportable;
 }
 
 describe('Reportable', function() {
 
     describe('#attach', function() {
-        $this->reporter = Mock::mock('cloakReporter');
-        $this->reporter->makePartial();
-        $this->reporter->shouldReceive('onStop')->once();
+        context('when have recive event method', function() {
+            $this->reporter = Mock::mock('HaveMethodCloakReporter');
+            $this->reporter->makePartial();
+            $this->reporter->shouldReceive('onStop')->once();
 
-        before(function() {
-            $this->eventManager = new EventManager();
-            $this->eventManager->attach($this->reporter);
+            before(function() {
+                $this->eventManager = new EventManager();
+                $this->eventManager->attach($this->reporter);
+            });
+            after(function() {
+                Mock::close();
+            });
+            it('should attach events', function() {
+                $events = $this->eventManager->getEvents();
+                expect($events)->toEqual(array('stop'));
+            });
         });
-        after(function() {
-            Mock::close();
-        });
-        it('should attach events', function() {
-            $events = $this->eventManager->getEvents();
-            expect($events)->toEqual(array('stop'));
+        context('when have not recive event method', function() {
+            $this->reporter = Mock::mock('HaveNotMethodCloakReporter');
+            $this->reporter->makePartial();
+
+            before(function() {
+                $this->eventManager = new EventManager();
+                $this->eventManager->attach($this->reporter);
+            });
+            after(function() {
+                Mock::close();
+            });
+            it('should not attach events', function() {
+                $events = $this->eventManager->getEvents();
+                expect($events)->toBeEmpty();
+            });
         });
     });
 
     describe('#detach', function() {
-        $this->reporter = Mock::mock('cloakReporter');
+        $this->reporter = Mock::mock('HaveMethodCloakReporter');
         $this->reporter->makePartial();
         $this->reporter->shouldReceive('onStop')->once();
 
