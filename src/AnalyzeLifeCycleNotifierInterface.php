@@ -15,10 +15,10 @@ use cloak\Result;
 use Zend\EventManager\EventManagerAwareInterface;
 
 /**
- * Interface NotifierInterface
+ * Interface AnalyzeLifeCycleNotifierInterface
  * @package cloak
  */
-interface NotifierInterface extends EventManagerAwareInterface
+interface AnalyzeLifeCycleNotifierInterface extends EventManagerAwareInterface
 {
 
     /**

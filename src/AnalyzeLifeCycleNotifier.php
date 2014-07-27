@@ -20,7 +20,7 @@ use Zend\EventManager\EventManagerAwareTrait;
  * Class AnalyzeLifeCycleNotifier
  * @package cloak
  */
-class AnalyzeLifeCycleNotifier implements NotifierInterface
+class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
 {
 
     use EventManagerAwareTrait;

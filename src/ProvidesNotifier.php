@@ -18,25 +18,29 @@ namespace cloak;
 trait ProvidesNotifier
 {
 
-    protected $notifier = null;
+    /**
+     * @var \cloak\AnalyzeLifeCycleNotifierInterface
+     */
+    protected $notifier;
+
 
     /**
-     * @param \cloak\NotifierInterface $notifier
+     * @param \cloak\AnalyzeLifeCycleNotifierInterface $notifier
      * @return $this
      */
-    public function setNotifier(NotifierInterface $notifier)
+    public function setNotifier(AnalyzeLifeCycleNotifierInterface $notifier)
     {
         $this->notifier = $notifier;
         return $this;
     }
 
     /**
-     * @return \cloak\NotifierInterface
+     * @return \cloak\AnalyzeLifeCycleNotifierInterface
      */
     public function getNotifier()
     {
         if ($this->notifier === null) {
-            $this->notifier = new Notifier();
+            $this->notifier = new AnalyzeLifeCycleNotifier();
         }
 
         return $this->notifier;
