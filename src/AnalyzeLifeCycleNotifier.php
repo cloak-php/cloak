@@ -25,6 +25,9 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
 
     use EventManagerAwareTrait;
 
+    /**
+     * @param ReporterInterface $reporter
+     */
     public function __construct(ReporterInterface $reporter = null)
     {
         if ($reporter === null) { 
@@ -33,7 +36,10 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
         $reporter->attach( $this->getEventManager() );
     }
 
-    public function stop(Result $result)
+    /**
+     * @param Result $result
+     */
+    public function notifyStop(Result $result)
     {
         $event = new Event(Event::STOP, $this, [ 'result' => $result ]);
         $this->getEventManager()->trigger($event);

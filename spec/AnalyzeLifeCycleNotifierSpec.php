@@ -16,7 +16,7 @@ use Mockery as Mock;
 
 describe('AnalyzeLifeCycleNotifier', function() {
 
-    describe('#stop', function() {
+    describe('#notifyStop', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [
             $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
@@ -42,7 +42,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
         );
 
         $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
-        $this->progessNotifier->stop($this->result);
+        $this->progessNotifier->notifyStop($this->result);
 
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;

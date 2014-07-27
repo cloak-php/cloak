@@ -25,6 +25,6 @@ interface AnalyzeLifeCycleNotifierInterface extends EventManagerAwareInterface
      * @param \cloak\Result $result
      * @return void
      */
-    public function stop(Result $result);
+    public function notifyStop(Result $result);
 
 }

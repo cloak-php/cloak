@@ -62,7 +62,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCyc
     public function stop()
     {
         $this->driver()->stop();
-        $this->getLifeCycleNotifier()->stop( $this->getResult() );
+        $this->getLifeCycleNotifier()->notifyStop( $this->getResult() );
     }
 
     /**

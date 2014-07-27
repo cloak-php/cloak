@@ -62,7 +62,7 @@ describe('Analyzer', function() {
 
         $subject = $this->subject = new \stdClass();
         $this->notifier = Mock::mock('cloak\AnalyzeLifeCycleNotifierInterface');
-        $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
+        $this->notifier->shouldReceive('notifyStop')->once()->with(Mock::on(function($result) use ($subject) {
             $subject->result = $result;
             return true;
         }));
