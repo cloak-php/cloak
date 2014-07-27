@@ -28,7 +28,7 @@ trait ProvidesNotifier
      * @param \cloak\AnalyzeLifeCycleNotifierInterface $notifier
      * @return $this
      */
-    public function setNotifier(AnalyzeLifeCycleNotifierInterface $notifier)
+    public function setLifeCycleNotifier(AnalyzeLifeCycleNotifierInterface $notifier)
     {
         $this->notifier = $notifier;
         return $this;
@@ -37,7 +37,7 @@ trait ProvidesNotifier
     /**
      * @return \cloak\AnalyzeLifeCycleNotifierInterface
      */
-    public function getNotifier()
+    public function getLifeCycleNotifier()
     {
         if ($this->notifier === null) {
             $this->notifier = new AnalyzeLifeCycleNotifier();

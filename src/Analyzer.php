@@ -17,7 +17,7 @@ use cloak\ProvidesNotifier;
  * Class Analyzer
  * @package cloak
  */
-class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
+class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCycleInterface
 {
 
     use ProvidesNotifier;
@@ -62,7 +62,7 @@ class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
     public function stop()
     {
         $this->driver()->stop();
-        $this->getNotifier()->stop( $this->getResult() );
+        $this->getLifeCycleNotifier()->stop( $this->getResult() );
     }
 
     /**
@@ -96,7 +96,7 @@ class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
-        $this->setNotifier( new AnalyzeLifeCycleNotifier($configuration->reporter) );
+        $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($configuration->reporter) );
     }
 
 }

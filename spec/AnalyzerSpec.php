@@ -61,14 +61,14 @@ describe('Analyzer', function() {
         });
 
         $subject = $this->subject = new \stdClass();
-        $this->notifier = Mock::mock('cloak\NotifierInterface');
+        $this->notifier = Mock::mock('cloak\AnalyzeLifeCycleNotifierInterface');
         $this->notifier->shouldReceive('stop')->once()->with(Mock::on(function($result) use ($subject) {
             $subject->result = $result;
             return true;
         }));
 
         before(function() {
-            $this->analyzer->setNotifier($this->notifier);
+            $this->analyzer->setLifeCycleNotifier($this->notifier);
             $this->analyzer->start();
             $this->analyzer->stop();
         });
