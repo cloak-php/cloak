@@ -11,7 +11,7 @@
 
 use cloak\Analyzer;
 use cloak\Configuration;
-use cloak\StopEvent;
+use cloak\event\StopEvent;
 use cloak\Result;
 use cloak\result\Line;
 use cloak\reporter\TextReporter;

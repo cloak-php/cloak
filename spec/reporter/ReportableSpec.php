@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\StopEventInterface;
+use cloak\event\StopEventInterface;
 use cloak\reporter\Reportable;
 use cloak\reporter\ReporterInterface;
 use Zend\EventManager\EventManager;

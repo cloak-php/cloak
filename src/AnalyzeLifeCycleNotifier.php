@@ -13,7 +13,9 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\Reporter\ReporterInterface;
+use cloak\event\StopEvent;
 use Zend\EventManager\EventManagerAwareTrait;
+
 
 //TODO setReporter / getReporter
 /**

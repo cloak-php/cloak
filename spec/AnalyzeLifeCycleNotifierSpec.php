@@ -46,7 +46,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
 
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
-            expect($event)->toBeAnInstanceOf('cloak\StopEventInterface');
+            expect($event)->toBeAnInstanceOf('cloak\event\StopEventInterface');
         });
 
         it('should include the results', function() {

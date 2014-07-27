@@ -9,17 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\event;
 
 use Zend\EventManager\EventInterface as BaseEventInterface;
 
 /**
  * Interface StopEventInterface
- * @package cloak
+ * @package cloak\event
  */
 interface StopEventInterface extends BaseEventInterface
 {
 
+    /**
+     * @return \cloak\Result
+     */
     public function getResult();
 
 }

@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\File;
 use cloak\result\Coverage;
-use cloak\StopEventInterface;
+use cloak\event\StopEventInterface;
 use Colors\Color;
 
 /**
