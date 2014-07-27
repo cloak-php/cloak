@@ -15,16 +15,21 @@ use cloak\Result;
 use Zend\EventManager\EventManagerAwareInterface;
 
 /**
- * Interface NotifierInterface
+ * Interface AnalyzeLifeCycleNotifierInterface
  * @package cloak
  */
-interface NotifierInterface extends EventManagerAwareInterface
+interface AnalyzeLifeCycleNotifierInterface extends EventManagerAwareInterface
 {
+
+    /**
+     * @return void
+     */
+    public function notifyStart();
 
     /**
      * @param \cloak\Result $result
      * @return void
      */
-    public function stop(Result $result);
+    public function notifyStop(Result $result);
 
 }

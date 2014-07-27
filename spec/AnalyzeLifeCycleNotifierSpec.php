@@ -11,12 +11,39 @@
 
 use cloak\Result;
 use cloak\result\Line;
-use cloak\Notifier;
+use cloak\AnalyzeLifeCycleNotifier;
 use Mockery as Mock;
 
-describe('Notifier', function() {
+describe('AnalyzeLifeCycleNotifier', function() {
 
-    describe('#stop', function() {
+    describe('#notifyStart', function() {
+        $subject = $this->subject = new \stdClass();
+
+        $reporter = $this->reporter = Mock::mock('cloak\reporter\ReporterInterface');
+        $reporter->shouldReceive('attach')->once()->with(
+            Mockery::on(function($eventManager) use ($reporter) {
+                $eventManager->attach('start', array($reporter, 'onStart'));
+                return true;
+            })
+        );
+
+        $reporter->shouldReceive('onStart')->once()->with(
+            Mockery::on(function($event) use($subject) {
+                $subject->event = $event;
+                return true;
+            })
+        );
+
+        $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
+        $this->progessNotifier->notifyStart();
+
+        it('should notify the reporter that it has started', function() {
+            $event = $this->subject->event;
+            expect($event)->toBeAnInstanceOf('cloak\event\EventInterface');
+        });
+    });
+
+    describe('#notifyStop', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [
             $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
@@ -41,12 +68,12 @@ describe('Notifier', function() {
             })
         );
 
-        $this->progessNotifier = new Notifier($reporter);
-        $this->progessNotifier->stop($this->result);
+        $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
+        $this->progessNotifier->notifyStop($this->result);
 
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
-            expect($event)->toBeAnInstanceOf('cloak\EventInterface');
+            expect($event)->toBeAnInstanceOf('cloak\event\StopEventInterface');
         });
 
         it('should include the results', function() {

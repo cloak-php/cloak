@@ -9,19 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
-
-use Zend\EventManager\Event as BaseEvent;
+namespace cloak\event;
 
 /**
- * Class Event
- * @package cloak
+ * Class StopEvent
+ * @package cloak\event
  */
-class Event extends BaseEvent implements EventInterface
+class StopEvent extends Event implements StopEventInterface
 {
 
-    const STOP = 'stop';
+    protected $name = 'stop';
 
+    /**
+     * @return \cloak\Result
+     */
     public function getResult()
     {
         return $this->getParam('result', null);

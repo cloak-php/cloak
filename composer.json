@@ -2,7 +2,7 @@
     "name": "cloak/cloak",
     "keywords": [ "code coverage", "simple" ],
     "description": "cloak is a library that takes a code coverage.",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.4.*",
@@ -20,8 +20,8 @@
     "require-dev": {
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.*",
-        "holyshared/coverallskit": "dev-master",
-        "mockery/mockery": "dev-master"
+        "holyshared/coverallskit": "1.2.3",
+        "mockery/mockery": "0.9.*"
     },
     "license": "MIT",
     "authors": [

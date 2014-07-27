@@ -23,11 +23,28 @@ trait Reportable
 
     use ListenerAggregateTrait;
 
+    /**
+     * @var array
+     */
+    private $acceptLifeCycleEvents = [
+        'start' => 'onStart',
+        'stop' => 'onStop'
+    ];
+
+    /**
+     * @return array
+     */
+    protected function getAcceptLifeCycleEvents()
+    {
+        return $this->acceptLifeCycleEvents;
+    }
+
+    /**
+     * @param \Zend\EventManager\EventManagerInterface $eventManager
+     */
     public function attach(EventManagerInterface $eventManager)
     {
-        $events = [
-            'stop' => 'onStop'
-        ];
+        $events = $this->getAcceptLifeCycleEvents();
 
         foreach ($events as $event => $method) {
             if (method_exists($this, $method) === false) {

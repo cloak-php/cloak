@@ -23,9 +23,12 @@ class Configuration
 
     private $driver = null;
     private $reporter = null;
-    private $includeFiles = array();
-    private $excludeFiles = array();
+    private $includeFiles = [];
+    private $excludeFiles = [];
 
+    /**
+     * @param array $values
+     */
     public function __construct(array $values = [])
     {
         foreach ($values as $key => $value) {

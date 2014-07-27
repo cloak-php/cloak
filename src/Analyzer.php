@@ -11,25 +11,40 @@
 
 namespace cloak;
 
-use cloak\ProvidesNotifier;
+use cloak\ProvidesLifeCycleNotifier;
 
 /**
  * Class Analyzer
  * @package cloak
  */
-class Analyzer implements NotifierAwareInterface
+class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCycleInterface
 {
 
-    use ProvidesNotifier;
+    use ProvidesLifeCycleNotifier;
 
-    protected $configuration = null;
-    protected $analyzeResult = null;
+    /**
+     * @var Configuration
+     */
+    protected $configuration;
 
+    /**
+     * @var Result
+     */
+    protected $analyzeResult;
+
+
+    /**
+     * @param Configuration $configuration
+     */
     public function __construct(Configuration $configuration)
     {
         $this->init($configuration);
     }
 
+    /**
+     * @param \Closure $configurator
+     * @return Analyzer
+     */
     public static function factory(\Closure $configurator)
     {
         $builder = new ConfigurationBuilder();
@@ -41,35 +56,48 @@ class Analyzer implements NotifierAwareInterface
 
     public function start()
     {
+        $this->getLifeCycleNotifier()->notifyStart();
         $this->driver()->start();
     }
 
     public function stop()
     {
         $this->driver()->stop();
-        $this->getNotifier()->stop( $this->getResult() );
+        $this->getLifeCycleNotifier()->notifyStop( $this->getResult() );
     }
 
+    /**
+     * @return bool
+     */
     public function isStarted()
     {
         return $this->driver()->isStarted();
     }
 
+    /**
+     * @return Result
+     */
     public function getResult()
     {
         $analyzeResult = $this->driver()->getResult();
-        return  $this->configuration->apply( Result::from($analyzeResult) );
+        return $this->configuration->apply( Result::from($analyzeResult) );
     }
 
+    /**
+     * @return \cloak\driver\DriverInterface
+     */
     protected function driver()
     {
         return $this->configuration->driver;
     }
 
+    /**
+     * @param Configuration $configuration
+     */
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
-        $this->setNotifier( new Notifier($configuration->reporter) );
+        $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($configuration->reporter) );
     }
 
 }

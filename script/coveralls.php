@@ -14,12 +14,15 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
 use cloak\Result\File;
-use coverallskit\ReportBuilder;
+//use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\SourceFile;
 use coverallskit\exception\LineOutOfRangeException;
+
+use coverallskit\ConfigurationLoader;
+use coverallskit\ReportBuilderFactory;
 
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
@@ -46,7 +49,7 @@ $argv = array_merge($defaultArgv, array(
     'spec/result/CoverageSpec.php',
     'spec/reporter/ReportableSpec.php',
     'spec/reporter/TextReporterSpec.php',
-    'spec/ProgressNotifierSpec.php',
+    'spec/AnalyzeLifeCycleNotifierSpec.php',
     'spec/AnalyzerSpec.php',
     'spec/DriverDetectorSpec.php',
 ));
@@ -56,10 +59,8 @@ require_once __DIR__ . "/../vendor/bin/pho";
 $analyzer->stop();
 
 
-$builder = new ReportBuilder();
-$builder->token(getenv('COVERALLS_REPO_TOKEN'))
-    ->service(Travis::travisCI())
-    ->repository(new Repository(__DIR__ . '/../'));
+$builderFactory = new ReportBuilderFactory(new ConfigurationLoader);
+$builder = $builderFactory->createFromConfigurationFile(__DIR__ . '/../coveralls.yml');
 
 $fileResults = $analyzer->getResult()->getFiles();
 
@@ -88,4 +89,4 @@ foreach ($fileResults as $fileResult) {
 
 }
 
-$builder->build()->saveAs(__DIR__ . '/coverage.json')->upload();
+$builder->build()->save()->upload();

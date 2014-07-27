@@ -9,17 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
-
-use Zend\EventManager\EventInterface as BaseEventInterface;
+namespace cloak\event;
 
 /**
- * Interface EventInterface
- * @package cloak
+ * Class StartEvent
+ * @package cloak\event
  */
-interface EventInterface extends BaseEventInterface
+class StartEvent extends Event implements EventInterface
 {
 
-    public function getResult();
+    protected $name = 'start';
 
 }

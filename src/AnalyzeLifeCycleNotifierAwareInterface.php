@@ -12,14 +12,14 @@
 namespace cloak;
 
 /**
- * Interface NotifierAwareInterface
+ * Interface AnalyzeLifeCycleNotifierAwareInterface
  * @package cloak
  */
-interface NotifierAwareInterface
+interface AnalyzeLifeCycleNotifierAwareInterface
 {
 
-    public function setNotifier(NotifierInterface $notifier);
+    public function setLifeCycleNotifier(AnalyzeLifeCycleNotifierInterface $notifier);
 
-    public function getNotifier();
+    public function getLifeCycleNotifier();
 
 }

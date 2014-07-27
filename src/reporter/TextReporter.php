@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\File;
 use cloak\result\Coverage;
-use cloak\EventInterface;
+use cloak\event\StopEventInterface;
 use Colors\Color;
 
 /**
@@ -35,13 +35,20 @@ class TextReporter implements ReporterInterface
     private $lowUpperBound;
     private $highLowerBound;
 
+    /**
+     * @param float $highLowerBound
+     * @param float $lowUpperBound
+     */
     public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
         $this->lowUpperBound = new Coverage($lowUpperBound);
         $this->highLowerBound = new Coverage($highLowerBound);
     }
 
-    public function onStop(EventInterface $event)
+    /**
+     * @param \cloak\event\StopEventInterface $event
+     */
+    public function onStop(StopEventInterface $event)
     {
         $files = $event->getResult()->getFiles();
         $files->map(function(File $file) {
@@ -49,6 +56,10 @@ class TextReporter implements ReporterInterface
         });
     }
 
+    /**
+     * @param \cloak\result\File $file
+     * @return string
+     */
     protected function reportFrom(File $file)
     {
 
@@ -69,11 +80,14 @@ class TextReporter implements ReporterInterface
         return $result;
     }
 
+    /**
+     * @param \cloak\result\File $file
+     * @return string
+     */
     protected function coverageReportFrom(File $file)
     {
 
         $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->valueOf()));
-        $color->setForceStyle(true);
 
         if ($file->isCoverageGreaterEqual($this->highLowerBound)) {
             $color->green();

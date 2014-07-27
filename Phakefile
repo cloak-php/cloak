@@ -14,7 +14,7 @@ group('test', function() {
     desc('Run unit tests');
     task('unit', function() {
         $output = [];
-        $command = './vendor/bin/pho';
+        $command = './vendor/bin/pho --stop';
         exec($command, $output, $status);
         echo implode("\n", array_merge($output, array("")));
         exit($status);
