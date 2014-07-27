@@ -14,10 +14,10 @@ namespace cloak;
 use Zend\EventManager\EventInterface as BaseEventInterface;
 
 /**
- * Interface EventInterface
+ * Interface StopEventInterface
  * @package cloak
  */
-interface EventInterface extends BaseEventInterface
+interface StopEventInterface extends BaseEventInterface
 {
 
     public function getResult();

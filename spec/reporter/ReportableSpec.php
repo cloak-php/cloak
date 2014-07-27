@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\EventInterface;
+use cloak\StopEventInterface;
 use cloak\reporter\Reportable;
 use cloak\reporter\ReporterInterface;
 use Zend\EventManager\EventManager;
@@ -20,7 +20,7 @@ class cloakReporter implements ReporterInterface
 
     use Reportable;
 
-    public function onStop(EventInterface $event)
+    public function onStop(StopEventInterface $event)
     {
     }
 

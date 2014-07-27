@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use cloak\EventInterface;
+use cloak\StopEventInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
 /**
@@ -24,6 +24,6 @@ interface ReporterInterface extends ListenerAggregateInterface
     /**
      * @return void
      */
-    public function onStop(EventInterface $event);
+    public function onStop(StopEventInterface $event);
 
 }

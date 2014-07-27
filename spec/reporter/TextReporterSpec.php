@@ -11,7 +11,7 @@
 
 use cloak\Analyzer;
 use cloak\Configuration;
-use cloak\Event;
+use cloak\StopEvent;
 use cloak\Result;
 use cloak\result\Line;
 use cloak\reporter\TextReporter;
@@ -52,7 +52,7 @@ describe('TextReporter', function() {
         $this->result = Result::from($coverages);
 
         $this->target = new Analyzer(new Configuration());
-        $this->event = new Event('stop', $this->target, array(
+        $this->event = new StopEvent('stop', $this->target, array(
             'result' => $this->result
         ));
 

@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\File;
 use cloak\result\Coverage;
-use cloak\EventInterface;
+use cloak\StopEventInterface;
 use Colors\Color;
 
 /**
@@ -41,7 +41,7 @@ class TextReporter implements ReporterInterface
         $this->highLowerBound = new Coverage($highLowerBound);
     }
 
-    public function onStop(EventInterface $event)
+    public function onStop(StopEventInterface $event)
     {
         $files = $event->getResult()->getFiles();
         $files->map(function(File $file) {

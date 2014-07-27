@@ -30,7 +30,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
      */
     public function __construct(ReporterInterface $reporter = null)
     {
-        if ($reporter === null) { 
+        if ($reporter === null) {
             return;
         }
         $reporter->attach( $this->getEventManager() );
@@ -41,7 +41,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
      */
     public function notifyStop(Result $result)
     {
-        $event = new Event(Event::STOP, $this, [ 'result' => $result ]);
+        $event = new StopEvent(StopEvent::STOP, $this, [ 'result' => $result ]);
         $this->getEventManager()->trigger($event);
     }
 

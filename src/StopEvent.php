@@ -14,10 +14,10 @@ namespace cloak;
 use Zend\EventManager\Event as BaseEvent;
 
 /**
- * Class Event
+ * Class StopEvent
  * @package cloak
  */
-class Event extends BaseEvent implements EventInterface
+class StopEvent extends BaseEvent implements StopEventInterface
 {
 
     const STOP = 'stop';
