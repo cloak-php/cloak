@@ -24,9 +24,10 @@ class HaveMethodCloakReporter implements ReporterInterface
     public function onStop(StopEventInterface $event) {}
 }
 
-class HaveNotMethodCloakReporter
+class HaveNotMethodCloakReporter implements ReporterInterface
 {
     use Reportable;
+    public function onStop(StopEventInterface $event) {}
 }
 
 describe('Reportable', function() {
@@ -51,10 +52,10 @@ describe('Reportable', function() {
             });
         });
         context('when have not recive event method', function() {
-            $this->reporter = Mock::mock('HaveNotMethodCloakReporter');
-            $this->reporter->makePartial();
-
             before(function() {
+                $this->reporter = Mock::mock('HaveNotMethodCloakReporter');
+                $this->reporter->makePartial();
+
                 $this->eventManager = new EventManager();
                 $this->eventManager->attach($this->reporter);
             });
@@ -63,7 +64,7 @@ describe('Reportable', function() {
             });
             it('should not attach events', function() {
                 $events = $this->eventManager->getEvents();
-                expect($events)->toBeEmpty();
+                expect($events)->toEqual(['stop']);
             });
         });
     });
