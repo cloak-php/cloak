@@ -22,14 +22,29 @@ class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
 
     use ProvidesNotifier;
 
-    protected $configuration = null;
-    protected $analyzeResult = null;
+    /**
+     * @var Configuration
+     */
+    protected $configuration;
 
+    /**
+     * @var Result
+     */
+    protected $analyzeResult;
+
+
+    /**
+     * @param Configuration $configuration
+     */
     public function __construct(Configuration $configuration)
     {
         $this->init($configuration);
     }
 
+    /**
+     * @param \Closure $configurator
+     * @return Analyzer
+     */
     public static function factory(\Closure $configurator)
     {
         $builder = new ConfigurationBuilder();
@@ -50,22 +65,34 @@ class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
         $this->getNotifier()->stop( $this->getResult() );
     }
 
+    /**
+     * @return bool
+     */
     public function isStarted()
     {
         return $this->driver()->isStarted();
     }
 
+    /**
+     * @return Result
+     */
     public function getResult()
     {
         $analyzeResult = $this->driver()->getResult();
-        return  $this->configuration->apply( Result::from($analyzeResult) );
+        return $this->configuration->apply( Result::from($analyzeResult) );
     }
 
+    /**
+     * @return \cloak\driver\DriverInterface
+     */
     protected function driver()
     {
         return $this->configuration->driver;
     }
 
+    /**
+     * @param Configuration $configuration
+     */
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
