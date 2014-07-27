@@ -56,6 +56,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCyc
 
     public function start()
     {
+        $this->getLifeCycleNotifier()->notifyStart();
         $this->driver()->start();
     }
 

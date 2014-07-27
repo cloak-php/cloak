@@ -50,24 +50,26 @@ describe('Analyzer', function() {
     });
 
     describe('#stop', function() {
-        $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-            $driver = Mock::mock('cloak\Driver\DriverInterface');
-            $driver->shouldReceive('start')->once();
-            $driver->shouldReceive('stop')->once();
-            $driver->shouldReceive('getResult')->once()->andReturn(array(
-                'foo.php' => array( 1 => Line::EXECUTED )
-            ));
-            $builder->driver($driver);
-        });
-
-        $subject = $this->subject = new \stdClass();
-        $this->notifier = Mock::mock('cloak\AnalyzeLifeCycleNotifierInterface');
-        $this->notifier->shouldReceive('notifyStop')->once()->with(Mock::on(function($result) use ($subject) {
-            $subject->result = $result;
-            return true;
-        }));
-
         before(function() {
+            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+                $driver = Mock::mock('cloak\Driver\DriverInterface');
+                $driver->shouldReceive('start')->once();
+                $driver->shouldReceive('stop')->once();
+                $driver->shouldReceive('getResult')->once()->andReturn(array(
+                    'foo.php' => array( 1 => Line::EXECUTED )
+                ));
+                $builder->driver($driver);
+            });
+
+            $subject = $this->subject = new \stdClass();
+
+            $this->notifier = Mock::mock('cloak\AnalyzeLifeCycleNotifierInterface');
+            $this->notifier->shouldReceive('notifyStart')->once();
+            $this->notifier->shouldReceive('notifyStop')->once()->with(Mock::on(function($result) use ($subject) {
+                $subject->result = $result;
+                return true;
+            }));
+
             $this->analyzer->setLifeCycleNotifier($this->notifier);
             $this->analyzer->start();
             $this->analyzer->stop();
