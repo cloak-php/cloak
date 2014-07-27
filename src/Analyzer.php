@@ -17,7 +17,7 @@ use cloak\ProvidesNotifier;
  * Class Analyzer
  * @package cloak
  */
-class Analyzer implements NotifierAwareInterface
+class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
 {
 
     use ProvidesNotifier;
