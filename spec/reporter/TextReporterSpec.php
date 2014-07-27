@@ -63,13 +63,8 @@ describe('TextReporter', function() {
         $this->reporter = new TextReporter();
 
         before(function() {
-            $this->high->setForceStyle(true);
             $this->high->green();
-
-            $this->low->setForceStyle(true);
             $this->low->yellow();
-
-            $this->normal->setForceStyle(true);
         });
         it('should output coverage', function() {
             $output  = "";

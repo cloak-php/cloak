@@ -88,7 +88,6 @@ class TextReporter implements ReporterInterface
     {
 
         $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->valueOf()));
-        $color->setForceStyle(true);
 
         if ($file->isCoverageGreaterEqual($this->highLowerBound)) {
             $color->green();
