@@ -52,7 +52,7 @@ describe('TextReporter', function() {
         $this->result = Result::from($coverages);
 
         $this->target = new Analyzer(new Configuration());
-        $this->event = new StopEvent('stop', $this->target, array(
+        $this->event = new StopEvent($this->target, array(
             'result' => $this->result
         ));
 

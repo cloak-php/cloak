@@ -41,7 +41,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
      */
     public function notifyStop(Result $result)
     {
-        $event = new StopEvent(StopEvent::STOP, $this, [ 'result' => $result ]);
+        $event = new StopEvent($this, [ 'result' => $result ]);
         $this->getEventManager()->trigger($event);
     }
 

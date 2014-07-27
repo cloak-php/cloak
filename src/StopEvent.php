@@ -20,8 +20,20 @@ use Zend\EventManager\Event as BaseEvent;
 class StopEvent extends BaseEvent implements StopEventInterface
 {
 
-    const STOP = 'stop';
+    const NAME = 'stop';
 
+    /**
+     * @param  string|object $target
+     * @param  array|\ArrayAccess $params
+     */
+    public function __construct($target = null, $params = null)
+    {
+        parent::__construct(static::NAME, $target, $params);
+    }
+
+    /**
+     * @return \cloak\Result
+     */
     public function getResult()
     {
         return $this->getParam('result', null);
