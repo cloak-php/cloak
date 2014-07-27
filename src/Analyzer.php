@@ -11,7 +11,7 @@
 
 namespace cloak;
 
-use cloak\ProvidesNotifier;
+use cloak\ProvidesLifeCycleNotifier;
 
 /**
  * Class Analyzer
@@ -20,7 +20,7 @@ use cloak\ProvidesNotifier;
 class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCycleInterface
 {
 
-    use ProvidesNotifier;
+    use ProvidesLifeCycleNotifier;
 
     /**
      * @var Configuration

@@ -12,10 +12,10 @@
 namespace cloak;
 
 /**
- * Class ProvidesNotifier
+ * Trait ProvidesLifeCycleNotifier
  * @package cloak
  */
-trait ProvidesNotifier
+trait ProvidesLifeCycleNotifier
 {
 
     /**
