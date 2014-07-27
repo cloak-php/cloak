@@ -18,7 +18,7 @@ describe('Event', function() {
             $this->event = Mock::mock('cloak\event\Event', [])->makePartial();
         });
         it('should return time send the event', function() {
-            expect($this->event->getSendAt())->toBeAnInstanceOf('\DateTimeImmutable');
+            expect($this->event->getSendAt())->toBeAnInstanceOf('\DateTime');
         });
     });
 
