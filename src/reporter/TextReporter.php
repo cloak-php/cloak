@@ -35,12 +35,19 @@ class TextReporter implements ReporterInterface
     private $lowUpperBound;
     private $highLowerBound;
 
+    /**
+     * @param float $highLowerBound
+     * @param float $lowUpperBound
+     */
     public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
         $this->lowUpperBound = new Coverage($lowUpperBound);
         $this->highLowerBound = new Coverage($highLowerBound);
     }
 
+    /**
+     * @param \cloak\event\StopEventInterface $event
+     */
     public function onStop(StopEventInterface $event)
     {
         $files = $event->getResult()->getFiles();
@@ -49,6 +56,10 @@ class TextReporter implements ReporterInterface
         });
     }
 
+    /**
+     * @param \cloak\result\File $file
+     * @return string
+     */
     protected function reportFrom(File $file)
     {
 
@@ -69,6 +80,10 @@ class TextReporter implements ReporterInterface
         return $result;
     }
 
+    /**
+     * @param \cloak\result\File $file
+     * @return string
+     */
     protected function coverageReportFrom(File $file)
     {
 
