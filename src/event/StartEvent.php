@@ -12,15 +12,12 @@
 namespace cloak\event;
 
 /**
- * Interface StopEventInterface
+ * Class StartEvent
  * @package cloak\event
  */
-interface StopEventInterface extends EventInterface
+class StartEvent extends Event implements EventInterface
 {
 
-    /**
-     * @return \cloak\Result
-     */
-    public function getResult();
+    protected $name = 'start';
 
 }

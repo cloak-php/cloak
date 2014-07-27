@@ -11,16 +11,18 @@
 
 namespace cloak\event;
 
+use Zend\EventManager\EventInterface as BaseEventInterface;
+
 /**
- * Interface StopEventInterface
+ * Interface EventInterface
  * @package cloak\event
  */
-interface StopEventInterface extends EventInterface
+interface EventInterface extends BaseEventInterface
 {
 
     /**
-     * @return \cloak\Result
+     * @return \DateTimeImmutable
      */
-    public function getResult();
+    public function getSendAt();
 
 }

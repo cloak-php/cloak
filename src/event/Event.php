@@ -12,13 +12,19 @@
 namespace cloak\event;
 
 use Zend\EventManager\Event as BaseEvent;
+use DateTimeImmutable;
 
 /**
  * Class Event
  * @package cloak\event
  */
-class Event extends BaseEvent
+abstract class Event extends BaseEvent
 {
+
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $sendAt;
 
     /**
      * @param  string|object $target
@@ -26,7 +32,16 @@ class Event extends BaseEvent
      */
     public function __construct($target = null, $params = null)
     {
+        $this->sendAt = new DateTimeImmutable();
         parent::__construct($this->name, $target, $params);
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getSendAt()
+    {
+        return $this->sendAt;
     }
 
 }

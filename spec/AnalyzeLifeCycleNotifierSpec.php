@@ -16,6 +16,33 @@ use Mockery as Mock;
 
 describe('AnalyzeLifeCycleNotifier', function() {
 
+    describe('#notifyStart', function() {
+        $subject = $this->subject = new \stdClass();
+
+        $reporter = $this->reporter = Mock::mock('cloak\reporter\ReporterInterface');
+        $reporter->shouldReceive('attach')->once()->with(
+            Mockery::on(function($eventManager) use ($reporter) {
+                $eventManager->attach('start', array($reporter, 'onStart'));
+                return true;
+            })
+        );
+
+        $reporter->shouldReceive('onStart')->once()->with(
+            Mockery::on(function($event) use($subject) {
+                $subject->event = $event;
+                return true;
+            })
+        );
+
+        $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
+        $this->progessNotifier->notifyStart();
+
+        it('should notify the reporter that it has started', function() {
+            $event = $this->subject->event;
+            expect($event)->toBeAnInstanceOf('cloak\event\EventInterface');
+        });
+    });
+
     describe('#notifyStop', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
         $coverageResults = [

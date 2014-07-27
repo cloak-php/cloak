@@ -13,6 +13,7 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\Reporter\ReporterInterface;
+use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use Zend\EventManager\EventManagerAwareTrait;
 
@@ -36,6 +37,12 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
             return;
         }
         $reporter->attach( $this->getEventManager() );
+    }
+
+    public function notifyStart()
+    {
+        $event = new StartEvent($this);
+        $this->getEventManager()->trigger($event);
     }
 
     /**
