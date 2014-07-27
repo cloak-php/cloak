@@ -9,6 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
+use cloak\event\EventInterface;
 use cloak\event\StopEventInterface;
 use cloak\reporter\Reportable;
 use cloak\reporter\ReporterInterface;
@@ -19,6 +20,7 @@ class HaveMethodCloakReporter implements ReporterInterface
 {
     use Reportable;
 
+    public function onStart(EventInterface $event) {}
     public function onStop(StopEventInterface $event) {}
 }
 
@@ -33,6 +35,7 @@ describe('Reportable', function() {
         context('when have recive event method', function() {
             $this->reporter = Mock::mock('HaveMethodCloakReporter');
             $this->reporter->makePartial();
+            $this->reporter->shouldReceive('onStart')->once();
             $this->reporter->shouldReceive('onStop')->once();
 
             before(function() {
@@ -44,7 +47,7 @@ describe('Reportable', function() {
             });
             it('should attach events', function() {
                 $events = $this->eventManager->getEvents();
-                expect($events)->toEqual(array('stop'));
+                expect($events)->toEqual(array('start', 'stop'));
             });
         });
         context('when have not recive event method', function() {
@@ -80,7 +83,7 @@ describe('Reportable', function() {
         });
         it('should detach events', function() {
             $events = $this->eventManager->getEvents();
-            expect($events)->toEqual(array());
+            expect($events)->toBeEmpty();
         });
     });
 

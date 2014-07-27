@@ -27,9 +27,9 @@ trait Reportable
      * @var array
      */
     private $acceptLifeCycleEvents = [
+        'start' => 'onStart',
         'stop' => 'onStop'
     ];
-
 
     /**
      * @return array
