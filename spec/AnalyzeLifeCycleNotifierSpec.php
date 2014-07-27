@@ -11,10 +11,10 @@
 
 use cloak\Result;
 use cloak\result\Line;
-use cloak\Notifier;
+use cloak\AnalyzeLifeCycleNotifier;
 use Mockery as Mock;
 
-describe('Notifier', function() {
+describe('AnalyzeLifeCycleNotifier', function() {
 
     describe('#stop', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
@@ -41,7 +41,7 @@ describe('Notifier', function() {
             })
         );
 
-        $this->progessNotifier = new Notifier($reporter);
+        $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
         $this->progessNotifier->stop($this->result);
 
         it('should notify the reporter that it has stopped', function() {

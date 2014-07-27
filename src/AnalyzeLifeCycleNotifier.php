@@ -17,10 +17,10 @@ use Zend\EventManager\EventManagerAwareTrait;
 
 //TODO setReporter / getReporter
 /**
- * Class Notifier
+ * Class AnalyzeLifeCycleNotifier
  * @package cloak
  */
-class Notifier implements NotifierInterface
+class AnalyzeLifeCycleNotifier implements NotifierInterface
 {
 
     use EventManagerAwareTrait;

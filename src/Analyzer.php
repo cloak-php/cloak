@@ -96,7 +96,7 @@ class Analyzer implements NotifierAwareInterface, AnalyzeLifeCycleInterface
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
-        $this->setNotifier( new Notifier($configuration->reporter) );
+        $this->setNotifier( new AnalyzeLifeCycleNotifier($configuration->reporter) );
     }
 
 }

@@ -40,7 +40,7 @@ $argv = array_merge($defaultArgv, array(
     'spec/result/CoverageSpec.php',
     'spec/reporter/ReportableSpec.php',
     'spec/reporter/TextReporterSpec.php',
-    'spec/ProgressNotifierSpec.php',
+    'spec/AnalyzeLifeCycleNotifierSpec.php',
     'spec/AnalyzerSpec.php',
     'spec/DriverDetectorSpec.php',
 ));
