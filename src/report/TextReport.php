@@ -19,10 +19,29 @@ class TextReport implements ReportInterface
 {
 
     /**
+     * @var string
+     */
+    private $content;
+
+    /**
+     * @param string $content
+     */
+    public function __construct($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
      * Print a report
      */
     public function output()
     {
+        echo $this;
+    }
+
+    public function __toString()
+    {
+        return $this->content;
     }
 
 }
