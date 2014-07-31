@@ -15,7 +15,7 @@ namespace cloak\event;
  * Class StopEvent
  * @package cloak\event
  */
-class StopEvent extends Event implements StopEventInterface
+final class StopEvent extends Event implements StopEventInterface
 {
 
     protected $name = 'stop';
