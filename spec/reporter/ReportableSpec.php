@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\event\EventInterface;
+use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\reporter\Reportable;
 use cloak\reporter\ReporterInterface;
@@ -20,7 +20,7 @@ class HaveMethodCloakReporter implements ReporterInterface
 {
     use Reportable;
 
-    public function onStart(EventInterface $event) {}
+    public function onStart(StartEventInterface $event) {}
     public function onStop(StopEventInterface $event) {}
 }
 

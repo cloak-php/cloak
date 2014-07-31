@@ -39,7 +39,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
 
         it('should notify the reporter that it has started', function() {
             $event = $this->subject->event;
-            expect($event)->toBeAnInstanceOf('cloak\event\EventInterface');
+            expect($event)->toBeAnInstanceOf('cloak\event\StartEventInterface');
         });
     });
 
