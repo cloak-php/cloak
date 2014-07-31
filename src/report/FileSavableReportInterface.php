@@ -12,15 +12,17 @@
 namespace cloak\report;
 
 /**
- * Interface ReportInterface
+ * Interface FileSavableReportInterface
  * @package cloak\report
  */
-interface ReportInterface
+interface FileSavableReportInterface extends ReportInterface
 {
 
     /**
-     * Print a report
+     * Save the report to a file
+     *
+     * @param string $path report file name
      */
-    public function output();
+    public function saveAs($path);
 
 }

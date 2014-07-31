@@ -12,15 +12,17 @@
 namespace cloak\report;
 
 /**
- * Interface ReportInterface
+ * Class TextReport
  * @package cloak\report
  */
-interface ReportInterface
+class TextReport implements ReportInterface
 {
 
     /**
      * Print a report
      */
-    public function output();
+    public function output()
+    {
+    }
 
 }
