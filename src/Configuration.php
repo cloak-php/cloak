@@ -41,9 +41,7 @@ class Configuration
 
     protected function getDriver()
     {
-        if ($this->driver === null) {
-            $this->driver = new XdebugDriver();
-        }
+        $this->driver = $this->driver ?: new XdebugDriver();
         return $this->driver;
     }
 
