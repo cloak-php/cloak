@@ -12,3 +12,4 @@ targets:
   - spec/DriverDetectorSpec.php
   - spec/report/TextReportSpec.php
   - spec/report/factory/TextReportFactorySpec.php
+  - spec/driver/AbstractDriverSpec.php
