@@ -28,6 +28,7 @@ class CompositeReporter implements ReporterInterface
 
     /**
      * @param array $reporters
+     * @FIXME Validate parameters
      */
     public function __construct(array $reporters)
     {
@@ -40,9 +41,6 @@ class CompositeReporter implements ReporterInterface
     public function onStart(StartEventInterface $event)
     {
         foreach ($this->reporters as $reporter) {
-            if (method_exists($reporter, 'onStart') === false) {
-                continue;
-            }
             $reporter->onStart($event);
         }
     }
