@@ -14,6 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\StopEventInterface;
 use cloak\report\factory\ReportFactoryInterface;
+use cloak\report\factory\TextReportFactory;
 
 /**
  * Class TextReporter
@@ -32,9 +33,9 @@ class TextReporter implements ReporterInterface
     /**
      * @param ReportFactoryInterface $factory
      */
-    public function __construct(ReportFactoryInterface $factory)
+    public function __construct(ReportFactoryInterface $factory = null)
     {
-        $this->factory = $factory;
+        $this->factory = $factory ?: new TextReportFactory();
     }
 
     /**
