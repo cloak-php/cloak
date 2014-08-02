@@ -11,6 +11,8 @@
 
 use cloak\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
+use cloak\report\factory\TextReportFactory;
+use cloak\result\Coverage;
 use Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
@@ -53,7 +55,13 @@ describe('ConfigurationBuilder', function() {
         $this->filter2 = function(File $file){};
         $this->filter3 = function(File $file){};
         $this->filter4 = function(File $file){};
-        $this->reporter = new TextReporter();
+
+        $factory = new TextReportFactory(
+            new Coverage(70.0),
+            new Coverage(35.0)
+        );
+
+        $this->reporter = new TextReporter($factory);
 
         $this->driver = Mock::mock('cloak\driver\DriverInterface');
 

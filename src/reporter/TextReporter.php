@@ -12,9 +12,8 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\result\Coverage;
 use cloak\event\StopEventInterface;
-use cloak\report\factory\TextReportFactory;
+use cloak\report\factory\ReportFactoryInterface;
 
 /**
  * Class TextReporter
@@ -25,24 +24,17 @@ class TextReporter implements ReporterInterface
 
     use Reportable;
 
-    const DEFAULT_LOW_BOUND = 35.0;
-    const DEFAULT_HIGH_BOUND = 70.0;
-
     /**
      * @var \cloak\report\factory\TextReportFactory
      */
     private $factory;
 
     /**
-     * @param float $highLowerBound
-     * @param float $lowUpperBound
+     * @param ReportFactoryInterface $factory
      */
-    public function __construct($highLowerBound = self::DEFAULT_LOW_BOUND, $lowUpperBound = self::DEFAULT_HIGH_BOUND)
+    public function __construct(ReportFactoryInterface $factory)
     {
-        $this->factory = new TextReportFactory(
-            new Coverage($lowUpperBound),
-            new Coverage($highLowerBound)
-        );
+        $this->factory = $factory;
     }
 
     /**
@@ -51,6 +43,7 @@ class TextReporter implements ReporterInterface
     public function onStop(StopEventInterface $event)
     {
         $result = $event->getResult();
+
         $report = $this->factory->createFromResult($result);
         $report->output();
     }

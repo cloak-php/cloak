@@ -22,7 +22,7 @@ use Colors\Color;
  * Class TextReportFactory
  * @package cloak\report\factory
  */
-class TextReportFactory
+class TextReportFactory implements ReportFactoryInterface
 {
 
     const PAD_CHARACTER = '.';
