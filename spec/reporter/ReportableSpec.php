@@ -14,6 +14,7 @@ use cloak\event\StopEventInterface;
 use cloak\reporter\Reportable;
 use cloak\reporter\ReporterInterface;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\ListenerAggregateInterface;
 use Mockery as Mock;
 
 class HaveMethodCloakReporter implements ReporterInterface
@@ -24,7 +25,7 @@ class HaveMethodCloakReporter implements ReporterInterface
     public function onStop(StopEventInterface $event) {}
 }
 
-class HaveNotMethodCloakReporter implements ReporterInterface
+class HaveNotMethodCloakReporter implements ListenerAggregateInterface
 {
     use Reportable;
     public function onStop(StopEventInterface $event) {}
