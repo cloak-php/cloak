@@ -14,7 +14,7 @@ use cloak\result\Line;
 use cloak\result\File;
 use PhpCollection\Sequence;
 
-describe('result', function() {
+describe('Result', function() {
 
     $this->rootDirectory = __DIR__ . '/fixtures/src/';
     $this->returnValue = null;
@@ -180,19 +180,35 @@ describe('result', function() {
     });
 
     describe('#removeFile', function() {
-        $file = $this->rootDirectory . 'foo.php';
+        context('when specify a file that exists', function() {
+            before(function() {
+                $file = $this->rootDirectory . 'foo.php';
 
-        $this->result = new Result();
-        $this->file = new File($file);
-        $this->result->addFile($this->file);
-        $this->returnValue = $this->result->removeFile($this->file);
-
-        it('should remove file', function() {
-            $files = $this->returnValue->getFiles();
-            expect($files->count())->toBe(0);
+                $this->result = new Result();
+                $this->file = new File($file);
+                $this->result->addFile($this->file);
+                $this->returnValue = $this->result->removeFile($this->file);
+            });
+            it('should remove file', function() {
+                $files = $this->returnValue->getFiles();
+                expect($files->count())->toBe(0);
+            });
+            it('should return cloak\Result instance', function() {
+                expect($this->returnValue)->toEqual($this->result);
+            });
         });
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toEqual($this->result);
+        context('when specify a file that not exists', function() {
+            before(function() {
+                $file = $this->rootDirectory . 'foo.php';
+                $this->file = new File($file);
+
+                $this->result = new Result();
+            });
+            it('throw \UnexpectedValueException', function() {
+                expect(function() {
+                    $this->result->removeFile($this->file);
+                })->toThrow('\UnexpectedValueException');
+            });
         });
     });
 
