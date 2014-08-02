@@ -56,10 +56,7 @@ describe('ConfigurationBuilder', function() {
         $this->filter3 = function(File $file){};
         $this->filter4 = function(File $file){};
 
-        $factory = new TextReportFactory(
-            new Coverage(70.0),
-            new Coverage(35.0)
-        );
+        $factory = new TextReportFactory();
 
         $this->reporter = new TextReporter($factory);
 

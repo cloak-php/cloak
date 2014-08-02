@@ -28,6 +28,9 @@ class TextReportFactory implements ReportFactoryInterface
     const PAD_CHARACTER = '.';
     const PAD_CHARACTER_LENGTH = 70;
 
+    const DEFAULT_LOW_BOUND = 35.0;
+    const DEFAULT_HIGH_BOUND = 70.0;
+
     /**
      * @var \cloak\result\Coverage
      */
@@ -39,13 +42,13 @@ class TextReportFactory implements ReportFactoryInterface
     private $highLowerBound;
 
     /**
-     * @param \cloak\result\Coverage $highLowerBound
-     * @param \cloak\result\Coverage $lowUpperBound
+     * @param float $highLowerBound
+     * @param float $lowUpperBound
      */
-    public function __construct(Coverage $highLowerBound, Coverage $lowUpperBound)
+    public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
-        $this->lowUpperBound = $lowUpperBound;
-        $this->highLowerBound = $highLowerBound;
+        $this->lowUpperBound = new Coverage($lowUpperBound);
+        $this->highLowerBound = new Coverage($highLowerBound);
     }
 
     /**

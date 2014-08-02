@@ -11,7 +11,6 @@
 
 use cloak\report\factory\TextReportFactory;
 use cloak\Result;
-use cloak\result\Coverage;
 use cloak\result\Line;
 use Colors\Color;
 
@@ -53,7 +52,7 @@ describe('TextReportFactory', function() {
         $this->low = new Color(sprintf('%6.2f%%', (float) 28.57));
         $this->normal = new Color(sprintf('%6.2f%%', (float) 66.67));
 
-        $reportFactory = new TextReportFactory(new Coverage(70.0), new Coverage(35.0));
+        $reportFactory = new TextReportFactory();
         $this->report = $reportFactory->createFromResult($result);
 
         before(function() {
