@@ -12,7 +12,6 @@
 use cloak\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
 use cloak\report\factory\TextReportFactory;
-use cloak\result\Coverage;
 use Mockery as Mock;
 
 describe('ConfigurationBuilder', function() {
