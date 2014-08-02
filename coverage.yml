@@ -13,3 +13,4 @@ targets:
   - spec/report/TextReportSpec.php
   - spec/report/factory/TextReportFactorySpec.php
   - spec/driver/AbstractDriverSpec.php
+  - spec/event/EventSpec.php
