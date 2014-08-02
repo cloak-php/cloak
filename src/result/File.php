@@ -12,6 +12,7 @@
 namespace cloak\result;
 
 use \PhpCollection\Sequence;
+use \UnexpectedValueException;
 
 /**
  * Class File
@@ -93,7 +94,7 @@ class File
         $indexAt = $this->lineCoverages->indexOf($line);
 
         if ($indexAt === -1) {
-            return;
+            throw new UnexpectedValueException("Line {$line->getLineNumber()} that has been specified is not found");
         }
 
         $this->lineCoverages->remove($indexAt);

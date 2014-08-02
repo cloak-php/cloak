@@ -89,13 +89,27 @@ describe('File', function() {
     });
 
     describe('#removeLine', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-        $this->line = new Line(2, Line::EXECUTED);
-
-        it('should remove line', function() {
-            $this->file->addLine($this->line);
-            $this->file->removeLine($this->line);
-            expect($this->file->getLines()->count())->toBe(0);
+        context('when specify a line that exists', function() {
+            before(function() {
+                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+                $this->line = new Line(2, Line::EXECUTED);
+                $this->file->addLine($this->line);
+                $this->file->removeLine($this->line);
+            });
+            it('should remove line', function() {
+                expect($this->file->getLines()->count())->toBe(0);
+            });
+        });
+        context('when specify a line that not exists', function() {
+            before(function() {
+                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+                $this->line = new Line(2, Line::EXECUTED);
+            });
+            it('throw \UnexpectedValueException', function() {
+                expect(function() {
+                    $this->file->removeLine($this->line);
+                })->toThrow('\UnexpectedValueException');
+            });
         });
     });
 
