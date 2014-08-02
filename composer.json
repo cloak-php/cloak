@@ -21,7 +21,8 @@
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.*",
         "holyshared/coverallskit": "1.2.3",
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "symfony/yaml": "2.5.2"
     },
     "license": "MIT",
     "authors": [
