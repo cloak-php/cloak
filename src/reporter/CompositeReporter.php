@@ -53,9 +53,6 @@ class CompositeReporter implements ReporterInterface
     public function onStop(StopEventInterface $event)
     {
         foreach ($this->reporters as $reporter) {
-            if (method_exists($reporter, 'onStop') === false) {
-                continue;
-            }
             $reporter->onStop($event);
         }
     }
