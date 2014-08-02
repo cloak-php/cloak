@@ -7,6 +7,7 @@ targets:
   - spec/result/CoverageSpec.php
   - spec/reporter/ReportableSpec.php
   - spec/reporter/TextReporterSpec.php
+  - spec/reporter/CompositeReporterSpec.php
   - spec/AnalyzeLifeCycleNotifierSpec.php
   - spec/AnalyzerSpec.php
   - spec/DriverDetectorSpec.php
