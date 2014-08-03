@@ -13,8 +13,39 @@ use cloak\Result;
 use PhpCollection\Sequence;
 use cloak\reporter\TextReporter;
 use \Mockery;
+use \DateTime;
 
 describe('TextReporter', function() {
+
+    describe('onStart', function() {
+        before(function() {
+            $this->verify = function() {
+                Mockery::close();
+            };
+
+            $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
+
+            $this->event = Mockery::mock('cloak\event\StartEventInterface');
+            $this->event->shouldReceive('getSendAt')->andReturn( $this->dateTime );
+
+            $this->factory = Mockery::mock('cloak\report\factory\ReportFactoryInterface');
+            $this->factory->shouldReceive('createFromResult')->never();
+
+            $this->reporter = new TextReporter($this->factory);
+        });
+        it('output start datetime', function() {
+            $output  = str_pad("", 70, "-") . "\n";
+            $output .= "Start at: 1 July 2014 at 12:00\n";
+            $output .= str_pad("", 70, "-") . "\n";
+
+            expect(function() {
+                $this->reporter->onStart($this->event);
+            })->toPrint($output);
+        });
+        it('check mock object expectations', function() {
+            call_user_func($this->verify);
+        });
+    });
 
     describe('onStop', function() {
         before(function() {

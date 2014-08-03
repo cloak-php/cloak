@@ -26,6 +26,8 @@ class TextReporter implements ReporterInterface
 
     use Reportable;
 
+    const PAD_CHARACTER_LENGTH = 70;
+
     /**
      * @var \cloak\report\factory\TextReportFactory
      */
@@ -44,6 +46,10 @@ class TextReporter implements ReporterInterface
      */
     public function onStart(StartEventInterface $event)
     {
+        $startAt = $event->getSendAt()->format('j F Y \a\t H:i');
+        echo str_pad("", static::PAD_CHARACTER_LENGTH, "-"), PHP_EOL;
+        echo "Start at: ", $startAt, PHP_EOL;
+        echo str_pad("", static::PAD_CHARACTER_LENGTH, "-"), PHP_EOL;
     }
 
     /**
