@@ -9,15 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\event;
+namespace cloak\report;
 
 /**
- * Class StartEvent
- * @package cloak\event
+ * Interface ReportInterface
+ * @package cloak\report
  */
-final class StartEvent extends Event implements StartEventInterface
+interface ReportInterface
 {
 
-    protected $name = 'start';
+    /**
+     * Print a report
+     */
+    public function output();
 
 }

@@ -39,9 +39,7 @@ trait ProvidesLifeCycleNotifier
      */
     public function getLifeCycleNotifier()
     {
-        if ($this->notifier === null) {
-            $this->notifier = new AnalyzeLifeCycleNotifier();
-        }
+        $this->notifier = $this->notifier ?: new AnalyzeLifeCycleNotifier();
 
         return $this->notifier;
     }

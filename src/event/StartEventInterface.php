@@ -12,12 +12,9 @@
 namespace cloak\event;
 
 /**
- * Class StartEvent
+ * Interface StartEventInterface
  * @package cloak\event
  */
-final class StartEvent extends Event implements StartEventInterface
+interface StartEventInterface extends EventInterface
 {
-
-    protected $name = 'start';
-
 }

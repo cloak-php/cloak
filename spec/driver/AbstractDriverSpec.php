@@ -14,33 +14,42 @@ use \Mockery;
 describe('AbstractDriver', function() {
 
     describe('#isStarted', function() {
-        before(function() {
-            $this->driver = Mockery::mock('cloak\driver\AbstractDriver')->makePartial();
-            $this->driver->shouldReceive('start');
-            $this->driver->shouldReceive('stop');
-        });
-        after(function() {
-            Mockery::close();
-        });
         context('when after instantiation', function() {
+            before(function() {
+                $this->verify = function() {
+                    Mockery::close();
+                };
+
+                $this->driver = Mockery::mock('cloak\driver\AbstractDriver')->makePartial();
+                $this->driver->shouldReceive('start')->never();
+                $this->driver->shouldReceive('stop')->never();
+                $this->result = $this->driver->isStarted();
+            });
             it('should return false', function() {
-                expect($this->driver->isStarted())->toBeFalse();
+                expect($this->result)->toBeFalse();
+            });
+            it('check mock object expectations', function() {
+                call_user_func($this->verify);
             });
         });
     });
 
     describe('#getResult', function() {
-        before(function() {
-            $this->driver = Mockery::mock('cloak\driver\AbstractDriver')->makePartial();
-            $this->driver->shouldReceive('start');
-            $this->driver->shouldReceive('stop');
-        });
-        after(function() {
-            Mockery::close();
-        });
         context('when after instantiation', function() {
+            before(function() {
+                $this->verify = function() {
+                    Mockery::close();
+                };
+                $this->driver = Mockery::mock('cloak\driver\AbstractDriver')->makePartial();
+                $this->driver->shouldReceive('start')->never();
+                $this->driver->shouldReceive('stop')->never();
+                $this->result = $this->driver->getResult();
+            });
             it('should return array', function() {
-                expect($this->driver->getResult())->toBeAn('array');
+                expect($this->result)->toBeAn('array');
+            });
+            it('check mock object expectations', function() {
+                call_user_func($this->verify);
             });
         });
     });

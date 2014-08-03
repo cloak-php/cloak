@@ -12,10 +12,10 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\result\File;
-use cloak\result\Coverage;
+use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use Colors\Color;
+use cloak\report\factory\ReportFactoryInterface;
+use cloak\report\factory\TextReportFactory;
 
 /**
  * Class TextReporter
@@ -26,23 +26,30 @@ class TextReporter implements ReporterInterface
 
     use Reportable;
 
-    const PAD_CHARACTER = '.';
     const PAD_CHARACTER_LENGTH = 70;
 
-    const DEFAULT_LOW_BOUND = 35.0;
-    const DEFAULT_HIGH_BOUND = 70.0;
-
-    private $lowUpperBound;
-    private $highLowerBound;
+    /**
+     * @var \cloak\report\factory\TextReportFactory
+     */
+    private $factory;
 
     /**
-     * @param float $highLowerBound
-     * @param float $lowUpperBound
+     * @param ReportFactoryInterface $factory
      */
-    public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
+    public function __construct(ReportFactoryInterface $factory = null)
     {
-        $this->lowUpperBound = new Coverage($lowUpperBound);
-        $this->highLowerBound = new Coverage($highLowerBound);
+        $this->factory = $factory ?: new TextReportFactory();
+    }
+
+    /**
+     * @param \cloak\event\StartEventInterface $event
+     */
+    public function onStart(StartEventInterface $event)
+    {
+        $startAt = $event->getSendAt()->format('j F Y \a\t H:i');
+        echo str_pad("", static::PAD_CHARACTER_LENGTH, "-"), PHP_EOL;
+        echo "Start at: ", $startAt, PHP_EOL;
+        echo str_pad("", static::PAD_CHARACTER_LENGTH, "-"), PHP_EOL;
     }
 
     /**
@@ -50,53 +57,10 @@ class TextReporter implements ReporterInterface
      */
     public function onStop(StopEventInterface $event)
     {
-        $files = $event->getResult()->getFiles();
-        $files->map(function(File $file) {
-            echo $this->reportFrom($file) . PHP_EOL;
-        });
-    }
+        $result = $event->getResult();
 
-    /**
-     * @param \cloak\result\File $file
-     * @return string
-     */
-    protected function reportFrom(File $file)
-    {
-
-        $currentDirectory = getcwd();
-
-        $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
-        $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
-
-        $coverage = $this->coverageReportFrom($file);
-
-        $result = sprintf("%s %s (%2d/%2d)",
-            $filePathReport,
-            $coverage,
-            $file->getExecutedLineCount(),
-            $file->getExecutableLineCount()
-        );
-
-        return $result;
-    }
-
-    /**
-     * @param \cloak\result\File $file
-     * @return string
-     */
-    protected function coverageReportFrom(File $file)
-    {
-
-        $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->valueOf()));
-
-        if ($file->isCoverageGreaterEqual($this->highLowerBound)) {
-            $color->green();
-        } else if ($file->isCoverageLessThan($this->lowUpperBound)) {
-            $color->yellow();
-        }
-
-        return $color;
-
+        $report = $this->factory->createFromResult($result);
+        $report->output();
     }
 
 }
