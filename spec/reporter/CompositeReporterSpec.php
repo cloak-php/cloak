@@ -21,12 +21,12 @@ describe('CompositeReporter', function() {
             $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
 
             $this->reporter1 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter1->shouldReceive('onStart')->times(1);
-            $this->reporter1->shouldReceive('onStop')->times(0);
+            $this->reporter1->shouldReceive('onStart')->once();
+            $this->reporter1->shouldReceive('onStop')->never();
 
             $this->reporter2 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter2->shouldReceive('onStart')->times(1);
-            $this->reporter2->shouldReceive('onStop')->times(0);
+            $this->reporter2->shouldReceive('onStart')->once();
+            $this->reporter2->shouldReceive('onStop')->never();
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
 
@@ -36,6 +36,8 @@ describe('CompositeReporter', function() {
         });
         it('notify the start event', function() {
             $this->reporter->onStart($this->startEvent);
+        });
+        it('check mock object expectations', function() {
             call_user_func($this->verify);
         });
     });
@@ -47,12 +49,12 @@ describe('CompositeReporter', function() {
             $this->stopEvent = Mockery::mock('cloak\event\StopEventInterface');
 
             $this->reporter1 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter1->shouldReceive('onStart')->times(0);
-            $this->reporter1->shouldReceive('onStop')->times(1);
+            $this->reporter1->shouldReceive('onStart')->never();
+            $this->reporter1->shouldReceive('onStop')->once();
 
             $this->reporter2 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter2->shouldReceive('onStart')->times(0);
-            $this->reporter2->shouldReceive('onStop')->times(1);
+            $this->reporter2->shouldReceive('onStart')->never();
+            $this->reporter2->shouldReceive('onStop')->once();
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
 
@@ -60,9 +62,10 @@ describe('CompositeReporter', function() {
                 Mockery::close();
             };
         });
-
         it('notify the stop event', function() {
             $this->reporter->onStop($this->stopEvent);
+        });
+        it('check mock object expectations', function() {
             call_user_func($this->verify);
         });
     });

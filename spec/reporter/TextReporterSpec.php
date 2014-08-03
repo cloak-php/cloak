@@ -18,6 +18,10 @@ describe('TextReporter', function() {
 
     describe('onStop', function() {
         before(function() {
+            $this->verify = function() {
+                Mockery::close();
+            };
+
             $this->result = new Result(new Sequence());
 
             $this->event = Mockery::mock('cloak\event\StopEventInterface');
@@ -34,13 +38,13 @@ describe('TextReporter', function() {
 
             $this->reporter = new TextReporter($this->factory);
         });
-        after(function() {
-            Mockery::close();
-        });
         it('should output coverage', function() {
             expect(function() {
                 $this->reporter->onStop($this->event);
             })->toPrint('content');
+        });
+        it('check mock object expectations', function() {
+            call_user_func($this->verify);
         });
     });
 

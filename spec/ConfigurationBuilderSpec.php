@@ -12,17 +12,19 @@
 use cloak\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
 use cloak\report\factory\TextReportFactory;
-use Mockery as Mock;
+use \Mockery;
 
 describe('ConfigurationBuilder', function() {
 
     describe('#includeFiles', function() {
-        $this->filter1 = function(File $file){};
-        $this->filter2 = function(File $file){};
-        $this->builder = new ConfigurationBuilder(); 
-        $this->returnValue = $this->builder->includeFiles([
-            $this->filter1, $this->filter2
-        ]);
+        before(function() {
+            $this->filter1 = function(File $file){};
+            $this->filter2 = function(File $file){};
+            $this->builder = new ConfigurationBuilder();
+            $this->returnValue = $this->builder->includeFiles([
+                $this->filter1, $this->filter2
+            ]);
+        });
         it('should add filters', function() {
             $filters = $this->builder->includeFiles;
             expect(count($filters))->toBe(2);
@@ -33,13 +35,14 @@ describe('ConfigurationBuilder', function() {
     });
 
     describe('#excludeFiles', function() {
-        $this->filter1 = function(File $file){};
-        $this->filter2 = function(File $file){};
-        $this->builder = new ConfigurationBuilder(); 
-        $this->returnValue = $this->builder->excludeFiles([
-            $this->filter1, $this->filter2
-        ]);
-
+        before(function() {
+            $this->filter1 = function(File $file){};
+            $this->filter2 = function(File $file){};
+            $this->builder = new ConfigurationBuilder();
+            $this->returnValue = $this->builder->excludeFiles([
+                $this->filter1, $this->filter2
+            ]);
+        });
         it('should add filters', function() {
             $filters = $this->builder->excludeFiles;
             expect(count($filters))->toBe(2);
@@ -50,29 +53,32 @@ describe('ConfigurationBuilder', function() {
     });
 
     describe('#build', function() {
-        $this->filter1 = function(File $file){};
-        $this->filter2 = function(File $file){};
-        $this->filter3 = function(File $file){};
-        $this->filter4 = function(File $file){};
+        before(function() {
+            $this->verify = function() {
+                Mockery::close();
+            };
 
-        $factory = new TextReportFactory();
+            $this->filter1 = function(File $file){};
+            $this->filter2 = function(File $file){};
+            $this->filter3 = function(File $file){};
+            $this->filter4 = function(File $file){};
 
-        $this->reporter = new TextReporter($factory);
+            $factory = new TextReportFactory();
 
-        $this->driver = Mock::mock('cloak\driver\DriverInterface');
+            $this->reporter = new TextReporter($factory);
 
-        $this->builder = new ConfigurationBuilder(); 
-        $this->builder->driver($this->driver)
-            ->reporter($this->reporter)
-            ->includeFiles(array( $this->filter1, $this->filter2 ))
-            ->excludeFiles(array( $this->filter3, $this->filter4 ));
+            $this->driver = Mockery::mock('cloak\driver\DriverInterface');
+            $this->driver->shouldReceive('start')->never();
+            $this->driver->shouldReceive('stop')->never();
 
-        $this->returnValue = $this->builder->build();
+            $this->builder = new ConfigurationBuilder();
+            $this->builder->driver($this->driver)
+                ->reporter($this->reporter)
+                ->includeFiles(array( $this->filter1, $this->filter2 ))
+                ->excludeFiles(array( $this->filter3, $this->filter4 ));
 
-        after(function() {
-            Mock::close();
+            $this->returnValue = $this->builder->build();
         });
-
         it('should return cloak\Configuration instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Configuration');
         });
@@ -93,6 +99,9 @@ describe('ConfigurationBuilder', function() {
             $filters = $this->returnValue->excludeFiles;
             expect($filters[0])->toEqual($this->filter3);
             expect($filters[1])->toEqual($this->filter4);
+        });
+        it('check mock object expectations', function() {
+            call_user_func($this->verify);
         });
     });
 
