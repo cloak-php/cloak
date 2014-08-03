@@ -25,15 +25,15 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.0"
+			"cloak/cloak": "1.3.1"
 		}
 	}
 
 ### Install Cloak
 
-Please execute **composer update** command.
+Please execute **composer install** command.
 
-	composer update
+	composer install
 
 How to use
 ------------------------------------------------
