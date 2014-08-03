@@ -166,10 +166,13 @@ class File
         return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
+    /**
+     * @param array $lineResults
+     */
     protected function resolveLineCoverages(array $lineResults)
     {
 
-        $results = array(); 
+        $results = [];
 
         foreach ($lineResults as $lineNumber => $analyzeResult) {
             if ($lineNumber <= 0 || $lineNumber > $this->getLineCount()) {
