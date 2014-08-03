@@ -29,12 +29,14 @@ describe('CompositeReporter', function() {
             $this->reporter2->shouldReceive('onStop')->times(0);
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
-        });
-        after(function() {
-            Mockery::close();
+
+            $this->verify = function() {
+                Mockery::close();
+            };
         });
         it('notify the start event', function() {
             $this->reporter->onStart($this->startEvent);
+            call_user_func($this->verify);
         });
     });
 
@@ -53,12 +55,15 @@ describe('CompositeReporter', function() {
             $this->reporter2->shouldReceive('onStop')->times(1);
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
+
+            $this->verify = function() {
+                Mockery::close();
+            };
         });
-        after(function() {
-            Mockery::close();
-        });
+
         it('notify the stop event', function() {
             $this->reporter->onStop($this->stopEvent);
+            call_user_func($this->verify);
         });
     });
 
