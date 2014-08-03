@@ -12,74 +12,90 @@
 use cloak\Result;
 use cloak\result\Line;
 use cloak\AnalyzeLifeCycleNotifier;
-use Mockery as Mock;
+use \Mockery;
 
 describe('AnalyzeLifeCycleNotifier', function() {
 
     describe('#notifyStart', function() {
-        $subject = $this->subject = new \stdClass();
+        before(function() {
+            $this->verify = function() {
+                Mockery::close();
+            };
 
-        $reporter = $this->reporter = Mock::mock('cloak\reporter\ReporterInterface');
-        $reporter->shouldReceive('attach')->once()->with(
-            Mockery::on(function($eventManager) use ($reporter) {
-                $eventManager->attach('start', array($reporter, 'onStart'));
-                return true;
-            })
-        );
+            $subject = $this->subject = new \stdClass();
 
-        $reporter->shouldReceive('onStart')->once()->with(
-            Mockery::on(function($event) use($subject) {
-                $subject->event = $event;
-                return true;
-            })
-        );
+            $reporter = $this->reporter = Mockery::mock('cloak\reporter\ReporterInterface');
+            $reporter->shouldReceive('attach')->once()->with(
+                Mockery::on(function($eventManager) use ($reporter) {
+                    $eventManager->attach('start', array($reporter, 'onStart'));
+                    return true;
+                })
+            );
 
-        $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
-        $this->progessNotifier->notifyStart();
+            $reporter->shouldReceive('onStart')->once()->with(
+                Mockery::on(function($event) use($subject) {
+                    $subject->event = $event;
+                    return true;
+                })
+            );
+
+            $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
+            $this->progessNotifier->notifyStart();
+        });
 
         it('should notify the reporter that it has started', function() {
             $event = $this->subject->event;
-            expect($event)->toBeAnInstanceOf('cloak\event\EventInterface');
+            expect($event)->toBeAnInstanceOf('cloak\event\StartEventInterface');
+        });
+        it('check mock object expectations', function() {
+            call_user_func($this->verify);
         });
     });
 
     describe('#notifyStop', function() {
-        $rootDirectory = __DIR__ . '/fixtures/src/';
-        $coverageResults = [
-            $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
-        ];
+        before(function() {
+            $this->verify = function() {
+                Mockery::close();
+            };
 
-        $this->result = Result::from($coverageResults);
+            $rootDirectory = __DIR__ . '/fixtures/src/';
+            $coverageResults = [
+                $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
+            ];
 
-        $subject = $this->subject = new \stdClass();
-        $reporter = $this->reporter = Mock::mock('cloak\reporter\ReporterInterface');
+            $this->result = Result::from($coverageResults);
 
-        $reporter->shouldReceive('attach')->once()->with(
-            Mockery::on(function($eventManager) use ($reporter) {
-                $eventManager->attach('stop', array($reporter, 'onStop'));
-                return true;
-            })
-        );
+            $subject = $this->subject = new \stdClass();
+            $reporter = $this->reporter = Mockery::mock('cloak\reporter\ReporterInterface');
 
-        $reporter->shouldReceive('onStop')->once()->with(
-            Mockery::on(function($event) use($subject) {
-                $subject->event = $event;
-                return true;
-            })
-        );
+            $reporter->shouldReceive('attach')->once()->with(
+                Mockery::on(function($eventManager) use ($reporter) {
+                    $eventManager->attach('stop', array($reporter, 'onStop'));
+                    return true;
+                })
+            );
 
-        $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
-        $this->progessNotifier->notifyStop($this->result);
+            $reporter->shouldReceive('onStop')->once()->with(
+                Mockery::on(function($event) use($subject) {
+                    $subject->event = $event;
+                    return true;
+                })
+            );
 
+            $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
+            $this->progessNotifier->notifyStop($this->result);
+        });
         it('should notify the reporter that it has stopped', function() {
             $event = $this->subject->event;
             expect($event)->toBeAnInstanceOf('cloak\event\StopEventInterface');
         });
-
         it('should include the results', function() {
             $result = $this->subject->event->getResult();
             expect($result)->toEqual($this->result);
             expect(count($result->getFiles()))->toBe(1);
+        });
+        it('check mock object expectations', function() {
+            call_user_func($this->verify);
         });
     });
 

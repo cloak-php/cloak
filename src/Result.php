@@ -14,6 +14,7 @@ namespace cloak;
 use cloak\result\File;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
+use \UnexpectedValueException;
 
 /**
  * Class Result
@@ -110,7 +111,7 @@ class Result
         $indexAt = $this->files->indexOf($file);
 
         if ($indexAt === -1) {
-            return $this;
+            throw new UnexpectedValueException("File that does not exist {$file->getPath()}");
         }
         $this->files->remove($indexAt);
 

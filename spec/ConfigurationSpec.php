@@ -10,10 +10,23 @@
  */
 
 use cloak\ConfigurationBuilder;
+use cloak\Configuration;
 use cloak\Result;
 use cloak\result\File;
 
 describe('Configuration', function() {
+
+    describe('#__constrcut', function() {
+        context('when specify a property that does not exist', function() {
+            it('throw InvalidArgumentException', function() {
+                expect(function() {
+                    new Configuration([
+                        'invalid_property' => ''
+                    ]);
+                })->toThrow('\InvalidArgumentException');
+            });
+        });
+    });
 
     describe('#apply', function() {
         $filter1 = function(File $file) {

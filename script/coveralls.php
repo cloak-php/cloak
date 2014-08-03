@@ -14,15 +14,14 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
 use cloak\Result\File;
-//use coverallskit\ReportBuilder;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
 use coverallskit\entity\SourceFile;
 use coverallskit\exception\LineOutOfRangeException;
-
 use coverallskit\ConfigurationLoader;
 use coverallskit\ReportBuilderFactory;
+use Symfony\Component\Yaml\Yaml;
 
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
@@ -39,20 +38,9 @@ $analyzer->start();
 
 
 $defaultArgv = array('../vendor/bin/pho');
+$coverageConfig = Yaml::parse(__DIR__ . '/../coverage.yml');
 
-$argv = array_merge($defaultArgv, array(
-    'spec/ConfigurationSpec.php',
-    'spec/ConfigurationBuilderSpec.php',
-    'spec/ResultSpec.php',
-    'spec/result/FileSpec.php',
-    'spec/result/LineSpec.php',
-    'spec/result/CoverageSpec.php',
-    'spec/reporter/ReportableSpec.php',
-    'spec/reporter/TextReporterSpec.php',
-    'spec/AnalyzeLifeCycleNotifierSpec.php',
-    'spec/AnalyzerSpec.php',
-    'spec/DriverDetectorSpec.php',
-));
+$argv = array_merge($defaultArgv, $coverageConfig['targets']);
 
 require_once __DIR__ . "/../vendor/bin/pho";
 

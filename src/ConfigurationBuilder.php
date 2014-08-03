@@ -95,11 +95,6 @@ class ConfigurationBuilder
         return new Configuration($values);
     }
 
-    public function __set($name, $value)
-    {
-        return call_user_func_array(array($this, $name), [$value]);
-    }
-
     public function __get($name)
     {
         return $this->$name;

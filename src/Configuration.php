@@ -13,6 +13,7 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\driver\XdebugDriver;
+use \InvalidArgumentException;
 
 /**
  * Class Configuration
@@ -33,7 +34,7 @@ class Configuration
     {
         foreach ($values as $key => $value) {
             if (property_exists($this, $key) === false) {
-                continue;
+                throw new InvalidArgumentException("Property that does not exist {$key}");
             }
             $this->$key = $value;
         }
@@ -41,9 +42,7 @@ class Configuration
 
     protected function getDriver()
     {
-        if ($this->driver === null) {
-            $this->driver = new XdebugDriver();
-        }
+        $this->driver = $this->driver ?: new XdebugDriver();
         return $this->driver;
     }
 
