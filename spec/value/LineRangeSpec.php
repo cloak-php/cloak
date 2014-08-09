@@ -19,17 +19,24 @@ describe('LineRange', function() {
 
     describe('#__construct', function() {
         context('when invalid renge', function() {
-            it('throw \InvalidArgumentException', function() {
+            it('throw cloak\value\LessThanLineNumberException', function() {
                 expect(function() {
                     (new LineRange(5, 4));
-                })->toThrow('\InvalidArgumentException');
+                })->toThrow('cloak\value\LessThanLineNumberException');
             });
         });
         context('when start line number less than 1', function() {
-            it('throw \InvalidArgumentException', function() {
+            it('throw cloak\value\UnexpectedLineNumberException', function() {
                 expect(function() {
                     (new LineRange(0, 4));
-                })->toThrow('\InvalidArgumentException');
+                })->toThrow('cloak\value\UnexpectedLineNumberException');
+            });
+        });
+        context('when end line number less than 1', function() {
+            it('throw cloak\value\UnexpectedLineNumberException', function() {
+                expect(function() {
+                    (new LineRange(1, 0));
+                })->toThrow('cloak\value\UnexpectedLineNumberException');
             });
         });
     });

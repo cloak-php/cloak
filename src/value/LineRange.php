@@ -11,9 +11,6 @@
 
 namespace cloak\value;
 
-use cloak\result\Line;
-use \InvalidArgumentException;
-
 /***
  * Class LineRange
  * @package cloak\value
@@ -71,19 +68,41 @@ class LineRange
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws UnexpectedLineNumberException
+     * @throws LessThanLineNumberException
      */
     private function validate()
     {
+        $this->validateLineNumber();
+        $this->validateLineRange();
+    }
+
+    /**
+     * @throws UnexpectedLineNumberException
+     */
+    private function validateLineNumber()
+    {
         if ($this->getStartLineNumber() < 1) {
-            throw new InvalidArgumentException();
+            throw new UnexpectedLineNumberException();
         }
 
+        if ($this->getEndLineNumber() < 1) {
+            throw new UnexpectedLineNumberException();
+        }
+    }
+
+    /**
+     * @throws LessThanLineNumberException
+     */
+    private function validateLineRange()
+    {
         $result = $this->getStartLineNumber() < $this->getEndLineNumber();
 
-        if ($result === false) {
-            throw new InvalidArgumentException();
+        if ($result === true) {
+            return;
         }
+
+        throw new LessThanLineNumberException();
     }
 
 }
