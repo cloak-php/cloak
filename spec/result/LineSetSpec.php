@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\value\LineSet;
 use cloak\value\Coverage;
+use cloak\value\LineRange;
 use cloak\result\Line;
+use cloak\result\LineSet;
 use PhpCollection\Sequence;
-
 
 describe('LineSet', function() {
 
@@ -121,6 +121,26 @@ describe('LineSet', function() {
     });
 
     describe('#selectRange', function() {
+        before(function() {
+            $this->range = new LineRange(2, 4);
+            $this->lineSet = new LineSet(new Sequence([
+                new Line(1, Line::UNUSED),
+                new Line(2, Line::EXECUTED),
+                new Line(3, Line::EXECUTED),
+                new Line(4, Line::EXECUTED),
+                new Line(5, Line::EXECUTED),
+            ]));
+            $this->newLineSet = $this->lineSet->selectRange($this->range);
+
+            $this->firstLine = $this->newLineSet->first();
+            $this->lastLine = $this->newLineSet->last();
+        });
+        it('', function() {
+            expect($this->firstLine->getLineNumber())->toEqual(2);
+        });
+        it('', function() {
+            expect($this->lastLine->getLineNumber())->toEqual(4);
+        });
     });
 
 });
