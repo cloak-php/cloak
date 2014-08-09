@@ -143,4 +143,47 @@ describe('LineSet', function() {
         });
     });
 
+    describe('#current', function() {
+        before(function() {
+            $this->lineSet = new LineSet(new Sequence([
+                new Line(1, Line::UNUSED)
+            ]));
+            $this->line = $this->lineSet->current();
+        });
+        it('return current line', function() {
+            expect($this->line->getLineNumber())->toEqual(1);
+        });
+    });
+
+    describe('#valid', function() {
+        before(function() {
+            $this->lineSet = new LineSet(new Sequence([
+                new Line(1, Line::UNUSED),
+                new Line(2, Line::EXECUTED)
+            ]));
+        });
+        context('when have not line', function() {
+            before(function() {
+                $this->lineSet->next();
+            });
+            it('return false', function() {
+                expect($this->lineSet->valid())->toBeFalse();
+            });
+        });
+    });
+
+    describe('#valid', function() {
+        before(function() {
+            $this->lineSet = new LineSet(new Sequence([
+                new Line(1, Line::UNUSED),
+                new Line(2, Line::EXECUTED)
+            ]));
+            $this->lineSet->next();
+            $this->lineSet->rewind();
+        });
+        it('return false', function() {
+            expect($this->lineSet->key())->toEqual(0);
+        });
+    });
+
 });

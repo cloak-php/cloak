@@ -23,6 +23,11 @@ class LineSet implements LineSetInterface
 {
 
     /**
+     * @var int
+     */
+    private $index = 0;
+
+    /**
      * @var \PhpCollection\Sequence
      */
     private $lines;
@@ -154,6 +159,36 @@ class LineSet implements LineSetInterface
     {
         $lines = $this->lines->filter($filter);
         return $lines;
+    }
+
+    /**
+     * @return null|Line
+     */
+    public function current()
+    {
+        $line = $this->lines->get($this->key());
+        return $line;
+    }
+
+    public function key()
+    {
+        return $this->index;
+    }
+
+    public function next()
+    {
+        $this->index++;
+    }
+
+    public function rewind()
+    {
+        $this->index = 0;
+    }
+
+    public function valid()
+    {
+        $size = $this->lines->count();
+        return ($size - 1) > $this->key();
     }
 
 }

@@ -11,10 +11,12 @@
 
 namespace cloak\result;
 
+use \Iterator;
+
 /***
  * Class LineSetInterface
  * @package cloak\result
  */
-interface LineSetInterface extends CoverageResultInterface
+interface LineSetInterface extends CoverageResultInterface, Iterator
 {
 }
