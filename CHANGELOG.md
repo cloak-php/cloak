@@ -6,6 +6,7 @@ This is a list of changes from 1.3.1.
 Version 1.3.2
 ---------------------------------------------------------------
 * **cloak\result\Coverage** to **cloak\value\Coverage**
+* add **cloak\value\LineSet** class
 
 Version 1.3.1
 ---------------------------------------------------------------
