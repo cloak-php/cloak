@@ -12,48 +12,49 @@
 use cloak\result\File;
 use cloak\result\Line;
 use cloak\value\Coverage;
-use PhpCollection\Sequence;
 
 describe('File', function() {
 
     describe('#getRelativePath', function() {
-        $this->file = new File(__FILE__);
-
+        before(function() {
+            $this->file = new File(__FILE__);
+        });
         it('should return relative path', function() {
             expect($this->file->getRelativePath(__DIR__))->toEqual('FileSpec.php');
         });
     });
 
     describe('#getLines', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-
         context('when line is empty', function() {
-            it('should return PhpCollection\Sequence instance', function() {
-                expect($this->file->getLines())->toBeAnInstanceOf('PhpCollection\Sequence');
+            before(function() {
+                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+            });
+            it('should return cloak\result\LineSet instance', function() {
+                expect($this->file->getLines())->toBeAnInstanceOf('cloak\result\LineSet');
             });
         });
-        context('when there is a line', function() {
-            it('should return PhpCollection\Sequence instance', function() {
-                $this->file->addLine(new Line('foo.php'));
-                expect($this->file->getLines())->toBeAnInstanceOf('PhpCollection\Sequence');
-                expect($this->file->getLines()->count())->toBe(1);
+        context('when line is not empty', function() {
+            before(function() {
+                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                    12 => Line::EXECUTED,
+                    17 => Line::UNUSED
+                ]);
             });
-        });
-    });
-
-    describe('#setLines', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-
-        it('should return cloak\result\File instance', function() {
-            expect($this->file->setLines(new Sequence()))->toBeAnInstanceOf('cloak\result\File');
+            it('should return cloak\result\LineSet instance', function() {
+                expect($this->file->getLines())->toBeAnInstanceOf('cloak\result\LineSet');
+            });
+            it('should return cloak\result\LineSet instance', function() {
+                expect($this->file->getLines()->getLineCount())->toBe(2);
+            });
         });
     });
 
     describe('#equals', function() {
         context('when path equals', function() {
-            $this->file1 = new File(__DIR__ . '/../fixtures/src/foo.php');
-            $this->file2 = new File(__DIR__ . '/../fixtures/src/foo.php');
-
+            before(function() {
+                $this->file1 = new File(__DIR__ . '/../fixtures/src/foo.php');
+                $this->file2 = new File(__DIR__ . '/../fixtures/src/foo.php');
+            });
             it('should return true', function() {
                 $result = $this->file1->equals($this->file2);
                 expect($result)->toBeTrue();
@@ -62,8 +63,9 @@ describe('File', function() {
     });
 
     describe('#matchPath', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-
+        before(function() {
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
+        });
         context('when included in the path', function() {
             it('should return true', function() {
                 $result = $this->file->matchPath('/foo');
@@ -78,49 +80,12 @@ describe('File', function() {
         });
     });
 
-    describe('#addLine', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-        $this->line = new Line(2, Line::EXECUTED);
-
-        it('should add line', function() {
-            $this->file->addLine($this->line);
-            expect($this->file->getLines()->last()->get())->toEqual($this->line);
-        });
-    });
-
-    describe('#removeLine', function() {
-        context('when specify a line that exists', function() {
-            before(function() {
-                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-                $this->line = new Line(2, Line::EXECUTED);
-                $this->file->addLine($this->line);
-                $this->file->removeLine($this->line);
-            });
-            it('should remove line', function() {
-                expect($this->file->getLines()->count())->toBe(0);
-            });
-        });
-        context('when specify a line that not exists', function() {
-            before(function() {
-                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-                $this->line = new Line(2, Line::EXECUTED);
-            });
-            it('throw \UnexpectedValueException', function() {
-                expect(function() {
-                    $this->file->removeLine($this->line);
-                })->toThrow('\UnexpectedValueException');
-            });
-        });
-    });
-
     describe('#getDeadLineCount', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-        $this->deadLine = new Line(1, Line::DEAD);
-        $this->executedLine = new Line(2, Line::EXECUTED);
-
         before(function() {
-            $this->file->addLine($this->deadLine);
-            $this->file->addLine($this->executedLine);
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                12 => Line::DEAD,
+                17 => Line::EXECUTED
+            ]);
         });
         it('should return total number of lines is dead', function() {
             expect($this->file->getDeadLineCount())->toBe(1);
@@ -128,13 +93,11 @@ describe('File', function() {
     });
 
     describe('#getUnusedLineCount', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-        $this->deadLine = new Line(1, Line::DEAD);
-        $this->executedLine = new Line(2, Line::UNUSED);
-
         before(function() {
-            $this->file->addLine($this->deadLine);
-            $this->file->addLine($this->executedLine);
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                1 => Line::DEAD,
+                2 => Line::UNUSED
+            ]);
         });
         it('should return total number of lines is unused', function() {
             expect($this->file->getUnusedLineCount())->toBe(1);
@@ -142,13 +105,11 @@ describe('File', function() {
     });
 
     describe('#getExecutedLineCount', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-        $this->deadLine = new Line(1, Line::DEAD);
-        $this->executedLine = new Line(2, Line::EXECUTED);
-
         before(function() {
-            $this->file->addLine($this->deadLine);
-            $this->file->addLine($this->executedLine);
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                1 => Line::DEAD,
+                2 => Line::EXECUTED
+            ]);
         });
         it('should return total number of lines is executed', function() {
             expect($this->file->getExecutedLineCount())->toBe(1);
@@ -156,11 +117,11 @@ describe('File', function() {
     });
 
     describe('#getCodeCoverage', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-
         before(function() {
-            $this->file->addLine( new Line(1, Line::UNUSED) );
-            $this->file->addLine( new Line(1, Line::EXECUTED) );
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                12 => Line::EXECUTED,
+                17 => Line::UNUSED
+            ]);
         });
         it('should return the value of code coverage', function() {
             expect($this->file->getCodeCoverage()->valueOf())->toBe(50.00);
@@ -168,11 +129,11 @@ describe('File', function() {
     });
 
     describe('#isCoverageLessThan', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-
         before(function() {
-            $this->file->addLine( new Line(1, Line::UNUSED) );
-            $this->file->addLine( new Line(1, Line::EXECUTED) );
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                12 => Line::EXECUTED,
+                17 => Line::UNUSED
+            ]);
         });
         context('when less than 51% of coverage', function() {
             it('should return true', function() {
@@ -189,13 +150,12 @@ describe('File', function() {
     });
 
     describe('#isCoverageGreaterEqual', function() {
-        $this->file = new File(__DIR__ . '/../fixtures/src/foo.php');
-
         before(function() {
-            $this->file->addLine( new Line(1, Line::UNUSED) );
-            $this->file->addLine( new Line(1, Line::EXECUTED) );
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', [
+                12 => Line::EXECUTED,
+                17 => Line::UNUSED
+            ]);
         });
-
         context('when less than 51% of coverage', function() {
             it('should return false', function() {
                 $coverage = new Coverage(51);
