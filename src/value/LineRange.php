@@ -83,11 +83,17 @@ class LineRange
     private function validateLineNumber()
     {
         if ($this->getStartLineNumber() < 1) {
-            throw new UnexpectedLineNumberException();
+            throw new UnexpectedLineNumberException(sprintf(
+                'Start line is less than 1, the start line has been specified %d.',
+                $this->getStartLineNumber())
+            );
         }
 
         if ($this->getEndLineNumber() < 1) {
-            throw new UnexpectedLineNumberException();
+            throw new UnexpectedLineNumberException(sprintf(
+                'End line is less than 1, the start line has been specified %d.',
+                $this->getEndLineNumber())
+            );
         }
     }
 
@@ -102,7 +108,12 @@ class LineRange
             return;
         }
 
-        throw new LessThanLineNumberException();
+        throw new LessThanLineNumberException(sprintf(
+            'The start line is larger than the end line, the start line is %d, the end line is %d.',
+                $this->getStartLineNumber(),
+                $this->getEndLineNumber()
+            )
+        );
     }
 
 }
