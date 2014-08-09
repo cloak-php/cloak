@@ -5,7 +5,7 @@ targets:
   - spec/result/FileSpec.php
   - spec/result/LineSpec.php
   - spec/value/CoverageSpec.php
-  - spec/value/LineSetSpec.php
+  - spec/result/LineSetSpec.php
   - spec/value/LineRangeSpec.php
   - spec/reporter/ReportableSpec.php
   - spec/reporter/TextReporterSpec.php
