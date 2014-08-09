@@ -10,7 +10,6 @@
  */
 
 use cloak\value\LineRange;
-use cloak\result\Line;
 
 describe('LineRange', function() {
 
@@ -49,27 +48,18 @@ describe('LineRange', function() {
 
     describe('#contains', function() {
         context('when less than start line number', function() {
-            before(function() {
-                $this->line = new Line(1, Line::EXECUTED);
-            });
             it('return false', function() {
-                expect($this->range->contains($this->line))->toBeFalse();
+                expect($this->range->contains(1))->toBeFalse();
             });
         });
         context('when contains', function() {
-            before(function() {
-                $this->line = new Line(2, Line::EXECUTED);
-            });
             it('return true', function() {
-                expect($this->range->contains($this->line))->toBeTrue();
+                expect($this->range->contains(2))->toBeTrue();
             });
         });
         context('when greater than start line number', function() {
-            before(function() {
-                $this->line = new Line(4, Line::EXECUTED);
-            });
             it('return false', function() {
-                expect($this->range->contains($this->line))->toBeFalse();
+                expect($this->range->contains(4))->toBeFalse();
             });
         });
     });

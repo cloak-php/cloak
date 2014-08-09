@@ -59,13 +59,11 @@ class LineRange
     }
 
     /**
-     * @param Line $line
+     * @param int $lineNumber
      * @return bool
      */
-    public function contains(Line $line)
+    public function contains($lineNumber)
     {
-        $lineNumber = $line->getLineNumber();
-
         $result =  $this->getStartLineNumber() <= $lineNumber
             && $this->getEndLineNumber() >= $lineNumber;
 
