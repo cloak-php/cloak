@@ -11,6 +11,8 @@
 
 namespace cloak\value;
 
+use cloak\result\Line;
+
 /***
  * Class LineRange
  * @package cloak\value
@@ -52,6 +54,20 @@ class LineRange
     public function getEndLineNumber()
     {
         return $this->endLineNumber;
+    }
+
+    /**
+     * @param Line $line
+     * @return bool
+     */
+    public function contains(Line $line)
+    {
+        $lineNumber = $line->getLineNumber();
+
+        $result =  $this->getStartLineNumber() <= $lineNumber
+            && $this->getEndLineNumber() >= $lineNumber;
+
+        return $result;
     }
 
 }

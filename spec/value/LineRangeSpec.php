@@ -10,22 +10,50 @@
  */
 
 use cloak\value\LineRange;
+use cloak\result\Line;
 
 describe('LineRange', function() {
 
     before(function() {
-        $this->range = new LineRange(1, 3);
+        $this->range = new LineRange(2, 3);
     });
 
     describe('#getStartLineNumber', function() {
         it('return start line number', function() {
-            expect($this->range->getStartLineNumber())->toEqual(1);
+            expect($this->range->getStartLineNumber())->toEqual(2);
         });
     });
 
     describe('#getEndLineNumber', function() {
         it('return end line number', function() {
             expect($this->range->getEndLineNumber())->toEqual(3);
+        });
+    });
+
+    describe('#contains', function() {
+        context('when less than start line number', function() {
+            before(function() {
+                $this->line = new Line(1, Line::EXECUTED);
+            });
+            it('return false', function() {
+                expect($this->range->contains($this->line))->toBeFalse();
+            });
+        });
+        context('when contains', function() {
+            before(function() {
+                $this->line = new Line(2, Line::EXECUTED);
+            });
+            it('return true', function() {
+                expect($this->range->contains($this->line))->toBeTrue();
+            });
+        });
+        context('when greater than start line number', function() {
+            before(function() {
+                $this->line = new Line(4, Line::EXECUTED);
+            });
+            it('return false', function() {
+                expect($this->range->contains($this->line))->toBeFalse();
+            });
         });
     });
 
