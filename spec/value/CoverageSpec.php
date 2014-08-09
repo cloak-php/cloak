@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\Coverage;
+use cloak\value\Coverage;
 
 describe('Coverage', function() {
 

@@ -11,7 +11,7 @@
 
 use cloak\result\File;
 use cloak\result\Line;
-use cloak\result\Coverage;
+use cloak\value\Coverage;
 use PhpCollection\Sequence;
 
 describe('File', function() {
