@@ -135,10 +135,10 @@ describe('LineSet', function() {
             $this->firstLine = $this->newLineSet->first();
             $this->lastLine = $this->newLineSet->last();
         });
-        it('', function() {
+        it('return first line', function() {
             expect($this->firstLine->getLineNumber())->toEqual(2);
         });
-        it('', function() {
+        it('return last line', function() {
             expect($this->lastLine->getLineNumber())->toEqual(4);
         });
     });
