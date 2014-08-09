@@ -19,7 +19,7 @@ use PhpCollection\Sequence;
  * Class LineSet
  * @package cloak\result
  */
-class LineSet implements CoverageResultInterface
+class LineSet implements LineSetInterface
 {
 
     /**
