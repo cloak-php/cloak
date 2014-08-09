@@ -26,6 +26,13 @@ describe('LineRange', function() {
                 })->toThrow('\InvalidArgumentException');
             });
         });
+        context('when start line number less than 1', function() {
+            it('throw \InvalidArgumentException', function() {
+                expect(function() {
+                    (new LineRange(0, 4));
+                })->toThrow('\InvalidArgumentException');
+            });
+        });
     });
 
     describe('#getStartLineNumber', function() {
