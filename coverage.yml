@@ -4,7 +4,7 @@ targets:
   - spec/ResultSpec.php
   - spec/result/FileSpec.php
   - spec/result/LineSpec.php
-  - spec/result/CoverageSpec.php
+  - spec/value/CoverageSpec.php
   - spec/reporter/ReportableSpec.php
   - spec/reporter/TextReporterSpec.php
   - spec/reporter/CompositeReporterSpec.php
