@@ -8,6 +8,7 @@ Version 1.3.2
 * **cloak\result\Coverage** to **cloak\value\Coverage**
 * add **cloak\result\LineSet** class
 * add **cloak\value\LineRange** class
+* Remove **addLine**, **removeLine**, **setLines** method from **File** class.
 
 Version 1.3.1
 ---------------------------------------------------------------

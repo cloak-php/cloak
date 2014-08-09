@@ -38,6 +38,14 @@ class LineSet
     /**
      * @return int
      */
+    public function getLineCount()
+    {
+        return $this->lines->count();
+    }
+
+    /**
+     * @return int
+     */
     public function getDeadLineCount()
     {
         $lines = $this->selectLines(function(Line $line) {
