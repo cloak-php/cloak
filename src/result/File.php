@@ -18,7 +18,7 @@ use \PhpCollection\Sequence;
  * Class File
  * @package cloak\result
  */
-class File
+class File implements CoverageResultInterface
 {
 
     /**
