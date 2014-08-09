@@ -12,6 +12,7 @@
 namespace cloak\value;
 
 use cloak\result\Line;
+use \InvalidArgumentException;
 
 /***
  * Class LineRange
@@ -38,6 +39,7 @@ class LineRange
     {
         $this->startLineNumber = $startLineNumber;
         $this->endLineNumber = $endLineNumber;
+        $this->validate();
     }
 
     /**
@@ -68,6 +70,22 @@ class LineRange
             && $this->getEndLineNumber() >= $lineNumber;
 
         return $result;
+    }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    private function validate()
+    {
+        if ($this->getStartLineNumber() < 1) {
+            throw new InvalidArgumentException();
+        }
+
+        $result = $this->getStartLineNumber() < $this->getEndLineNumber();
+
+        if ($result === false) {
+            throw new InvalidArgumentException();
+        }
     }
 
 }

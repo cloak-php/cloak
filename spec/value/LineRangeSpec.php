@@ -18,6 +18,16 @@ describe('LineRange', function() {
         $this->range = new LineRange(2, 3);
     });
 
+    describe('#__construct', function() {
+        context('when invalid renge', function() {
+            it('throw \InvalidArgumentException', function() {
+                expect(function() {
+                    (new LineRange(5, 4));
+                })->toThrow('\InvalidArgumentException');
+            });
+        });
+    });
+
     describe('#getStartLineNumber', function() {
         it('return start line number', function() {
             expect($this->range->getStartLineNumber())->toEqual(2);
