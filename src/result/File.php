@@ -11,6 +11,7 @@
 
 namespace cloak\result;
 
+use cloak\value\Coverage;
 use \PhpCollection\Sequence;
 use \UnexpectedValueException;
 

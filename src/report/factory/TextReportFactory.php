@@ -13,8 +13,8 @@ namespace cloak\report\factory;
 
 use cloak\Result;
 use cloak\result\File;
-use cloak\result\Coverage;
 use cloak\report\TextReport;
+use cloak\value\Coverage;
 use Colors\Color;
 
 
