@@ -12,7 +12,7 @@
 namespace cloak\result;
 
 use cloak\value\Coverage;
-use \PhpCollection\Sequence;
+use cloak\value\LineRange;
 
 /**
  * Class File
@@ -27,9 +27,9 @@ class File implements CoverageResultInterface
     private $path;
 
     /**
-     * @var int
+     * @var LineRange
      */
-    private $lineCount;
+    private $lineRange;
 
     /**
      * @var LineSet
@@ -40,11 +40,10 @@ class File implements CoverageResultInterface
      * @param $path
      * @param array $lineResults
      */
-    public function __construct($path, array $lineResults = [])
+    public function __construct($path, LineSetInterface $lineCoverages)
     {
         $this->path = $path;
-        $this->resolveLineRange();
-        $this->resolveLineCoverages($lineResults);
+        $this->resolveLineRange($lineCoverages);
     }
 
     /**
@@ -82,7 +81,7 @@ class File implements CoverageResultInterface
      */
     public function getLineCount()
     {
-        return $this->lineCount;
+        return $this->lineRange->getEndLineNumber();
     }
 
     /**
@@ -158,32 +157,17 @@ class File implements CoverageResultInterface
         return $this->lineCoverages->isCoverageGreaterEqual($coverage);
     }
 
-    /**
-     * @param array $lineResults
-     */
-    protected function resolveLineCoverages(array $lineResults)
-    {
-        $results = [];
-
-        foreach ($lineResults as $lineNumber => $analyzeResult) {
-            if ($lineNumber <= 0 || $lineNumber > $this->getLineCount()) {
-                continue;
-            }
-            $results[] = new Line($lineNumber, $analyzeResult, $this);
-        }
-
-        $this->lineCoverages = new LineSet(new Sequence($results));
-    }
-
-    protected function resolveLineRange()
+    protected function resolveLineRange(LineSetInterface $lineCoverages)
     {
         $content = file_get_contents($this->getPath());
-        $lineContents = explode(PHP_EOL, trim($content));
-        $lineCount = count($lineContents);
+        $totalLineCount = substr_count(trim($content), PHP_EOL);
 
-        unset($content, $lineContents);
+        unset($content);
 
-        $this->lineCount = $lineCount;
+        $this->lineRange = new LineRange(1, $totalLineCount);
+
+        $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
+        $this->lineCoverages = $cleanUpResults;
     }
 
 }
