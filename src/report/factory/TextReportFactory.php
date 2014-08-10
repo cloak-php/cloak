@@ -98,7 +98,7 @@ class TextReportFactory implements ReportFactoryInterface
     protected function coverageReportFrom(File $file)
     {
 
-        $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->valueOf()));
+        $color = new Color(sprintf('%6.2f%%', $file->getCodeCoverage()->value()));
 
         if ($file->isCoverageGreaterEqual($this->highLowerBound)) {
             $color->green();

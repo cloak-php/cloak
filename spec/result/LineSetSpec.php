@@ -24,7 +24,7 @@ describe('LineSet', function() {
             ]);
         });
         it('should return the value of code coverage', function() {
-            expect($this->lineSet->getCodeCoverage()->valueOf())->toBe(50.00);
+            expect($this->lineSet->getCodeCoverage()->value())->toBe(50.00);
         });
     });
 

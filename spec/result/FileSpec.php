@@ -146,7 +146,7 @@ describe('File', function() {
             $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('should return the value of code coverage', function() {
-            expect($this->file->getCodeCoverage()->valueOf())->toBe(50.00);
+            expect($this->file->getCodeCoverage()->value())->toBe(50.00);
         });
     });
 

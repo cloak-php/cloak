@@ -34,7 +34,7 @@ class Coverage
      */
     public function equals(Coverage $value)
     {
-        return ($this->valueOf() === $value->valueOf());
+        return ($this->value() === $value->value());
     }
 
     /**
@@ -43,7 +43,7 @@ class Coverage
      */
     public function lessEquals(Coverage $value)
     {
-        return $this->valueOf() <= $value->valueOf();
+        return $this->value() <= $value->value();
     }
 
     /**
@@ -52,7 +52,7 @@ class Coverage
      */
     public function lessThan(Coverage $value)
     {
-        return $this->valueOf() < $value->valueOf();
+        return $this->value() < $value->value();
     }
 
     /**
@@ -61,7 +61,7 @@ class Coverage
      */
     public function greaterEqual(Coverage $value)
     {
-        return $this->valueOf() >= $value->valueOf();
+        return $this->value() >= $value->value();
     }
 
     /**
@@ -70,13 +70,13 @@ class Coverage
      */
     public function greaterThan(Coverage $value)
     {
-        return $this->valueOf() > $value->valueOf();
+        return $this->value() > $value->value();
     }
 
     /**
      * @return float
      */
-    public function valueOf()
+    public function value()
     {
         return (float) $this->value;
     }

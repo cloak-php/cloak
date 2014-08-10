@@ -10,6 +10,7 @@ Version 1.3.2
 * add **cloak\value\LineRange** class
 * Remove **addLine**, **removeLine**, **setLines** method from **File** class.
 * The renamed to **getLineResults** the **getLines** method of the **File** class
+* The renamed to **value** the **valueOf** method of the **Coverage** class
 
 Version 1.3.1
 ---------------------------------------------------------------
