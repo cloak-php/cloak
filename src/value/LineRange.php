@@ -102,7 +102,7 @@ class LineRange
      */
     private function validateLineRange()
     {
-        $result = $this->getStartLineNumber() < $this->getEndLineNumber();
+        $result = $this->getStartLineNumber() <= $this->getEndLineNumber();
 
         if ($result === true) {
             return;
