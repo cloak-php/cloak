@@ -35,7 +35,7 @@ class LineSet implements LineSetInterface
     /**
      * @param array $lines
      */
-    public function __construct(array $lines)
+    public function __construct(array $lines = [])
     {
         $this->lines = new Sequence($lines);
     }
