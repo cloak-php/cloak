@@ -33,11 +33,11 @@ class LineSet implements LineSetInterface
     private $lines;
 
     /**
-     * @param Sequence $lines
+     * @param array $lines
      */
-    public function __construct(Sequence $lines)
+    public function __construct(array $lines)
     {
-        $this->lines = $lines;
+        $this->lines = new Sequence($lines);
     }
 
     /**
@@ -128,7 +128,7 @@ class LineSet implements LineSetInterface
             return $lineRange->contains($lineNumber);
         });
 
-        return new self($lines);
+        return new self($lines->all());
     }
 
     /**
