@@ -87,7 +87,7 @@ class File implements CoverageResultInterface
     /**
      * @return LineSet
      */
-    public function getLines()
+    public function getLineResults()
     {
         return $this->lineCoverages;
     }

@@ -36,14 +36,14 @@ describe('File', function() {
         });
     });
 
-    describe('#getLines', function() {
+    describe('#getLineResults', function() {
         context('when line is empty', function() {
             before(function() {
                 $this->lineSet = new LineSet();
                 $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
             it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLines())->toBeAnInstanceOf('cloak\result\LineSet');
+                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineSet');
             });
         });
         context('when line is not empty', function() {
@@ -55,10 +55,10 @@ describe('File', function() {
                 $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
             it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLines())->toBeAnInstanceOf('cloak\result\LineSet');
+                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineSet');
             });
             it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLines()->getLineCount())->toBe(2);
+                expect($this->file->getLineResults()->getLineCount())->toBe(2);
             });
         });
     });

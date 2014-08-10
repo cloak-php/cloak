@@ -9,6 +9,7 @@ Version 1.3.2
 * add **cloak\result\LineSet** class
 * add **cloak\value\LineRange** class
 * Remove **addLine**, **removeLine**, **setLines** method from **File** class.
+* The renamed to **getLineResults** the **getLines** method of the **File** class
 
 Version 1.3.1
 ---------------------------------------------------------------
