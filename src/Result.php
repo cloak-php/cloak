@@ -52,7 +52,7 @@ class Result
             }
             $files->add(new File($path, LineSet::from($lines)));
         }
-var_dump($files);
+
         return $files;
     }
 
