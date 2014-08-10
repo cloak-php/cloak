@@ -170,6 +170,9 @@ class LineSet implements LineSetInterface
         return $line;
     }
 
+    /**
+     * @return int
+     */
     public function key()
     {
         return $this->index;
@@ -185,6 +188,9 @@ class LineSet implements LineSetInterface
         $this->index = 0;
     }
 
+    /**
+     * @return bool
+     */
     public function valid()
     {
         $size = $this->lines->count();
