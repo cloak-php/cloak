@@ -26,6 +26,16 @@ describe('File', function() {
         });
     });
 
+    describe('#getLineCount', function() {
+        before(function() {
+            $this->lineSet = new LineSet();
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+        });
+        it('return total line number', function() {
+            expect($this->file->getLineCount())->toBe(20);
+        });
+    });
+
     describe('#getLines', function() {
         context('when line is empty', function() {
             before(function() {
