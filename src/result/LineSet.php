@@ -209,7 +209,7 @@ class LineSet implements LineSetInterface
     public function valid()
     {
         $size = $this->lines->count();
-        return ($size - 1) > $this->key();
+        return ($size - 1) >= $this->key();
     }
 
 }

@@ -165,6 +165,7 @@ describe('LineSet', function() {
         context('when have not line', function() {
             before(function() {
                 $this->lineSet->next();
+                $this->lineSet->next();
             });
             it('return false', function() {
                 expect($this->lineSet->valid())->toBeFalse();
