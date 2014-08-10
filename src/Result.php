@@ -12,6 +12,7 @@
 namespace cloak;
 
 use cloak\result\File;
+use cloak\result\LineSet;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
 use \UnexpectedValueException;
@@ -49,9 +50,9 @@ class Result
             if (file_exists($path) === false) {
                 continue;
             }
-            $files->add(new File($path, $lines));
+            $files->add(new File($path, LineSet::from($lines)));
         }
-
+var_dump($files);
         return $files;
     }
 

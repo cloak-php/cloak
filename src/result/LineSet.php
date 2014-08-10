@@ -152,6 +152,21 @@ class LineSet implements LineSetInterface
     }
 
     /**
+     * @param array $analyzeResults
+     * @return LineSet
+     */
+    public static function from(array $analyzeResults)
+    {
+        $results = [];
+
+        foreach ($analyzeResults as $lineNumber => $analyzeResult) {
+            $results[] = new Line($lineNumber, $analyzeResult);
+        }
+
+        return new self($results);
+    }
+
+    /**
      * @param callable $filter
      * @return \PhpCollection\AbstractSequence
      */

@@ -160,7 +160,7 @@ class File implements CoverageResultInterface
     protected function resolveLineRange(LineSetInterface $lineCoverages)
     {
         $content = file_get_contents($this->getPath());
-        $totalLineCount = substr_count(trim($content), PHP_EOL);
+        $totalLineCount = substr_count(trim($content), PHP_EOL) + 1;
 
         unset($content);
 

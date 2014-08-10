@@ -12,6 +12,7 @@
 use cloak\Result;
 use cloak\result\Line;
 use cloak\result\File;
+use cloak\result\LineSet;
 use PhpCollection\Sequence;
 
 describe('Result', function() {
@@ -167,7 +168,7 @@ describe('Result', function() {
         $file = $this->rootDirectory . 'foo.php';
 
         $this->result = new Result();
-        $this->file = new File($file);
+        $this->file = new File($file, new LineSet);
         $this->returnValue = $this->result->addFile($this->file);
 
         it('should add file', function() {
@@ -185,7 +186,7 @@ describe('Result', function() {
                 $file = $this->rootDirectory . 'foo.php';
 
                 $this->result = new Result();
-                $this->file = new File($file);
+                $this->file = new File($file, new LineSet);
                 $this->result->addFile($this->file);
                 $this->returnValue = $this->result->removeFile($this->file);
             });
@@ -200,7 +201,7 @@ describe('Result', function() {
         context('when specify a file that not exists', function() {
             before(function() {
                 $file = $this->rootDirectory . 'foo.php';
-                $this->file = new File($file);
+                $this->file = new File($file, new LineSet());
 
                 $this->result = new Result();
             });
