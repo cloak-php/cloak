@@ -246,6 +246,12 @@ describe('Result', function() {
             });
         });
 
+        describe('#getUnusedLineCount', function() {
+            it('return total unused line count', function() {
+                expect($this->result->getUnusedLineCount())->toEqual(2);
+            });
+        });
+
         describe('#getExecutedLineCount', function() {
             it('return total executed line count', function() {
                 expect($this->result->getExecutedLineCount())->toEqual(1);
