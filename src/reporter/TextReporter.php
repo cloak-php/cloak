@@ -16,7 +16,7 @@ use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\File;
 use cloak\value\Coverage;
-use Zend\Console\Console;
+use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 
 
@@ -36,7 +36,7 @@ class TextReporter implements ReporterInterface
     const PAD_CHARACTER_LENGTH = 70;
 
     /**
-     * @var \Zend\Console\Adapter\AdapterInterface
+     * @var \cloak\writer\ConsoleWriter
      */
     private $console;
 
@@ -57,9 +57,9 @@ class TextReporter implements ReporterInterface
      */
     public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
+        $this->console = new ConsoleWriter();
         $this->lowUpperBound = new Coverage($lowUpperBound);
         $this->highLowerBound = new Coverage($highLowerBound);
-        $this->console = Console::getInstance();
     }
 
     /**
