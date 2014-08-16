@@ -6,3 +6,4 @@ tools:
     php_sim: true
     php_pdepend: true
     php_analyzer: true
+    php_code_sniffer: true
