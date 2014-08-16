@@ -37,4 +37,29 @@ describe('ProcessingTimeReporter', function() {
         });
     });
 
+    describe('onStop', function() {
+        before(function() {
+            $this->reporter = new ProcessingTimeReporter();
+
+            $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
+
+            $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
+            $this->startEvent->shouldReceive('getSendAt')->andReturn( $this->dateTime );
+
+            $this->stopEvent = Mockery::mock('cloak\event\StopEventInterface');
+
+            $this->reporter->onStart($this->startEvent);
+        });
+        it('output running time', function() {
+            ob_start();
+            $this->reporter->onStop($this->stopEvent);
+            $output = ob_get_clean();
+
+            expect($output)->toMatch('/Finished in (.+) seconds/');
+        });
+        it('check mock object expectations', function() {
+            Mockery::close();
+        });
+    });
+
 });
