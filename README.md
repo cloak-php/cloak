@@ -25,7 +25,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.1"
+			"cloak/cloak": "1.3.2"
 		}
 	}
 
@@ -84,7 +84,7 @@ After you can get the report, you need to run the **getResult** method.
 	foreach ($result as $file) {
 		$result = sprintf("%s > %0.2f%% (%d/%d)",
         	$file->getPath(),
-        	$file->getCodeCoverage()->valueOf(),
+        	$file->getCodeCoverage()->value(),
         	$file->getExecutedLineCount(),
         	$file->getExecutableLineCount()
 		);

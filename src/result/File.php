@@ -11,27 +11,45 @@
 
 namespace cloak\result;
 
-use \PhpCollection\Sequence;
-use \UnexpectedValueException;
+use cloak\value\Coverage;
+use cloak\value\LineRange;
+use cloak\CoverageResultInterface;
 
 /**
  * Class File
  * @package cloak\result
  */
-class File
+class File implements CoverageResultInterface
 {
 
-    private $path = null;
-    private $lineCount = null;
-    private $lineCoverages = null;
+    /**
+     * @var string
+     */
+    private $path;
 
-    public function __construct($path, array $lineResults = [])
+    /**
+     * @var LineRange
+     */
+    private $lineRange;
+
+    /**
+     * @var LineSet
+     */
+    private $lineCoverages;
+
+    /**
+     * @param $path
+     * @param array $lineResults
+     */
+    public function __construct($path, LineSetInterface $lineCoverages)
     {
         $this->path = $path;
-        $this->resolveLineRange();
-        $this->resolveLineCoverages($lineResults);
+        $this->resolveLineRange($lineCoverages);
     }
 
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return $this->path;
@@ -47,6 +65,10 @@ class File
         return str_replace($directory, "", $this->getPath());
     }
 
+    /**
+     * @param $value
+     * @return bool
+     */
     public function matchPath($value)
     {
         $pathPattern = preg_quote($value, '/');
@@ -55,89 +77,61 @@ class File
         return ($result === 0) ? false : true;
     }
 
-    protected function resolveLineRange()
-    {
-        $content = file_get_contents($this->getPath());
-        $lineContents = explode(PHP_EOL, trim($content));
-        $lineCount = count($lineContents);
-
-        unset($content, $lineContents);
-
-        $this->lineCount = $lineCount;
-    }
-
+    /**
+     * @return int
+     */
     public function getLineCount()
     {
-        return $this->lineCount;
+        return $this->lineRange->getEndLineNumber();
     }
 
-    public function getLines()
+    /**
+     * @return LineSet
+     */
+    public function getLineResults()
     {
         return $this->lineCoverages;
     }
 
-    public function setLines(Sequence $lines)
-    {
-        $this->lineCoverages = $lines;
-        return $this;
-    }
-
-    public function addLine(Line $line)
-    {
-        $line->link($this);
-        $this->lineCoverages->add($line);
-    }
-
-    public function removeLine(Line $line)
-    {
-        $line->unlink();
-        $indexAt = $this->lineCoverages->indexOf($line);
-
-        if ($indexAt === -1) {
-            throw new UnexpectedValueException("Line {$line->getLineNumber()} that has been specified is not found");
-        }
-
-        $this->lineCoverages->remove($indexAt);
-    }
-
+    /**
+     * @param File $file
+     * @return bool
+     */
     public function equals(File $file)
     {
         return $file->getPath() === $this->getPath();
     }
 
+    /**
+     * @return int
+     */
     public function getDeadLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
-            return $line->isDead();
-        });
-        return $lines->count();
+        return $this->lineCoverages->getDeadLineCount();
     }
 
+    /**
+     * @return int
+     */
     public function getUnusedLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
-            return $line->isUnused();
-        });
-        return $lines->count();
+        return $this->lineCoverages->getUnusedLineCount();
     }
 
+    /**
+     * @return int
+     */
     public function getExecutedLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
-            return $line->isExecuted();
-        });
-        return $lines->count();
+        return $this->lineCoverages->getExecutedLineCount();
     }
 
+    /**
+     * @return int
+     */
     public function getExecutableLineCount()
     {
-        return $this->getUnusedLineCount() + $this->getExecutedLineCount();
-    }
-
-    public function selectLines(\Closure $filter)
-    {
-        $lines = $this->lineCoverages->filter($filter);
-        return $lines;
+        return $this->lineCoverages->getExecutableLineCount();
     }
 
     /**
@@ -145,9 +139,7 @@ class File
      */
     public function getCodeCoverage()
     {
-        $value = (float) $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
-
-        return new Coverage($value);
+        return $this->lineCoverages->getCodeCoverage();
     }
 
     /**
@@ -155,7 +147,7 @@ class File
      */
     public function isCoverageLessThan(Coverage $coverage)
     {
-        return $this->getCodeCoverage()->lessThan($coverage);
+        return $this->lineCoverages->isCoverageLessThan($coverage);
     }
 
     /**
@@ -163,25 +155,20 @@ class File
      */
     public function isCoverageGreaterEqual(Coverage $coverage)
     {
-        return $this->getCodeCoverage()->greaterEqual($coverage);
+        return $this->lineCoverages->isCoverageGreaterEqual($coverage);
     }
 
-    /**
-     * @param array $lineResults
-     */
-    protected function resolveLineCoverages(array $lineResults)
+    protected function resolveLineRange(LineSetInterface $lineCoverages)
     {
+        $content = file_get_contents($this->getPath());
+        $totalLineCount = substr_count(trim($content), PHP_EOL) + 1;
 
-        $results = [];
+        unset($content);
 
-        foreach ($lineResults as $lineNumber => $analyzeResult) {
-            if ($lineNumber <= 0 || $lineNumber > $this->getLineCount()) {
-                continue;
-            }
-            $results[] = new Line($lineNumber, $analyzeResult, $this);
-        }
+        $this->lineRange = new LineRange(1, $totalLineCount);
 
-        $this->lineCoverages = new Sequence($results);
+        $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
+        $this->lineCoverages = $cleanUpResults;
     }
 
 }

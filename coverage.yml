@@ -4,14 +4,16 @@ targets:
   - spec/ResultSpec.php
   - spec/result/FileSpec.php
   - spec/result/LineSpec.php
-  - spec/result/CoverageSpec.php
+  - spec/value/CoverageSpec.php
+  - spec/result/LineSetSpec.php
+  - spec/value/LineRangeSpec.php
   - spec/reporter/ReportableSpec.php
   - spec/reporter/TextReporterSpec.php
   - spec/reporter/CompositeReporterSpec.php
   - spec/AnalyzeLifeCycleNotifierSpec.php
   - spec/AnalyzerSpec.php
   - spec/DriverDetectorSpec.php
-  - spec/report/TextReportSpec.php
-  - spec/report/factory/TextReportFactorySpec.php
   - spec/driver/AbstractDriverSpec.php
   - spec/event/EventSpec.php
+  - spec/writer/ConsoleWriterSpec.php
+  - spec/writer/FileWriterSpec.php

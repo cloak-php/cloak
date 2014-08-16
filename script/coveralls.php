@@ -56,7 +56,7 @@ foreach ($fileResults as $fileResult) {
 
     $source = new SourceFile($fileResult->getPath());
 
-    $lineCoverages = $fileResult->getLines();
+    $lineCoverages = $fileResult->getLineResults();
 
     foreach ($lineCoverages as $lineCoverage) {
         $lineAt = $lineCoverage->getLineNumber();
