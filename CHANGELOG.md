@@ -3,6 +3,11 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.3.2.1
+---------------------------------------------------------------
+* To the public from the protected **selectLines** method of class **LineSet**
+* add **ProcessingTimeReporter** reporter
+
 Version 1.3.2
 ---------------------------------------------------------------
 * **cloak\result\Coverage** to **cloak\value\Coverage**

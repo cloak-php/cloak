@@ -14,6 +14,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
 use cloak\Result\File;
+use cloak\reporter\CompositeReporter;
+use cloak\reporter\ProcessingTimeReporter;
+use cloak\reporter\TextReporter;
 use coverallskit\entity\service\Travis;
 use coverallskit\entity\Repository;
 use coverallskit\entity\Coverage;
@@ -25,6 +28,11 @@ use Symfony\Component\Yaml\Yaml;
 
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+
+    $builder->reporter(new CompositeReporter([
+        new TextReporter(),
+        new ProcessingTimeReporter()
+    ]));
 
     $builder->includeFile(function(File $file) {
         return $file->matchPath('/src');

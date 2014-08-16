@@ -26,25 +26,15 @@ describe('TextReporter', function() {
             $this->verify = function() {
                 Mockery::close();
             };
-
-            $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
-
             $this->event = Mockery::mock('cloak\event\StartEventInterface');
-            $this->event->shouldReceive('getSendAt')->andReturn( $this->dateTime );
-
-            $this->factory = Mockery::mock('cloak\report\factory\ReportFactoryInterface');
-            $this->factory->shouldReceive('createFromResult')->never();
+            $this->event->shouldReceive('getSendAt')->never();
 
             $this->reporter = new TextReporter();
         });
         it('output start datetime', function() {
-            $output  = str_pad("", 70, "-") . "\n";
-            $output .= "Start at: 1 July 2014 at 12:00\n";
-            $output .= str_pad("", 70, "-") . "\n";
-
             expect(function() {
                 $this->reporter->onStart($this->event);
-            })->toPrint($output);
+            })->toPrint('');
         });
         it('check mock object expectations', function() {
             call_user_func($this->verify);

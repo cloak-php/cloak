@@ -170,7 +170,7 @@ class LineSet implements LineSetInterface
      * @param callable $filter
      * @return \PhpCollection\AbstractSequence
      */
-    protected function selectLines(\Closure $filter)
+    public function selectLines(\Closure $filter)
     {
         $lines = $this->lines->filter($filter);
         return $lines;
