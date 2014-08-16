@@ -244,11 +244,15 @@ describe('Result', function() {
         });
 
         describe('#getExecutedLineCount', function() {
-            it('return total executed line count');
+            it('return total executed line count', function() {
+                expect($this->result->getExecutedLineCount())->toEqual(1);
+            });
         });
 
         describe('#getExecutableLineCount', function() {
-            it('return total executable line count');
+            it('return total executable line count', function() {
+                expect($this->result->getExecutableLineCount())->toEqual(3);
+            });
         });
 
         describe('#getCodeCoverage', function() {

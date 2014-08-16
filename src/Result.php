@@ -143,4 +143,28 @@ class Result
         return $totalLineCount;
     }
 
+    public function getExecutedLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getExecutedLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getExecutableLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getExecutableLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
 }
