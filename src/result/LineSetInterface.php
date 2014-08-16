@@ -12,6 +12,7 @@
 namespace cloak\result;
 
 use \Iterator;
+use cloak\CoverageResultInterface;
 
 /***
  * Class LineSetInterface

@@ -14,7 +14,6 @@ namespace cloak;
 use cloak\value\Coverage;
 use cloak\result\File;
 use cloak\result\LineSet;
-use cloak\result\CoverageResultInterface;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
 use \UnexpectedValueException;

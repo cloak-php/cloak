@@ -13,6 +13,7 @@ namespace cloak\result;
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
+use cloak\CoverageResultInterface;
 
 /**
  * Class File

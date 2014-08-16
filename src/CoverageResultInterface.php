@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak;
 
 use cloak\value\Coverage;
 
