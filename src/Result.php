@@ -23,7 +23,7 @@ use \UnexpectedValueException;
  * Class Result
  * @package cloak
  */
-class Result
+class Result implements CoverageResultInterface
 {
 
     private $files = null;
@@ -152,6 +152,18 @@ class Result
 
         foreach ($files as $file) {
             $totalLineCount += $file->getExecutedLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getUnusedLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getUnusedLineCount();
         }
 
         return $totalLineCount;

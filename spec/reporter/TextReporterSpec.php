@@ -92,7 +92,7 @@ describe('TextReporter', function() {
             $this->totalCoverage = $this->console->colorize($totalCoverage, Color::NORMAL);
 
             $highCoverage = sprintf('%6.2f%%', (float) 70);
-            $this->high = ' ' . $this->console->colorize($highCoverage, Color::YELLOW) . ' ';
+            $this->high = ' ' . $this->console->colorize($highCoverage, Color::GREEN) . ' ';
 
             $lowCoverage = sprintf('%6.2f%%', (float) 28.57);
             $this->low = ' ' . $this->console->colorize($lowCoverage, Color::YELLOW) . ' ';
