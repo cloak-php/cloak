@@ -15,7 +15,6 @@ describe('FileWriter', function() {
 
     before(function() {
         $this->directory = __DIR__ . '/../tmp/';
-        mkdir($this->directory);
         $this->filePath = $this->directory . 'output.txt';
     });
 
