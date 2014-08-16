@@ -16,3 +16,4 @@ targets:
   - spec/driver/AbstractDriverSpec.php
   - spec/event/EventSpec.php
   - spec/writer/ConsoleWriterSpec.php
+  - spec/writer/FileWriterSpec.php
