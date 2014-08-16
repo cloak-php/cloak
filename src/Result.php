@@ -11,11 +11,13 @@
 
 namespace cloak;
 
+use cloak\value\Coverage;
 use cloak\result\File;
 use cloak\result\LineSet;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
 use \UnexpectedValueException;
+
 
 /**
  * Class Result
@@ -175,7 +177,17 @@ class Result
 
         $coverage = (float) round($realCoverage, 2);
 
-        return $coverage;
+        return new Coverage($coverage);
+    }
+
+    public function isCoverageLessThan(Coverage $coverage)
+    {
+        return $this->getCodeCoverage()->lessThan($coverage);
+    }
+
+    public function isCoverageGreaterEqual(Coverage $coverage)
+    {
+        return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
 }

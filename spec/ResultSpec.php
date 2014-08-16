@@ -9,11 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+
 use cloak\Result;
+use cloak\value\Coverage;
 use cloak\result\Line;
 use cloak\result\File;
 use cloak\result\LineSet;
 use PhpCollection\Sequence;
+
 
 describe('Result', function() {
 
@@ -257,19 +260,31 @@ describe('Result', function() {
 
         describe('#getCodeCoverage', function() {
             it('return total code coverage', function() {
-                expect($this->result->getCodeCoverage())->toEqual(33.33);
+                expect($this->result->getCodeCoverage()->value())->toEqual(33.33);
             });
         });
 
         describe('#isCoverageLessThan', function() {
             context('when less than', function() {
-                it('return true');
+                before(function() {
+                    $this->coverage = new Coverage(34.0);
+                    $this->result = $this->result->isCoverageLessThan($this->coverage);
+                });
+                it('return true', function () {
+                    expect($this->result)->toBeTrue();
+                });
             });
         });
 
         describe('#isCoverageGreaterEqual', function() {
             context('when greater equal', function() {
-                it('return true');
+                before(function() {
+                    $this->coverage = new Coverage(33.33);
+                    $this->result = $this->result->isCoverageGreaterEqual($this->coverage);
+                });
+                it('return true', function () {
+                    expect($this->result)->toBeTrue();
+                });
             });
         });
     });
