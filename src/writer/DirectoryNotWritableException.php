@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\reporter;
+namespace cloak\writer;
 
 use InvalidArgumentException;
 
 /**
- * Class DirectoryNotFoundException
- * @package cloak\reporter
+ * Class DirectoryNotWritableException
+ * @package cloak\writer
  */
-class DirectoryNotFoundException extends InvalidArgumentException
+class DirectoryNotWritableException extends InvalidArgumentException
 {
 }
