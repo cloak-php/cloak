@@ -16,6 +16,7 @@ use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\File;
 use cloak\value\Coverage;
+use cloak\CoverageResultInterface;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 
@@ -106,7 +107,7 @@ class TextReporter implements ReporterInterface
         $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
 
         $this->console->writeText($filePathReport);
-        $this->writeCoverage($file);
+        $this->writeFileCoverage($file);
         $this->console->writeText(sprintf("(%2d/%2d)",
             $file->getExecutedLineCount(),
             $file->getExecutableLineCount()
@@ -116,24 +117,27 @@ class TextReporter implements ReporterInterface
     }
 
     /**
-     * @param \cloak\result\File $file
+     * @param Result $result
      */
-    protected function writeCoverage(File $file)
-    {
-        $text = sprintf(' %6.2f%% ', $file->getCodeCoverage()->value());
-
-        if ($file->isCoverageGreaterEqual($this->highLowerBound)) {
-            $this->console->writeText($text, Color::GREEN);
-        } else if ($file->isCoverageLessThan($this->lowUpperBound)) {
-            $this->console->writeText($text, Color::YELLOW);
-        } else {
-            $this->console->writeText($text, Color::NORMAL);
-        }
-    }
-
     protected function writeTotalCoverage(Result $result)
     {
         $this->console->writeText('Total code coverage:');
+        $this->writeCoverage($result);
+        $this->console->writeText(PHP_EOL . PHP_EOL);
+    }
+
+    /**
+     * @param \cloak\result\File $file
+     */
+    protected function writeFileCoverage(File $file)
+    {
+        $this->console->writeText(' ');
+        $this->writeCoverage($file);
+        $this->console->writeText(' ');
+    }
+
+    protected function writeCoverage(CoverageResultInterface $result)
+    {
         $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
 
         if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
@@ -143,7 +147,6 @@ class TextReporter implements ReporterInterface
         } else {
             $this->console->writeText($text, Color::NORMAL);
         }
-        $this->console->writeText(PHP_EOL . PHP_EOL);
     }
 
 }

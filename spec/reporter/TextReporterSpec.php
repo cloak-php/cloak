@@ -91,9 +91,14 @@ describe('TextReporter', function() {
             $totalCoverage = sprintf('%6.2f%%', 55.00);
             $this->totalCoverage = $this->console->colorize($totalCoverage, Color::NORMAL);
 
-            $this->high = $this->console->colorize(sprintf(' %6.2f%% ', (float) 70), Color::GREEN);
-            $this->low = $this->console->colorize(sprintf(' %6.2f%% ', (float) 28.57), Color::YELLOW);
-            $this->normal = $this->console->colorize(sprintf(' %6.2f%% ', (float) 66.67), Color::NORMAL);
+            $highCoverage = sprintf('%6.2f%%', (float) 70);
+            $this->high = ' ' . $this->console->colorize($highCoverage, Color::YELLOW) . ' ';
+
+            $lowCoverage = sprintf('%6.2f%%', (float) 28.57);
+            $this->low = ' ' . $this->console->colorize($lowCoverage, Color::YELLOW) . ' ';
+
+            $normalCoverage = sprintf('%6.2f%%', (float) 66.67);
+            $this->normal = ' ' . $this->console->colorize($normalCoverage, Color::NORMAL) . ' ';
 
             $this->reporter = new TextReporter();
         });
