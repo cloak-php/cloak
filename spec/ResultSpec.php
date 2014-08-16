@@ -213,34 +213,50 @@ describe('Result', function() {
         });
     });
 
-    describe('#getLineCount', function() {
-    });
+    describe('summary', function() {
+        before(function() {
+            $filePath1 = $this->rootDirectory . 'foo.php';
+            $filePath2 = $this->rootDirectory . 'bar.php';
+            $file1 = new File($filePath1, new LineSet());
+            $file2 = new File($filePath2, new LineSet());
 
-    describe('#getDeadLineCount', function() {
-        it('return total dead line count');
-    });
-
-    describe('#getExecutedLineCount', function() {
-        it('return total executed line count');
-    });
-
-    describe('#getExecutableLineCount', function() {
-        it('return total executable line count');
-    });
-
-    describe('#getCodeCoverage', function() {
-        it('return total code coverage');
-    });
-
-    describe('#isCoverageLessThan', function() {
-        context('when less than', function() {
-            it('return true');
+            $this->result = new Result();
+            $this->result->addFile($file1);
+            $this->result->addFile($file2);
         });
-    });
 
-    describe('#isCoverageGreaterEqual', function() {
-        context('when greater equal', function() {
-            it('return true');
+        describe('#getLineCount', function() {
+            it('return total line count', function() {
+                expect($this->result->getLineCount())->toEqual(21);
+            });
+        });
+
+        describe('#getDeadLineCount', function() {
+            it('return total dead line count');
+        });
+
+        describe('#getExecutedLineCount', function() {
+            it('return total executed line count');
+        });
+
+        describe('#getExecutableLineCount', function() {
+            it('return total executable line count');
+        });
+
+        describe('#getCodeCoverage', function() {
+            it('return total code coverage');
+        });
+
+        describe('#isCoverageLessThan', function() {
+            context('when less than', function() {
+                it('return true');
+            });
+        });
+
+        describe('#isCoverageGreaterEqual', function() {
+            context('when greater equal', function() {
+                it('return true');
+            });
         });
     });
 

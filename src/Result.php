@@ -119,4 +119,16 @@ class Result
         return $this;
     }
 
+    public function getLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
 }
