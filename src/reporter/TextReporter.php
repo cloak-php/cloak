@@ -68,10 +68,6 @@ class TextReporter implements ReporterInterface
      */
     public function onStart(StartEventInterface $event)
     {
-        $startAt = $event->getSendAt()->format('j F Y \a\t H:i');
-        $this->console->writeLine(str_pad("", static::PAD_CHARACTER_LENGTH, "-"));
-        $this->console->writeLine("Start at: " . $startAt);
-        $this->console->writeLine(str_pad("", static::PAD_CHARACTER_LENGTH, "-"));
     }
 
     /**
