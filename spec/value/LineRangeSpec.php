@@ -35,7 +35,7 @@ describe('LineRange', function() {
         context('when end line number less than 1', function() {
             it('throw cloak\value\UnexpectedLineNumberException', function() {
                 expect(function() {
-                    (new LineRange(1, 0));
+                    new LineRange(1, 0);
                 })->toThrow('cloak\value\UnexpectedLineNumberException');
             });
         });
