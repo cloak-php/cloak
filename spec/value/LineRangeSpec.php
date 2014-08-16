@@ -21,14 +21,14 @@ describe('LineRange', function() {
         context('when invalid renge', function() {
             it('throw cloak\value\LessThanLineNumberException', function() {
                 expect(function() {
-                    (new LineRange(5, 4));
+                    new LineRange(5, 4);
                 })->toThrow('cloak\value\LessThanLineNumberException');
             });
         });
         context('when start line number less than 1', function() {
             it('throw cloak\value\UnexpectedLineNumberException', function() {
                 expect(function() {
-                    (new LineRange(0, 4));
+                    new LineRange(0, 4);
                 })->toThrow('cloak\value\UnexpectedLineNumberException');
             });
         });
