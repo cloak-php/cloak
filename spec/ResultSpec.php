@@ -213,4 +213,35 @@ describe('Result', function() {
         });
     });
 
+    describe('#getLineCount', function() {
+    });
+
+    describe('#getDeadLineCount', function() {
+        it('return total dead line count');
+    });
+
+    describe('#getExecutedLineCount', function() {
+        it('return total executed line count');
+    });
+
+    describe('#getExecutableLineCount', function() {
+        it('return total executable line count');
+    });
+
+    describe('#getCodeCoverage', function() {
+        it('return total code coverage');
+    });
+
+    describe('#isCoverageLessThan', function() {
+        context('when less than', function() {
+            it('return true');
+        });
+    });
+
+    describe('#isCoverageGreaterEqual', function() {
+        context('when greater equal', function() {
+            it('return true');
+        });
+    });
+
 });
