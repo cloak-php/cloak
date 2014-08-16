@@ -51,7 +51,7 @@ class ProcessingTimeReporter implements ReporterInterface
      */
     public function onStart(StartEventInterface $event)
     {
-        $this->timeMeasureStart($event);
+        $this->start($event);
     }
 
     /**
@@ -59,10 +59,10 @@ class ProcessingTimeReporter implements ReporterInterface
      */
     public function onStop(StopEventInterface $event)
     {
-        $this->timeMeasureFinish();
+        $this->finish();
     }
 
-    private function timeMeasureStart(StartEventInterface $event)
+    private function start(StartEventInterface $event)
     {
         $startAt = $event->getSendAt();
         $formatStartTime = $startAt->format('j F Y \a\t H:i');
@@ -73,7 +73,7 @@ class ProcessingTimeReporter implements ReporterInterface
         $this->startAt = microtime(true);
     }
 
-    private function timeMeasureFinish()
+    private function finish()
     {
         $endAt = microtime(true);
         $runningTime = round($endAt - $this->startAt, 5);
