@@ -88,6 +88,9 @@ describe('TextReporter', function() {
                 'result' => Result::from($coverages)
             ]);
 
+            $totalCoverage = sprintf('%6.2f%%', 55.00);
+            $this->totalCoverage = $this->console->colorize($totalCoverage, Color::NORMAL);
+
             $this->high = $this->console->colorize(sprintf(' %6.2f%% ', (float) 70), Color::GREEN);
             $this->low = $this->console->colorize(sprintf(' %6.2f%% ', (float) 28.57), Color::YELLOW);
             $this->normal = $this->console->colorize(sprintf(' %6.2f%% ', (float) 66.67), Color::NORMAL);
@@ -96,6 +99,8 @@ describe('TextReporter', function() {
         });
         it('should output coverage', function() {
             $output  = "";
+            $output .= "Total code coverage:" . $this->totalCoverage . PHP_EOL;
+            $output .= PHP_EOL;
             $output .= "src/driver/XdebugDriver.php .........................................." . $this->normal . "( 2/ 3)" . PHP_EOL;
             $output .= "src/result/Line.php .................................................." . $this->high . "( 7/10)" . PHP_EOL;
             $output .= "src/result/File.php .................................................." . $this->low . "( 2/ 7)" . PHP_EOL;

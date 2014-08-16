@@ -86,6 +86,8 @@ class TextReporter implements ReporterInterface
      */
     public function reportResult(Result $result)
     {
+        $this->writeTotalCoverage($result);
+
         $files = $result->getFiles()->getIterator();
 
         foreach ($files as $file) {
@@ -127,6 +129,21 @@ class TextReporter implements ReporterInterface
         } else {
             $this->console->writeText($text, Color::NORMAL);
         }
+    }
+
+    protected function writeTotalCoverage(Result $result)
+    {
+        $this->console->writeText('Total code coverage:');
+        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
+
+        if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
+            $this->console->writeText($text, Color::GREEN);
+        } else if ($result->isCoverageLessThan($this->lowUpperBound)) {
+            $this->console->writeText($text, Color::YELLOW);
+        } else {
+            $this->console->writeText($text, Color::NORMAL);
+        }
+        $this->console->writeText(PHP_EOL . PHP_EOL);
     }
 
 }
