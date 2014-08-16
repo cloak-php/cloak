@@ -64,11 +64,8 @@ class ProcessingTimeReporter implements ReporterInterface
 
     private function start(StartEventInterface $event)
     {
-        $startAt = $event->getSendAt();
-        $formatStartTime = $startAt->format('j F Y \a\t H:i');
-
         $this->console->writeEOL();
-        $this->console->writeLine("Start at: " . $formatStartTime);
+        $this->writeStartDateTime($event);
 
         $this->startAt = microtime(true);
     }
@@ -80,6 +77,17 @@ class ProcessingTimeReporter implements ReporterInterface
 
         $this->console->writeEOL();
         $this->console->writeLine("Finished in $runningTime seconds");
+    }
+
+    /**
+     * @param StartEventInterface $event
+     */
+    private function writeStartDateTime(StartEventInterface $event)
+    {
+        $startAt = $event->getSendAt();
+        $formatStartTime = $startAt->format('j F Y \a\t H:i');
+
+        $this->console->writeLine("Start at: " . $formatStartTime);
     }
 
 }
