@@ -18,6 +18,31 @@ describe('FileWriter', function() {
         $this->filePath = $this->directory . 'output.txt';
     });
 
+    describe('#__construct', function() {
+        context('when directory not found', function() {
+            it('throw cloak\writer\DirectoryNotFoundException', function() {
+                expect(function() {
+                    new FileWriter($this->directory . 'tmp/file.txt');
+                })->toThrow('cloak\writer\DirectoryNotFoundException');
+            });
+        });
+        context('when directory not writable', function() {
+            before(function() {
+                $this->readOnlyDirectory = $this->directory . 'tmp/';
+                mkdir($this->readOnlyDirectory, 0444);
+                $this->outputFilePath = $this->readOnlyDirectory . 'file.txt';
+            });
+            after(function() {
+                rmdir($this->readOnlyDirectory);
+            });
+            it('throw cloak\writer\DirectoryNotWritableException', function() {
+                expect(function() {
+                    new FileWriter($this->outputFilePath);
+                })->toThrow('cloak\writer\DirectoryNotWritableException');
+            });
+        });
+    });
+
     describe('#writeText', function() {
         before(function() {
             $this->text = 'text';

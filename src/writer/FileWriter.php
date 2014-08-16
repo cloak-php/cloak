@@ -30,6 +30,16 @@ class FileWriter
      */
     public function __construct($filePath)
     {
+        $directoryPath = dirname($filePath);
+
+        if (file_exists($directoryPath) === false) {
+            throw new DirectoryNotFoundException();
+        }
+
+        if (is_writable($directoryPath) === false) {
+            throw new DirectoryNotWritableException();
+        }
+
         $this->file = new SplFileObject($filePath, 'w');
     }
 
