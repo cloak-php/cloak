@@ -131,4 +131,16 @@ class Result
         return $totalLineCount;
     }
 
+    public function getDeadLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getDeadLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
 }

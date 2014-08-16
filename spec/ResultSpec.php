@@ -217,8 +217,14 @@ describe('Result', function() {
         before(function() {
             $filePath1 = $this->rootDirectory . 'foo.php';
             $filePath2 = $this->rootDirectory . 'bar.php';
-            $file1 = new File($filePath1, new LineSet());
-            $file2 = new File($filePath2, new LineSet());
+            $file1 = new File($filePath1, new LineSet([
+                new Line(10, Line::DEAD),
+                new Line(12, Line::EXECUTED),
+                new Line(17, Line::UNUSED)
+            ]));
+            $file2 = new File($filePath2, new LineSet([
+                new Line(1, Line::UNUSED)
+            ]));
 
             $this->result = new Result();
             $this->result->addFile($file1);
@@ -232,7 +238,9 @@ describe('Result', function() {
         });
 
         describe('#getDeadLineCount', function() {
-            it('return total dead line count');
+            it('return total dead line count', function() {
+                expect($this->result->getDeadLineCount())->toEqual(1);
+            });
         });
 
         describe('#getExecutedLineCount', function() {
