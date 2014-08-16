@@ -42,12 +42,12 @@ class TextReporter implements ReporterInterface
     private $console;
 
     /**
-     * @var \cloak\result\Coverage
+     * @var \cloak\value\Coverage
      */
     private $lowUpperBound;
 
     /**
-     * @var \cloak\result\Coverage
+     * @var \cloak\value\Coverage
      */
     private $highLowerBound;
 
