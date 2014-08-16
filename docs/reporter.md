@@ -15,7 +15,7 @@ You can specify the reference value of the coverage in the argument.
 
 or
 
-	new TextReporter( new TextReportFactory(70, 35) )
+	new TextReporter(70, 35)
 
 ### Arguments
 
