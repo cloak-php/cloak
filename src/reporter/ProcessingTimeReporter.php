@@ -76,7 +76,7 @@ class ProcessingTimeReporter implements ReporterInterface
         $endAt = microtime(true);
         $runningTime = round($endAt - $this->startAt, 5);
 
-        $this->consoleWriter->writeLine("Finished in $runningTime seconds");
+        $this->console->writeLine("Finished in $runningTime seconds");
     }
 
 }
