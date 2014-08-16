@@ -167,4 +167,15 @@ class Result
         return $totalLineCount;
     }
 
+    public function getCodeCoverage()
+    {
+        $executedLineCount = $this->getExecutedLineCount();
+        $executableLineCount = $this->getExecutableLineCount();
+        $realCoverage = ($executedLineCount / $executableLineCount) * 100;
+
+        $coverage = (float) round($realCoverage, 2);
+
+        return $coverage;
+    }
+
 }

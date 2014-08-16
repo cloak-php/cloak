@@ -256,7 +256,9 @@ describe('Result', function() {
         });
 
         describe('#getCodeCoverage', function() {
-            it('return total code coverage');
+            it('return total code coverage', function() {
+                expect($this->result->getCodeCoverage())->toEqual(33.33);
+            });
         });
 
         describe('#isCoverageLessThan', function() {
