@@ -26,7 +26,7 @@ describe('ProcessingTimeReporter', function() {
             $this->startEvent->shouldReceive('getSendAt')->andReturn( $this->dateTime );
         });
         it('output start datetime', function() {
-            $output = "Start at: 1 July 2014 at 12:00\n";
+            $output = "\nStart at: 1 July 2014 at 12:00\n";
 
             expect(function() {
                 $this->reporter->onStart($this->startEvent);

@@ -61,4 +61,9 @@ class ConsoleWriter
         $this->cosnole->writeLine($text, $color, $bgColor);
     }
 
+    public function writeEOL()
+    {
+        $this->cosnole->writeLine('');
+    }
+
 }
