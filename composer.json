@@ -6,7 +6,6 @@
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.4.*",
-        "kevinlebrun/colors.php": "0.3.*",
         "zendframework/zend-eventmanager": "2.3.*",
         "zendframework/zend-console": "2.3.*"
     },
