@@ -33,11 +33,11 @@ class FileWriter
         $directoryPath = dirname($filePath);
 
         if (file_exists($directoryPath) === false) {
-            throw new DirectoryNotFoundException();
+            throw new DirectoryNotFoundException("$directoryPath directory not found");
         }
 
         if (is_writable($directoryPath) === false) {
-            throw new DirectoryNotWritableException();
+            throw new DirectoryNotWritableException("Can not write to the directory $directoryPath");
         }
 
         $this->file = new SplFileObject($filePath, 'w');
