@@ -9,18 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\report;
+namespace cloak\writer;
+
+use InvalidArgumentException;
 
 /**
- * Interface ReportInterface
- * @package cloak\report
+ * Class DirectoryNotWritableException
+ * @package cloak\writer
  */
-interface ReportInterface
+class DirectoryNotWritableException extends InvalidArgumentException
 {
-
-    /**
-     * Print a report
-     */
-    public function output();
-
 }

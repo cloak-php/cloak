@@ -11,16 +11,19 @@
 
 namespace cloak;
 
+use cloak\value\Coverage;
 use cloak\result\File;
+use cloak\result\LineSet;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
 use \UnexpectedValueException;
+
 
 /**
  * Class Result
  * @package cloak
  */
-class Result
+class Result implements CoverageResultInterface
 {
 
     private $files = null;
@@ -49,7 +52,7 @@ class Result
             if (file_exists($path) === false) {
                 continue;
             }
-            $files->add(new File($path, $lines));
+            $files->add(new File($path, LineSet::from($lines)));
         }
 
         return $files;
@@ -116,6 +119,87 @@ class Result
         $this->files->remove($indexAt);
 
         return $this;
+    }
+
+    public function getLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getDeadLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getDeadLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getExecutedLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getExecutedLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getUnusedLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getUnusedLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getExecutableLineCount()
+    {
+        $totalLineCount = 0;
+        $files = $this->files->getIterator();
+
+        foreach ($files as $file) {
+            $totalLineCount += $file->getExecutableLineCount();
+        }
+
+        return $totalLineCount;
+    }
+
+    public function getCodeCoverage()
+    {
+        $executedLineCount = $this->getExecutedLineCount();
+        $executableLineCount = $this->getExecutableLineCount();
+        $realCoverage = ($executedLineCount / $executableLineCount) * 100;
+
+        $coverage = (float) round($realCoverage, 2);
+
+        return new Coverage($coverage);
+    }
+
+    public function isCoverageLessThan(Coverage $coverage)
+    {
+        return $this->getCodeCoverage()->lessThan($coverage);
+    }
+
+    public function isCoverageGreaterEqual(Coverage $coverage)
+    {
+        return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
 }

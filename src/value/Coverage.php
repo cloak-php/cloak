@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak\value;
 
 /***
  * Class Coverage
- * @package cloak\result
+ * @package cloak\value
  */
 class Coverage
 {
@@ -27,40 +27,66 @@ class Coverage
     {
         $this->value = (float) $value;
     }
- 
+
+    /**
+     * @param Coverage $value
+     * @return bool
+     */
     public function equals(Coverage $value)
     {
-        return ($this->valueOf() === $value->valueOf());
+        return ($this->value() === $value->value());
     }
- 
+
+    /**
+     * @param Coverage $value
+     * @return bool
+     */
     public function lessEquals(Coverage $value)
     {
-        return $this->valueOf() <= $value->valueOf();
+        return $this->value() <= $value->value();
     }
- 
+
+    /**
+     * @param Coverage $value
+     * @return bool
+     */
     public function lessThan(Coverage $value)
     {
-        return $this->valueOf() < $value->valueOf();
+        return $this->value() < $value->value();
     }
- 
+
+    /**
+     * @param Coverage $value
+     * @return bool
+     */
     public function greaterEqual(Coverage $value)
     {
-        return $this->valueOf() >= $value->valueOf();
+        return $this->value() >= $value->value();
     }
- 
+
+    /**
+     * @param Coverage $value
+     * @return bool
+     */
     public function greaterThan(Coverage $value)
     {
-        return $this->valueOf() > $value->valueOf();
+        return $this->value() > $value->value();
     }
- 
-    public function valueOf()
+
+    /**
+     * @return float
+     */
+    public function value()
     {
         return (float) $this->value;
     }
- 
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->value;
     }
- 
+
 }

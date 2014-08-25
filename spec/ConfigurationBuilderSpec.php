@@ -11,7 +11,6 @@
 
 use cloak\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
-use cloak\report\factory\TextReportFactory;
 use \Mockery;
 
 describe('ConfigurationBuilder', function() {
@@ -63,9 +62,7 @@ describe('ConfigurationBuilder', function() {
             $this->filter3 = function(File $file){};
             $this->filter4 = function(File $file){};
 
-            $factory = new TextReportFactory();
-
-            $this->reporter = new TextReporter($factory);
+            $this->reporter = new TextReporter();
 
             $this->driver = Mockery::mock('cloak\driver\DriverInterface');
             $this->driver->shouldReceive('start')->never();

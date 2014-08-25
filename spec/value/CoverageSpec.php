@@ -9,20 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\Coverage;
+use cloak\value\Coverage;
 
 describe('Coverage', function() {
 
     describe('#equals', function() {
         context('when same value', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(10);
                 expect($v1->equals($v2))->toBeTrue();
             });
         });
         context('when not same value', function() {
-            it('should return false', function() {
+            it('return false', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(11);
                 expect($v1->equals($v2))->toBeFalse();
@@ -32,14 +32,14 @@ describe('Coverage', function() {
 
     describe('#lessEquals', function() {
         context('when same value', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(10);
                 expect($v1->lessEquals($v2))->toBeTrue();
             });
         });
         context('when less than to 11', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(11);
                 expect($v1->lessEquals($v2))->toBeTrue();
@@ -49,14 +49,14 @@ describe('Coverage', function() {
 
     describe('#lessThan', function() {
         context('when same value', function() {
-            it('should return false', function() {
+            it('return false', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(10);
                 expect($v1->lessThan($v2))->toBeFalse();
             });
         });
         context('when less than to 11', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(11);
                 expect($v1->lessThan($v2))->toBeTrue();
@@ -66,14 +66,14 @@ describe('Coverage', function() {
 
     describe('#greaterEqual', function() {
         context('when same value', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(10);
                 expect($v1->greaterEqual($v2))->toBeTrue();
             });
         });
         context('when greater than to 10', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(11);
                 $v2 = new Coverage(10);
                 expect($v1->greaterEqual($v2))->toBeTrue();
@@ -83,14 +83,14 @@ describe('Coverage', function() {
 
     describe('#greaterThan', function() {
         context('when same value', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(10);
                 $v2 = new Coverage(10);
                 expect($v1->greaterThan($v2))->toBeFalse();
             });
         });
         context('when greater than to 10', function() {
-            it('should return true', function() {
+            it('return true', function() {
                 $v1 = new Coverage(11);
                 $v2 = new Coverage(10);
                 expect($v1->greaterThan($v2))->toBeTrue();
@@ -98,15 +98,15 @@ describe('Coverage', function() {
         });
     });
 
-    describe('#valueOf', function() {
-        it('should return float value', function() {
+    describe('#value', function() {
+        it('return float value', function() {
             $v = new Coverage(11);
-            expect( is_float($v->valueOf() ))->toBeTrue();
+            expect( is_float($v->value() ))->toBeTrue();
         });
     });
 
     describe('#__toString', function() {
-        it('should return string value', function() {
+        it('return string value', function() {
             $v = new Coverage(11);
             expect( $v->__toString() )->toBeA('string');
         });

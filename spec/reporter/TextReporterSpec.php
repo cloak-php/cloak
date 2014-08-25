@@ -10,10 +10,14 @@
  */
 
 use cloak\Result;
-use PhpCollection\Sequence;
+use cloak\result\Line;
 use cloak\reporter\TextReporter;
+use cloak\event\StopEvent;
+use Zend\Console\Console;
+use Zend\Console\ColorInterface as Color;
 use \Mockery;
 use \DateTime;
+
 
 describe('TextReporter', function() {
 
@@ -22,25 +26,15 @@ describe('TextReporter', function() {
             $this->verify = function() {
                 Mockery::close();
             };
-
-            $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
-
             $this->event = Mockery::mock('cloak\event\StartEventInterface');
-            $this->event->shouldReceive('getSendAt')->andReturn( $this->dateTime );
+            $this->event->shouldReceive('getSendAt')->never();
 
-            $this->factory = Mockery::mock('cloak\report\factory\ReportFactoryInterface');
-            $this->factory->shouldReceive('createFromResult')->never();
-
-            $this->reporter = new TextReporter($this->factory);
+            $this->reporter = new TextReporter();
         });
         it('output start datetime', function() {
-            $output  = str_pad("", 70, "-") . "\n";
-            $output .= "Start at: 1 July 2014 at 12:00\n";
-            $output .= str_pad("", 70, "-") . "\n";
-
             expect(function() {
                 $this->reporter->onStart($this->event);
-            })->toPrint($output);
+            })->toPrint('');
         });
         it('check mock object expectations', function() {
             call_user_func($this->verify);
@@ -49,34 +43,68 @@ describe('TextReporter', function() {
 
     describe('onStop', function() {
         before(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
+            $this->console = Console::getInstance();
 
-            $this->result = new Result(new Sequence());
+            $coverages = [
+                realpath(__DIR__ . '/../../src/driver/XdebugDriver.php') => [
+                    1 => Line::EXECUTED,
+                    2 => Line::EXECUTED,
+                    3 => Line::UNUSED
+                ],
+                realpath(__DIR__ . '/../../src/result/Line.php') => [
+                    1 => Line::EXECUTED,
+                    2 => Line::EXECUTED,
+                    3 => Line::EXECUTED,
+                    4 => Line::EXECUTED,
+                    5 => Line::EXECUTED,
+                    6 => Line::EXECUTED,
+                    7 => Line::EXECUTED,
+                    8 => Line::UNUSED,
+                    9 => Line::UNUSED,
+                    10 => Line::UNUSED
+                ],
+                realpath(__DIR__ . '/../../src/result/File.php') => [
+                    1 => Line::EXECUTED,
+                    2 => Line::EXECUTED,
+                    3 => Line::UNUSED,
+                    4 => Line::UNUSED,
+                    5 => Line::UNUSED,
+                    6 => Line::UNUSED,
+                    7 => Line::UNUSED
+                ]
+            ];
 
-            $this->event = Mockery::mock('cloak\event\StopEventInterface');
-            $this->event->shouldReceive('getResult')->once()->andReturn($this->result);
+            $this->stopEvent = new StopEvent(null, [
+                'result' => Result::from($coverages)
+            ]);
 
-            $this->report = Mockery::mock('cloak\report\ReportInterface');
-            $this->report->shouldReceive('output')->once()->andReturnUsing(function() {
-                echo 'content';
-            });
+            $totalCoverage = sprintf('%6.2f%%', 55.00);
+            $this->totalCoverage = $this->console->colorize($totalCoverage, Color::NORMAL);
 
-            $this->factory = Mockery::mock('cloak\report\factory\ReportFactoryInterface');
-            $this->factory->shouldReceive('createFromResult')->once()
-                ->with(Mockery::mustBe($this->result))->andReturn($this->report);
+            $highCoverage = sprintf('%6.2f%%', (float) 70);
+            $this->high = ' ' . $this->console->colorize($highCoverage, Color::GREEN) . ' ';
 
-            $this->reporter = new TextReporter($this->factory);
+            $lowCoverage = sprintf('%6.2f%%', (float) 28.57);
+            $this->low = ' ' . $this->console->colorize($lowCoverage, Color::YELLOW) . ' ';
+
+            $normalCoverage = sprintf('%6.2f%%', (float) 66.67);
+            $this->normal = ' ' . $this->console->colorize($normalCoverage, Color::NORMAL) . ' ';
+
+            $this->reporter = new TextReporter();
         });
         it('should output coverage', function() {
+            $output  = "";
+            $output .= "Total code coverage:" . $this->totalCoverage . PHP_EOL;
+            $output .= PHP_EOL;
+            $output .= "src/driver/XdebugDriver.php .........................................." . $this->normal . "( 2/ 3)" . PHP_EOL;
+            $output .= "src/result/Line.php .................................................." . $this->high . "( 7/10)" . PHP_EOL;
+            $output .= "src/result/File.php .................................................." . $this->low . "( 2/ 7)" . PHP_EOL;
+
             expect(function() {
-                $this->reporter->onStop($this->event);
-            })->toPrint('content');
+                $this->reporter->onStop($this->stopEvent);
+            })->toPrint($output);
         });
-        it('check mock object expectations', function() {
-            call_user_func($this->verify);
-        });
+
     });
 
 });

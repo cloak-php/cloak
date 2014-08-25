@@ -13,6 +13,7 @@ use cloak\ConfigurationBuilder;
 use cloak\Configuration;
 use cloak\Result;
 use cloak\result\File;
+use cloak\result\LineSet;
 
 describe('Configuration', function() {
 
@@ -39,9 +40,9 @@ describe('Configuration', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
 
         $this->result = new Result();
-        $this->result->addFile(new File($rootDirectory . 'foo.php'));
-        $this->result->addFile(new File($rootDirectory . 'bar.php'));
-        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php'));
+        $this->result->addFile(new File($rootDirectory . 'foo.php', new LineSet()));
+        $this->result->addFile(new File($rootDirectory . 'bar.php', new LineSet()));
+        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php', new LineSet()));
 
         $builder = new ConfigurationBuilder();
         $this->configuration = $builder->includeFile($filter1)

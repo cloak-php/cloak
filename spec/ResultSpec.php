@@ -9,10 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+
 use cloak\Result;
+use cloak\value\Coverage;
 use cloak\result\Line;
 use cloak\result\File;
+use cloak\result\LineSet;
 use PhpCollection\Sequence;
+
 
 describe('Result', function() {
 
@@ -167,7 +171,7 @@ describe('Result', function() {
         $file = $this->rootDirectory . 'foo.php';
 
         $this->result = new Result();
-        $this->file = new File($file);
+        $this->file = new File($file, new LineSet);
         $this->returnValue = $this->result->addFile($this->file);
 
         it('should add file', function() {
@@ -185,7 +189,7 @@ describe('Result', function() {
                 $file = $this->rootDirectory . 'foo.php';
 
                 $this->result = new Result();
-                $this->file = new File($file);
+                $this->file = new File($file, new LineSet);
                 $this->result->addFile($this->file);
                 $this->returnValue = $this->result->removeFile($this->file);
             });
@@ -200,7 +204,7 @@ describe('Result', function() {
         context('when specify a file that not exists', function() {
             before(function() {
                 $file = $this->rootDirectory . 'foo.php';
-                $this->file = new File($file);
+                $this->file = new File($file, new LineSet());
 
                 $this->result = new Result();
             });
@@ -208,6 +212,85 @@ describe('Result', function() {
                 expect(function() {
                     $this->result->removeFile($this->file);
                 })->toThrow('\UnexpectedValueException');
+            });
+        });
+    });
+
+    describe('summary', function() {
+        before(function() {
+            $filePath1 = $this->rootDirectory . 'foo.php';
+            $filePath2 = $this->rootDirectory . 'bar.php';
+            $file1 = new File($filePath1, new LineSet([
+                new Line(10, Line::DEAD),
+                new Line(12, Line::EXECUTED),
+                new Line(17, Line::UNUSED)
+            ]));
+            $file2 = new File($filePath2, new LineSet([
+                new Line(1, Line::UNUSED)
+            ]));
+
+            $this->result = new Result();
+            $this->result->addFile($file1);
+            $this->result->addFile($file2);
+        });
+
+        describe('#getLineCount', function() {
+            it('return total line count', function() {
+                expect($this->result->getLineCount())->toEqual(21);
+            });
+        });
+
+        describe('#getDeadLineCount', function() {
+            it('return total dead line count', function() {
+                expect($this->result->getDeadLineCount())->toEqual(1);
+            });
+        });
+
+        describe('#getUnusedLineCount', function() {
+            it('return total unused line count', function() {
+                expect($this->result->getUnusedLineCount())->toEqual(2);
+            });
+        });
+
+        describe('#getExecutedLineCount', function() {
+            it('return total executed line count', function() {
+                expect($this->result->getExecutedLineCount())->toEqual(1);
+            });
+        });
+
+        describe('#getExecutableLineCount', function() {
+            it('return total executable line count', function() {
+                expect($this->result->getExecutableLineCount())->toEqual(3);
+            });
+        });
+
+        describe('#getCodeCoverage', function() {
+            it('return total code coverage', function() {
+                expect($this->result->getCodeCoverage()->value())->toEqual(33.33);
+            });
+        });
+
+        describe('#isCoverageLessThan', function() {
+            context('when less than', function() {
+                before(function() {
+                    $this->coverage = new Coverage(34.0);
+                    $this->result = $this->result->isCoverageLessThan($this->coverage);
+                });
+                it('return true', function () {
+                    expect($this->result)->toBeTrue();
+                });
+            });
+        });
+
+        describe('#isCoverageGreaterEqual', function() {
+            context('when greater equal', function() {
+                before(function() {
+                    $this->coverage = new Coverage(33.33);
+                    $this->result = $this->result->isCoverageGreaterEqual($this->coverage);
+                });
+                it('return true', function () {
+                    expect($this->result)->toBeTrue();
+                });
             });
         });
     });

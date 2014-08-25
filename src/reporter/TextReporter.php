@@ -14,8 +14,12 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use cloak\report\factory\ReportFactoryInterface;
-use cloak\report\factory\TextReportFactory;
+use cloak\result\File;
+use cloak\value\Coverage;
+use cloak\CoverageResultInterface;
+use cloak\writer\ConsoleWriter;
+use Zend\Console\ColorInterface as Color;
+
 
 /**
  * Class TextReporter
@@ -26,19 +30,37 @@ class TextReporter implements ReporterInterface
 
     use Reportable;
 
+    const DEFAULT_LOW_BOUND = 35.0;
+    const DEFAULT_HIGH_BOUND = 70.0;
+
+    const PAD_CHARACTER = '.';
     const PAD_CHARACTER_LENGTH = 70;
 
     /**
-     * @var \cloak\report\factory\TextReportFactory
+     * @var \cloak\writer\ConsoleWriter
      */
-    private $factory;
+    private $console;
 
     /**
-     * @param ReportFactoryInterface $factory
+     * @var \cloak\value\Coverage
      */
-    public function __construct(ReportFactoryInterface $factory = null)
+    private $lowUpperBound;
+
+    /**
+     * @var \cloak\value\Coverage
+     */
+    private $highLowerBound;
+
+
+    /**
+     * @param float $highLowerBound
+     * @param float $lowUpperBound
+     */
+    public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
-        $this->factory = $factory ?: new TextReportFactory();
+        $this->console = new ConsoleWriter();
+        $this->lowUpperBound = new Coverage($lowUpperBound);
+        $this->highLowerBound = new Coverage($highLowerBound);
     }
 
     /**
@@ -46,10 +68,6 @@ class TextReporter implements ReporterInterface
      */
     public function onStart(StartEventInterface $event)
     {
-        $startAt = $event->getSendAt()->format('j F Y \a\t H:i');
-        echo str_pad("", static::PAD_CHARACTER_LENGTH, "-"), PHP_EOL;
-        echo "Start at: ", $startAt, PHP_EOL;
-        echo str_pad("", static::PAD_CHARACTER_LENGTH, "-"), PHP_EOL;
     }
 
     /**
@@ -57,10 +75,74 @@ class TextReporter implements ReporterInterface
      */
     public function onStop(StopEventInterface $event)
     {
-        $result = $event->getResult();
+        $this->reportResult($event->getResult());
+    }
 
-        $report = $this->factory->createFromResult($result);
-        $report->output();
+    /**
+     * @param Result $result
+     */
+    public function reportResult(Result $result)
+    {
+        $this->writeTotalCoverage($result);
+
+        $files = $result->getFiles()->getIterator();
+
+        foreach ($files as $file) {
+            $this->reportFile($file);
+        }
+    }
+
+    /**
+     * @param \cloak\result\File $file
+     */
+    protected function reportFile(File $file)
+    {
+        $currentDirectory = getcwd();
+
+        $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
+        $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
+
+        $this->console->writeText($filePathReport);
+        $this->writeFileCoverage($file);
+        $this->console->writeText(sprintf("(%2d/%2d)",
+            $file->getExecutedLineCount(),
+            $file->getExecutableLineCount()
+        ));
+
+        $this->console->writeText(PHP_EOL);
+    }
+
+    /**
+     * @param Result $result
+     */
+    protected function writeTotalCoverage(Result $result)
+    {
+        $this->console->writeText('Total code coverage:');
+        $this->writeCoverage($result);
+        $this->console->writeText(PHP_EOL . PHP_EOL);
+    }
+
+    /**
+     * @param \cloak\result\File $file
+     */
+    protected function writeFileCoverage(File $file)
+    {
+        $this->console->writeText(' ');
+        $this->writeCoverage($file);
+        $this->console->writeText(' ');
+    }
+
+    protected function writeCoverage(CoverageResultInterface $result)
+    {
+        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
+
+        if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
+            $this->console->writeText($text, Color::GREEN);
+        } else if ($result->isCoverageLessThan($this->lowUpperBound)) {
+            $this->console->writeText($text, Color::YELLOW);
+        } else {
+            $this->console->writeText($text, Color::NORMAL);
+        }
     }
 
 }
