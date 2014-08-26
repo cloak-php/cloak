@@ -24,14 +24,14 @@ class ConsoleWriter
     /**
      * @var \Zend\Console\Adapter\AdapterInterface
      */
-    private $cosnole;
+    private $console;
 
     /**
      * @param AdapterInterface $adapterInterface
      */
     public function __construct(AdapterInterface $adapterInterface = null)
     {
-        $this->cosnole = $adapterInterface ?: Console::getInstance();
+        $this->console = $adapterInterface ?: Console::getInstance();
     }
 
     /**
@@ -44,7 +44,7 @@ class ConsoleWriter
      */
     public function writeText($text, $color = null, $bgColor = null)
     {
-        $this->cosnole->writeText($text, $color, $bgColor);
+        $this->console->writeText($text, $color, $bgColor);
     }
 
     /**
@@ -58,12 +58,12 @@ class ConsoleWriter
      */
     public function writeLine($text = "", $color = null, $bgColor = null)
     {
-        $this->cosnole->writeLine($text, $color, $bgColor);
+        $this->console->writeLine($text, $color, $bgColor);
     }
 
     public function writeEOL()
     {
-        $this->cosnole->writeLine('');
+        $this->console->writeLine('');
     }
 
 }
