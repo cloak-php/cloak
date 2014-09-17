@@ -9,37 +9,40 @@
  * with this source code in the file LICENSE.
  */
 
-require_once __DIR__ . "/../vendor/autoload.php";
+namespace cloak\script;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
 use cloak\Result\File;
 use cloak\reporter\CompositeReporter;
+use cloak\reporter\LcovReporter;
 use cloak\reporter\ProcessingTimeReporter;
 use cloak\reporter\TextReporter;
-use Symfony\Component\Yaml\Yaml;
+
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-    $builder->reporter(new CompositeReporter([
+    $reporter = new CompositeReporter([
+        new LcovReporter(__DIR__ . '/report.lcov'),
         new TextReporter(),
         new ProcessingTimeReporter()
-    ]));
+    ]);
+
     $builder->includeFile(function(File $file) {
         return $file->matchPath('/src');
     })->excludeFile(function(File $file) {
-        return $file->matchPath('/spec') || $file->matchPath('/vendor');
-    });
+        $matchExcludeTarget = $file->matchPath('/spec') || $file->matchPath('/vendor');
+        return $matchExcludeTarget;
+    })->reporter($reporter);
 
 });
 
 $analyzer->start();
 
-
-$defaultArgv = array('../vendor/bin/pho');
-$coverageConfig = Yaml::parse(__DIR__ . '/../coverage.yml');
-$argv = array_merge($defaultArgv, $coverageConfig['targets']);
-
+$argv = ['../vendor/bin/pho', '--stop'];
 require_once __DIR__ . "/../vendor/bin/pho";
 
 $analyzer->stop();
