@@ -21,6 +21,7 @@
         "danielstjules/pho": "1.0.*",
         "jaz303/phake": "0.6.*",
         "cloak/coverallskit": "1.3.*",
+        "cloak/lcov-reporter": "1.1.*",
         "mockery/mockery": "0.9.*",
         "symfony/yaml": "2.5.*"
     },
@@ -32,4 +33,3 @@
         }
     ]
 }
-
