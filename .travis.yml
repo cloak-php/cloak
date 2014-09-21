@@ -8,4 +8,4 @@ before_install:
   - composer install
 script:
   - ./vendor/bin/phake test:coverage
-after_script: ./vendor/bin/coverallskit send .coveralls.yml
+after_script: ./vendor/bin/phake test:coveralls
