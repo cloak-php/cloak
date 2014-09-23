@@ -93,11 +93,10 @@ describe('TextReporter', function() {
         });
         it('output coverage', function() {
             $output  = "";
-            $output .= "Total code coverage:" . $this->totalCoverage . PHP_EOL;
-            $output .= PHP_EOL;
             $output .= $this->normal . "( 2/ 3) src/driver/XdebugDriver.php" . PHP_EOL;
             $output .= $this->high . "( 7/10) src/result/Line.php" . PHP_EOL;
             $output .= $this->low . "( 2/ 7) src/result/File.php" . PHP_EOL;
+            $output .= PHP_EOL . "Code Coverage:" . $this->totalCoverage . PHP_EOL;
 
             expect(function() {
                 $this->reporter->onStop($this->stopEvent);
