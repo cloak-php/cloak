@@ -20,12 +20,14 @@ use cloak\reporter\CompositeReporter;
 use cloak\reporter\ProcessingTimeReporter;
 use cloak\reporter\TextReporter;
 use cloak\reporter\LcovReporter;
+use cloak\reporter\MarkdownReporter;
 use Symfony\Component\Yaml\Yaml;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
     $builder->reporter(new CompositeReporter([
         new LcovReporter(__DIR__ . '/report.lcov'),
+        new MarkdownReporter(__DIR__ . '/report.md'),
         new TextReporter(),
         new ProcessingTimeReporter()
     ]));
