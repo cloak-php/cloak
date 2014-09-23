@@ -24,7 +24,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.2.2"
+			"cloak/cloak": "1.3.2.3"
 		}
 	}
 
@@ -98,6 +98,7 @@ Reporter that are supported by default are as follows.
 
 * TextReporter
 * ProcessingTimeReporter
+* LcovReporter
 
 Usage is as follows.  
 
@@ -119,17 +120,16 @@ Usage is as follows.
 
 #### Result of the output
 
-	Start at: 1 July 2014 at 12:00
+	Code Coverage Started: 1 July 2014 at 12:00
 
-	Total code coverage: 96.36%
+	100.00% (19/19) src/Analyzer.php
+	100.00% (27/27) src/Reporter/TextReporter.php
+	 85.71% ( 6/ 7) src/Reporter/Reportable.php
+	 81.25% (13/16) src/Configuration.php
+	 58.33% (14/24) src/ConfigurationBuilder.php
 
-	src/Analyzer.php ..................................................... 100.00% (19/19)
-	src/Reporter/TextReporter.php ........................................ 100.00% (27/27)
-	src/Reporter/Reportable.php ..........................................  85.71% ( 6/ 7)
-	src/Configuration.php ................................................  81.25% (13/16)
-	src/ConfigurationBuilder.php .........................................  58.33% (14/24)
-
-	Finished in 0.27125 seconds
+	Code Coverage: 96.70%
+	Code Coverage Finished in 1.44294 seconds
 
 Other documents
 ------------------------------------------------
