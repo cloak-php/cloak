@@ -99,15 +99,16 @@ class TextReporter implements ReporterInterface
     {
         $currentDirectory = getcwd();
 
-        $filePathReport = $file->getRelativePath($currentDirectory) . ' ';
-        $filePathReport = str_pad($filePathReport, static::PAD_CHARACTER_LENGTH, static::PAD_CHARACTER);
+        $filePathReport = $file->getRelativePath($currentDirectory);
 
-        $this->console->writeText($filePathReport);
-        $this->writeFileCoverage($file);
+        $this->writeCoverage($file);
+        $this->console->writeText(' ');
         $this->console->writeText(sprintf("(%2d/%2d)",
             $file->getExecutedLineCount(),
             $file->getExecutableLineCount()
         ));
+        $this->console->writeText(' ');
+        $this->console->writeText($filePathReport);
 
         $this->console->writeText(PHP_EOL);
     }
@@ -125,13 +126,6 @@ class TextReporter implements ReporterInterface
     /**
      * @param \cloak\result\File $file
      */
-    protected function writeFileCoverage(File $file)
-    {
-        $this->console->writeText(' ');
-        $this->writeCoverage($file);
-        $this->console->writeText(' ');
-    }
-
     protected function writeCoverage(CoverageResultInterface $result)
     {
         $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());

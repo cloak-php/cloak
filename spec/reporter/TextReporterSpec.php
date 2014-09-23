@@ -16,7 +16,6 @@ use cloak\event\StopEvent;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
 use \Mockery;
-use \DateTime;
 
 
 describe('TextReporter', function() {
@@ -82,29 +81,27 @@ describe('TextReporter', function() {
             $this->totalCoverage = $this->console->colorize($totalCoverage, Color::NORMAL);
 
             $highCoverage = sprintf('%6.2f%%', (float) 70);
-            $this->high = ' ' . $this->console->colorize($highCoverage, Color::GREEN) . ' ';
+            $this->high = $this->console->colorize($highCoverage, Color::GREEN) . ' ';
 
             $lowCoverage = sprintf('%6.2f%%', (float) 28.57);
-            $this->low = ' ' . $this->console->colorize($lowCoverage, Color::YELLOW) . ' ';
+            $this->low = $this->console->colorize($lowCoverage, Color::YELLOW) . ' ';
 
             $normalCoverage = sprintf('%6.2f%%', (float) 66.67);
-            $this->normal = ' ' . $this->console->colorize($normalCoverage, Color::NORMAL) . ' ';
+            $this->normal = $this->console->colorize($normalCoverage, Color::NORMAL) . ' ';
 
             $this->reporter = new TextReporter();
         });
-        it('should output coverage', function() {
+        it('output coverage', function() {
             $output  = "";
             $output .= "Total code coverage:" . $this->totalCoverage . PHP_EOL;
             $output .= PHP_EOL;
-            $output .= "src/driver/XdebugDriver.php .........................................." . $this->normal . "( 2/ 3)" . PHP_EOL;
-            $output .= "src/result/Line.php .................................................." . $this->high . "( 7/10)" . PHP_EOL;
-            $output .= "src/result/File.php .................................................." . $this->low . "( 2/ 7)" . PHP_EOL;
+            $output .= $this->normal . "( 2/ 3) src/driver/XdebugDriver.php" . PHP_EOL;
+            $output .= $this->high . "( 7/10) src/result/Line.php" . PHP_EOL;
+            $output .= $this->low . "( 2/ 7) src/result/File.php" . PHP_EOL;
 
             expect(function() {
                 $this->reporter->onStop($this->stopEvent);
             })->toPrint($output);
         });
-
     });
-
 });
