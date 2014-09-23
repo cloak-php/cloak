@@ -9,80 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
+namespace cloak\script;
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use cloak\Analyzer;
-use cloak\ConfigurationBuilder;
-use cloak\Result\File;
-use cloak\reporter\CompositeReporter;
-use cloak\reporter\ProcessingTimeReporter;
-use cloak\reporter\TextReporter;
-use coverallskit\entity\service\Travis;
-use coverallskit\entity\Repository;
-use coverallskit\entity\Coverage;
-use coverallskit\entity\SourceFile;
-use coverallskit\exception\LineOutOfRangeException;
-use coverallskit\ConfigurationLoader;
-use coverallskit\ReportBuilderFactory;
-use Symfony\Component\Yaml\Yaml;
+use coverallskit\Configuration;
+use coverallskit\ReportBuilder;
 
-
-$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-
-    $builder->reporter(new CompositeReporter([
-        new TextReporter(),
-        new ProcessingTimeReporter()
-    ]));
-
-    $builder->includeFile(function(File $file) {
-        return $file->matchPath('/src');
-    })->excludeFile(function(File $file) {
-        return $file->matchPath('/spec') || $file->matchPath('/vendor');
-    });
-
-});
-
-$analyzer->start();
-
-
-$defaultArgv = array('../vendor/bin/pho');
-$coverageConfig = Yaml::parse(__DIR__ . '/../coverage.yml');
-
-$argv = array_merge($defaultArgv, $coverageConfig['targets']);
-
-require_once __DIR__ . "/../vendor/bin/pho";
-
-$analyzer->stop();
-
-
-$builderFactory = new ReportBuilderFactory(new ConfigurationLoader);
-$builder = $builderFactory->createFromConfigurationFile(__DIR__ . '/../coveralls.yml');
-
-$fileResults = $analyzer->getResult()->getFiles();
-
-foreach ($fileResults as $fileResult) {
-
-    $source = new SourceFile($fileResult->getPath());
-
-    $lineCoverages = $fileResult->getLineResults();
-
-    foreach ($lineCoverages as $lineCoverage) {
-        $lineAt = $lineCoverage->getLineNumber();
-
-        try {
-            if ($lineCoverage->isExecuted()) {
-                $source->addCoverage(Coverage::executed($lineAt));
-            } else if ($lineCoverage->isUnused()) {
-                $source->addCoverage(Coverage::unused($lineAt));
-            }
-        } catch (LineOutOfRangeException $exception) {
-            echo $source->getName() . PHP_EOL;
-            echo $exception->getMessage() . PHP_EOL;
-        }
-    }
-
-    $builder->addSource($source);
-
-}
-
+$configuration = Configuration::loadFromFile('.coveralls.yml');
+$builder = ReportBuilder::fromConfiguration($configuration);
 $builder->build()->save()->upload();

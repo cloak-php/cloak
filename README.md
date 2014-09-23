@@ -1,12 +1,11 @@
 Cloak
 =============================
 
-[![Build Status](https://travis-ci.org/holyshared/cloak.svg?branch=master)](https://travis-ci.org/holyshared/cloak)
-[![Stories in Ready](https://badge.waffle.io/holyshared/cloak.png?label=ready&title=Ready)](https://waffle.io/holyshared/cloak)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/holyshared/cloak/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/holyshared/cloak/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/holyshared/cloak/badge.png)](https://coveralls.io/r/holyshared/cloak)
-[![Dependencies Status](https://depending.in/holyshared/cloak.png)](http://depending.in/holyshared/cloak)
-
+[![Build Status](https://travis-ci.org/cloak-php/cloak.svg?branch=master)](https://travis-ci.org/cloak-php/cloak)
+[![Stories in Ready](https://badge.waffle.io/cloak-php/cloak.png?label=ready&title=Ready)](https://waffle.io/cloak-php/cloak)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cloak-php/cloak/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cloak-php/cloak/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/cloak-php/cloak/badge.png)](https://coveralls.io/r/cloak-php/cloak)
+[![Dependency Status](https://www.versioneye.com/user/projects/53fd5938f4df151fd300000d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53fd5938f4df151fd300000d)
 
 Cloak is a library that takes a code coverage.  
 This library works with **PHP5.4 or more**.
@@ -25,7 +24,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.2.1"
+			"cloak/cloak": "1.3.2.2"
 		}
 	}
 

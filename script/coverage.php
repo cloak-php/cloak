@@ -9,7 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-require_once __DIR__ . "/../vendor/autoload.php";
+namespace cloak\script;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
@@ -17,11 +19,13 @@ use cloak\Result\File;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ProcessingTimeReporter;
 use cloak\reporter\TextReporter;
+use cloak\reporter\LcovReporter;
 use Symfony\Component\Yaml\Yaml;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
     $builder->reporter(new CompositeReporter([
+        new LcovReporter(__DIR__ . '/report.lcov'),
         new TextReporter(),
         new ProcessingTimeReporter()
     ]));

@@ -79,4 +79,18 @@ describe('FileWriter', function() {
         });
     });
 
+    describe('#writeEOL', function() {
+        before(function() {
+            $this->writer = new FileWriter($this->filePath);
+            $this->writer->writeEOL();
+            $this->content = file_get_contents($this->filePath);
+        });
+        after(function() {
+            unlink($this->filePath);
+        });
+        it('write empty line', function() {
+            expect($this->content)->toEqual(PHP_EOL);
+        });
+    });
+
 });

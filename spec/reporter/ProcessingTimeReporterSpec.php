@@ -11,6 +11,8 @@
 
 use cloak\Result;
 use cloak\reporter\ProcessingTimeReporter;
+use Zend\Console\Console;
+use Zend\Console\ColorInterface as Color;
 use \Mockery;
 
 
@@ -24,13 +26,16 @@ describe('ProcessingTimeReporter', function() {
 
             $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
             $this->startEvent->shouldReceive('getSendAt')->andReturn( $this->dateTime );
+
+            $console = Console::getInstance();
+            $colorDateTime = $console->colorize('1 July 2014 at 12:00', Color::CYAN);
+
+            $this->output = "\nCode Coverage Started: $colorDateTime\n";
         });
         it('output start datetime', function() {
-            $output = "\nStart at: 1 July 2014 at 12:00\n";
-
             expect(function() {
                 $this->reporter->onStart($this->startEvent);
-            })->toPrint($output);
+            })->toPrint($this->output);
         });
         it('check mock object expectations', function() {
             Mockery::close();
@@ -55,7 +60,7 @@ describe('ProcessingTimeReporter', function() {
             $this->reporter->onStop($this->stopEvent);
             $output = ob_get_clean();
 
-            expect($output)->toMatch('/Finished in (.+) seconds/');
+            expect($output)->toMatch('/Code Coverage Finished in (.+) seconds/');
         });
         it('check mock object expectations', function() {
             Mockery::close();

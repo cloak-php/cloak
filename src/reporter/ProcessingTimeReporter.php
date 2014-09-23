@@ -11,14 +11,10 @@
 
 namespace cloak\reporter;
 
-//use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-//use cloak\result\File;
-//use cloak\value\Coverage;
-//use cloak\CoverageResultInterface;
 use cloak\writer\ConsoleWriter;
-//use Zend\Console\ColorInterface as Color;
+use Zend\Console\ColorInterface as Color;
 
 
 /**
@@ -75,8 +71,10 @@ class ProcessingTimeReporter implements ReporterInterface
         $endAt = microtime(true);
         $runningTime = round($endAt - $this->startAt, 5);
 
+        $this->console->writeText("Code Coverage Finished in ");
+        $this->console->writeText($runningTime, Color::CYAN);
+        $this->console->writeText(" seconds");
         $this->console->writeEOL();
-        $this->console->writeLine("Finished in $runningTime seconds");
     }
 
     /**
@@ -87,7 +85,9 @@ class ProcessingTimeReporter implements ReporterInterface
         $startAt = $event->getSendAt();
         $formatStartTime = $startAt->format('j F Y \a\t H:i');
 
-        $this->console->writeLine("Start at: " . $formatStartTime);
+        $this->console->writeText('Code Coverage Started: ');
+        $this->console->writeText($formatStartTime, Color::CYAN);
+        $this->console->writeEOL();
     }
 
 }

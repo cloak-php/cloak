@@ -3,6 +3,12 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.3.2.2
+---------------------------------------------------------------
+* Change the output format of **TextReporter**.
+* Change the output format of **ProcessingTimeReporter**.
+* Add **WriterInterface**
+
 Version 1.3.2.1
 ---------------------------------------------------------------
 * To the public from the protected **selectLines** method of class **LineSet**
