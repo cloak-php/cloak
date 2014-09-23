@@ -26,7 +26,7 @@ describe('ProcessingTimeReporter', function() {
             $this->startEvent->shouldReceive('getSendAt')->andReturn( $this->dateTime );
         });
         it('output start datetime', function() {
-            $output = "\nStart at: 1 July 2014 at 12:00\n";
+            $output = "\nCode Coverage Started: 1 July 2014 at 12:00\n";
 
             expect(function() {
                 $this->reporter->onStart($this->startEvent);
@@ -55,7 +55,7 @@ describe('ProcessingTimeReporter', function() {
             $this->reporter->onStop($this->stopEvent);
             $output = ob_get_clean();
 
-            expect($output)->toMatch('/Finished in (.+) seconds/');
+            expect($output)->toMatch('/Code Coverage Finished in (.+) seconds/');
         });
         it('check mock object expectations', function() {
             Mockery::close();

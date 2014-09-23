@@ -75,8 +75,7 @@ class ProcessingTimeReporter implements ReporterInterface
         $endAt = microtime(true);
         $runningTime = round($endAt - $this->startAt, 5);
 
-        $this->console->writeEOL();
-        $this->console->writeLine("Finished in $runningTime seconds");
+        $this->console->writeLine("Code Coverage Finished in $runningTime seconds");
     }
 
     /**
@@ -87,7 +86,7 @@ class ProcessingTimeReporter implements ReporterInterface
         $startAt = $event->getSendAt();
         $formatStartTime = $startAt->format('j F Y \a\t H:i');
 
-        $this->console->writeLine("Start at: " . $formatStartTime);
+        $this->console->writeLine("Code Coverage Started: " . $formatStartTime);
     }
 
 }
