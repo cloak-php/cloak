@@ -24,7 +24,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.2.3"
+			"cloak/cloak": "1.3.2.4"
 		}
 	}
 
@@ -99,6 +99,7 @@ Reporter that are supported by default are as follows.
 * TextReporter
 * ProcessingTimeReporter
 * LcovReporter
+* MarkdownReporter
 
 Usage is as follows.  
 

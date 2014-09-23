@@ -3,6 +3,10 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.3.2.4
+---------------------------------------------------------------
+* Add **MarkdownReporter** from **cloak/markdown-reporter:1.0.2**
+
 Version 1.3.2.3
 ---------------------------------------------------------------
 * Add **LcovReporter** from **cloak/lcov-reporter:1.1.4**
