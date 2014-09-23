@@ -3,7 +3,7 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
-Version 1.3.3
+Version 1.3.2.3
 ---------------------------------------------------------------
 * Add **LcovReporter** from **cloak/lcov-reporter:1.1.4**
 
