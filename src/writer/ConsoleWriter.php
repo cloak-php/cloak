@@ -18,7 +18,7 @@ use Zend\Console\Adapter\AdapterInterface;
  * Class ConsoleWriter
  * @package cloak\writer
  */
-class ConsoleWriter
+class ConsoleWriter implements WriterInterface
 {
 
     /**
@@ -61,6 +61,9 @@ class ConsoleWriter
         $this->console->writeLine($text, $color, $bgColor);
     }
 
+    /**
+     * Write a blank line
+     */
     public function writeEOL()
     {
         $this->console->writeLine('');

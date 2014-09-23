@@ -17,7 +17,7 @@ use SplFileObject;
  * Class FileWriter
  * @package cloak\writer
  */
-class FileWriter
+class FileWriter implements WriterInterface
 {
 
     /**
@@ -57,6 +57,14 @@ class FileWriter
     public function writeLine($text)
     {
         $this->file->fwrite($text . PHP_EOL);
+    }
+
+    /**
+     * Write a blank line
+     */
+    public function writeEOL()
+    {
+        $this->file->fwrite(PHP_EOL);
     }
 
     /**
