@@ -24,6 +24,9 @@
         "mockery/mockery": "0.9.*",
         "symfony/yaml": "2.5.*"
     },
+    "scripts": {
+        "test": "vendor/bin/phake test:coverage"
+    },
     "license": "MIT",
     "authors": [
         {
