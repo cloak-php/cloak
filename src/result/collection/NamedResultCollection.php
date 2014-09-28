@@ -14,6 +14,7 @@ namespace cloak\result\collection;
 use cloak\result\CollectionInterface;
 use cloak\result\NamedCoverageResultInterface;
 use PhpCollection\Map;
+use \Iterator;
 
 /**
  * Class NamedResultCollection
@@ -55,6 +56,11 @@ class NamedResultCollection implements CollectionInterface
     public function getIterator()
     {
         return $this->collection->getIterator();
+    }
+
+    public static function fromIterator(Iterator $iterator)
+    {
+
     }
 
 }

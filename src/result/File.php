@@ -16,7 +16,12 @@ use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
 use cloak\result\collection\NamedResultCollection;
 use cloak\result\type\ClassResult;
+use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\FileReflection;
+use \Closure;
+use \CallbackFilterIterator;
+use \ArrayIterator;
+use \Iterator;
 
 
 /**
@@ -180,12 +185,32 @@ class File implements CoverageResultInterface
      */
     public function getClassResults()
     {
-        $fileReflection = new FileReflection($this->getPath(), true);
-        $classReflections = $fileReflection->getClasses();
+        $reflections = $this->getClassReflections(function (ClassReflection $reflection) {
+            return $reflection->isTrait() === false;
+        });
+        return $this->createClassResults($reflections);
+    }
 
+    /**
+     * @return \cloak\result\collection\NamedResultCollection
+     */
+    public function getTraitResults()
+    {
+        $reflections = $this->getClassReflections(function (ClassReflection $reflection) {
+            return $reflection->isTrait();
+        });
+        return $this->createClassResults($reflections);
+    }
+
+    /**
+     * @param Iterator $reflections
+     * @return NamedResultCollection
+     */
+    protected function createClassResults(Iterator $reflections)
+    {
         $classResults = new NamedResultCollection();
 
-        foreach ($classReflections as $classReflection) {
+        foreach ($reflections as $classReflection) {
             $classResult = new ClassResult(
                 $classReflection,
                 $this->lineCoverages
@@ -197,25 +222,17 @@ class File implements CoverageResultInterface
     }
 
     /**
-     * @return \cloak\result\collection\NamedResultCollection
-     * FIXME only trait!!
+     * @param Closure $filter
+     * @return CallbackFilterIterator
      */
-    public function getTraitResults()
+    protected function getClassReflections(Closure $filter)
     {
         $fileReflection = new FileReflection($this->getPath(), true);
         $classReflections = $fileReflection->getClasses();
 
-        $classResults = new NamedResultCollection();
+        $iterator = new ArrayIterator($classReflections);
 
-        foreach ($classReflections as $classReflection) {
-            $classResult = new ClassResult(
-                $classReflection,
-                $this->lineCoverages
-            );
-            $classResults->add($classResult);
-        }
-
-        return $classResults;
+        return new CallbackFilterIterator($iterator, $filter);
     }
 
 }
