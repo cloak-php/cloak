@@ -19,7 +19,7 @@ use Zend\Code\Reflection\ClassReflection;
  * Class AbstractTypeResult
  * @package cloak\result
  */
-abstract class AbstractTypeResult extends AbstractNamedCoverageResult implements AbstractTypeResultInterface
+abstract class AbstractTypeResult extends AbstractNamedCoverageResult
 {
 
     /**
