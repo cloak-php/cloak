@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\collection\ClassResultCollection;
+use cloak\result\collection\NamedResultCollection;
 use cloak\result\ClassResult;
 use cloak\result\LineSet;
 use cloak\result\Line;
@@ -24,7 +24,7 @@ describe('ClassResultCollection', function() {
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $this->results = new ClassResultCollection();
+            $this->results = new NamedResultCollection();
             $this->results->add(new ClassResult($classReflection, $lineSet));
         });
         it('add coverage result', function() {
@@ -39,7 +39,7 @@ describe('ClassResultCollection', function() {
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $this->results = new ClassResultCollection();
+            $this->results = new NamedResultCollection();
             $this->results->add(new ClassResult($classReflection, $lineSet));
         });
         it('return ArrayIterator instance', function() {

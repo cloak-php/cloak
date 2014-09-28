@@ -12,7 +12,7 @@
 namespace cloak\result;
 
 use cloak\value\LineRange;
-use cloak\CoverageResultInterface;
+use cloak\NamedCoverageResultInterface;
 use cloak\value\Coverage;
 use Zend\Code\Reflection\ClassReflection;
 
@@ -20,7 +20,7 @@ use Zend\Code\Reflection\ClassReflection;
  * Class ClassResult
  * @package cloak\result
  */
-class ClassResult implements CoverageResultInterface
+class ClassResult implements NamedCoverageResultInterface
 {
 
     /**

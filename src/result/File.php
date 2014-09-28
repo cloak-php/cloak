@@ -14,7 +14,7 @@ namespace cloak\result;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
-use cloak\result\collection\ClassResultCollection;
+use cloak\result\collection\NamedResultCollection;
 use Zend\Code\Reflection\FileReflection;
 
 /**
@@ -181,7 +181,7 @@ class File implements CoverageResultInterface
         $fileReflection = new FileReflection($this->getPath(), true);
         $classReflections = $fileReflection->getClasses();
 
-        $classResults = new ClassResultCollection();
+        $classResults = new NamedResultCollection();
 
         foreach ($classReflections as $classReflection) {
             $classResult = new ClassResult(

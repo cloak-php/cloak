@@ -203,8 +203,8 @@ describe('File', function() {
             $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
 
         });
-        it('return \cloak\result\collection\ClassResultCollection instance', function() {
-            expect($this->file->getClassResults())->toBeAnInstanceOf('\cloak\result\collection\ClassResultCollection');
+        it('return \cloak\result\collection\NamedResultCollection instance', function() {
+            expect($this->file->getClassResults())->toBeAnInstanceOf('\cloak\result\collection\NamedResultCollection');
         });
     });
 

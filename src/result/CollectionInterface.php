@@ -11,6 +11,7 @@
 
 namespace cloak\result;
 
+use cloak\NamedCoverageResultInterface;
 use \Countable;
 use \IteratorAggregate;
 
@@ -20,4 +21,10 @@ use \IteratorAggregate;
  */
 interface CollectionInterface extends IteratorAggregate, Countable
 {
+
+    /**
+     * @param \cloak\NamedCoverageResultInterface $result
+     */
+    public function add(NamedCoverageResultInterface $result);
+
 }

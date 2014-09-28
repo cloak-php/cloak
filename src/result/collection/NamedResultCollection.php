@@ -11,15 +11,15 @@
 
 namespace cloak\result\collection;
 
-use cloak\result\ClassResult;
+use cloak\NamedCoverageResultInterface;
 use cloak\result\CollectionInterface;
 use PhpCollection\Map;
 
 /**
- * Class ClassResultCollection
+ * Class NamedResultCollection
  * @package cloak\result\collection
  */
-class ClassResultCollection implements CollectionInterface
+class NamedResultCollection implements CollectionInterface
 {
 
     /**
@@ -34,9 +34,9 @@ class ClassResultCollection implements CollectionInterface
     }
 
     /**
-     * @param ClassResult $result
+     * @param \cloak\NamedCoverageResultInterface $result
      */
-    public function add(ClassResult $result)
+    public function add(NamedCoverageResultInterface $result)
     {
         $this->collection->set($result->getName(), $result);
     }
