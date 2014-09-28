@@ -194,4 +194,8 @@ describe('File', function() {
         });
     });
 
+    describe('getClassResults', function() {
+        it('return class code coverage results');
+    });
+
 });
