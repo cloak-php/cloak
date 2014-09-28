@@ -12,9 +12,9 @@
 namespace cloak\result;
 
 /**
- * Class ClassResult
+ * Class TraitResult
  * @package cloak\result
  */
-final class ClassResult extends AbstractTypeResult
+final class TraitResult extends AbstractTypeResult
 {
 }
