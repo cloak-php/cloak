@@ -26,9 +26,6 @@ describe('ClassResult', function() {
 
         $this->result = new ClassResult($classReflection, $lineSet);
     });
-    describe('getMethodResults', function() {
-        it('return method code coverage results');
-    });
     describe('getName', function() {
         it('return class name', function() {
             expect($this->result->getName())->toEqual('Example\\Example');
@@ -39,7 +36,19 @@ describe('ClassResult', function() {
             expect($this->result->getNamespaceName())->toEqual('Example');
         });
     });
-
+    describe('getMethodResults', function() {
+        before(function() {
+            $this->methodResults = $this->result->getMethodResults();
+        });
+        it('return cloak\result\collection\NamedResultCollection instance', function() {
+            expect($this->methodResults)->toBeAnInstanceOf('cloak\result\collection\NamedResultCollection');
+        });
+        context('when all results', function() {
+            it('return results', function() {
+                expect(count($this->methodResults))->toEqual(2);
+            });
+        });
+    });
     describe('CoverageResultInterface', function() {
         beforeEach(function() {
             $this->cleanClassLineResults = Mockery::mock('cloak\result\LineSetInterface');

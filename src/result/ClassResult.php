@@ -12,6 +12,7 @@
 namespace cloak\result;
 
 use cloak\value\LineRange;
+use cloak\result\collection\NamedResultCollection;
 use Zend\Code\Reflection\ClassReflection;
 
 /**
@@ -57,6 +58,22 @@ final class ClassResult extends NamedCoverageResult
     public function getNamespaceName()
     {
         return $this->reflection->getNamespaceName();
+    }
+
+    /**
+     * @return NamedResultCollection
+     */
+    public function getMethodResults()
+    {
+        $results = new NamedResultCollection();
+        $methods = $this->reflection->getMethods();
+
+        foreach ($methods as $method) {
+            $methodResult = new MethodResult($method, $this->lineResults);
+            $results->add($methodResult);
+        }
+
+        return $results;
     }
 
 }
