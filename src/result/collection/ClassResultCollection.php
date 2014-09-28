@@ -12,13 +12,14 @@
 namespace cloak\result\collection;
 
 use cloak\result\ClassResult;
+use cloak\result\CollectionInterface;
 use PhpCollection\Map;
 
 /**
  * Class ClassResultCollection
  * @package cloak\result\collection
  */
-class ClassResultCollection
+class ClassResultCollection implements CollectionInterface
 {
 
     /**
@@ -40,9 +41,20 @@ class ClassResultCollection
         $this->collection->set($result->getName(), $result);
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return $this->collection->count();
+    }
+
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->collection->getIterator();
     }
 
 }

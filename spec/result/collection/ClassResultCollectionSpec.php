@@ -31,4 +31,19 @@ describe('ClassResultCollection', function() {
             expect($this->results->count())->toEqual(1);
         });
     });
+    describe('#getIterator', function() {
+        before(function() {
+            $lineSet = new LineSet([
+                new Line(12, Line::EXECUTED),
+                new Line(17, Line::UNUSED)
+            ]);
+            $classReflection = new ClassReflection('Example\\Example');
+
+            $this->results = new ClassResultCollection();
+            $this->results->add(new ClassResult($classReflection, $lineSet));
+        });
+        it('return ArrayIterator instance', function() {
+            expect($this->results->getIterator())->toBeAnInstanceOf('ArrayIterator');
+        });
+    });
 });
