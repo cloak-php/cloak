@@ -195,7 +195,17 @@ describe('File', function() {
     });
 
     describe('getClassResults', function() {
-        it('return class code coverage results');
+        before(function() {
+            $this->lineSet = new LineSet([
+                new Line(12, Line::EXECUTED),
+                new Line(17, Line::UNUSED)
+            ]);
+            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+
+        });
+        it('return \cloak\result\collection\ClassResultCollection instance', function() {
+            expect($this->file->getClassResults())->toBeAnInstanceOf('\cloak\result\collection\ClassResultCollection');
+        });
     });
 
 });

@@ -14,6 +14,8 @@ namespace cloak\result;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
+use cloak\result\collection\ClassResultCollection;
+use Zend\Code\Reflection\FileReflection;
 
 /**
  * Class File
@@ -169,6 +171,27 @@ class File implements CoverageResultInterface
 
         $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
         $this->lineCoverages = $cleanUpResults;
+    }
+
+    /**
+     * @return ClassResultCollection
+     */
+    public function getClassResults()
+    {
+        $fileReflection = new FileReflection($this->getPath(), true);
+        $classReflections = $fileReflection->getClasses();
+
+        $classResults = new ClassResultCollection();
+
+        foreach ($classReflections as $classReflection) {
+            $classResult = new ClassResult(
+                $classReflection,
+                $this->lineCoverages
+            );
+            $classResults->add($classResult);
+        }
+
+        return $classResults;
     }
 
 }
