@@ -9,11 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak\result\type;
+
+use cloak\result\AbstractTypeResult;
+use cloak\result\AbstractTypeResultInterface;
 
 /**
  * Class TraitResult
- * @package cloak\result
+ * @package cloak\result\type
  */
 final class TraitResult extends AbstractTypeResult implements AbstractTypeResultInterface
 {

@@ -10,10 +10,11 @@
  */
 
 use cloak\result\collection\NamedResultCollection;
-use cloak\result\ClassResult;
+use cloak\result\type\ClassResult;
 use cloak\result\LineSet;
 use cloak\result\Line;
 use Zend\Code\Reflection\ClassReflection;
+
 
 describe('ClassResultCollection', function() {
     describe('#add', function() {

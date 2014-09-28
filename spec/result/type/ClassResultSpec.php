@@ -9,12 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\ClassResult;
+use cloak\result\type\ClassResult;
 use cloak\result\LineSet;
 use cloak\result\Line;
 use cloak\value\Coverage;
 use Zend\Code\Reflection\ClassReflection;
 use \Mockery;
+
 
 describe('ClassResult', function() {
     before(function() {

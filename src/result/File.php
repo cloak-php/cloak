@@ -15,7 +15,9 @@ use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
 use cloak\result\collection\NamedResultCollection;
+use cloak\result\type\ClassResult;
 use Zend\Code\Reflection\FileReflection;
+
 
 /**
  * Class File
