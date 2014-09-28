@@ -4,6 +4,9 @@ targets:
   - spec/ResultSpec.php
   - spec/result/FileSpec.php
   - spec/result/LineSpec.php
+  - spec/result/type/ClassResultSpec.php
+  - spec/result/MethodResultSpec.php
+  - spec/result/collection/NamedResultCollectionSpec.php
   - spec/value/CoverageSpec.php
   - spec/result/LineSetSpec.php
   - spec/value/LineRangeSpec.php

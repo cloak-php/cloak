@@ -7,7 +7,7 @@ class Example
 
     private $value;
 
-    public function _construct($value)
+    public function __construct($value)
     {
         $this->value = $value;
     }

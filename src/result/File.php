@@ -14,6 +14,15 @@ namespace cloak\result;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
+use cloak\result\collection\NamedResultCollection;
+use cloak\result\type\ClassResult;
+use Zend\Code\Reflection\ClassReflection;
+use Zend\Code\Reflection\FileReflection;
+use \Closure;
+use \CallbackFilterIterator;
+use \ArrayIterator;
+use \Iterator;
+
 
 /**
  * Class File
@@ -169,6 +178,61 @@ class File implements CoverageResultInterface
 
         $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
         $this->lineCoverages = $cleanUpResults;
+    }
+
+    /**
+     * @return \cloak\result\collection\NamedResultCollection
+     */
+    public function getClassResults()
+    {
+        $reflections = $this->getClassReflections(function (ClassReflection $reflection) {
+            return $reflection->isTrait() === false;
+        });
+        return $this->createClassResults($reflections);
+    }
+
+    /**
+     * @return \cloak\result\collection\NamedResultCollection
+     */
+    public function getTraitResults()
+    {
+        $reflections = $this->getClassReflections(function (ClassReflection $reflection) {
+            return $reflection->isTrait();
+        });
+        return $this->createClassResults($reflections);
+    }
+
+    /**
+     * @param Iterator $reflections
+     * @return NamedResultCollection
+     */
+    protected function createClassResults(Iterator $reflections)
+    {
+        $classResults = new NamedResultCollection();
+
+        foreach ($reflections as $classReflection) {
+            $classResult = new ClassResult(
+                $classReflection,
+                $this->lineCoverages
+            );
+            $classResults->add($classResult);
+        }
+
+        return $classResults;
+    }
+
+    /**
+     * @param Closure $filter
+     * @return CallbackFilterIterator
+     */
+    protected function getClassReflections(Closure $filter)
+    {
+        $fileReflection = new FileReflection($this->getPath(), true);
+        $classReflections = $fileReflection->getClasses();
+
+        $iterator = new ArrayIterator($classReflections);
+
+        return new CallbackFilterIterator($iterator, $filter);
     }
 
 }
