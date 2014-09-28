@@ -176,9 +176,31 @@ class File implements CoverageResultInterface
     }
 
     /**
-     * @return ClassResultCollection
+     * @return \cloak\result\collection\NamedResultCollection
      */
     public function getClassResults()
+    {
+        $fileReflection = new FileReflection($this->getPath(), true);
+        $classReflections = $fileReflection->getClasses();
+
+        $classResults = new NamedResultCollection();
+
+        foreach ($classReflections as $classReflection) {
+            $classResult = new ClassResult(
+                $classReflection,
+                $this->lineCoverages
+            );
+            $classResults->add($classResult);
+        }
+
+        return $classResults;
+    }
+
+    /**
+     * @return \cloak\result\collection\NamedResultCollection
+     * FIXME only trait!!
+     */
+    public function getTraitResults()
     {
         $fileReflection = new FileReflection($this->getPath(), true);
         $classReflections = $fileReflection->getClasses();
