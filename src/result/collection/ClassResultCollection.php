@@ -40,4 +40,9 @@ class ClassResultCollection
         $this->collection->set($result->getName(), $result);
     }
 
+    public function count()
+    {
+        return $this->collection->count();
+    }
+
 }

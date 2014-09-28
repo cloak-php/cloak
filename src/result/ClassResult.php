@@ -59,7 +59,7 @@ class ClassResult
     /**
      * @return string
      */
-    public function getNamespace()
+    public function getNamespaceName()
     {
         return $this->classReflection->getNamespaceName();
     }
