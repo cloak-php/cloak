@@ -15,6 +15,6 @@ namespace cloak\result;
  * Class ClassResult
  * @package cloak\result
  */
-final class ClassResult extends AbstractTypeResult
+final class ClassResult extends AbstractTypeResult implements AbstractTypeResultInterface
 {
 }

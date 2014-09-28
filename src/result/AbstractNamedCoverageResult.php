@@ -11,7 +11,6 @@
 
 namespace cloak\result;
 
-use cloak\NamedCoverageResultInterface;
 use cloak\value\Coverage;
 
 

@@ -11,10 +11,18 @@
 
 namespace cloak\result;
 
+use cloak\CoverageResultInterface;
+
 /**
- * Class TraitResult
+ * Interface NamedCoverageResultInterface
  * @package cloak\result
  */
-final class TraitResult extends AbstractTypeResult implements AbstractTypeResultInterface
+interface NamedCoverageResultInterface extends CoverageResultInterface
 {
+
+    /**
+     * @return string
+     */
+    public function getName();
+
 }
