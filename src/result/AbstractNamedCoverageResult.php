@@ -19,7 +19,7 @@ use cloak\value\Coverage;
  * Class NamedCoverageResult
  * @package cloak\result
  */
-abstract class NamedCoverageResult implements NamedCoverageResultInterface
+abstract class AbstractNamedCoverageResult implements NamedCoverageResultInterface
 {
 
     /**

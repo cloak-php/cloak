@@ -18,7 +18,7 @@ use Zend\Code\Reflection\MethodReflection;
  * Class MethodResult
  * @package cloak\result
  */
-final class MethodResult extends NamedCoverageResult
+final class MethodResult extends AbstractNamedCoverageResult
 {
 
     /**
