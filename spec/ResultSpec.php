@@ -236,7 +236,7 @@ describe('Result', function() {
 
         describe('#getLineCount', function() {
             it('return total line count', function() {
-                expect($this->result->getLineCount())->toEqual(21);
+                expect($this->result->getLineCount())->toEqual(33);
             });
         });
 

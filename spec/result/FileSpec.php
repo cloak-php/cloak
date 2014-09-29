@@ -32,7 +32,7 @@ describe('File', function() {
             $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('return total line number', function() {
-            expect($this->file->getLineCount())->toBe(20);
+            expect($this->file->getLineCount())->toBe(32);
         });
     });
 

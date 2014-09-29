@@ -2,6 +2,18 @@
 
 namespace Example;
 
+trait ExampleTrait
+{
+    private $value;
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+}
+
+
 class Example
 {
 
