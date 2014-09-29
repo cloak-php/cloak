@@ -58,9 +58,4 @@ class NamedResultCollection implements CollectionInterface
         return $this->collection->getIterator();
     }
 
-    public static function fromIterator(Iterator $iterator)
-    {
-
-    }
-
 }

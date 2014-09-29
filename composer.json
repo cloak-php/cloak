@@ -16,7 +16,10 @@
     "autoload-dev": {
         "psr-4": {
             "cloak\\spec\\driver\\": "spec/fixtures/"
-        }
+        },
+        "files": [
+            "spec/fixtures/src/foo.php"
+        ]
     },
     "require-dev": {
         "danielstjules/pho": "1.0.*",
