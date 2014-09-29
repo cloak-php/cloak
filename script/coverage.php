@@ -42,7 +42,7 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 $analyzer->start();
 
 
-$defaultArgv = array('../vendor/bin/pho');
+$defaultArgv = array('../vendor/bin/pho', '--stop');
 $coverageConfig = Yaml::parse(__DIR__ . '/../coverage.yml');
 $argv = array_merge($defaultArgv, $coverageConfig['targets']);
 
