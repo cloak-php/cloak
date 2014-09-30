@@ -14,14 +14,7 @@ namespace cloak\result;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
-use cloak\result\collection\NamedResultCollection;
-use cloak\result\type\ClassResult;
-use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\FileReflection;
-use \Closure;
-use \CallbackFilterIterator;
-use \ArrayIterator;
-use \Iterator;
 
 
 /**
@@ -35,6 +28,11 @@ class File implements CoverageResultInterface
      * @var string
      */
     private $path;
+
+    /**
+     * @var \cloak\result\ResultFactory
+     */
+    private $factory;
 
     /**
      * @var LineRange
@@ -167,14 +165,17 @@ class File implements CoverageResultInterface
         return $this->lineCoverages->isCoverageGreaterEqual($coverage);
     }
 
+    /**
+     * @param LineSetInterface $lineCoverages
+     */
     protected function resolveLineRange(LineSetInterface $lineCoverages)
     {
-        $content = file_get_contents($this->getPath());
+        $fileReflection = new FileReflection($this->getPath(), true);
+        $content = $fileReflection->getContents(); //$fileReflection->getEndLine() return null....
         $totalLineCount = substr_count(trim($content), PHP_EOL) + 1;
 
-        unset($content);
-
         $this->lineRange = new LineRange(1, $totalLineCount);
+        $this->factory = new ResultFactory($fileReflection);
 
         $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
         $this->lineCoverages = $cleanUpResults;
@@ -185,10 +186,7 @@ class File implements CoverageResultInterface
      */
     public function getClassResults()
     {
-        $reflections = $this->getClassReflections(function (ClassReflection $reflection) {
-            return $reflection->isTrait() === false;
-        });
-        return $this->createClassResults($reflections);
+        return $this->factory->createClassResults($this->lineCoverages);
     }
 
     /**
@@ -196,43 +194,7 @@ class File implements CoverageResultInterface
      */
     public function getTraitResults()
     {
-        $reflections = $this->getClassReflections(function (ClassReflection $reflection) {
-            return $reflection->isTrait();
-        });
-        return $this->createClassResults($reflections);
-    }
-
-    /**
-     * @param Iterator $reflections
-     * @return NamedResultCollection
-     */
-    protected function createClassResults(Iterator $reflections)
-    {
-        $classResults = new NamedResultCollection();
-
-        foreach ($reflections as $classReflection) {
-            $classResult = new ClassResult(
-                $classReflection,
-                $this->lineCoverages
-            );
-            $classResults->add($classResult);
-        }
-
-        return $classResults;
-    }
-
-    /**
-     * @param Closure $filter
-     * @return CallbackFilterIterator
-     */
-    protected function getClassReflections(Closure $filter)
-    {
-        $fileReflection = new FileReflection($this->getPath(), true);
-        $classReflections = $fileReflection->getClasses();
-
-        $iterator = new ArrayIterator($classReflections);
-
-        return new CallbackFilterIterator($iterator, $filter);
+        return $this->factory->createTraitResults($this->lineCoverages);
     }
 
 }
