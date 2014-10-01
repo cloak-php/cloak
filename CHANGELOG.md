@@ -3,6 +3,26 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.4.0
+---------------------------------------------------------------
+* Use of **closure** argument **ConfigurationBuilder** has changed
+
+	target methods: inclueFile, inclueFiles, excludeFile, excludeFiles
+
+	```php
+	//before
+	$builder->inclueFile(function(\cloak\result\File $file) {
+    	//do something
+	});
+	```
+
+	```php
+	//after
+	$builder->inclueFile(function(\cloak\driver\result\File $file) {
+    	//do something
+	});
+	```
+
 Version 1.3.2.4
 ---------------------------------------------------------------
 * Add **MarkdownReporter** from **cloak/markdown-reporter:1.0.2**
