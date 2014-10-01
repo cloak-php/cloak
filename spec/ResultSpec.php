@@ -15,7 +15,10 @@ use cloak\value\Coverage;
 use cloak\result\Line;
 use cloak\result\File;
 use cloak\result\LineSet;
+use cloak\driver\result\File as AnalyzeFile;
+use cloak\driver\Result as AnalyzeResult;
 use PhpCollection\Sequence;
+use PhpCollection\Map;
 
 
 describe('Result', function() {
@@ -24,32 +27,15 @@ describe('Result', function() {
     $this->returnValue = null;
 
     describe('#from', function() {
-        $coverageResults = [
-            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ]
-        ];
-        $this->returnValue = Result::from($coverageResults);
+        $file = new AnalyzeFile($this->rootDirectory . 'foo.php', [ 1 => Line::EXECUTED ]);
+
+        $analyzeResult = new AnalyzeResult(new Map([
+            $file->getPath() => $file
+        ]));
+        $this->returnValue = Result::from($analyzeResult);
 
         it('should return cloak\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
-        });
-    });
-
-    describe('#parseResult', function() {
-        $coverageResults = [
-            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
-            $this->rootDirectory . 'not_found.php' => [ 1 => Line::EXECUTED ]
-        ];
-
-        $this->returnValue = Result::parseResult($coverageResults);
-
-        it('should return PhpCollection\Sequence instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('PhpCollection\Sequence');
-        });
-
-        context('when a file that does not exist is included', function() {
-            it('should not included in the result', function() {
-                expect($this->returnValue->count())->toBe(1);
-            });
         });
     });
 
@@ -67,7 +53,14 @@ describe('Result', function() {
             ]
         ];
 
-        $this->result = Result::from($coverageResults);
+        $fileResults = [];
+
+        foreach ($coverageResults as $path => $lineResults) {
+            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
+        }
+
+        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $this->result = Result::from($analyzeResult);
         $this->returnValue = $this->result->includeFile(function(File $file) {
             return $file->matchPath('bar.php');
         });
@@ -89,7 +82,14 @@ describe('Result', function() {
             $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
-        $this->result = Result::from($coverageResults);
+        $fileResults = [];
+        foreach ($coverageResults as $path => $lineResults) {
+            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
+        }
+
+        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $this->result = Result::from($analyzeResult);
+
         $filter1 = function(File $file) {
             return $file->matchPath('foo1.php');
         };
@@ -113,7 +113,13 @@ describe('Result', function() {
             $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
-        $this->result = Result::from($coverageResults);
+        $fileResults = [];
+        foreach ($coverageResults as $path => $lineResults) {
+            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
+        }
+
+        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $this->result = Result::from($analyzeResult);
 
         $this->returnValue = $this->result->excludeFile(function(File $file) {
             return $file->matchPath('foo.php');
@@ -135,15 +141,21 @@ describe('Result', function() {
             $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
-        $this->result = Result::from($coverageResults);
+        $fileResults = [];
+        foreach ($coverageResults as $path => $lineResults) {
+            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
+        }
 
-            $filter1 = function(File $file) {
-                return $file->matchPath('foo.php');
-            };
-            $filter2 = function(File $file) {
-                return $file->matchPath('bar.php');
-            };
-            $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
+        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $this->result = Result::from($analyzeResult);
+
+        $filter1 = function(File $file) {
+            return $file->matchPath('foo.php');
+        };
+        $filter2 = function(File $file) {
+            return $file->matchPath('bar.php');
+        };
+        $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
 
         it('should return cloak\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');

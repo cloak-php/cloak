@@ -53,6 +53,14 @@ class Result implements Countable, IteratorAggregate
     }
 
     /**
+     * @return AbstractMap
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
      * @param callable $filter
      * @return Result
      */
@@ -112,6 +120,7 @@ class Result implements Countable, IteratorAggregate
 
     /**
      * @return \Traversable
+     * @deprecated
      */
     public function getIterator()
     {
