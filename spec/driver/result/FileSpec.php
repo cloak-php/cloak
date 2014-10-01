@@ -12,6 +12,15 @@
 use cloak\driver\result\File;
 
 describe('File', function() {
+    describe('#__construct', function() {
+        context('when file not found', function() {
+            it('return true', function() {
+                expect(function() {
+                    new File(__DIR__ . '/not_found.php');
+                })->toThrow('cloak\driver\result\FileNotFoundException');
+            });
+        });
+    });
     describe('#matchPath', function() {
         before(function() {
             $rootDirectory = __DIR__ . '/../../fixtures/src/';
