@@ -78,7 +78,7 @@ class Result implements Countable, IteratorAggregate
     /**
      * @param File $file
      */
-    public function add(File $file)
+    public function addFile(File $file)
     {
         $this->files->set($file->getPath(), $file);
     }

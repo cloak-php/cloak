@@ -40,9 +40,9 @@ describe('Configuration', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
 
         $this->result = new Result();
-        $this->result->add(new File($rootDirectory . 'foo.php', []));
-        $this->result->add(new File($rootDirectory . 'bar.php', []));
-        $this->result->add(new File($rootDirectory . 'vendor/foo1.php',  []));
+        $this->result->addFile(new File($rootDirectory . 'foo.php', []));
+        $this->result->addFile(new File($rootDirectory . 'bar.php', []));
+        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php',  []));
 
         $builder = new ConfigurationBuilder();
         $this->configuration = $builder->includeFile($filter1)

@@ -34,10 +34,10 @@ describe('Result', function() {
         });
     });
 
-    describe('#add', function() {
+    describe('#addFile', function() {
         before(function() {
             $this->result = new Result();
-            $this->result->add(new File($this->fixtureFilePath));
+            $this->result->addFile(new File($this->fixtureFilePath));
         });
         it('add file', function() {
             expect(count($this->result))->toEqual(1);
