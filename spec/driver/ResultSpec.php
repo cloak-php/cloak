@@ -20,7 +20,7 @@ describe('Result', function() {
         $this->fixtureFilePath = $this->rootDirectory . 'foo.php';
     });
 
-    describe('#from', function() {
+    describe('#fromArray', function() {
         before(function() {
             $results = [
                 $this->fixtureFilePath => [
@@ -40,7 +40,7 @@ describe('Result', function() {
             $this->result->addFile(new File($this->fixtureFilePath));
         });
         it('add file', function() {
-            expect(count($this->result))->toEqual(1);
+            expect($this->result->getFileCount())->toEqual(1);
         });
     });
 });

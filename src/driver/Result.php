@@ -16,8 +16,6 @@ use cloak\driver\result\FileNotFoundException;
 use PhpCollection\AbstractMap;
 use PhpCollection\Map;
 use PhpCollection\Sequence;
-use Countable;
-use IteratorAggregate;
 use Closure;
 
 
@@ -25,7 +23,7 @@ use Closure;
  * Class Result
  * @package cloak\driver
  */
-class Result implements Countable, IteratorAggregate
+class Result
 {
 
     /**
@@ -146,18 +144,9 @@ class Result implements Countable, IteratorAggregate
     /**
      * @return int
      */
-    public function count()
+    public function getFileCount()
     {
         return $this->files->count();
-    }
-
-    /**
-     * @return \Traversable
-     * @deprecated
-     */
-    public function getIterator()
-    {
-        return $this->files->getIterator();
     }
 
 }
