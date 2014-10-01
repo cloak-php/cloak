@@ -11,15 +11,33 @@
 
 use cloak\driver\Result;
 use cloak\driver\result\File;
+use cloak\result\Line;
+
 
 describe('Result', function() {
+    before(function() {
+        $this->rootDirectory = __DIR__ . '/../fixtures/src/';
+        $this->fixtureFilePath = $this->rootDirectory . 'foo.php';
+    });
+
+    describe('#from', function() {
+        before(function() {
+            $results = [
+                $this->fixtureFilePath => [
+                    1 => Line::EXECUTED
+                ]
+            ];
+            $this->returnValue = Result::fromArray($results);
+        });
+        it('return cloak\driver\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('cloak\driver\Result');
+        });
+    });
+
     describe('#add', function() {
         before(function() {
-            $rootDirectory = __DIR__ . '/../fixtures/src/';
-            $this->filePath = $rootDirectory . 'foo.php';
-
             $this->result = new Result();
-            $this->result->add(new File($this->filePath));
+            $this->result->add(new File($this->fixtureFilePath));
         });
         it('add file', function() {
             expect(count($this->result))->toEqual(1);

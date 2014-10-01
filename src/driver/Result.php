@@ -12,6 +12,7 @@
 namespace cloak\driver;
 
 use cloak\driver\result\File;
+use cloak\driver\result\FileNotFoundException;
 use PhpCollection\AbstractMap;
 use PhpCollection\Map;
 use Countable;
@@ -42,6 +43,36 @@ class Result implements Countable, IteratorAggregate
         } else {
             $this->files = $files;
         }
+    }
+
+    /**
+     * @param array $results
+     * @return static
+     */
+    public static function fromArray(array $results)
+    {
+        $files = static::parseResult($results);
+        return new static($files);
+    }
+
+    /**
+     * @param array $results
+     * @return Map
+     */
+    protected static function parseResult(array $results)
+    {
+        $files = new Map();
+
+        foreach ($results as $path => $lineResults) {
+            try {
+                $file = new File($path, $lineResults);
+            } catch (FileNotFoundException $exception) {
+                continue;
+            }
+            $files->set($file->getPath(), $file);
+        }
+
+        return $files;
     }
 
     /**
