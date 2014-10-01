@@ -149,4 +149,12 @@ class Result
         return $this->files->count();
     }
 
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return $this->files->isEmpty();
+    }
+
 }

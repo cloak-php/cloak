@@ -43,4 +43,25 @@ describe('Result', function() {
             expect($this->result->getFileCount())->toEqual(1);
         });
     });
+
+    describe('#isEmpty', function() {
+        context('when empty', function() {
+            before(function() {
+                $this->result = new Result();
+            });
+            it('return true', function() {
+                expect($this->result->isEmpty())->toBeTrue();
+            });
+        });
+        context('when not empty', function() {
+            before(function() {
+                $this->result = new Result();
+                $this->result->addFile(new File($this->fixtureFilePath));
+            });
+            it('return false', function() {
+                expect($this->result->isEmpty())->toBeFalse();
+            });
+        });
+    });
+
 });
