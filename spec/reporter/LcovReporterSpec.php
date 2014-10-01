@@ -12,6 +12,7 @@
 use cloak\Result;
 use cloak\result\Line;
 use cloak\reporter\LcovReporter;
+use cloak\driver\Result as AnalyzeResult;
 use \Mockery;
 use \DateTime;
 
@@ -40,7 +41,7 @@ describe('LcovReporter', function() {
             $this->source1 = realpath(__DIR__ . '/../fixtures/Example1.php');
             $this->source2 = realpath(__DIR__ . '/../fixtures/Example2.php');
 
-            $this->result = Result::from([
+            $analyzeResult = AnalyzeResult::fromArray([
                 $this->source1 => [
                     10 => Line::EXECUTED,
                     11 => Line::EXECUTED
@@ -50,6 +51,8 @@ describe('LcovReporter', function() {
                     15 => Line::UNUSED
                 ]
             ]);
+
+            $this->result = Result::fromAnalyzeResult($analyzeResult);
 
             $this->stopEvent = Mockery::mock('\cloak\event\StopEventInterface');
             $this->stopEvent->shouldReceive('getResult')->once()->andReturn($this->result);

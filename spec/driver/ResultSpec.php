@@ -11,18 +11,57 @@
 
 use cloak\driver\Result;
 use cloak\driver\result\File;
+use cloak\result\Line;
+
 
 describe('Result', function() {
-    describe('#add', function() {
-        before(function() {
-            $rootDirectory = __DIR__ . '/../fixtures/src/';
-            $this->filePath = $rootDirectory . 'foo.php';
+    before(function() {
+        $this->rootDirectory = __DIR__ . '/../fixtures/src/';
+        $this->fixtureFilePath = $this->rootDirectory . 'foo.php';
+    });
 
-            $this->result = new Result();
-            $this->result->add(new File($this->filePath));
+    describe('#fromArray', function() {
+        before(function() {
+            $results = [
+                $this->fixtureFilePath => [
+                    1 => Line::EXECUTED
+                ]
+            ];
+            $this->returnValue = Result::fromArray($results);
         });
-        it('add file', function() {
-            expect(count($this->result))->toEqual(1);
+        it('return cloak\driver\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('cloak\driver\Result');
         });
     });
+
+    describe('#addFile', function() {
+        before(function() {
+            $this->result = new Result();
+            $this->result->addFile(new File($this->fixtureFilePath));
+        });
+        it('add file', function() {
+            expect($this->result->getFileCount())->toEqual(1);
+        });
+    });
+
+    describe('#isEmpty', function() {
+        context('when empty', function() {
+            before(function() {
+                $this->result = new Result();
+            });
+            it('return true', function() {
+                expect($this->result->isEmpty())->toBeTrue();
+            });
+        });
+        context('when not empty', function() {
+            before(function() {
+                $this->result = new Result();
+                $this->result->addFile(new File($this->fixtureFilePath));
+            });
+            it('return false', function() {
+                expect($this->result->isEmpty())->toBeFalse();
+            });
+        });
+    });
+
 });

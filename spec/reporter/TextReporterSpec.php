@@ -12,6 +12,7 @@
 use cloak\Result;
 use cloak\result\Line;
 use cloak\reporter\TextReporter;
+use cloak\driver\Result as AnalyzeResult;
 use cloak\event\StopEvent;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
@@ -73,8 +74,10 @@ describe('TextReporter', function() {
                 ]
             ];
 
+            $analyzeResult = AnalyzeResult::fromArray($coverages);
+
             $this->stopEvent = new StopEvent(null, [
-                'result' => Result::from($coverages)
+                'result' => Result::fromAnalyzeResult($analyzeResult)
             ]);
 
             $totalCoverage = sprintf('%6.2f%%', 55.00);

@@ -11,9 +11,9 @@
 
 use cloak\ConfigurationBuilder;
 use cloak\Configuration;
-use cloak\Result;
-use cloak\result\File;
-use cloak\result\LineSet;
+use cloak\driver\Result;
+use cloak\driver\result\File;
+
 
 describe('Configuration', function() {
 
@@ -29,7 +29,7 @@ describe('Configuration', function() {
         });
     });
 
-    describe('#apply', function() {
+    describe('#applyTo', function() {
         $filter1 = function(File $file) {
             return $file->matchPath('foo');
         };
@@ -40,24 +40,25 @@ describe('Configuration', function() {
         $rootDirectory = __DIR__ . '/fixtures/src/';
 
         $this->result = new Result();
-        $this->result->addFile(new File($rootDirectory . 'foo.php', new LineSet()));
-        $this->result->addFile(new File($rootDirectory . 'bar.php', new LineSet()));
-        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php', new LineSet()));
+        $this->result->addFile(new File($rootDirectory . 'foo.php', []));
+        $this->result->addFile(new File($rootDirectory . 'bar.php', []));
+        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php',  []));
 
         $builder = new ConfigurationBuilder();
         $this->configuration = $builder->includeFile($filter1)
             ->excludeFile($filter2)
             ->build();
 
-        $this->returnValue = $this->configuration->apply($this->result);
+        $this->returnValue = $this->configuration->applyTo($this->result);
 
-        it('should apply configuration', function() {
+        it('apply configuration', function() {
             $files = $this->returnValue->getFiles();
+            $file = $files->last()->get();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->matchPath('/foo.php'))->toBeTrue();
+            expect($file->matchPath('/foo.php'))->toBeTrue();
         });
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
+        it('return cloak\driver\Result instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf('cloak\driver\Result');
         });
     });
 

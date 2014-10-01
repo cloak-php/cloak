@@ -51,7 +51,7 @@ Run the **configure** method to be set up.
 
 	use cloak\Analyzer;
 	use cloak\ConfigurationBuilder;
-	use cloak\Result\File;
+	use cloak\driver\result\File;
 
 	use Example as example;
 

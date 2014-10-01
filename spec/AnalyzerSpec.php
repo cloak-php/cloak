@@ -12,6 +12,7 @@
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
 use cloak\Result;
+use cloak\driver\Result as AnalyzeResult;
 use cloak\result\Line;
 use cloak\result\File;
 use \Mockery;
@@ -60,17 +61,27 @@ describe('Analyzer', function() {
 
     describe('#stop', function() {
         before(function() {
+
             $this->verify = function() {
                 Mockery::close();
             };
 
             $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+
+                $rootDirectory = __DIR__ . '/fixtures/src/';
+
+                $analyzeResult = AnalyzeResult::fromArray([
+                    $rootDirectory . 'foo.php' => [
+                        1 => Line::EXECUTED
+                    ]
+                ]);
+
                 $driver = Mockery::mock('cloak\Driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getResult')->once()->andReturn(array(
-                    'foo.php' => array( 1 => Line::EXECUTED )
-                ));
+                $driver->shouldReceive('getAnalyzeResult')
+                    ->once()->andReturn($analyzeResult);
+
                 $builder->driver($driver);
             });
 
@@ -158,10 +169,12 @@ describe('Analyzer', function() {
                     $rootDirectory . 'vendor/foo2.php' => array( 1 => Line::EXECUTED )
                 ];
 
+                $analyzeResult = AnalyzeResult::fromArray($coverageResults);
+
                 $driver = Mockery::mock('cloak\driver\DriverInterface');
                 $driver->shouldReceive('start')->once();
                 $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getResult')->twice()->andReturn($coverageResults);
+                $driver->shouldReceive('getAnalyzeResult')->twice()->andReturn($analyzeResult);
 
                 $builder->driver($driver)
                     ->includeFile(function(File $file) {

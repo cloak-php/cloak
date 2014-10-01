@@ -34,7 +34,7 @@ describe('AbstractDriver', function() {
         });
     });
 
-    describe('#getResult', function() {
+    describe('#getAnalyzeResult', function() {
         context('when after instantiation', function() {
             before(function() {
                 $this->verify = function() {
@@ -43,10 +43,10 @@ describe('AbstractDriver', function() {
                 $this->driver = Mockery::mock('cloak\driver\AbstractDriver')->makePartial();
                 $this->driver->shouldReceive('start')->never();
                 $this->driver->shouldReceive('stop')->never();
-                $this->result = $this->driver->getResult();
+                $this->result = $this->driver->getAnalyzeResult();
             });
-            it('should return array', function() {
-                expect($this->result)->toBeAn('array');
+            it('return cloak\driver\Result', function() {
+                expect($this->result)->toBeAnInstanceOf('cloak\driver\Result');
             });
             it('check mock object expectations', function() {
                 call_user_func($this->verify);

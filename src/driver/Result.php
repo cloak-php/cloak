@@ -12,10 +12,10 @@
 namespace cloak\driver;
 
 use cloak\driver\result\File;
-use PhpCollection\AbstractSequence;
+use cloak\driver\result\FileNotFoundException;
+use PhpCollection\AbstractMap;
+use PhpCollection\Map;
 use PhpCollection\Sequence;
-use Countable;
-use IteratorAggregate;
 use Closure;
 
 
@@ -23,33 +23,72 @@ use Closure;
  * Class Result
  * @package cloak\driver
  */
-class Result implements Countable, IteratorAggregate
+class Result
 {
 
     /**
-     * @var AbstractSequence
+     * @var AbstractMap
      */
     private $files;
 
 
     /**
-     * @param AbstractSequence $files
+     * @param AbstractMap $files
      */
-    public function __construct(AbstractSequence $files = null)
+    public function __construct(AbstractMap $files = null)
     {
         if (is_null($files)) {
-            $this->files = new Sequence();
+            $this->files = new Map();
         } else {
             $this->files = $files;
         }
     }
 
     /**
+     * @param array $results
+     * @return static
+     */
+    public static function fromArray(array $results)
+    {
+        $files = static::parseResult($results);
+        return new static($files);
+    }
+
+    /**
+     * @param array $results
+     * @return Map
+     */
+    protected static function parseResult(array $results)
+    {
+        $files = new Map();
+
+        foreach ($results as $path => $lineResults) {
+            try {
+                $file = new File($path, $lineResults);
+            } catch (FileNotFoundException $exception) {
+                continue;
+            }
+            $files->set($file->getPath(), $file);
+        }
+
+        return $files;
+    }
+
+    /**
      * @param File $file
      */
-    public function add(File $file)
+    public function addFile(File $file)
     {
-        $this->files->add($file);
+        $this->files->set($file->getPath(), $file);
+    }
+
+    /**
+     * @return Sequence
+     */
+    public function getFiles()
+    {
+        $files = new Sequence($this->files->values());
+        return $files;
     }
 
     /**
@@ -105,17 +144,17 @@ class Result implements Countable, IteratorAggregate
     /**
      * @return int
      */
-    public function count()
+    public function getFileCount()
     {
         return $this->files->count();
     }
 
     /**
-     * @return \Traversable
+     * @return bool
      */
-    public function getIterator()
+    public function isEmpty()
     {
-        return $this->files->getIterator();
+        return $this->files->isEmpty();
     }
 
 }

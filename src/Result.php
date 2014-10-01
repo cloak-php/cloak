@@ -14,6 +14,7 @@ namespace cloak;
 use cloak\value\Coverage;
 use cloak\result\File;
 use cloak\result\LineSet;
+use cloak\driver\Result as AnalyzeResult;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
 use \UnexpectedValueException;
@@ -26,8 +27,15 @@ use \UnexpectedValueException;
 class Result implements CoverageResultInterface
 {
 
-    private $files = null;
+    /**
+     * @var AbstractSequence
+     */
+    private $files;
 
+
+    /**
+     * @param AbstractSequence $files
+     */
     public function __construct(AbstractSequence $files = null)
     {
         if (is_null($files)) {
@@ -37,22 +45,30 @@ class Result implements CoverageResultInterface
         }
     }
 
-    public static function from(array $result)
+    /**
+     * @param driver\Result $result
+     * @return Result
+     */
+    public static function fromAnalyzeResult(AnalyzeResult $result)
     {
         $files = static::parseResult($result);
-
         return new self($files);
     }
 
-    public static function parseResult(array $result)
+    /**
+     * @param driver\Result $result
+     * @return Sequence
+     */
+    public static function parseResult(AnalyzeResult $result)
     {
-        $files = new Sequence(); 
+        $files = new Sequence();
+        $fileResults = $result->getFiles();
 
-        foreach ($result as $path => $lines) {
-            if (file_exists($path) === false) {
-                continue;
-            }
-            $files->add(new File($path, LineSet::from($lines)));
+        foreach ($fileResults as $fileResult) {
+            $path = $fileResult->getPath();
+            $lineResults = LineSet::from( $fileResult->getLineResults() );
+            $file = new File($path, $lineResults);
+            $files->add($file);
         }
 
         return $files;
