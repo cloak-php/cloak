@@ -53,8 +53,7 @@ describe('Configuration', function() {
 
         it('apply configuration', function() {
             $files = $this->returnValue->getFiles();
-            $values = $files->last()->get();
-            $file = array_pop($values);
+            $file = $files->last()->get();
             expect($files->count())->toBe(1);
             expect($file->matchPath('/foo.php'))->toBeTrue();
         });
