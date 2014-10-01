@@ -27,11 +27,11 @@ describe('Result', function() {
     $this->returnValue = null;
 
     describe('#from', function() {
-        $file = new AnalyzeFile($this->rootDirectory . 'foo.php', [ 1 => Line::EXECUTED ]);
-
-        $analyzeResult = new AnalyzeResult(new Map([
-            $file->getPath() => $file
-        ]));
+        $analyzeResult = AnalyzeResult::fromArray([
+            $this->rootDirectory . 'foo.php' => [
+                1 => Line::EXECUTED
+            ]
+        ]);
         $this->returnValue = Result::from($analyzeResult);
 
         it('should return cloak\Result instance', function() {
@@ -40,7 +40,7 @@ describe('Result', function() {
     });
 
     describe('#includeFile', function() {
-        $coverageResults = [
+        $results = [
             $this->rootDirectory . 'foo.php' => [
                 1 => Line::EXECUTED,
                 2 => Line::UNUSED,
@@ -53,13 +53,8 @@ describe('Result', function() {
             ]
         ];
 
-        $fileResults = [];
+        $analyzeResult = AnalyzeResult::fromArray($results);
 
-        foreach ($coverageResults as $path => $lineResults) {
-            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
-        }
-
-        $analyzeResult = new AnalyzeResult(new Map($fileResults));
         $this->result = Result::from($analyzeResult);
         $this->returnValue = $this->result->includeFile(function(File $file) {
             return $file->matchPath('bar.php');
@@ -76,18 +71,13 @@ describe('Result', function() {
     });
 
     describe('#includeFiles', function() {
-        $coverageResults = [
+        $results = [
             $this->rootDirectory . 'foo1.php' => [ 1 => Line::EXECUTED ],
             $this->rootDirectory . 'vendor/foo1.php' => [ 1 => Line::EXECUTED ],
             $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
-        $fileResults = [];
-        foreach ($coverageResults as $path => $lineResults) {
-            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
-        }
-
-        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $analyzeResult = AnalyzeResult::fromArray($results);
         $this->result = Result::from($analyzeResult);
 
         $filter1 = function(File $file) {
@@ -108,17 +98,12 @@ describe('Result', function() {
     });
 
     describe('#excludeFile', function() {
-        $coverageResults = [
+        $results = [
             $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
             $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
-        $fileResults = [];
-        foreach ($coverageResults as $path => $lineResults) {
-            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
-        }
-
-        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $analyzeResult = AnalyzeResult::fromArray($results);
         $this->result = Result::from($analyzeResult);
 
         $this->returnValue = $this->result->excludeFile(function(File $file) {
@@ -136,17 +121,12 @@ describe('Result', function() {
     });
 
     describe('#excludeFiles', function() {
-        $coverageResults = [
+        $results = [
             $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
             $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
         ];
 
-        $fileResults = [];
-        foreach ($coverageResults as $path => $lineResults) {
-            $fileResults[$path] = new AnalyzeFile($path, $lineResults);
-        }
-
-        $analyzeResult = new AnalyzeResult(new Map($fileResults));
+        $analyzeResult = AnalyzeResult::fromArray($results);
         $this->result = Result::from($analyzeResult);
 
         $filter1 = function(File $file) {
