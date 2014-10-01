@@ -25,11 +25,18 @@ class File
      */
     private $path;
 
+    /**
+     * @var array
+     */
+    private $resultLines;
+
 
     /**
      * @param string $path
+     * @param array $resultLines
+     * @throws \Eloquent\Pathogen\Exception\NonAbsolutePathException
      */
-    public function __construct($path)
+    public function __construct($path, $resultLines = [])
     {
         $absolutePath = AbsolutePath::fromString($path);
 
@@ -37,6 +44,7 @@ class File
             throw new FileNotFoundException("'$path' file does not exist");
         }
         $this->path = $absolutePath;
+        $this->resultLines = $resultLines;
     }
 
     /**
@@ -45,6 +53,14 @@ class File
     public function getPath()
     {
         return (string) $this->path;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLineResults()
+    {
+        return $this->resultLines;
     }
 
     /**

@@ -12,8 +12,8 @@
 namespace cloak\driver;
 
 use cloak\driver\result\File;
-use PhpCollection\AbstractSequence;
-use PhpCollection\Sequence;
+use PhpCollection\AbstractMap;
+use PhpCollection\Map;
 use Countable;
 use IteratorAggregate;
 use Closure;
@@ -27,18 +27,18 @@ class Result implements Countable, IteratorAggregate
 {
 
     /**
-     * @var AbstractSequence
+     * @var AbstractMap
      */
     private $files;
 
 
     /**
-     * @param AbstractSequence $files
+     * @param AbstractMap $files
      */
-    public function __construct(AbstractSequence $files = null)
+    public function __construct(AbstractMap $files = null)
     {
         if (is_null($files)) {
-            $this->files = new Sequence();
+            $this->files = new Map();
         } else {
             $this->files = $files;
         }
@@ -49,7 +49,7 @@ class Result implements Countable, IteratorAggregate
      */
     public function add(File $file)
     {
-        $this->files->add($file);
+        $this->files->set($file->getPath(), $file);
     }
 
     /**
