@@ -44,4 +44,12 @@ abstract class AbstractDriver implements DriverInterface
         return $this->analyzeResult;
     }
 
+    /**
+     * @return Result
+     */
+    public function getAnalyzeResult()
+    {
+        return Result::fromArray($this->analyzeResult);
+    }
+
 }

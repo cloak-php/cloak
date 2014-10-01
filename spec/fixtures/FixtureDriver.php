@@ -38,4 +38,8 @@ class FixtureDriver implements DriverInterface
     {
     }
 
+    public function getAnalyzeResult()
+    {
+    }
+
 }

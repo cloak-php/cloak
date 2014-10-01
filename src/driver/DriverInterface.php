@@ -38,4 +38,9 @@ interface DriverInterface
      */
     public function getResult();
 
+    /**
+     * @return Result
+     */
+    public function getAnalyzeResult();
+
 }

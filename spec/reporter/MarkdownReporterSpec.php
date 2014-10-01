@@ -12,6 +12,7 @@
 use cloak\Result;
 use cloak\result\Line;
 use cloak\reporter\MarkdownReporter;
+use cloak\driver\Result as AnalyzeResult;
 use \Mockery;
 use \DateTime;
 
@@ -36,8 +37,9 @@ describe('MarkdownReporter', function() {
                 15 => Line::EXECUTED
             ]
         ];
+        $analyzeResult = AnalyzeResult::fromArray($coverageResults);
 
-        $this->result = Result::from($coverageResults);
+        $this->result = Result::fromAnalyzeResult($analyzeResult);
     });
 
     describe('onStop', function() {

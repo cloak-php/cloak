@@ -12,8 +12,10 @@
 namespace cloak;
 
 use cloak\Result;
+use cloak\driver\Result as AnalyzeResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
+
 
 /**
  * Class Configuration
@@ -52,6 +54,16 @@ class Configuration
         return $result->includeFiles($this->includeFiles)
             ->excludeFiles($this->excludeFiles);
 
+    }
+
+    /**
+     * @param \cloak\driver\Result $result
+     * @return \cloak\driver\Result
+     */
+    public function applyTo(AnalyzeResult $result)
+    {
+        return $result->includeFiles($this->includeFiles)
+            ->excludeFiles($this->excludeFiles);
     }
 
     public function __get($name)

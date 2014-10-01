@@ -12,6 +12,7 @@
 use cloak\Result;
 use cloak\result\Line;
 use cloak\AnalyzeLifeCycleNotifier;
+use cloak\driver\Result as AnalyzeResult;
 use \Mockery;
 
 describe('AnalyzeLifeCycleNotifier', function() {
@@ -63,7 +64,8 @@ describe('AnalyzeLifeCycleNotifier', function() {
                 $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
             ];
 
-            $this->result = Result::from($coverageResults);
+            $analyzeResult = AnalyzeResult::fromArray($coverageResults);
+            $this->result = Result::fromAnalyzeResult($analyzeResult);
 
             $subject = $this->subject = new \stdClass();
             $reporter = $this->reporter = Mockery::mock('cloak\reporter\ReporterInterface');
