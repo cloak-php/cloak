@@ -29,7 +29,12 @@ class File
      */
     public function __construct($path)
     {
-        $this->path = $path;
+        $realpath = realpath($path);
+
+        if ($realpath === false) {
+            throw new FileNotFoundException("'$path' file does not exist");
+        }
+        $this->path = $realpath;
     }
 
     /**

@@ -14,7 +14,7 @@ use cloak\driver\result\File;
 describe('File', function() {
     describe('#matchPath', function() {
         before(function() {
-            $rootDirectory = __DIR__ . '/../../../fixtures/src/';
+            $rootDirectory = __DIR__ . '/../../fixtures/src/';
 
             $filePath = $rootDirectory . 'foo.php';
             $this->file = new File($filePath);

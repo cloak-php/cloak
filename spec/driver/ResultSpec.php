@@ -15,7 +15,7 @@ use cloak\driver\result\File;
 describe('Result', function() {
     describe('#add', function() {
         before(function() {
-            $rootDirectory = __DIR__ . '/../../fixtures/src/';
+            $rootDirectory = __DIR__ . '/../fixtures/src/';
             $this->filePath = $rootDirectory . 'foo.php';
 
             $this->result = new Result();
