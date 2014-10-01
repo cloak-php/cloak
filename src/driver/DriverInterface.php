@@ -34,11 +34,6 @@ interface DriverInterface
     public function isStarted();
 
     /**
-     * @return array
-     */
-    public function getResult();
-
-    /**
      * @return Result
      */
     public function getAnalyzeResult();

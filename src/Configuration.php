@@ -24,10 +24,26 @@ use \InvalidArgumentException;
 class Configuration
 {
 
-    private $driver = null;
-    private $reporter = null;
+    /**
+     * @var \cloak\driver\DriverInterface
+     */
+    private $driver;
+
+    /**
+     * @var \cloak\reporter\ReporterInterface
+     */
+    private $reporter;
+
+    /**
+     * @var array
+     */
     private $includeFiles = [];
+
+    /**
+     * @var array
+     */
     private $excludeFiles = [];
+
 
     /**
      * @param array $values
@@ -42,18 +58,13 @@ class Configuration
         }
     }
 
+    /**
+     * @return XdebugDriver|null
+     */
     protected function getDriver()
     {
-        $this->driver = $this->driver ?: new XdebugDriver();
+        $this->driver = $this->driver ? $this->driver : new XdebugDriver();
         return $this->driver;
-    }
-
-    public function apply(Result $result)
-    {
-
-        return $result->includeFiles($this->includeFiles)
-            ->excludeFiles($this->excludeFiles);
-
     }
 
     /**
@@ -66,6 +77,10 @@ class Configuration
             ->excludeFiles($this->excludeFiles);
     }
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function __get($name)
     {
         $getter = 'get' . ucwords($name);
