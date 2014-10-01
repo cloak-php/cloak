@@ -15,7 +15,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
-use cloak\Result\File;
+use cloak\driver\result\File;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ProcessingTimeReporter;
 use cloak\reporter\TextReporter;
