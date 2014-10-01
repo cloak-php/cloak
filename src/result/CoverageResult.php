@@ -13,12 +13,11 @@ namespace cloak\result;
 
 use cloak\value\Coverage;
 
-
 /**
- * Class NamedCoverageResult
+ * Trait CoverageResult
  * @package cloak\result
  */
-abstract class AbstractNamedCoverageResult
+trait CoverageResult
 {
 
     /**
