@@ -49,27 +49,11 @@ class Result implements CoverageResultInterface
      * @param driver\Result $result
      * @return Result
      */
-    public static function from(AnalyzeResult $result)
+    public static function fromAnalyzeResult(AnalyzeResult $result)
     {
         $files = static::parseResult($result);
         return new self($files);
     }
-
-/*
-    public static function parseResult(array $result)
-    {
-        $files = new Sequence(); 
-
-        foreach ($result as $path => $lines) {
-            if (file_exists($path) === false) {
-                continue;
-            }
-            $files->add(new File($path, LineSet::from($lines)));
-        }
-
-        return $files;
-    }
-*/
 
     /**
      * @param driver\Result $result

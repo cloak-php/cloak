@@ -15,10 +15,8 @@ use cloak\value\Coverage;
 use cloak\result\Line;
 use cloak\result\File;
 use cloak\result\LineSet;
-use cloak\driver\result\File as AnalyzeFile;
 use cloak\driver\Result as AnalyzeResult;
 use PhpCollection\Sequence;
-use PhpCollection\Map;
 
 
 describe('Result', function() {
@@ -26,13 +24,13 @@ describe('Result', function() {
     $this->rootDirectory = __DIR__ . '/fixtures/src/';
     $this->returnValue = null;
 
-    describe('#from', function() {
+    describe('#fromAnalyzeResult', function() {
         $analyzeResult = AnalyzeResult::fromArray([
             $this->rootDirectory . 'foo.php' => [
                 1 => Line::EXECUTED
             ]
         ]);
-        $this->returnValue = Result::from($analyzeResult);
+        $this->returnValue = Result::fromAnalyzeResult($analyzeResult);
 
         it('should return cloak\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
@@ -55,7 +53,7 @@ describe('Result', function() {
 
         $analyzeResult = AnalyzeResult::fromArray($results);
 
-        $this->result = Result::from($analyzeResult);
+        $this->result = Result::fromAnalyzeResult($analyzeResult);
         $this->returnValue = $this->result->includeFile(function(File $file) {
             return $file->matchPath('bar.php');
         });
@@ -78,7 +76,7 @@ describe('Result', function() {
         ];
 
         $analyzeResult = AnalyzeResult::fromArray($results);
-        $this->result = Result::from($analyzeResult);
+        $this->result = Result::fromAnalyzeResult($analyzeResult);
 
         $filter1 = function(File $file) {
             return $file->matchPath('foo1.php');
@@ -104,7 +102,7 @@ describe('Result', function() {
         ];
 
         $analyzeResult = AnalyzeResult::fromArray($results);
-        $this->result = Result::from($analyzeResult);
+        $this->result = Result::fromAnalyzeResult($analyzeResult);
 
         $this->returnValue = $this->result->excludeFile(function(File $file) {
             return $file->matchPath('foo.php');
@@ -127,7 +125,7 @@ describe('Result', function() {
         ];
 
         $analyzeResult = AnalyzeResult::fromArray($results);
-        $this->result = Result::from($analyzeResult);
+        $this->result = Result::fromAnalyzeResult($analyzeResult);
 
         $filter1 = function(File $file) {
             return $file->matchPath('foo.php');
