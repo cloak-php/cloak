@@ -22,6 +22,9 @@ use cloak\reporter\TextReporter;
 use cloak\reporter\LcovReporter;
 use cloak\reporter\MarkdownReporter;
 use Symfony\Component\Yaml\Yaml;
+use RecursiveDirectoryIterator;
+use FilesystemIterator;
+use RecursiveIteratorIterator;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
@@ -39,12 +42,35 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
 });
 
+$directoryIterator = new RecursiveDirectoryIterator(__DIR__ . '/../spec',
+    FilesystemIterator::CURRENT_AS_FILEINFO |
+    FilesystemIterator::KEY_AS_PATHNAME |
+    FilesystemIterator::SKIP_DOTS
+);
+
+$filterIterator = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::LEAVES_ONLY);
+
+$targetFiles = [];
+$coverageConfig = Yaml::parse(__DIR__ . '/../coverage.yml');
+$excludeTargets = $coverageConfig['targets'];
+
+$quotePatterns = array_map(function($excludeTarget) {
+    return preg_quote($excludeTarget, DIRECTORY_SEPARATOR);
+}, $excludeTargets);
+
+$pattern = '(' . implode('|', $quotePatterns) . ')';
+
+foreach ($filterIterator as $key => $file) {
+    if (preg_match("/{$pattern}/", $file->getPathname()) === 1) {
+        continue;
+    }
+    $targetFiles[] = $file;
+}
+
 $analyzer->start();
 
-
 $defaultArgv = array('../vendor/bin/pho', '--stop');
-$coverageConfig = Yaml::parse(__DIR__ . '/../coverage.yml');
-$argv = array_merge($defaultArgv, $coverageConfig['targets']);
+$argv = array_merge($defaultArgv, $targetFiles);
 
 require_once __DIR__ . "/../vendor/bin/pho";
 
