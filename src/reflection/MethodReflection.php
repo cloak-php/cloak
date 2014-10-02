@@ -39,6 +39,23 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->reflection->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespaceName()
+    {
+        $declaringClass = $this->reflection->getDeclaringClass();
+        return $declaringClass->getNamespaceName();
+    }
+
+    /**
      * @return LineRange
      */
     public function getLineRange()

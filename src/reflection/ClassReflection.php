@@ -49,6 +49,14 @@ class ClassReflection implements ReflectionInterface
     }
 
     /**
+     * @return string
+     */
+    public function getNamespaceName()
+    {
+        return $this->reflection->getNamespaceName();
+    }
+
+    /**
      * @return bool
      */
     public function isTrait()
@@ -92,7 +100,7 @@ class ClassReflection implements ReflectionInterface
         $methods = $this->reflection->getMethods();
 
         $reflections = new Sequence($methods);
-        $reflections->map(function(ZendMethodReflection $reflection) {
+        $reflections = $reflections->map(function(ZendMethodReflection $reflection) {
             $class = $reflection->getDeclaringClass()->getName();
             $methodName = $reflection->getName();
 

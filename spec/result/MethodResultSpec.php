@@ -13,7 +13,7 @@ use cloak\result\MethodResult;
 use cloak\result\LineSet;
 use cloak\result\Line;
 use cloak\value\Coverage;
-use Zend\Code\Reflection\MethodReflection;
+use cloak\reflection\MethodReflection;
 use \Mockery;
 
 
