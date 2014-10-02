@@ -36,7 +36,7 @@ final class MethodResult implements NamedCoverageResultInterface
      */
     public function __construct(MethodReflection $methodReflection, LineSetInterface $methodLineResults)
     {
-        $rangeResults = $methodReflection->resolveLineResults($methodLineResults);
+        $rangeResults = $methodLineResults->resolveLineResults($methodReflection);
         $this->reflection = $methodReflection;
         $this->lineResults = $rangeResults;
     }

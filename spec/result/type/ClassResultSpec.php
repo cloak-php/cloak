@@ -55,7 +55,7 @@ describe('ClassResult', function() {
             $this->cleanClassLineResults = Mockery::mock('cloak\result\LineSetInterface');
 
             $this->classLineResults = Mockery::mock('cloak\result\LineSetInterface');
-            $this->classLineResults->shouldReceive('selectRange')
+            $this->classLineResults->shouldReceive('resolveLineResults')
                 ->once()->andReturn($this->cleanClassLineResults);
 
             $classReflection = new ClassReflection('Example\\Example');

@@ -84,15 +84,6 @@ class ClassReflection implements ReflectionInterface
     }
 
     /**
-     * @param LineSetInterface $lineResults
-     * @return \cloak\result\LineSet
-     */
-    public function resolveLineResults(LineSetInterface $lineResults)
-    {
-        return $lineResults->selectRange($this->getLineRange());
-    }
-
-    /**
      * @return ReflectionCollection
      */
     public function getMethods()

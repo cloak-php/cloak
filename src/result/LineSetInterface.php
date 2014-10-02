@@ -13,6 +13,7 @@ namespace cloak\result;
 
 use cloak\CoverageResultInterface;
 use cloak\value\LineRange;
+use cloak\reflection\ReflectionInterface;
 use \Iterator;
 
 
@@ -28,5 +29,11 @@ interface LineSetInterface extends CoverageResultInterface, Iterator
      * @return LineSet
      */
     public function selectRange(LineRange $lineRange);
+
+    /**
+     * @param ReflectionInterface $reflection
+     * @return LineSetInterface
+     */
+    public function resolveLineResults(ReflectionInterface $reflection);
 
 }

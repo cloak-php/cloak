@@ -66,13 +66,4 @@ class MethodReflection implements ReflectionInterface
         return new LineRange($startLine, $endLine);
     }
 
-    /**
-     * @param LineSetInterface $lineResults
-     * @return \cloak\result\LineSet
-     */
-    public function resolveLineResults(LineSetInterface $lineResults)
-    {
-        return $lineResults->selectRange($this->getLineRange());
-    }
-
 }

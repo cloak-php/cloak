@@ -41,7 +41,7 @@ describe('MethodResult', function() {
             $this->cleanMethodLineResults = Mockery::mock('cloak\result\LineSetInterface');
 
             $this->methodLineResults = Mockery::mock('cloak\result\LineSetInterface');
-            $this->methodLineResults->shouldReceive('selectRange')
+            $this->methodLineResults->shouldReceive('resolveLineResults')
                 ->once()->andReturn($this->cleanMethodLineResults);
 
             $methodReflection = new MethodReflection('Example\\Example', '__construct');

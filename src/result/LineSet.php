@@ -13,7 +13,9 @@ namespace cloak\result;
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
+use cloak\reflection\ReflectionInterface;
 use PhpCollection\Sequence;
+
 
 /***
  * Class LineSet
@@ -129,6 +131,16 @@ class LineSet implements LineSetInterface
         });
 
         return new self($lines->all());
+    }
+
+    /**
+     * @param ReflectionInterface $reflection
+     * @return LineSet|LineSetInterface
+     */
+    public function resolveLineResults(ReflectionInterface $reflection)
+    {
+        $lineRange = $reflection->getLineRange();
+        return $this->selectRange($lineRange);
     }
 
     /**

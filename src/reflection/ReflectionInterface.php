@@ -32,10 +32,4 @@ interface ReflectionInterface
      */
     public function getLineRange();
 
-    /**
-     * @param LineSetInterface $lineResults
-     * @return \cloak\result\LineSet
-     */
-    public function resolveLineResults(LineSetInterface $lineResults);
-
 }

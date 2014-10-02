@@ -30,13 +30,14 @@ abstract class AbstractTypeResult
      */
     private $reflection;
 
+
     /**
      * @param ClassReflection $classReflection
      * @param LineSet $classLineResults
      */
     public function __construct(ClassReflection $classReflection, LineSetInterface $classLineResults)
     {
-        $rangeResults = $classReflection->resolveLineResults($classLineResults);
+        $rangeResults = $classLineResults->resolveLineResults($classReflection);
         $this->reflection = $classReflection;
         $this->lineResults = $rangeResults;
     }
