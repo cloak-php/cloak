@@ -11,7 +11,11 @@
 
 namespace cloak\reflection;
 
+use cloak\reflection\collection\ReflectionCollection;
+use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
+use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
+
 
 /**
  * Class ClassReflection
@@ -32,10 +36,6 @@ class ClassReflection implements ReflectionInterface
     public function __construct($className)
     {
         $this->reflection = new ZendClassReflection($className);
-    }
-
-    public function getMethods()
-    {
     }
 
     /**
@@ -60,6 +60,24 @@ class ClassReflection implements ReflectionInterface
     public function isClass()
     {
         return $this->isTrait() === false;
+    }
+
+    /**
+     * @return ReflectionCollection
+     */
+    public function getMethods()
+    {
+        $methods = $this->reflection->getMethods();
+
+        $reflections = new Sequence($methods);
+        $reflections->map(function(ZendMethodReflection $reflection) {
+            $class = $reflection->getDeclaringClass()->getName();
+            $methodName = $reflection->getName();
+
+            return new MethodReflection($class, $methodName);
+        });
+
+        return new ReflectionCollection($reflections);
     }
 
 }
