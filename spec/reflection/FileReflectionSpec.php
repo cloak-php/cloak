@@ -10,14 +10,21 @@
  */
 
 use cloak\reflection\FileReflection;
+use cloak\reflection\ClassReflection;
 
 
 describe('FileReflection', function() {
+
     describe('#getClasses', function() {
         before(function() {
             $filePath = __DIR__ . '/../fixtures/src/foo.php';
             $reflection = new FileReflection($filePath);
-            $this->result = $reflection->getClasses();
+
+            $result = $reflection->getClasses();
+            $result = $result->filter(function(ClassReflection $reflection) {
+                return $reflection->isTrait();
+            });
+            $this->result = $result;
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
@@ -26,11 +33,17 @@ describe('FileReflection', function() {
             expect($this->result->isEmpty())->toBeFalse();
         });
     });
+
     describe('#getTraits', function() {
         before(function() {
             $filePath = __DIR__ . '/../fixtures/src/foo.php';
             $reflection = new FileReflection($filePath);
-            $this->result = $reflection->getTraits();
+
+            $result = $reflection->getTraits();
+            $result = $result->filter(function(ClassReflection $reflection) {
+                return $reflection->isClass();
+            });
+            $this->result = $result;
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
@@ -39,4 +52,5 @@ describe('FileReflection', function() {
             expect($this->result->isEmpty())->toBeFalse();
         });
     });
+
 });

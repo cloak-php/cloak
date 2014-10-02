@@ -38,4 +38,28 @@ class ClassReflection implements ReflectionInterface
     {
     }
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->reflection->getName();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTrait()
+    {
+        return $this->reflection->isTrait();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClass()
+    {
+        return $this->isTrait() === false;
+    }
+
 }

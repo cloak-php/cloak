@@ -15,6 +15,7 @@ use PhpCollection\Sequence;
 use PhpCollection\SequenceInterface;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
+use \Closure;
 
 
 /**
@@ -48,6 +49,16 @@ class ReflectionCollection implements CollectionInterface
     public function add(ReflectionInterface $reflection)
     {
         $this->collection->add($reflection);
+    }
+
+    /**
+     * @param callable $filter
+     * @return ReflectionCollection
+     */
+    public function filter(Closure $filter)
+    {
+        $collection = $this->collection->filter($filter);
+        return new self($collection);
     }
 
     /**
