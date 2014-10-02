@@ -12,6 +12,8 @@
 namespace cloak\reflection;
 
 use cloak\reflection\collection\ReflectionCollection;
+use cloak\value\LineRange;
+use cloak\result\LineSetInterface;
 use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
@@ -60,6 +62,26 @@ class ClassReflection implements ReflectionInterface
     public function isClass()
     {
         return $this->isTrait() === false;
+    }
+
+    /**
+     * @return LineRange
+     */
+    public function getLineRange()
+    {
+        $startLine = $this->reflection->getStartLine();
+        $endLine = $this->reflection->getEndLine();
+
+        return new LineRange($startLine, $endLine);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return \cloak\result\LineSet
+     */
+    public function resolveLineResults(LineSetInterface $lineResults)
+    {
+        return $lineResults->selectRange($this->getLineRange());
     }
 
     /**

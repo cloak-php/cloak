@@ -11,8 +11,10 @@
 
 namespace cloak\reflection;
 
-use PhpCollection\Sequence;
 use cloak\reflection\collection\ReflectionCollection;
+use cloak\value\LineRange;
+use cloak\result\LineSetInterface;
+use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\FileReflection as ZendFileReflection;
 use Closure;
@@ -30,6 +32,11 @@ class FileReflection implements ReflectionInterface
      */
     private $reflection;
 
+    /**
+     * @var LineRange
+     */
+    private $lineRange;
+
 
     /**
      * @param string $filename
@@ -37,6 +44,11 @@ class FileReflection implements ReflectionInterface
     public function __construct($filename)
     {
         $this->reflection = new ZendFileReflection($filename, true);
+
+        $content = $this->reflection->getContents(); //$fileReflection->getEndLine() return null....
+        $totalLineCount = substr_count(trim($content), PHP_EOL) + 1;
+
+        $this->lineRange = new LineRange(1, $totalLineCount);
     }
 
     /**
@@ -57,6 +69,23 @@ class FileReflection implements ReflectionInterface
         return $this->selectClassReflections(function(ZendClassReflection $reflection) {
             return $reflection->isTrait() === false;
         });
+    }
+
+    /**
+     * @return LineRange
+     */
+    public function getLineRange()
+    {
+        return $this->lineRange;
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return \cloak\result\LineSet
+     */
+    public function resolveLineResults(LineSetInterface $lineResults)
+    {
+        return $lineResults->selectRange($this->getLineRange());
     }
 
     /**
