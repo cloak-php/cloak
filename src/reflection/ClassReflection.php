@@ -14,6 +14,9 @@ namespace cloak\reflection;
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\value\LineRange;
 use cloak\result\LineSetInterface;
+use cloak\result\type\ClassResult;
+use cloak\result\type\TraitResult;
+use cloak\result\AbstractTypeResultInterface;
 use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
@@ -99,6 +102,23 @@ class ClassReflection implements ReflectionInterface
         });
 
         return new ReflectionCollection($reflections);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return AbstractTypeResultInterface
+     */
+    public function assembleBy(LineSetInterface $lineResults)
+    {
+        $result = null;
+
+        if ($this->isClass()) {
+            $result = new ClassResult($this, $lineResults);
+        } else {
+            $result = new TraitResult($this, $lineResults);
+        }
+
+        return $result;
     }
 
 }

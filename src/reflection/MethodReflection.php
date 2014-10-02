@@ -13,6 +13,7 @@ namespace cloak\reflection;
 
 use cloak\value\LineRange;
 use cloak\result\LineSetInterface;
+use cloak\result\MethodResult;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
 
 
@@ -64,6 +65,15 @@ class MethodReflection implements ReflectionInterface
         $endLine = $this->reflection->getEndLine();
 
         return new LineRange($startLine, $endLine);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return MethodResult
+     */
+    public function assembleBy(LineSetInterface $lineResults)
+    {
+        return new MethodResult($this, $lineResults);
     }
 
 }

@@ -10,9 +10,9 @@
  */
 
 use cloak\reflection\ClassReflection;
+use cloak\result\LineSet;
 
 describe('ClassReflection', function() {
-
     describe('#getMethods', function() {
         before(function() {
             $reflection = new ClassReflection('Example\Example');
@@ -25,5 +25,13 @@ describe('ClassReflection', function() {
             expect($this->result->isEmpty())->toBeFalse();
         });
     });
-
+    describe('assembleBy', function() {
+        before(function() {
+            $reflection = new ClassReflection('Example\Example');
+            $this->result = $reflection->assembleBy(new LineSet());
+        });
+        it('return cloak\result\type\ClassResult', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
+        });
+    });
 });
