@@ -44,35 +44,36 @@ class FileReflection implements ReflectionInterface
      */
     public function getClasses()
     {
-        $reflections = $this->selectClassReflections(function(ZendClassReflection $reflection) {
+        return $this->selectClassReflections(function(ZendClassReflection $reflection) {
             return $reflection->isTrait() === false;
-        })->map(function(ZendClassReflection $reflection) {
-            return new ClassReflection($reflection);
         });
-
-        return new ReflectionCollection($reflections);
-    }
-
-    public function getTraits()
-    {
-        $reflections = $this->selectClassReflections(function(ZendClassReflection $reflection) {
-            return $reflection->isTrait();
-        })->map(function(ZendClassReflection $reflection) {
-            return new ClassReflection($reflection);
-        });
-
-        return new ReflectionCollection($reflections);
     }
 
     /**
-     * @param Closure $filter
-     * @return \PhpCollection\AbstractSequence
+     * @return ReflectionCollection
+     */
+    public function getTraits()
+    {
+        return $this->selectClassReflections(function(ZendClassReflection $reflection) {
+            return $reflection->isTrait();
+        });
+    }
+
+    /**
+     * @param callable $filter
+     * @return ReflectionCollection
      */
     private function selectClassReflections(Closure $filter)
     {
         $classes = $this->reflection->getClasses();
+
         $reflections = new Sequence($classes);
-        return $reflections->filter($filter);
+        $reflections->filter($filter)
+            ->map(function(ZendClassReflection $reflection) {
+                return new ClassReflection($reflection);
+            });
+
+        return new ReflectionCollection($reflections);
     }
 
 }
