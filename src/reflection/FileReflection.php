@@ -52,6 +52,14 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->reflection->getFileName();
+    }
+
+    /**
      * @return ReflectionCollection
      */
     public function getClasses()
