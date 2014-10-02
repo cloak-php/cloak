@@ -11,7 +11,12 @@
 
 namespace cloak\reflection;
 
+use PhpCollection\Sequence;
+use cloak\reflection\collection\ReflectionCollection;
+use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\FileReflection as ZendFileReflection;
+use Closure;
+
 
 /**
  * Class FileReflection
@@ -34,12 +39,40 @@ class FileReflection implements ReflectionInterface
         $this->reflection = new ZendFileReflection($filename, true);
     }
 
+    /**
+     * @return ReflectionCollection
+     */
     public function getClasses()
     {
+        $reflections = $this->selectClassReflections(function(ZendClassReflection $reflection) {
+            return $reflection->isTrait() === false;
+        })->map(function(ZendClassReflection $reflection) {
+            return new ClassReflection($reflection);
+        });
+
+        return new ReflectionCollection($reflections);
     }
 
     public function getTraits()
     {
+        $reflections = $this->selectClassReflections(function(ZendClassReflection $reflection) {
+            return $reflection->isTrait();
+        })->map(function(ZendClassReflection $reflection) {
+            return new ClassReflection($reflection);
+        });
+
+        return new ReflectionCollection($reflections);
+    }
+
+    /**
+     * @param Closure $filter
+     * @return \PhpCollection\AbstractSequence
+     */
+    private function selectClassReflections(Closure $filter)
+    {
+        $classes = $this->reflection->getClasses();
+        $reflections = new Sequence($classes);
+        return $reflections->filter($filter);
     }
 
 }

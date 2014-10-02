@@ -11,5 +11,32 @@
 
 use cloak\reflection\FileReflection;
 
+
 describe('FileReflection', function() {
+    describe('#getClasses', function() {
+        before(function() {
+            $filePath = __DIR__ . '/../fixtures/src/foo.php';
+            $reflection = new FileReflection($filePath);
+            $this->result = $reflection->getClasses();
+        });
+        it('return cloak\reflection\collection\ReflectionCollection', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+        });
+        it('return a collection of classes', function() {
+            expect($this->result->isEmpty())->toBeFalse();
+        });
+    });
+    describe('#getTraits', function() {
+        before(function() {
+            $filePath = __DIR__ . '/../fixtures/src/foo.php';
+            $reflection = new FileReflection($filePath);
+            $this->result = $reflection->getTraits();
+        });
+        it('return cloak\reflection\collection\ReflectionCollection', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+        });
+        it('return a collection of tratis', function() {
+            expect($this->result->isEmpty())->toBeFalse();
+        });
+    });
 });
