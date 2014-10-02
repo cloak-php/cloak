@@ -19,8 +19,11 @@ describe('XdebugDriver', function() {
         before(function() {
             $this->driver->start();
         });
-        it('should analyze start', function() {
-            expect($this->driver->getResult())->toBeEmpty();
+        it('report of coverage has not been collected', function() {
+            $result = $this->driver->getAnalyzeResult();
+            expect($result->isEmpty())->toBeTrue();
+        });
+        it('started the analysis', function() {
             expect($this->driver->isStarted())->toBeTrue();
         });
     });
@@ -32,8 +35,10 @@ describe('XdebugDriver', function() {
             $this->driver->start();
             $this->driver->stop();
         });
-        it('should analyze stop', function() {
-            expect($this->driver->getResult())->toBeAn('array');
+        it('report of coverage is being collected', function() {
+            expect($this->driver->getAnalyzeResult())->toBeAnInstanceOf('cloak\driver\Result');
+        });
+        it('stoped the analysis', function() {
             expect($this->driver->isStarted())->toBeFalse();
         });
     });
