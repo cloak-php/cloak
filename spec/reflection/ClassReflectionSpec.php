@@ -31,20 +31,19 @@ describe('ClassReflection', function() {
     describe('assembleBy', function() {
         before(function() {
             $result = $this->reflection->assembleBy(new LineSet([
-                new Line(24, Line::EXECUTED),
                 new Line(29, Line::UNUSED)
             ]));
             $this->result = $result;
         });
-        describe('assemble result', function() {
-            it('return cloak\result\type\ClassResult', function() {
-                expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
-            });
+        it('return cloak\result\type\ClassResult', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
+        });
+        context('when line 29 unused', function() {
             it('have unused line result', function() {
                 expect($this->result->getUnusedLineCount())->toBe(1);
             });
-            it('have executed line result', function() {
-                expect($this->result->getExecutedLineCount())->toBe(1);
+            it('have not executed line result', function() {
+                expect($this->result->getExecutedLineCount())->toBe(0);
             });
         });
     });
