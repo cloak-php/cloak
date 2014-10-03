@@ -10,6 +10,16 @@
  */
 
 use cloak\reflection\MethodReflection;
+use cloak\result\LineSet;
 
 describe('MethodReflection', function() {
+    describe('assembleBy', function() {
+        before(function() {
+            $reflection = new MethodReflection('Example\Example', 'getValue');
+            $this->result = $reflection->assembleBy(new LineSet());
+        });
+        it('return cloak\result\MethodResult', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\MethodResult');
+        });
+    });
 });

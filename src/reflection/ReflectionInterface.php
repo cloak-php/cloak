@@ -11,10 +11,25 @@
 
 namespace cloak\reflection;
 
+use cloak\value\LineRange;
+use cloak\result\LineSetInterface;
+
+
 /**
  * Interface ReflectionInterface
  * @package cloak\reflection
  */
 interface ReflectionInterface
 {
+
+    /**
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * @return LineRange
+     */
+    public function getLineRange();
+
 }

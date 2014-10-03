@@ -13,7 +13,8 @@ namespace cloak\result;
 
 use cloak\value\LineRange;
 use cloak\result\collection\NamedResultCollection;
-use Zend\Code\Reflection\ClassReflection;
+use cloak\reflection\ClassReflection;
+
 
 /**
  * Class AbstractTypeResult
@@ -29,18 +30,14 @@ abstract class AbstractTypeResult
      */
     private $reflection;
 
+
     /**
      * @param ClassReflection $classReflection
      * @param LineSet $classLineResults
      */
     public function __construct(ClassReflection $classReflection, LineSetInterface $classLineResults)
     {
-        $lineRange = new LineRange(
-            $classReflection->getStartLine(),
-            $classReflection->getEndLine()
-        );
-        $rangeResults = $classLineResults->selectRange($lineRange);
-
+        $rangeResults = $classLineResults->resolveLineResults($classReflection);
         $this->reflection = $classReflection;
         $this->lineResults = $rangeResults;
     }

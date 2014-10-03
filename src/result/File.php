@@ -14,7 +14,7 @@ namespace cloak\result;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\CoverageResultInterface;
-use Zend\Code\Reflection\FileReflection;
+use cloak\reflection\FileReflection;
 
 
 /**
@@ -170,11 +170,9 @@ class File implements CoverageResultInterface
      */
     protected function resolveLineRange(LineSetInterface $lineCoverages)
     {
-        $fileReflection = new FileReflection($this->getPath(), true);
-        $content = $fileReflection->getContents(); //$fileReflection->getEndLine() return null....
-        $totalLineCount = substr_count(trim($content), PHP_EOL) + 1;
+        $fileReflection = new FileReflection($this->getPath());
+        $this->lineRange = $fileReflection->getLineRange();
 
-        $this->lineRange = new LineRange(1, $totalLineCount);
         $this->factory = new ResultFactory($fileReflection);
 
         $cleanUpResults = $lineCoverages->selectRange($this->lineRange);

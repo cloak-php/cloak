@@ -11,6 +11,9 @@
 
 namespace cloak\reflection;
 
+use cloak\value\LineRange;
+use cloak\result\LineSetInterface;
+use cloak\result\MethodResult;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
 
 
@@ -34,6 +37,43 @@ class MethodReflection implements ReflectionInterface
     public function __construct($class, $name = null)
     {
         $this->reflection = new ZendMethodReflection($class, $name);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->reflection->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespaceName()
+    {
+        $declaringClass = $this->reflection->getDeclaringClass();
+        return $declaringClass->getNamespaceName();
+    }
+
+    /**
+     * @return LineRange
+     */
+    public function getLineRange()
+    {
+        $startLine = $this->reflection->getStartLine();
+        $endLine = $this->reflection->getEndLine();
+
+        return new LineRange($startLine, $endLine);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return MethodResult
+     */
+    public function assembleBy(LineSetInterface $lineResults)
+    {
+        return new MethodResult($this, $lineResults);
     }
 
 }

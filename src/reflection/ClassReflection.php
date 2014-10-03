@@ -11,7 +11,16 @@
 
 namespace cloak\reflection;
 
+use cloak\reflection\collection\ReflectionCollection;
+use cloak\value\LineRange;
+use cloak\result\LineSetInterface;
+use cloak\result\type\ClassResult;
+use cloak\result\type\TraitResult;
+use cloak\result\AbstractTypeResultInterface;
+use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
+use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
+
 
 /**
  * Class ClassReflection
@@ -34,16 +43,20 @@ class ClassReflection implements ReflectionInterface
         $this->reflection = new ZendClassReflection($className);
     }
 
-    public function getMethods()
-    {
-    }
-
     /**
      * @return string
      */
     public function getName()
     {
         return $this->reflection->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespaceName()
+    {
+        return $this->reflection->getNamespaceName();
     }
 
     /**
@@ -60,6 +73,52 @@ class ClassReflection implements ReflectionInterface
     public function isClass()
     {
         return $this->isTrait() === false;
+    }
+
+    /**
+     * @return LineRange
+     */
+    public function getLineRange()
+    {
+        $startLine = $this->reflection->getStartLine();
+        $endLine = $this->reflection->getEndLine();
+
+        return new LineRange($startLine, $endLine);
+    }
+
+    /**
+     * @return ReflectionCollection
+     */
+    public function getMethods()
+    {
+        $methods = $this->reflection->getMethods();
+
+        $reflections = new Sequence($methods);
+        $reflections = $reflections->map(function(ZendMethodReflection $reflection) {
+            $class = $reflection->getDeclaringClass()->getName();
+            $methodName = $reflection->getName();
+
+            return new MethodReflection($class, $methodName);
+        });
+
+        return new ReflectionCollection($reflections);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return AbstractTypeResultInterface
+     */
+    public function assembleBy(LineSetInterface $lineResults)
+    {
+        $result = null;
+
+        if ($this->isClass()) {
+            $result = new ClassResult($this, $lineResults);
+        } else {
+            $result = new TraitResult($this, $lineResults);
+        }
+
+        return $result;
     }
 
 }
