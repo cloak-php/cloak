@@ -12,6 +12,7 @@
 use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
 use cloak\result\LineSet;
+use cloak\result\Line;
 
 
 describe('FileReflection', function() {
@@ -55,11 +56,23 @@ describe('FileReflection', function() {
 
     describe('#assembleBy', function() {
         before(function() {
-            $result = $this->reflection->assembleBy(new LineSet());
+            $result = $this->reflection->assembleBy(new LineSet([
+                new Line(11, Line::UNUSED),
+                new Line(24, Line::EXECUTED),
+                new Line(29, Line::UNUSED)
+            ]));
             $this->result = $result;
         });
-        it('return cloak\result\File', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\File');
+        describe('assemble result', function() {
+            it('return cloak\result\File', function() {
+                expect($this->result)->toBeAnInstanceOf('cloak\result\File');
+            });
+            it('have unused line result', function() {
+                expect($this->result->getUnusedLineCount())->toBe(2);
+            });
+            it('have executed line result', function() {
+                expect($this->result->getExecutedLineCount())->toBe(1);
+            });
         });
     });
 
