@@ -34,16 +34,14 @@ class ReflectionCollection implements CollectionInterface
 
 
     /**
-     * @param SequenceInterface $collection
+     * @param ReflectionInterface[] $reflections
      */
-    public function __construct(SequenceInterface $collection = null)
+    public function __construct(array $reflections = [])
     {
-        if (is_null($collection) === false) {
-            $this->collection = $collection;
-        } else {
-            $this->collection = new Sequence();
-        }
+        $this->collection = new Sequence();
+        $this->addAll($reflections);
     }
+
 
     /**
      * @param ReflectionInterface $reflection
@@ -51,6 +49,16 @@ class ReflectionCollection implements CollectionInterface
     public function add(ReflectionInterface $reflection)
     {
         $this->collection->add($reflection);
+    }
+
+    /**
+     * @param ReflectionInterface[] $reflections
+     */
+    public function addAll(array $reflections)
+    {
+        foreach ($reflections as $reflection) {
+            $this->add($reflection);
+        }
     }
 
     /**

@@ -102,7 +102,7 @@ class FileReflection implements ReflectionInterface
                 return new ClassReflection($reflection->getName());
             });
 
-        return new ReflectionCollection($reflections);
+        return new ReflectionCollection( $reflections->all() );
     }
 
     /**
