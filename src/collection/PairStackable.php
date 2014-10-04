@@ -20,10 +20,7 @@ use PhpCollection\Map;
 trait PairStackable
 {
 
-    /**
-     * @var \PhpCollection\Map
-     */
-    protected $map;
+    use Stackable;
 
 
     public function first()
@@ -32,7 +29,7 @@ trait PairStackable
 
     public function last()
     {
-        $last = $this->map->last();
+        $last = $this->collection->last();
 
         if ($last->isEmpty()) {
             return null;
@@ -43,45 +40,21 @@ trait PairStackable
     }
 
     /**
-     * @return int
-     */
-    public function isEmpty()
-    {
-        return $this->map->isEmpty();
-    }
-
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->map->count();
-    }
-
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
-    {
-        return $this->map->getIterator();
-    }
-
-    /**
      * @return array
      */
     public function toArray()
     {
-        return $this->createArray($this->map);
+        return $this->createArray($this->collection);
     }
 
     /**
      * @param Map $files
      * @return array
      */
-    private function createArray(Map $map)
+    private function createArray(Map $collection)
     {
-        $keys = $map->keys();
-        $values = $map->values();
+        $keys = $collection->keys();
+        $values = $collection->values();
 
         return array_combine($keys, $values);
     }
