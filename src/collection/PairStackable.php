@@ -32,7 +32,7 @@ trait PairStackable
 
     public function last()
     {
-        $last = $this->collection->last();
+        $last = $this->map->last();
 
         if ($last->isEmpty()) {
             return null;
@@ -47,7 +47,7 @@ trait PairStackable
      */
     public function isEmpty()
     {
-        return $this->collection->isEmpty();
+        return $this->map->isEmpty();
     }
 
     /**
@@ -55,7 +55,7 @@ trait PairStackable
      */
     public function count()
     {
-        return $this->collection->count();
+        return $this->map->count();
     }
 
     /**
@@ -63,7 +63,7 @@ trait PairStackable
      */
     public function getIterator()
     {
-        return $this->collection->getIterator();
+        return $this->map->getIterator();
     }
 
     /**
@@ -71,17 +71,17 @@ trait PairStackable
      */
     public function toArray()
     {
-        return $this->createArray($this->collection);
+        return $this->createArray($this->map);
     }
 
     /**
      * @param Map $files
      * @return array
      */
-    private function createArray(Map $collection)
+    private function createArray(Map $map)
     {
-        $keys = $collection->keys();
-        $values = $collection->values();
+        $keys = $map->keys();
+        $values = $map->values();
 
         return array_combine($keys, $values);
     }

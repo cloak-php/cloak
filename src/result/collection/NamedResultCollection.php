@@ -32,7 +32,7 @@ class NamedResultCollection implements NamedResultCollectionInterface
      */
     public function __construct(array $results = [])
     {
-        $this->collection = new Map($results);
+        $this->map = new Map($results);
     }
 
     /**
@@ -40,7 +40,7 @@ class NamedResultCollection implements NamedResultCollectionInterface
      */
     public function add(NamedCoverageResultInterface $result)
     {
-        $this->collection->set($result->getName(), $result);
+        $this->map->set($result->getName(), $result);
     }
 
     /**

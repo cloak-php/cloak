@@ -33,7 +33,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function __construct(array $files = [])
     {
-        $this->collection = new Map($files);
+        $this->map = new Map($files);
     }
 
     /**
@@ -41,7 +41,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function add(File $file)
     {
-        $this->collection->set($file->getPath(), $file);
+        $this->map->set($file->getPath(), $file);
     }
 
     /**
@@ -58,7 +58,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function includeFile(Closure $filter)
     {
-        $files = $this->collection->filter($filter);
+        $files = $this->map->filter($filter);
         return $this->createNew($files);
     }
 
@@ -83,7 +83,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function excludeFile(Closure $filter)
     {
-        $files = $this->collection->filterNot($filter);
+        $files = $this->map->filterNot($filter);
         return $this->createNew($files);
     }
 
