@@ -70,13 +70,13 @@ class FileResultCollection implements CollectionInterface
      */
     public function includeFiles(array $filters)
     {
-        $files = $this->files;
+        $result = $this;
 
         foreach ($filters as $filter) {
-            $files = $files->filter($filter);
+            $result = $result->includeFile($filter);
         }
 
-        return $this->createNew($files);
+        return $result;
     }
 
     /**
@@ -95,13 +95,13 @@ class FileResultCollection implements CollectionInterface
      */
     public function excludeFiles(array $filters)
     {
-        $files = $this->files;
+        $result = $this;
 
         foreach ($filters as $filter) {
-            $files = $files->filterNot($filter);
+            $result = $result->excludeFile($filter);
         }
 
-        return $this->createNew($files);
+        return $result;
     }
 
     /**
@@ -169,9 +169,8 @@ class FileResultCollection implements CollectionInterface
     {
         $keys = $files->keys();
         $values = $files->values();
-        $keyAndFiles = array_combine($keys, $values);
 
-        return $keyAndFiles;
+        return array_combine($keys, $values);
     }
 
 }
