@@ -14,9 +14,6 @@ namespace cloak\driver;
 use cloak\driver\result\File;
 use cloak\driver\result\FileNotFoundException;
 use cloak\driver\result\collection\FileResultCollection;
-use PhpCollection\AbstractMap;
-use PhpCollection\Map;
-use PhpCollection\Sequence;
 use Closure;
 
 
@@ -95,7 +92,7 @@ class Result
     public function includeFile(Closure $filter)
     {
         $files = $this->files->includeFile($filter);
-        return new static( $files->toArray() );
+        return $this->createNew($files);
     }
 
     /**
@@ -105,7 +102,7 @@ class Result
     public function includeFiles(array $filters)
     {
         $files = $this->files->includeFiles($filters);
-        return new static( $files->toArray() );
+        return $this->createNew($files);
     }
 
     /**
@@ -115,7 +112,7 @@ class Result
     public function excludeFile(Closure $filter)
     {
         $files = $this->files->excludeFile($filter);
-        return new static( $files->toArray() );
+        return $this->createNew($files);
     }
 
     /**
@@ -125,7 +122,7 @@ class Result
     public function excludeFiles(array $filters)
     {
         $files = $this->files->excludeFiles($filters);
-        return new self( $files->toArray() );
+        return $this->createNew($files);
     }
 
     /**
@@ -142,6 +139,16 @@ class Result
     public function isEmpty()
     {
         return $this->files->isEmpty();
+    }
+
+    /**
+     * @param FileResultCollection $collection
+     * @return Result
+     */
+    private function createNew(FileResultCollection $collection)
+    {
+        $files = $collection->toArray();
+        return new self($files);
     }
 
 }
