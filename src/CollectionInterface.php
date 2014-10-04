@@ -23,6 +23,16 @@ interface CollectionInterface extends Countable, IteratorAggregate
 {
 
     /**
+     * @return mixed
+     */
+    public function first();
+
+    /**
+     * @return mixed
+     */
+    public function last();
+
+    /**
      * @return bool
      */
     public function isEmpty();

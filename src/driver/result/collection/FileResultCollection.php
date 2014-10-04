@@ -130,6 +130,14 @@ class FileResultCollection implements CollectionInterface
 
     /**
      * @return File|null
+     * FIXME add logic
+     */
+    public function first()
+    {
+    }
+
+    /**
+     * @return File|null
      */
     public function last()
     {

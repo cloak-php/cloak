@@ -66,6 +66,18 @@ class NamedResultCollection implements CollectionInterface
         return array_combine($keys, $values);
     }
 
+    /**
+     * @return NamedCoverageResultInterface|null
+     * FIXME add logic
+     */
+    public function first()
+    {
+    }
+
+    /**
+     * @return NamedCoverageResultInterface|null
+     * FIXME add logic
+     */
     public function last()
     {
         $last = $this->collection->last();
@@ -77,7 +89,6 @@ class NamedResultCollection implements CollectionInterface
 
         return array_pop($keyPair);
     }
-
 
     /**
      * @return int

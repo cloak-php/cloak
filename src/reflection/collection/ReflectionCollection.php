@@ -62,6 +62,22 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
+     * @return ReflectionInterface|null
+     * FIXME add logic
+     */
+    public function first()
+    {
+    }
+
+    /**
+     * @return ReflectionInterface|null
+     * FIXME add logic
+     */
+    public function last()
+    {
+    }
+
+    /**
      * @param callable $filter
      * @return ReflectionCollection
      */
