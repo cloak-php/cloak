@@ -101,7 +101,7 @@ class ClassReflection implements ReflectionInterface
             return new MethodReflection($class, $methodName);
         });
 
-        return new ReflectionCollection($reflections);
+        return new ReflectionCollection( $reflections->all() );
     }
 
     /**

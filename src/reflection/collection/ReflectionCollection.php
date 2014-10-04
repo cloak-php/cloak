@@ -12,7 +12,7 @@
 namespace cloak\reflection\collection;
 
 use PhpCollection\Sequence;
-use PhpCollection\SequenceInterface;
+use cloak\collection\ElementStackable;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
 use cloak\result\LineSetInterface;
@@ -27,10 +27,7 @@ use \Closure;
 class ReflectionCollection implements CollectionInterface
 {
 
-    /**
-     * @var Sequence
-     */
-    private $collection;
+    use ElementStackable;
 
 
     /**
@@ -38,8 +35,7 @@ class ReflectionCollection implements CollectionInterface
      */
     public function __construct(array $reflections = [])
     {
-        $this->collection = new Sequence();
-        $this->addAll($reflections);
+        $this->collection = new Sequence($reflections);
     }
 
 
@@ -62,29 +58,13 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
-     * @return ReflectionInterface|null
-     * FIXME add logic
-     */
-    public function first()
-    {
-    }
-
-    /**
-     * @return ReflectionInterface|null
-     * FIXME add logic
-     */
-    public function last()
-    {
-    }
-
-    /**
      * @param callable $filter
      * @return ReflectionCollection
      */
     public function filter(Closure $filter)
     {
         $collection = $this->collection->filter($filter);
-        return new self($collection);
+        return new self( $collection->all() );
     }
 
     /**
@@ -99,38 +79,6 @@ class ReflectionCollection implements CollectionInterface
         $results = $this->collection->map($assembleCallback);
 
         return new NamedResultCollection( $results->all() );
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEmpty()
-    {
-        return $this->collection->isEmpty();
-    }
-
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->collection->count();
-    }
-
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
-    {
-        return $this->collection->getIterator();
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->collection->all();
     }
 
 }
