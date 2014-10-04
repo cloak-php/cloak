@@ -12,6 +12,7 @@
 namespace cloak\driver\result\collection;
 
 use cloak\CollectionInterface;
+use cloak\collection\PairCollectable;
 use cloak\driver\result\File;
 use PhpCollection\Map;
 use \Closure;
@@ -24,10 +25,7 @@ use \Closure;
 class FileResultCollection implements CollectionInterface
 {
 
-    /**
-     * @var Map
-     */
-    private $files;
+    use PairCollectable;
 
 
     /**
@@ -35,7 +33,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function __construct(array $files = [])
     {
-        $this->files = new Map($files);
+        $this->collection = new Map($files);
     }
 
     /**
@@ -43,7 +41,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function addFile(File $file)
     {
-        $this->files->set($file->getPath(), $file);
+        $this->collection->set($file->getPath(), $file);
     }
 
     /**
@@ -60,7 +58,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function includeFile(Closure $filter)
     {
-        $files = $this->files->filter($filter);
+        $files = $this->collection->filter($filter);
         return $this->createNew($files);
     }
 
@@ -85,7 +83,7 @@ class FileResultCollection implements CollectionInterface
      */
     public function excludeFile(Closure $filter)
     {
-        $files = $this->files->filterNot($filter);
+        $files = $this->collection->filterNot($filter);
         return $this->createNew($files);
     }
 
@@ -105,61 +103,6 @@ class FileResultCollection implements CollectionInterface
     }
 
     /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->files->count();
-    }
-
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
-    {
-        return $this->files->getIterator();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEmpty()
-    {
-        return $this->files->isEmpty();
-    }
-
-    /**
-     * @return File|null
-     * FIXME add logic
-     */
-    public function first()
-    {
-    }
-
-    /**
-     * @return File|null
-     */
-    public function last()
-    {
-        $last = $this->files->last();
-
-        if ($last->isEmpty()) {
-            return null;
-        }
-        $keyPair = $last->get();
-
-        return array_pop($keyPair);
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->createArray($this->files);
-    }
-
-    /**
      * @param Map $files
      * @return FileResultCollection
      */
@@ -167,18 +110,6 @@ class FileResultCollection implements CollectionInterface
     {
         $values = $this->createArray($files);
         return new self($values);
-    }
-
-    /**
-     * @param Map $files
-     * @return array
-     */
-    private function createArray(Map $files)
-    {
-        $keys = $files->keys();
-        $values = $files->values();
-
-        return array_combine($keys, $values);
     }
 
 }
