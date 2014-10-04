@@ -11,7 +11,9 @@
 
 namespace cloak\collection;
 
+use PhpOption\Option;
 use PhpCollection\Map;
+
 
 /**
  * Trait PairStackable
@@ -23,20 +25,36 @@ trait PairStackable
     use Stackable;
 
 
+    /**
+     * @return mixed|null
+     */
     public function first()
     {
+        $first = $this->collection->first();
+        return $this->returnValue($first);
     }
 
+    /**
+     * @return mixed|null
+     */
     public function last()
     {
         $last = $this->collection->last();
+        return $this->returnValue($last);
+    }
 
-        if ($last->isEmpty()) {
+    /**
+     * @param Option $value
+     * @return mixed|null
+     */
+    private function returnValue(Option $value)
+    {
+        if ($value->isEmpty()) {
             return null;
         }
-        $keyPair = $last->get();
+        $kv = $value->get();
 
-        return array_pop($keyPair);
+        return array_pop($kv);
     }
 
     /**

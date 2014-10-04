@@ -11,6 +11,8 @@
 
 namespace cloak\collection;
 
+use PhpOption\Option;
+
 
 /**
  * Trait ElementStackable
@@ -23,17 +25,14 @@ trait ElementStackable
 
     public function first()
     {
+        $first = $this->collection->first();
+        return $first->getOrElse(null);
     }
 
     public function last()
     {
         $last = $this->collection->last();
-
-        if ($last->isEmpty()) {
-            return null;
-        }
-
-        return $last->get();
+        return $last->getOrElse(null);
     }
 
     /**
