@@ -44,15 +44,8 @@ class ResultFactory
      */
     public function createClassResults(LineSetInterface $lineCoverages)
     {
-        $classResults = new NamedResultCollection();
         $reflections = $this->fileReflection->getClasses();
-
-        foreach ($reflections as $reflection) {
-            $classResult = new ClassResult($reflection, $lineCoverages);
-            $classResults->add($classResult);
-        }
-
-        return $classResults;
+        return $reflections->assembleBy($lineCoverages);
     }
 
     /**
@@ -61,15 +54,8 @@ class ResultFactory
      */
     public function createTraitResults(LineSetInterface $lineCoverages)
     {
-        $traitResults = new NamedResultCollection();
         $reflections = $this->fileReflection->getTraits();
-
-        foreach ($reflections as $reflection) {
-            $traitResult = new TraitResult($reflection, $lineCoverages);
-            $traitResults->add($traitResult);
-        }
-
-        return $traitResults;
+        return $reflections->assembleBy($lineCoverages);
     }
 
 }
