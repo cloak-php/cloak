@@ -14,6 +14,7 @@ namespace cloak;
 use cloak\value\Coverage;
 use cloak\result\File;
 use cloak\result\LineSet;
+use cloak\result\collection\NamedResultCollection;
 use cloak\driver\Result as AnalyzeResult;
 use PhpCollection\Sequence;
 use PhpCollection\AbstractSequence;
@@ -34,15 +35,23 @@ class Result implements CoverageResultInterface
 
 
     /**
-     * @param AbstractSequence $files
+     * @param File[] $files
      */
-    public function __construct(AbstractSequence $files = null)
+    public function __construct($files = [])
     {
-        if (is_null($files)) {
-            $this->files = new Sequence();
-        } else {
-            $this->files = $files;
+        $this->files = new Sequence();
+
+        foreach ($files as $file) {
+            $this->addFile($file);
         }
+
+
+
+//        if (is_null($files)) {
+  //          $this->files = new Sequence();
+    //    } else {
+      //      $this->files = $files;
+        //}
     }
 
     /**
@@ -57,29 +66,38 @@ class Result implements CoverageResultInterface
 
     /**
      * @param driver\Result $result
-     * @return Sequence
+     * @return array
      */
     public static function parseResult(AnalyzeResult $result)
     {
-        $files = new Sequence();
+        $files = [];
         $fileResults = $result->getFiles();
 
         foreach ($fileResults as $fileResult) {
             $path = $fileResult->getPath();
             $lineResults = LineSet::from( $fileResult->getLineResults() );
+
             $file = new File($path, $lineResults);
-            $files->add($file);
+            $files[] = $file;
         }
 
         return $files;
     }
 
+    /**
+     * @param callable $filter
+     * @return Result
+     */
     public function includeFile(\Closure $filter)
     {
         $files = $this->files->filter($filter);
-        return new self($files);
+        return new self( $files->all() );
     }
 
+    /**
+     * @param array $filters
+     * @return Result
+     */
     public function includeFiles(array $filters)
     {
         $files = $this->files;
@@ -88,15 +106,23 @@ class Result implements CoverageResultInterface
             $files = $files->filter($filter);
         }
 
-        return new self($files);
+        return new self( $files->all() );
     }
 
+    /**
+     * @param callable $filter
+     * @return Result
+     */
     public function excludeFile(\Closure $filter)
     {
         $files = $this->files->filterNot($filter);
-        return new self($files);
+        return new self( $files->all() );
     }
 
+    /**
+     * @param array $filters
+     * @return Result
+     */
     public function excludeFiles(array $filters)
     {
         $files = $this->files;
@@ -105,26 +131,42 @@ class Result implements CoverageResultInterface
             $files = $files->filterNot($filter);
         }
 
-        return new self($files);
+        return new self( $files->all() );
     }
 
-    public function setFiles(AbstractSequence $files)
+    /**
+     * @param File[] $files
+     * @return $this
+     */
+    public function setFiles(array $files)
     {
-        $this->files = $files;
+        $this->files = new Sequence($files);
         return $this;
     }
 
+    /**
+     * @return NamedResultCollection
+     */
     public function getFiles()
     {
-        return $this->files;
+        $files = $this->files->all();
+        return new NamedResultCollection($files);
     }
 
+    /**
+     * @param File $file
+     * @return $this
+     */
     public function addFile(File $file)
     {
         $this->files->add($file);
         return $this;
     }
 
+    /**
+     * @param File $file
+     * @return $this
+     */
     public function removeFile(File $file)
     {
         $indexAt = $this->files->indexOf($file);
@@ -137,6 +179,9 @@ class Result implements CoverageResultInterface
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getLineCount()
     {
         $totalLineCount = 0;
@@ -149,6 +194,9 @@ class Result implements CoverageResultInterface
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getDeadLineCount()
     {
         $totalLineCount = 0;
@@ -161,6 +209,9 @@ class Result implements CoverageResultInterface
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getExecutedLineCount()
     {
         $totalLineCount = 0;
@@ -173,6 +224,9 @@ class Result implements CoverageResultInterface
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getUnusedLineCount()
     {
         $totalLineCount = 0;
@@ -185,6 +239,9 @@ class Result implements CoverageResultInterface
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getExecutableLineCount()
     {
         $totalLineCount = 0;
@@ -197,6 +254,9 @@ class Result implements CoverageResultInterface
         return $totalLineCount;
     }
 
+    /**
+     * @return Coverage
+     */
     public function getCodeCoverage()
     {
         $executedLineCount = $this->getExecutedLineCount();
@@ -208,11 +268,19 @@ class Result implements CoverageResultInterface
         return new Coverage($coverage);
     }
 
+    /**
+     * @param Coverage $coverage
+     * @return bool
+     */
     public function isCoverageLessThan(Coverage $coverage)
     {
         return $this->getCodeCoverage()->lessThan($coverage);
     }
 
+    /**
+     * @param Coverage $coverage
+     * @return bool
+     */
     public function isCoverageGreaterEqual(Coverage $coverage)
     {
         return $this->getCodeCoverage()->greaterEqual($coverage);

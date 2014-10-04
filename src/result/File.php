@@ -13,7 +13,6 @@ namespace cloak\result;
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\CoverageResultInterface;
 use cloak\reflection\FileReflection;
 
 
@@ -21,7 +20,7 @@ use cloak\reflection\FileReflection;
  * Class File
  * @package cloak\result
  */
-class File implements CoverageResultInterface
+class File implements NamedCoverageResultInterface
 {
 
     /**
@@ -60,6 +59,14 @@ class File implements CoverageResultInterface
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getPath();
     }
 
     /**

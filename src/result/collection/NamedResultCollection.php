@@ -14,7 +14,9 @@ namespace cloak\result\collection;
 use cloak\result\CollectionInterface;
 use cloak\result\NamedCoverageResultInterface;
 use PhpCollection\Map;
-use \Iterator;
+//use PhpOption\Some;
+//use PhpOption\None;
+
 
 /**
  * Class NamedResultCollection
@@ -55,6 +57,27 @@ class NamedResultCollection implements CollectionInterface
             $this->add($result);
         }
     }
+
+    public function toArray()
+    {
+        $keys = $this->collection->keys();
+        $values = $this->collection->values();
+
+        return array_combine($keys, $values);
+    }
+
+    public function last()
+    {
+        $last = $this->collection->last();
+
+        if ($last->isEmpty()) {
+            return null;
+        }
+        $keyPair = $last->get();
+
+        return array_pop($keyPair);
+    }
+
 
     /**
      * @return int
