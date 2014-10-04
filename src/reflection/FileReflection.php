@@ -13,6 +13,7 @@ namespace cloak\reflection;
 
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\value\LineRange;
+use cloak\result\File;
 use cloak\result\LineSetInterface;
 use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
@@ -102,6 +103,15 @@ class FileReflection implements ReflectionInterface
             });
 
         return new ReflectionCollection($reflections);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return File
+     */
+    public function assembleBy(LineSetInterface $lineResults)
+    {
+        return new File($this->getName(), $lineResults);
     }
 
 }

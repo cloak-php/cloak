@@ -11,12 +11,15 @@
 
 use cloak\reflection\ClassReflection;
 use cloak\result\LineSet;
+use cloak\result\Line;
 
 describe('ClassReflection', function() {
+    before(function() {
+        $this->reflection = new ClassReflection('Example\Example');
+    });
     describe('#getMethods', function() {
         before(function() {
-            $reflection = new ClassReflection('Example\Example');
-            $this->result = $reflection->getMethods();
+            $this->result = $this->reflection->getMethods();
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
@@ -27,11 +30,22 @@ describe('ClassReflection', function() {
     });
     describe('assembleBy', function() {
         before(function() {
-            $reflection = new ClassReflection('Example\Example');
-            $this->result = $reflection->assembleBy(new LineSet());
+            $result = $this->reflection->assembleBy(new LineSet([
+                new Line(29, Line::UNUSED)
+            ]));
+            $this->result = $result;
         });
         it('return cloak\result\type\ClassResult', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
         });
+        context('when line 29 unused', function() {
+            it('have unused line result', function() {
+                expect($this->result->getUnusedLineCount())->toBe(1);
+            });
+            it('have not executed line result', function() {
+                expect($this->result->getExecutedLineCount())->toBe(0);
+            });
+        });
     });
+
 });

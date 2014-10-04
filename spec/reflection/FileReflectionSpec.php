@@ -11,16 +11,20 @@
 
 use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
+use cloak\result\LineSet;
+use cloak\result\Line;
 
 
 describe('FileReflection', function() {
 
+    before(function() {
+        $filePath = __DIR__ . '/../fixtures/src/foo.php';
+        $this->reflection = new FileReflection($filePath);
+    });
+
     describe('#getClasses', function() {
         before(function() {
-            $filePath = __DIR__ . '/../fixtures/src/foo.php';
-            $reflection = new FileReflection($filePath);
-
-            $result = $reflection->getClasses();
+            $result = $this->reflection->getClasses();
             $result = $result->filter(function(ClassReflection $reflection) {
                 return $reflection->isTrait();
             });
@@ -36,10 +40,7 @@ describe('FileReflection', function() {
 
     describe('#getTraits', function() {
         before(function() {
-            $filePath = __DIR__ . '/../fixtures/src/foo.php';
-            $reflection = new FileReflection($filePath);
-
-            $result = $reflection->getTraits();
+            $result = $this->reflection->getTraits();
             $result = $result->filter(function(ClassReflection $reflection) {
                 return $reflection->isClass();
             });
@@ -53,4 +54,23 @@ describe('FileReflection', function() {
         });
     });
 
+    describe('#assembleBy', function() {
+        before(function() {
+            $result = $this->reflection->assembleBy(new LineSet([
+                new Line(11, Line::UNUSED)
+            ]));
+            $this->result = $result;
+        });
+        it('return cloak\result\File', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\File');
+        });
+        context('when line 11 unused', function() {
+            it('have unused line result', function() {
+                expect($this->result->getUnusedLineCount())->toBe(1);
+            });
+            it('have not executed line result', function() {
+                expect($this->result->getExecutedLineCount())->toBe(0);
+            });
+        });
+    });
 });
