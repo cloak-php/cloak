@@ -29,7 +29,7 @@ class Result implements CoverageResultInterface
 {
 
     /**
-     * @var AbstractSequence
+     * @var NamedResultCollection
      */
     private $fileResults;
 
@@ -40,10 +40,6 @@ class Result implements CoverageResultInterface
     public function __construct($files = [])
     {
         $this->fileResults = new NamedResultCollection($files);
-
-//        foreach ($files as $file) {
-  //          $this->addFile($file);
-    //    }
     }
 
 
@@ -82,8 +78,8 @@ class Result implements CoverageResultInterface
      */
     public function getFiles()
     {
-        $files = $this->fileResults->toArray();
-        return new NamedResultCollection($files);
+        $fileResults = $this->fileResults->toArray();
+        return new NamedResultCollection($fileResults);
     }
 
     /**
@@ -93,8 +89,8 @@ class Result implements CoverageResultInterface
     {
         $totalLineCount = 0;
 
-        foreach ($this->fileResults as $file) {
-            $totalLineCount += $file->getLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getLineCount();
         }
 
         return $totalLineCount;
@@ -107,8 +103,8 @@ class Result implements CoverageResultInterface
     {
         $totalLineCount = 0;
 
-        foreach ($this->fileResults as $file) {
-            $totalLineCount += $file->getDeadLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getDeadLineCount();
         }
 
         return $totalLineCount;
@@ -121,8 +117,8 @@ class Result implements CoverageResultInterface
     {
         $totalLineCount = 0;
 
-        foreach ($this->fileResults as $file) {
-            $totalLineCount += $file->getExecutedLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getExecutedLineCount();
         }
 
         return $totalLineCount;
@@ -135,8 +131,8 @@ class Result implements CoverageResultInterface
     {
         $totalLineCount = 0;
 
-        foreach ($this->fileResults as $file) {
-            $totalLineCount += $file->getUnusedLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getUnusedLineCount();
         }
 
         return $totalLineCount;
@@ -149,8 +145,8 @@ class Result implements CoverageResultInterface
     {
         $totalLineCount = 0;
 
-        foreach ($this->fileResults as $file) {
-            $totalLineCount += $file->getExecutableLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getExecutableLineCount();
         }
 
         return $totalLineCount;
