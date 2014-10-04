@@ -17,10 +17,10 @@ use cloak\reflection\FileReflection;
 
 
 /**
- * Class File
+ * Class FileResult
  * @package cloak\result
  */
-class File implements NamedCoverageResultInterface
+class FileResult implements NamedCoverageResultInterface
 {
 
     /**
@@ -108,10 +108,10 @@ class File implements NamedCoverageResultInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      * @return bool
      */
-    public function equals(File $file)
+    public function equals(FileResult $file)
     {
         return $file->getPath() === $this->getPath();
     }

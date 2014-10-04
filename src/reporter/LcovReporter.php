@@ -13,7 +13,7 @@ namespace cloak\reporter;
 
 
 use cloak\Result;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\result\Line;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
@@ -78,9 +78,9 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    private function writeFileResult(File $file)
+    private function writeFileResult(FileResult $file)
     {
         $this->writeFileHeader($file);
 
@@ -94,9 +94,9 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    private function writeFileHeader(File $file)
+    private function writeFileHeader(FileResult $file)
     {
         $parts = [
             self::SOURCE_FILE_PREFIX,
@@ -129,10 +129,10 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      * @return array
      */
-    private function getTargetLinesFromFile(File $file)
+    private function getTargetLinesFromFile(FileResult $file)
     {
         $lineResults = $file->getLineResults();
 

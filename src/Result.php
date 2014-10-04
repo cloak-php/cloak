@@ -12,7 +12,7 @@
 namespace cloak;
 
 use cloak\value\Coverage;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\result\LineSet;
 use cloak\result\collection\NamedResultCollection;
 use cloak\driver\Result as AnalyzeResult;
@@ -77,7 +77,7 @@ class Result implements CoverageResultInterface
             $path = $fileResult->getPath();
             $lineResults = LineSet::from( $fileResult->getLineResults() );
 
-            $file = new File($path, $lineResults);
+            $file = new FileResult($path, $lineResults);
             $files[] = $file;
         }
 
@@ -154,20 +154,20 @@ class Result implements CoverageResultInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      * @return $this
      */
-    public function addFile(File $file)
+    public function addFile(FileResult $file)
     {
         $this->files->add($file);
         return $this;
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      * @return $this
      */
-    public function removeFile(File $file)
+    public function removeFile(FileResult $file)
     {
         $indexAt = $this->files->indexOf($file);
 

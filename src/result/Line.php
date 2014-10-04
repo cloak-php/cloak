@@ -26,7 +26,7 @@ class Line
     private $lineNumber = null;
     private $analyzeResult = null;
 
-    public function __construct($lineNumber = 0, $analyzeResult = self::EXECUTED, File $file = null)
+    public function __construct($lineNumber = 0, $analyzeResult = self::EXECUTED, FileResult $file = null)
     {
         $this->lineNumber = $lineNumber;
         $this->analyzeResult = $analyzeResult;

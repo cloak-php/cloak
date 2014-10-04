@@ -63,7 +63,7 @@ describe('TextReporter', function() {
                     9 => Line::UNUSED,
                     10 => Line::UNUSED
                 ],
-                realpath(__DIR__ . '/../../src/result/File.php') => [
+                realpath(__DIR__ . '/../../src/result/FileResult.php') => [
                     1 => Line::EXECUTED,
                     2 => Line::EXECUTED,
                     3 => Line::UNUSED,
@@ -98,7 +98,7 @@ describe('TextReporter', function() {
             $output  = "";
             $output .= $this->normal . "( 2/ 3) src/driver/XdebugDriver.php" . PHP_EOL;
             $output .= $this->high . "( 7/10) src/result/Line.php" . PHP_EOL;
-            $output .= $this->low . "( 2/ 7) src/result/File.php" . PHP_EOL;
+            $output .= $this->low . "( 2/ 7) src/result/FileResult.php" . PHP_EOL;
             $output .= PHP_EOL . "Code Coverage:" . $this->totalCoverage . PHP_EOL;
 
             expect(function() {

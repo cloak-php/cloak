@@ -10,12 +10,12 @@
  */
 
 use cloak\result\Line;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\result\LineSet;
 
 describe('Line', function() {
 
-    $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', new LineSet);
+    $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', new LineSet);
     $this->deadLine = new Line(1, Line::DEAD, $this->file);
     $this->unusedLine = new Line(1, Line::UNUSED, $this->file);
     $this->executedLine = new Line(1, Line::EXECUTED, $this->file);

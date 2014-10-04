@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\value\Coverage;
 use cloak\CoverageResultInterface;
 use cloak\writer\ConsoleWriter;
@@ -90,9 +90,9 @@ class TextReporter implements ReporterInterface
     }
 
     /**
-     * @param \cloak\result\File $file
+     * @param \cloak\result\FileResult $file
      */
-    protected function reportFile(File $file)
+    protected function reportFile(FileResult $file)
     {
         $currentDirectory = getcwd();
 
@@ -122,7 +122,7 @@ class TextReporter implements ReporterInterface
     }
 
     /**
-     * @param \cloak\result\File $file
+     * @param CoverageResultInterface $result
      */
     protected function writeCoverage(CoverageResultInterface $result)
     {

@@ -13,7 +13,7 @@
 use cloak\Result;
 use cloak\value\Coverage;
 use cloak\result\Line;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\result\LineSet;
 use cloak\driver\Result as AnalyzeResult;
 use PhpCollection\Sequence;
@@ -54,7 +54,7 @@ describe('Result', function() {
         $analyzeResult = AnalyzeResult::fromArray($results);
 
         $this->result = Result::fromAnalyzeResult($analyzeResult);
-        $this->returnValue = $this->result->includeFile(function(File $file) {
+        $this->returnValue = $this->result->includeFile(function(FileResult $file) {
             return $file->matchPath('bar.php');
         });
 
@@ -78,10 +78,10 @@ describe('Result', function() {
         $analyzeResult = AnalyzeResult::fromArray($results);
         $this->result = Result::fromAnalyzeResult($analyzeResult);
 
-        $filter1 = function(File $file) {
+        $filter1 = function(FileResult $file) {
             return $file->matchPath('foo1.php');
         };
-        $filter2 = function(File $file) {
+        $filter2 = function(FileResult $file) {
             return $file->matchPath('/vendor');
         };
         $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
@@ -104,7 +104,7 @@ describe('Result', function() {
         $analyzeResult = AnalyzeResult::fromArray($results);
         $this->result = Result::fromAnalyzeResult($analyzeResult);
 
-        $this->returnValue = $this->result->excludeFile(function(File $file) {
+        $this->returnValue = $this->result->excludeFile(function(FileResult $file) {
             return $file->matchPath('foo.php');
         });
 
@@ -127,10 +127,10 @@ describe('Result', function() {
         $analyzeResult = AnalyzeResult::fromArray($results);
         $this->result = Result::fromAnalyzeResult($analyzeResult);
 
-        $filter1 = function(File $file) {
+        $filter1 = function(FileResult $file) {
             return $file->matchPath('foo.php');
         };
-        $filter2 = function(File $file) {
+        $filter2 = function(FileResult $file) {
             return $file->matchPath('bar.php');
         };
         $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
@@ -161,7 +161,7 @@ describe('Result', function() {
         $file = $this->rootDirectory . 'foo.php';
 
         $this->result = new Result();
-        $this->file = new File($file, new LineSet);
+        $this->file = new FileResult($file, new LineSet);
         $this->returnValue = $this->result->addFile($this->file);
 
         it('should add file', function() {
@@ -179,7 +179,7 @@ describe('Result', function() {
                 $file = $this->rootDirectory . 'foo.php';
 
                 $this->result = new Result();
-                $this->file = new File($file, new LineSet);
+                $this->file = new FileResult($file, new LineSet);
                 $this->result->addFile($this->file);
                 $this->returnValue = $this->result->removeFile($this->file);
             });
@@ -194,7 +194,7 @@ describe('Result', function() {
         context('when specify a file that not exists', function() {
             before(function() {
                 $file = $this->rootDirectory . 'foo.php';
-                $this->file = new File($file, new LineSet());
+                $this->file = new FileResult($file, new LineSet());
 
                 $this->result = new Result();
             });
@@ -210,12 +210,12 @@ describe('Result', function() {
         before(function() {
             $filePath1 = $this->rootDirectory . 'foo.php';
             $filePath2 = $this->rootDirectory . 'bar.php';
-            $file1 = new File($filePath1, new LineSet([
+            $file1 = new FileResult($filePath1, new LineSet([
                 new Line(10, Line::DEAD),
                 new Line(12, Line::EXECUTED),
                 new Line(17, Line::UNUSED)
             ]));
-            $file2 = new File($filePath2, new LineSet([
+            $file2 = new FileResult($filePath2, new LineSet([
                 new Line(1, Line::UNUSED)
             ]));
 

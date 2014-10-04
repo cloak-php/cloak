@@ -61,8 +61,8 @@ describe('FileReflection', function() {
             ]));
             $this->result = $result;
         });
-        it('return cloak\result\File', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\File');
+        it('return cloak\result\FileResult', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\FileResult');
         });
         context('when line 11 unused', function() {
             it('have unused line result', function() {
