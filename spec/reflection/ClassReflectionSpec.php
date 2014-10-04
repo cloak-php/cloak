@@ -16,6 +16,7 @@ use cloak\result\Line;
 describe('ClassReflection', function() {
     before(function() {
         $this->classReflection = new ClassReflection('Example\Example');
+        $this->traitReflection = new ClassReflection('Example\ExampleTrait');
     });
     describe('#getName', function() {
         it('return class name', function() {
@@ -28,9 +29,6 @@ describe('ClassReflection', function() {
         });
     });
     describe('#isTrait', function() {
-        before(function() {
-            $this->traitReflection = new ClassReflection('Example\ExampleTrait');
-        });
         context('when class', function() {
             it('return flase', function() {
                 expect($this->classReflection->isTrait())->toBeFalse();
@@ -43,9 +41,6 @@ describe('ClassReflection', function() {
         });
     });
     describe('#isClass', function() {
-        before(function() {
-            $this->traitReflection = new ClassReflection('Example\ExampleTrait');
-        });
         context('when class', function() {
             it('return true', function() {
             expect($this->classReflection->isClass())->toBeTrue();
@@ -69,21 +64,42 @@ describe('ClassReflection', function() {
         });
     });
     describe('assembleBy', function() {
-        before(function() {
-            $result = $this->classReflection->assembleBy(new LineSet([
-                new Line(29, Line::UNUSED)
-            ]));
-            $this->result = $result;
-        });
-        it('return cloak\result\type\ClassResult', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
-        });
-        context('when line 29 unused', function() {
-            it('have unused line result', function() {
-                expect($this->result->getUnusedLineCount())->toBe(1);
+        context('when class reflection', function() {
+            before(function() {
+                $result = $this->classReflection->assembleBy(new LineSet([
+                    new Line(29, Line::UNUSED)
+                ]));
+                $this->result = $result;
             });
-            it('have not executed line result', function() {
-                expect($this->result->getExecutedLineCount())->toBe(0);
+            it('return cloak\result\type\ClassResult', function() {
+                expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
+            });
+            context('when line 29 unused', function() {
+                it('have unused line result', function() {
+                    expect($this->result->getUnusedLineCount())->toBe(1);
+                });
+                it('have not executed line result', function() {
+                    expect($this->result->getExecutedLineCount())->toBe(0);
+                });
+            });
+        });
+        context('when trait reflection', function() {
+            before(function() {
+                $result = $this->traitReflection->assembleBy(new LineSet([
+                    new Line(11, Line::UNUSED)
+                ]));
+                $this->result = $result;
+            });
+            it('return cloak\result\type\TraitResult', function() {
+                expect($this->result)->toBeAnInstanceOf('cloak\result\type\TraitResult');
+            });
+            context('when line 11 unused', function() {
+                it('have unused line result', function() {
+                    expect($this->result->getUnusedLineCount())->toBe(1);
+                });
+                it('have not executed line result', function() {
+                    expect($this->result->getExecutedLineCount())->toBe(0);
+                });
             });
         });
     });
