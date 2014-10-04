@@ -14,10 +14,10 @@ namespace cloak\collection;
 use PhpCollection\Map;
 
 /**
- * Trait PairCollectable
+ * Trait PairStackable
  * @package cloak\collection
  */
-trait PairCollectable
+trait PairStackable
 {
 
     /**
