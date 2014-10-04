@@ -16,7 +16,6 @@ use cloak\result\LineResult;
 use cloak\result\FileResult;
 use cloak\result\LineSet;
 use cloak\driver\Result as AnalyzeResult;
-use PhpCollection\Sequence;
 
 
 describe('Result', function() {
@@ -34,113 +33,6 @@ describe('Result', function() {
 
         it('should return cloak\Result instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
-        });
-    });
-
-    describe('#includeFile', function() {
-        $results = [
-            $this->rootDirectory . 'foo.php' => [
-                1 => LineResult::EXECUTED,
-                2 => LineResult::UNUSED,
-                3 => LineResult::DEAD
-            ],
-            $this->rootDirectory . 'bar.php' => [
-                1 => LineResult::EXECUTED,
-                2 => LineResult::UNUSED,
-                3 => LineResult::DEAD
-            ]
-        ];
-
-        $analyzeResult = AnalyzeResult::fromArray($results);
-
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
-        $this->returnValue = $this->result->includeFile(function(FileResult $file) {
-            return $file->matchPath('bar.php');
-        });
-
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
-        });
-        it('should include only those that match element', function() {
-            $files = $this->returnValue->getFiles();
-            expect($files->count())->toBe(1);
-            expect($files->last()->matchPath('bar.php'))->toBeTrue();
-        });
-    });
-
-    describe('#includeFiles', function() {
-        $results = [
-            $this->rootDirectory . 'foo1.php' => [ 1 => LineResult::EXECUTED ],
-            $this->rootDirectory . 'vendor/foo1.php' => [ 1 => LineResult::EXECUTED ],
-            $this->rootDirectory . 'bar.php' => [ 1 => LineResult::EXECUTED ]
-        ];
-
-        $analyzeResult = AnalyzeResult::fromArray($results);
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
-
-        $filter1 = function(FileResult $file) {
-            return $file->matchPath('foo1.php');
-        };
-        $filter2 = function(FileResult $file) {
-            return $file->matchPath('/vendor');
-        };
-        $this->returnValue = $this->result->includeFiles(array($filter1, $filter2));
-
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
-        });
-        it('should include only those that match element', function() {
-            $files = $this->returnValue->getFiles();
-            expect($files->count())->toBe(1);
-        });
-    });
-
-    describe('#excludeFile', function() {
-        $results = [
-            $this->rootDirectory . 'foo.php' => [ 1 => LineResult::EXECUTED ],
-            $this->rootDirectory . 'bar.php' => [ 1 => LineResult::EXECUTED ]
-        ];
-
-        $analyzeResult = AnalyzeResult::fromArray($results);
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
-
-        $this->returnValue = $this->result->excludeFile(function(FileResult $file) {
-            return $file->matchPath('foo.php');
-        });
-
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
-        });
-        it('should exclude only those that match element', function() {
-            $files = $this->returnValue->getFiles();
-            expect($files->count())->toBe(1);
-            expect($files->last()->matchPath('bar.php'))->toBeTrue();
-        });
-    });
-
-    describe('#excludeFiles', function() {
-        $results = [
-            $this->rootDirectory . 'foo.php' => [ 1 => LineResult::EXECUTED ],
-            $this->rootDirectory . 'bar.php' => [ 1 => LineResult::EXECUTED ]
-        ];
-
-        $analyzeResult = AnalyzeResult::fromArray($results);
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
-
-        $filter1 = function(FileResult $file) {
-            return $file->matchPath('foo.php');
-        };
-        $filter2 = function(FileResult $file) {
-            return $file->matchPath('bar.php');
-        };
-        $this->returnValue = $this->result->excludeFiles(array($filter1, $filter2));
-
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
-        });
-        it('should exclude only those that match element', function() {
-            $files = $this->returnValue->getFiles();
-            expect($files->count())->toBe(0);
         });
     });
 

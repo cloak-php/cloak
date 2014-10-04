@@ -44,15 +44,8 @@ class Result implements CoverageResultInterface
         foreach ($files as $file) {
             $this->addFile($file);
         }
-
-
-
-//        if (is_null($files)) {
-  //          $this->files = new Sequence();
-    //    } else {
-      //      $this->files = $files;
-        //}
     }
+
 
     /**
      * @param driver\Result $result
@@ -82,56 +75,6 @@ class Result implements CoverageResultInterface
         }
 
         return $files;
-    }
-
-    /**
-     * @param callable $filter
-     * @return Result
-     */
-    public function includeFile(\Closure $filter)
-    {
-        $files = $this->files->filter($filter);
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param array $filters
-     * @return Result
-     */
-    public function includeFiles(array $filters)
-    {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filter($filter);
-        }
-
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param callable $filter
-     * @return Result
-     */
-    public function excludeFile(\Closure $filter)
-    {
-        $files = $this->files->filterNot($filter);
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param array $filters
-     * @return Result
-     */
-    public function excludeFiles(array $filters)
-    {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filterNot($filter);
-        }
-
-        return new self( $files->all() );
     }
 
     /**
