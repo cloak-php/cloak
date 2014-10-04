@@ -11,7 +11,7 @@
 
 use cloak\result\MethodResult;
 use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\value\Coverage;
 use cloak\reflection\MethodReflection;
 use \Mockery;
@@ -20,7 +20,7 @@ use \Mockery;
 describe('MethodResult', function() {
     before(function() {
         $lineSet = new LineSet([
-            new Line(12, Line::EXECUTED)
+            new LineResult(12, LineResult::EXECUTED)
         ]);
         $methodReflection = new MethodReflection('Example\\Example', '__construct');
         $this->result = new MethodResult($methodReflection, $lineSet);

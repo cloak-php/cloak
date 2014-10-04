@@ -10,7 +10,7 @@
  */
 
 use cloak\Result;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\driver\Result as AnalyzeResult;
 use \Mockery;
@@ -61,7 +61,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
 
             $rootDirectory = __DIR__ . '/fixtures/src/';
             $coverageResults = [
-                $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED )
+                $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED )
             ];
 
             $analyzeResult = AnalyzeResult::fromArray($coverageResults);

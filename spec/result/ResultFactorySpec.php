@@ -11,7 +11,7 @@
 
 use cloak\result\ResultFactory;
 use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\reflection\FileReflection;
 
 
@@ -25,7 +25,7 @@ describe('ResultFactory', function() {
     describe('createClassResults', function() {
         before(function() {
             $lineSet = new LineSet([
-                new Line(12, Line::EXECUTED)
+                new LineResult(12, LineResult::EXECUTED)
             ]);
             $this->results = $this->factory->createClassResults($lineSet);
         });
@@ -39,7 +39,7 @@ describe('ResultFactory', function() {
     describe('createTraitResults', function() {
         before(function() {
             $lineSet = new LineSet([
-                new Line(12, Line::EXECUTED)
+                new LineResult(12, LineResult::EXECUTED)
             ]);
             $this->results = $this->factory->createTraitResults($lineSet);
         });

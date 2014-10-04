@@ -11,7 +11,7 @@
 
 use cloak\driver\Result;
 use cloak\driver\result\File;
-use cloak\result\Line;
+use cloak\result\LineResult;
 
 
 describe('Result', function() {
@@ -24,7 +24,7 @@ describe('Result', function() {
         before(function() {
             $results = [
                 $this->fixtureFilePath => [
-                    1 => Line::EXECUTED
+                    1 => LineResult::EXECUTED
                 ]
             ];
             $this->returnValue = Result::fromArray($results);

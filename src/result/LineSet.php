@@ -55,7 +55,7 @@ class LineSet implements LineSetInterface
      */
     public function getDeadLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
+        $lines = $this->selectLines(function(LineResult $line) {
             return $line->isDead();
         });
         return $lines->count();
@@ -66,7 +66,7 @@ class LineSet implements LineSetInterface
      */
     public function getUnusedLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
+        $lines = $this->selectLines(function(LineResult $line) {
             return $line->isUnused();
         });
         return $lines->count();
@@ -77,7 +77,7 @@ class LineSet implements LineSetInterface
      */
     public function getExecutedLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
+        $lines = $this->selectLines(function(LineResult $line) {
             return $line->isExecuted();
         });
         return $lines->count();
@@ -125,7 +125,7 @@ class LineSet implements LineSetInterface
      */
     public function selectRange(LineRange $lineRange)
     {
-        $lines = $this->selectLines(function(Line $line) use ($lineRange) {
+        $lines = $this->selectLines(function(LineResult $line) use ($lineRange) {
             $lineNumber = $line->getLineNumber();
             return $lineRange->contains($lineNumber);
         });
@@ -144,7 +144,7 @@ class LineSet implements LineSetInterface
     }
 
     /**
-     * @return null|Line
+     * @return null|LineResult
      */
     public function first()
     {
@@ -154,7 +154,7 @@ class LineSet implements LineSetInterface
     }
 
     /**
-     * @return null|Line
+     * @return null|LineResult
      */
     public function last()
     {
@@ -172,7 +172,7 @@ class LineSet implements LineSetInterface
         $results = [];
 
         foreach ($analyzeResults as $lineNumber => $analyzeResult) {
-            $results[] = new Line($lineNumber, $analyzeResult);
+            $results[] = new LineResult($lineNumber, $analyzeResult);
         }
 
         return new self($results);
@@ -189,7 +189,7 @@ class LineSet implements LineSetInterface
     }
 
     /**
-     * @return null|Line
+     * @return null|LineResult
      */
     public function current()
     {

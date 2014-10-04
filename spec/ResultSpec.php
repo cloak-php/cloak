@@ -12,7 +12,7 @@
 
 use cloak\Result;
 use cloak\value\Coverage;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\result\FileResult;
 use cloak\result\LineSet;
 use cloak\driver\Result as AnalyzeResult;
@@ -27,7 +27,7 @@ describe('Result', function() {
     describe('#fromAnalyzeResult', function() {
         $analyzeResult = AnalyzeResult::fromArray([
             $this->rootDirectory . 'foo.php' => [
-                1 => Line::EXECUTED
+                1 => LineResult::EXECUTED
             ]
         ]);
         $this->returnValue = Result::fromAnalyzeResult($analyzeResult);
@@ -40,14 +40,14 @@ describe('Result', function() {
     describe('#includeFile', function() {
         $results = [
             $this->rootDirectory . 'foo.php' => [
-                1 => Line::EXECUTED,
-                2 => Line::UNUSED,
-                3 => Line::DEAD
+                1 => LineResult::EXECUTED,
+                2 => LineResult::UNUSED,
+                3 => LineResult::DEAD
             ],
             $this->rootDirectory . 'bar.php' => [
-                1 => Line::EXECUTED,
-                2 => Line::UNUSED,
-                3 => Line::DEAD
+                1 => LineResult::EXECUTED,
+                2 => LineResult::UNUSED,
+                3 => LineResult::DEAD
             ]
         ];
 
@@ -70,9 +70,9 @@ describe('Result', function() {
 
     describe('#includeFiles', function() {
         $results = [
-            $this->rootDirectory . 'foo1.php' => [ 1 => Line::EXECUTED ],
-            $this->rootDirectory . 'vendor/foo1.php' => [ 1 => Line::EXECUTED ],
-            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo1.php' => [ 1 => LineResult::EXECUTED ],
+            $this->rootDirectory . 'vendor/foo1.php' => [ 1 => LineResult::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => LineResult::EXECUTED ]
         ];
 
         $analyzeResult = AnalyzeResult::fromArray($results);
@@ -97,8 +97,8 @@ describe('Result', function() {
 
     describe('#excludeFile', function() {
         $results = [
-            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
-            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo.php' => [ 1 => LineResult::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => LineResult::EXECUTED ]
         ];
 
         $analyzeResult = AnalyzeResult::fromArray($results);
@@ -120,8 +120,8 @@ describe('Result', function() {
 
     describe('#excludeFiles', function() {
         $results = [
-            $this->rootDirectory . 'foo.php' => [ 1 => Line::EXECUTED ],
-            $this->rootDirectory . 'bar.php' => [ 1 => Line::EXECUTED ]
+            $this->rootDirectory . 'foo.php' => [ 1 => LineResult::EXECUTED ],
+            $this->rootDirectory . 'bar.php' => [ 1 => LineResult::EXECUTED ]
         ];
 
         $analyzeResult = AnalyzeResult::fromArray($results);
@@ -211,12 +211,12 @@ describe('Result', function() {
             $filePath1 = $this->rootDirectory . 'foo.php';
             $filePath2 = $this->rootDirectory . 'bar.php';
             $file1 = new FileResult($filePath1, new LineSet([
-                new Line(10, Line::DEAD),
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+                new LineResult(10, LineResult::DEAD),
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]));
             $file2 = new FileResult($filePath2, new LineSet([
-                new Line(1, Line::UNUSED)
+                new LineResult(1, LineResult::UNUSED)
             ]));
 
             $this->result = new Result();

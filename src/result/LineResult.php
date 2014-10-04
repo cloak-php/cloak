@@ -12,10 +12,10 @@
 namespace cloak\result;
 
 /**
- * Class Line
+ * Class LineResult
  * @package cloak\result
  */
-class Line
+class LineResult
 {
 
     const EXECUTED = 1; 
@@ -38,7 +38,7 @@ class Line
         return is_null($this->file) === false;
     }
 
-    public function link(File $file)
+    public function link(FileResult $file)
     {
         $this->file = $file;
     }
@@ -84,7 +84,7 @@ class Line
         return $this->getLineNumber() > 0 && $analyzeResult === true;
     }
 
-    public function equals(Line $line)
+    public function equals(LineResult $line)
     {
         return ($line->getLineNumber() === $this->getLineNumber() && $line->getFile() === $this->getFile());
     }

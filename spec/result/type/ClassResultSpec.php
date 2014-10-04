@@ -11,7 +11,7 @@
 
 use cloak\result\type\ClassResult;
 use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\value\Coverage;
 use cloak\reflection\ClassReflection;
 use \Mockery;
@@ -20,8 +20,8 @@ use \Mockery;
 describe('ClassResult', function() {
     before(function() {
         $lineSet = new LineSet([
-            new Line(12, Line::EXECUTED),
-            new Line(17, Line::UNUSED)
+            new LineResult(12, LineResult::EXECUTED),
+            new LineResult(17, LineResult::UNUSED)
         ]);
         $classReflection = new ClassReflection('Example\\Example');
 

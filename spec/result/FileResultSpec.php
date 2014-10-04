@@ -10,7 +10,7 @@
  */
 
 use cloak\result\FileResult;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\result\LineSet;
 use cloak\value\Coverage;
 
@@ -49,8 +49,8 @@ describe('FileResult', function() {
         context('when line is not empty', function() {
             before(function() {
                 $this->lineSet = new LineSet([
-                    new Line(12, Line::EXECUTED),
-                    new Line(17, Line::UNUSED)
+                    new LineResult(12, LineResult::EXECUTED),
+                    new LineResult(17, LineResult::UNUSED)
                 ]);
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
@@ -101,8 +101,8 @@ describe('FileResult', function() {
     describe('#getDeadLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(12, Line::DEAD),
-                new Line(17, Line::EXECUTED)
+                new LineResult(12, LineResult::DEAD),
+                new LineResult(17, LineResult::EXECUTED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
@@ -114,8 +114,8 @@ describe('FileResult', function() {
     describe('#getUnusedLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::UNUSED)
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::UNUSED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
@@ -127,8 +127,8 @@ describe('FileResult', function() {
     describe('#getExecutedLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
@@ -140,8 +140,8 @@ describe('FileResult', function() {
     describe('#getCodeCoverage', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
@@ -153,8 +153,8 @@ describe('FileResult', function() {
     describe('#isCoverageLessThan', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
@@ -175,8 +175,8 @@ describe('FileResult', function() {
     describe('#isCoverageGreaterEqual', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
@@ -197,8 +197,8 @@ describe('FileResult', function() {
     describe('getClassResults', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
 

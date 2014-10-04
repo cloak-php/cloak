@@ -12,7 +12,7 @@
 use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
 use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\LineResult;
 
 
 describe('FileReflection', function() {
@@ -57,7 +57,7 @@ describe('FileReflection', function() {
     describe('#assembleBy', function() {
         before(function() {
             $result = $this->reflection->assembleBy(new LineSet([
-                new Line(11, Line::UNUSED)
+                new LineResult(11, LineResult::UNUSED)
             ]));
             $this->result = $result;
         });

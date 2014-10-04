@@ -10,7 +10,7 @@
  */
 
 use cloak\Result;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\reporter\MarkdownReporter;
 use cloak\driver\Result as AnalyzeResult;
 use \Mockery;
@@ -29,12 +29,12 @@ describe('MarkdownReporter', function() {
 
         $coverageResults = [
             $this->source1 => [
-                10 => Line::EXECUTED,
-                11 => Line::EXECUTED
+                10 => LineResult::EXECUTED,
+                11 => LineResult::EXECUTED
             ],
             $this->source2 => [
-                10 => Line::UNUSED,
-                15 => Line::EXECUTED
+                10 => LineResult::UNUSED,
+                15 => LineResult::EXECUTED
             ]
         ];
         $analyzeResult = AnalyzeResult::fromArray($coverageResults);

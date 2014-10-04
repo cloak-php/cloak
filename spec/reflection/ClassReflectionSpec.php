@@ -11,7 +11,7 @@
 
 use cloak\reflection\ClassReflection;
 use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\LineResult;
 
 describe('ClassReflection', function() {
     before(function() {
@@ -67,7 +67,7 @@ describe('ClassReflection', function() {
         context('when class reflection', function() {
             before(function() {
                 $result = $this->classReflection->assembleBy(new LineSet([
-                    new Line(29, Line::UNUSED)
+                    new LineResult(29, LineResult::UNUSED)
                 ]));
                 $this->result = $result;
             });
@@ -86,7 +86,7 @@ describe('ClassReflection', function() {
         context('when trait reflection', function() {
             before(function() {
                 $result = $this->traitReflection->assembleBy(new LineSet([
-                    new Line(11, Line::UNUSED)
+                    new LineResult(11, LineResult::UNUSED)
                 ]));
                 $this->result = $result;
             });

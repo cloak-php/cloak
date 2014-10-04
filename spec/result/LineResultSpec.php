@@ -9,27 +9,27 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\result\FileResult;
 use cloak\result\LineSet;
 
-describe('Line', function() {
+describe('LineResult', function() {
 
     $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', new LineSet);
-    $this->deadLine = new Line(1, Line::DEAD, $this->file);
-    $this->unusedLine = new Line(1, Line::UNUSED, $this->file);
-    $this->executedLine = new Line(1, Line::EXECUTED, $this->file);
+    $this->deadLine = new LineResult(1, LineResult::DEAD, $this->file);
+    $this->unusedLine = new LineResult(1, LineResult::UNUSED, $this->file);
+    $this->executedLine = new LineResult(1, LineResult::EXECUTED, $this->file);
 
     describe('#getAnalyzeResult', function() {
         it('should return result status', function() {
-            expect($this->deadLine->getAnalyzeResult())->toEqual(Line::DEAD);
-            expect($this->unusedLine->getAnalyzeResult())->toEqual(Line::UNUSED);
-            expect($this->executedLine->getAnalyzeResult())->toEqual(Line::EXECUTED);
+            expect($this->deadLine->getAnalyzeResult())->toEqual(LineResult::DEAD);
+            expect($this->unusedLine->getAnalyzeResult())->toEqual(LineResult::UNUSED);
+            expect($this->executedLine->getAnalyzeResult())->toEqual(LineResult::EXECUTED);
         });
     });
 
     describe('#link', function() {
-        $this->linkLine = new Line(5, Line::EXECUTED);
+        $this->linkLine = new LineResult(5, LineResult::EXECUTED);
 
         before(function() {
             $this->linkLine->link($this->file);
@@ -41,7 +41,7 @@ describe('Line', function() {
     });
 
     describe('#unlink', function() {
-        $this->linkLine = new Line(5, Line::EXECUTED);
+        $this->linkLine = new LineResult(5, LineResult::EXECUTED);
 
         before(function() {
             $this->linkLine->link($this->file);
@@ -110,9 +110,9 @@ describe('Line', function() {
     });
 
     describe('#isValid', function() {
-        $this->validLine = new Line(1, Line::EXECUTED);
-        $this->lineNumberInvalidLine = new Line(0, Line::EXECUTED);
-        $this->statusInvalidLine = new Line(1, 99);
+        $this->validLine = new LineResult(1, LineResult::EXECUTED);
+        $this->lineNumberInvalidLine = new LineResult(0, LineResult::EXECUTED);
+        $this->statusInvalidLine = new LineResult(1, 99);
 
         context('when an valid line result', function() {
             it('should return true', function() {

@@ -11,7 +11,7 @@
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\result\LineSet;
 
 describe('LineSet', function() {
@@ -19,8 +19,8 @@ describe('LineSet', function() {
     describe('#getCodeCoverage', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::UNUSED),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
         });
         it('should return the value of code coverage', function() {
@@ -31,8 +31,8 @@ describe('LineSet', function() {
     describe('#getDeadLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::UNUSED)
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::UNUSED)
             ]);
         });
         it('should return total number of lines is dead', function() {
@@ -43,8 +43,8 @@ describe('LineSet', function() {
     describe('#getUnusedLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::UNUSED)
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::UNUSED)
             ]);
         });
         it('should return total number of lines is unused', function() {
@@ -55,8 +55,8 @@ describe('LineSet', function() {
     describe('#getExecutedLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
         });
         it('return total number of lines is executed', function() {
@@ -67,9 +67,9 @@ describe('LineSet', function() {
     describe('#getExecutableLineCount', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::UNUSED),
-                new Line(3, Line::EXECUTED)
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::UNUSED),
+                new LineResult(3, LineResult::EXECUTED)
             ]);
         });
         it('return total number of lines is excutalbe', function() {
@@ -80,8 +80,8 @@ describe('LineSet', function() {
     describe('#isCoverageLessThan', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::UNUSED),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
         });
         context('when less than 51% of coverage', function() {
@@ -101,8 +101,8 @@ describe('LineSet', function() {
     describe('#isCoverageGreaterEqual', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::UNUSED),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
         });
         context('when less than 51% of coverage', function() {
@@ -123,11 +123,11 @@ describe('LineSet', function() {
         before(function() {
             $this->range = new LineRange(2, 4);
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED),
-                new Line(2, Line::EXECUTED),
-                new Line(3, Line::EXECUTED),
-                new Line(4, Line::EXECUTED),
-                new Line(5, Line::EXECUTED),
+                new LineResult(1, LineResult::UNUSED),
+                new LineResult(2, LineResult::EXECUTED),
+                new LineResult(3, LineResult::EXECUTED),
+                new LineResult(4, LineResult::EXECUTED),
+                new LineResult(5, LineResult::EXECUTED),
             ]);
 
             $this->newLineSet = $this->lineSet->selectRange($this->range);
@@ -146,7 +146,7 @@ describe('LineSet', function() {
     describe('#current', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED)
+                new LineResult(1, LineResult::UNUSED)
             ]);
             $this->line = $this->lineSet->current();
         });
@@ -158,8 +158,8 @@ describe('LineSet', function() {
     describe('#valid', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::UNUSED),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
         });
         context('when have not line', function() {
@@ -176,8 +176,8 @@ describe('LineSet', function() {
     describe('#valid', function() {
         before(function() {
             $this->lineSet = new LineSet([
-                new Line(1, Line::UNUSED),
-                new Line(2, Line::EXECUTED)
+                new LineResult(1, LineResult::UNUSED),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
             $this->lineSet->next();
             $this->lineSet->rewind();
