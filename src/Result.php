@@ -31,7 +31,7 @@ class Result implements CoverageResultInterface
     /**
      * @var AbstractSequence
      */
-    private $files;
+    private $fileResults;
 
 
     /**
@@ -39,11 +39,11 @@ class Result implements CoverageResultInterface
      */
     public function __construct($files = [])
     {
-        $this->files = new Sequence();
+        $this->fileResults = new NamedResultCollection($files);
 
-        foreach ($files as $file) {
-            $this->addFile($file);
-        }
+//        foreach ($files as $file) {
+  //          $this->addFile($file);
+    //    }
     }
 
 
@@ -78,48 +78,12 @@ class Result implements CoverageResultInterface
     }
 
     /**
-     * @param File[] $files
-     * @return $this
-     */
-    public function setFiles(array $files)
-    {
-        $this->files = new Sequence($files);
-        return $this;
-    }
-
-    /**
      * @return NamedResultCollection
      */
     public function getFiles()
     {
-        $files = $this->files->all();
+        $files = $this->fileResults->toArray();
         return new NamedResultCollection($files);
-    }
-
-    /**
-     * @param FileResult $file
-     * @return $this
-     */
-    public function addFile(FileResult $file)
-    {
-        $this->files->add($file);
-        return $this;
-    }
-
-    /**
-     * @param FileResult $file
-     * @return $this
-     */
-    public function removeFile(FileResult $file)
-    {
-        $indexAt = $this->files->indexOf($file);
-
-        if ($indexAt === -1) {
-            throw new UnexpectedValueException("File that does not exist {$file->getPath()}");
-        }
-        $this->files->remove($indexAt);
-
-        return $this;
     }
 
     /**
@@ -128,9 +92,8 @@ class Result implements CoverageResultInterface
     public function getLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
+        foreach ($this->fileResults as $file) {
             $totalLineCount += $file->getLineCount();
         }
 
@@ -143,9 +106,8 @@ class Result implements CoverageResultInterface
     public function getDeadLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
+        foreach ($this->fileResults as $file) {
             $totalLineCount += $file->getDeadLineCount();
         }
 
@@ -158,9 +120,8 @@ class Result implements CoverageResultInterface
     public function getExecutedLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
+        foreach ($this->fileResults as $file) {
             $totalLineCount += $file->getExecutedLineCount();
         }
 
@@ -173,9 +134,8 @@ class Result implements CoverageResultInterface
     public function getUnusedLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
+        foreach ($this->fileResults as $file) {
             $totalLineCount += $file->getUnusedLineCount();
         }
 
@@ -188,9 +148,8 @@ class Result implements CoverageResultInterface
     public function getExecutableLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
+        foreach ($this->fileResults as $file) {
             $totalLineCount += $file->getExecutableLineCount();
         }
 

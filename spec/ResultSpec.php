@@ -36,68 +36,6 @@ describe('Result', function() {
         });
     });
 
-    describe('#setFiles', function() {
-        $this->files = [];
-        $this->result = new Result();
-        $this->returnValue = $this->result->setFiles($this->files);
-
-        it('should should the files is replaced', function() {
-            expect($this->result->getFiles()->toArray())->toEqual($this->files);
-        });
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toEqual($this->result);
-        });
-    });
-
-    describe('#addFile', function() {
-        $file = $this->rootDirectory . 'foo.php';
-
-        $this->result = new Result();
-        $this->file = new FileResult($file, new LineSet);
-        $this->returnValue = $this->result->addFile($this->file);
-
-        it('should add file', function() {
-            $files = $this->returnValue->getFiles();
-            expect($files->last()->getPath())->toEqual($this->file->getPath());
-        });
-        it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toEqual($this->result);
-        });
-    });
-
-    describe('#removeFile', function() {
-        context('when specify a file that exists', function() {
-            before(function() {
-                $file = $this->rootDirectory . 'foo.php';
-
-                $this->result = new Result();
-                $this->file = new FileResult($file, new LineSet);
-                $this->result->addFile($this->file);
-                $this->returnValue = $this->result->removeFile($this->file);
-            });
-            it('should remove file', function() {
-                $files = $this->returnValue->getFiles();
-                expect($files->count())->toBe(0);
-            });
-            it('should return cloak\Result instance', function() {
-                expect($this->returnValue)->toEqual($this->result);
-            });
-        });
-        context('when specify a file that not exists', function() {
-            before(function() {
-                $file = $this->rootDirectory . 'foo.php';
-                $this->file = new FileResult($file, new LineSet());
-
-                $this->result = new Result();
-            });
-            it('throw \UnexpectedValueException', function() {
-                expect(function() {
-                    $this->result->removeFile($this->file);
-                })->toThrow('\UnexpectedValueException');
-            });
-        });
-    });
-
     describe('summary', function() {
         before(function() {
             $filePath1 = $this->rootDirectory . 'foo.php';
@@ -111,9 +49,7 @@ describe('Result', function() {
                 new LineResult(1, LineResult::UNUSED)
             ]));
 
-            $this->result = new Result();
-            $this->result->addFile($file1);
-            $this->result->addFile($file2);
+            $this->result = new Result([$file1, $file2]);
         });
 
         describe('#getLineCount', function() {
