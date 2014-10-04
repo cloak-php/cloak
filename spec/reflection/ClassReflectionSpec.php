@@ -15,11 +15,51 @@ use cloak\result\Line;
 
 describe('ClassReflection', function() {
     before(function() {
-        $this->reflection = new ClassReflection('Example\Example');
+        $this->classReflection = new ClassReflection('Example\Example');
+    });
+    describe('#getName', function() {
+        it('return class name', function() {
+            expect($this->classReflection->getName())->toEqual('Example\Example');
+        });
+    });
+    describe('#getNamespaceName', function() {
+        it('return namespace name', function() {
+            expect($this->classReflection->getNamespaceName())->toEqual('Example');
+        });
+    });
+    describe('#isTrait', function() {
+        before(function() {
+            $this->traitReflection = new ClassReflection('Example\ExampleTrait');
+        });
+        context('when class', function() {
+            it('return flase', function() {
+                expect($this->classReflection->isTrait())->toBeFalse();
+            });
+        });
+        context('when trait', function() {
+            it('return true', function() {
+                expect($this->traitReflection->isTrait())->toBeTrue();
+            });
+        });
+    });
+    describe('#isClass', function() {
+        before(function() {
+            $this->traitReflection = new ClassReflection('Example\ExampleTrait');
+        });
+        context('when class', function() {
+            it('return true', function() {
+            expect($this->classReflection->isClass())->toBeTrue();
+            });
+        });
+        context('when trait', function() {
+            it('return false', function() {
+                expect($this->traitReflection->isClass())->toBeFalse();
+            });
+        });
     });
     describe('#getMethods', function() {
         before(function() {
-            $this->result = $this->reflection->getMethods();
+            $this->result = $this->classReflection->getMethods();
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
@@ -30,7 +70,7 @@ describe('ClassReflection', function() {
     });
     describe('assembleBy', function() {
         before(function() {
-            $result = $this->reflection->assembleBy(new LineSet([
+            $result = $this->classReflection->assembleBy(new LineSet([
                 new Line(29, Line::UNUSED)
             ]));
             $this->result = $result;
@@ -47,5 +87,4 @@ describe('ClassReflection', function() {
             });
         });
     });
-
 });
