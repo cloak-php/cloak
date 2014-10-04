@@ -12,7 +12,8 @@
 namespace cloak\result;
 
 use cloak\value\LineRange;
-use Zend\Code\Reflection\MethodReflection;
+use cloak\reflection\MethodReflection;
+
 
 /**
  * Class MethodResult
@@ -35,12 +36,7 @@ final class MethodResult implements NamedCoverageResultInterface
      */
     public function __construct(MethodReflection $methodReflection, LineSetInterface $methodLineResults)
     {
-        $lineRange = new LineRange(
-            $methodReflection->getStartLine(),
-            $methodReflection->getEndLine()
-        );
-        $rangeResults = $methodLineResults->selectRange($lineRange);
-
+        $rangeResults = $methodLineResults->resolveLineResults($methodReflection);
         $this->reflection = $methodReflection;
         $this->lineResults = $rangeResults;
     }
@@ -58,8 +54,7 @@ final class MethodResult implements NamedCoverageResultInterface
      */
     public function getNamespaceName()
     {
-        $declaringClass = $this->reflection->getDeclaringClass();
-        return $declaringClass->getNamespaceName();
+        return $this->reflection->getNamespaceName();
     }
 
 }

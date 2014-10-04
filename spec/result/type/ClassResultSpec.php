@@ -13,7 +13,7 @@ use cloak\result\type\ClassResult;
 use cloak\result\LineSet;
 use cloak\result\Line;
 use cloak\value\Coverage;
-use Zend\Code\Reflection\ClassReflection;
+use cloak\reflection\ClassReflection;
 use \Mockery;
 
 
@@ -55,7 +55,7 @@ describe('ClassResult', function() {
             $this->cleanClassLineResults = Mockery::mock('cloak\result\LineSetInterface');
 
             $this->classLineResults = Mockery::mock('cloak\result\LineSetInterface');
-            $this->classLineResults->shouldReceive('selectRange')
+            $this->classLineResults->shouldReceive('resolveLineResults')
                 ->once()->andReturn($this->cleanClassLineResults);
 
             $classReflection = new ClassReflection('Example\\Example');

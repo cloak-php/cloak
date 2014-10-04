@@ -11,27 +11,28 @@
 
 namespace cloak\result\collection;
 
-use cloak\result\CollectionInterface;
+use cloak\result\NamedResultCollectionInterface;
 use cloak\result\NamedCoverageResultInterface;
 use PhpCollection\Map;
-use \Iterator;
+use cloak\collection\PairStackable;
+
 
 /**
  * Class NamedResultCollection
  * @package cloak\result\collection
  */
-class NamedResultCollection implements CollectionInterface
+class NamedResultCollection implements NamedResultCollectionInterface
 {
 
+    use PairStackable;
+
+
     /**
-     * @var \PhpCollection\Map
+     * @param NamedCoverageResultInterface[] $results
      */
-    private $collection;
-
-
-    public function __construct()
+    public function __construct(array $results = [])
     {
-        $this->collection = new Map();
+        $this->collection = new Map($results);
     }
 
     /**
@@ -43,19 +44,13 @@ class NamedResultCollection implements CollectionInterface
     }
 
     /**
-     * @return int
+     * @param NamedCoverageResultInterface[] $results
      */
-    public function count()
+    public function addAll(array $results)
     {
-        return $this->collection->count();
-    }
-
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
-    {
-        return $this->collection->getIterator();
+        foreach ($results as $result) {
+            $this->add($result);
+        }
     }
 
 }

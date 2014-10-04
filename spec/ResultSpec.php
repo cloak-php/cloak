@@ -64,7 +64,7 @@ describe('Result', function() {
         it('should include only those that match element', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->matchPath('bar.php'))->toBeTrue();
+            expect($files->last()->matchPath('bar.php'))->toBeTrue();
         });
     });
 
@@ -114,7 +114,7 @@ describe('Result', function() {
         it('should exclude only those that match element', function() {
             $files = $this->returnValue->getFiles();
             expect($files->count())->toBe(1);
-            expect($files->last()->get()->matchPath('bar.php'))->toBeTrue();
+            expect($files->last()->matchPath('bar.php'))->toBeTrue();
         });
     });
 
@@ -145,12 +145,12 @@ describe('Result', function() {
     });
 
     describe('#setFiles', function() {
-        $this->files = new Sequence();
+        $this->files = [];
         $this->result = new Result();
         $this->returnValue = $this->result->setFiles($this->files);
 
         it('should should the files is replaced', function() {
-            expect($this->result->getFiles())->toEqual($this->files);
+            expect($this->result->getFiles()->toArray())->toEqual($this->files);
         });
         it('should return cloak\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);
@@ -166,7 +166,7 @@ describe('Result', function() {
 
         it('should add file', function() {
             $files = $this->returnValue->getFiles();
-            expect($files->last()->get()->getPath())->toEqual($this->file->getPath());
+            expect($files->last()->getPath())->toEqual($this->file->getPath());
         });
         it('should return cloak\Result instance', function() {
             expect($this->returnValue)->toEqual($this->result);

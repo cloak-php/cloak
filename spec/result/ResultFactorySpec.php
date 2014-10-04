@@ -12,7 +12,8 @@
 use cloak\result\ResultFactory;
 use cloak\result\LineSet;
 use cloak\result\Line;
-use Zend\Code\Reflection\FileReflection;
+use cloak\reflection\FileReflection;
+
 
 describe('ResultFactory', function() {
     before(function() {

@@ -12,13 +12,9 @@
 namespace cloak\result;
 
 use cloak\result\collection\NamedResultCollection;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\FileReflection;
+use cloak\reflection\FileReflection;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
-use \Closure;
-use \CallbackFilterIterator;
-use \ArrayIterator;
 
 
 /**
@@ -48,18 +44,8 @@ class ResultFactory
      */
     public function createClassResults(LineSetInterface $lineCoverages)
     {
-        $reflections = $this->selectClassReflections(function(ClassReflection $class) {
-            return $class->isTrait() === false;
-        });
-
-        $classResults = new NamedResultCollection();
-
-        foreach ($reflections as $reflection) {
-            $classResult = new ClassResult($reflection, $lineCoverages);
-            $classResults->add($classResult);
-        }
-
-        return $classResults;
+        $reflections = $this->fileReflection->getClasses();
+        return $reflections->assembleBy($lineCoverages);
     }
 
     /**
@@ -68,30 +54,8 @@ class ResultFactory
      */
     public function createTraitResults(LineSetInterface $lineCoverages)
     {
-        $reflections = $this->selectClassReflections(function(ClassReflection $class) {
-            return $class->isTrait();
-        });
-
-        $traitResults = new NamedResultCollection();
-
-        foreach ($reflections as $reflection) {
-            $traitResult = new TraitResult($reflection, $lineCoverages);
-            $traitResults->add($traitResult);
-        }
-
-        return $traitResults;
-    }
-
-    /**
-     * @param Closure $filter
-     * @return CallbackFilterIterator
-     */
-    private function selectClassReflections(Closure $filter)
-    {
-        $classReflections = $this->fileReflection->getClasses();
-        $iterator = new ArrayIterator($classReflections);
-
-        return new CallbackFilterIterator($iterator, $filter);
+        $reflections = $this->fileReflection->getTraits();
+        return $reflections->assembleBy($lineCoverages);
     }
 
 }

@@ -13,9 +13,7 @@ namespace cloak\driver;
 
 use cloak\driver\result\File;
 use cloak\driver\result\FileNotFoundException;
-use PhpCollection\AbstractMap;
-use PhpCollection\Map;
-use PhpCollection\Sequence;
+use cloak\driver\result\collection\FileResultCollection;
 use Closure;
 
 
@@ -27,26 +25,22 @@ class Result
 {
 
     /**
-     * @var AbstractMap
+     * @var FileResultCollection
      */
     private $files;
 
 
     /**
-     * @param AbstractMap $files
+     * @param \cloak\driver\result\File[] $files
      */
-    public function __construct(AbstractMap $files = null)
+    public function __construct(array $files = [])
     {
-        if (is_null($files)) {
-            $this->files = new Map();
-        } else {
-            $this->files = $files;
-        }
+        $this->files = new FileResultCollection($files);
     }
 
     /**
      * @param array $results
-     * @return static
+     * @return Result
      */
     public static function fromArray(array $results)
     {
@@ -56,11 +50,11 @@ class Result
 
     /**
      * @param array $results
-     * @return Map
+     * @return \cloak\driver\result\File[]
      */
     protected static function parseResult(array $results)
     {
-        $files = new Map();
+        $files = [];
 
         foreach ($results as $path => $lineResults) {
             try {
@@ -68,7 +62,8 @@ class Result
             } catch (FileNotFoundException $exception) {
                 continue;
             }
-            $files->set($file->getPath(), $file);
+            $key = $file->getPath();
+            $files[$key] = $file;
         }
 
         return $files;
@@ -79,16 +74,15 @@ class Result
      */
     public function addFile(File $file)
     {
-        $this->files->set($file->getPath(), $file);
+        $this->files->add($file);
     }
 
     /**
-     * @return Sequence
+     * @return FileResultCollection
      */
     public function getFiles()
     {
-        $files = new Sequence($this->files->values());
-        return $files;
+        return $this->files;
     }
 
     /**
@@ -97,8 +91,8 @@ class Result
      */
     public function includeFile(Closure $filter)
     {
-        $files = $this->files->filter($filter);
-        return new self($files);
+        $files = $this->files->includeFile($filter);
+        return $this->createNew($files);
     }
 
     /**
@@ -107,13 +101,8 @@ class Result
      */
     public function includeFiles(array $filters)
     {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filter($filter);
-        }
-
-        return new self($files);
+        $files = $this->files->includeFiles($filters);
+        return $this->createNew($files);
     }
 
     /**
@@ -122,8 +111,8 @@ class Result
      */
     public function excludeFile(Closure $filter)
     {
-        $files = $this->files->filterNot($filter);
-        return new self($files);
+        $files = $this->files->excludeFile($filter);
+        return $this->createNew($files);
     }
 
     /**
@@ -132,13 +121,8 @@ class Result
      */
     public function excludeFiles(array $filters)
     {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filterNot($filter);
-        }
-
-        return new self($files);
+        $files = $this->files->excludeFiles($filters);
+        return $this->createNew($files);
     }
 
     /**
@@ -155,6 +139,16 @@ class Result
     public function isEmpty()
     {
         return $this->files->isEmpty();
+    }
+
+    /**
+     * @param FileResultCollection $collection
+     * @return Result
+     */
+    private function createNew(FileResultCollection $collection)
+    {
+        $files = $collection->toArray();
+        return new self($files);
     }
 
 }
