@@ -47,13 +47,11 @@ class FileResultCollection implements CollectionInterface
     }
 
     /**
-     * @return Sequence
-     * FIXME array!!
+     * @return array
      */
     public function getFiles()
     {
-        $files = new Sequence($this->files->values());
-        return $files;
+        return $this->toArray();
     }
 
     /**
@@ -130,6 +128,9 @@ class FileResultCollection implements CollectionInterface
         return $this->files->isEmpty();
     }
 
+    /**
+     * @return File|null
+     */
     public function last()
     {
         $last = $this->files->last();
@@ -142,12 +143,12 @@ class FileResultCollection implements CollectionInterface
         return array_pop($keyPair);
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
-        $keys = $this->files->keys();
-        $values = $this->files->values();
-
-        return array_combine($keys, $values);
+        return $this->createArray($this->files);
     }
 
     /**
