@@ -14,10 +14,10 @@ namespace cloak\result;
 use cloak\CollectionInterface as CommonCollectionInterface;
 
 /**
- * Interface CollectionInterface
+ * Interface NamedResultCollectionInterface
  * @package cloak\result
  */
-interface CollectionInterface extends CommonCollectionInterface
+interface NamedResultCollectionInterface extends CommonCollectionInterface
 {
 
     /**

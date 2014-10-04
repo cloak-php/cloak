@@ -11,7 +11,7 @@
 
 namespace cloak\result\collection;
 
-use cloak\result\CollectionInterface;
+use cloak\result\NamedResultCollectionInterface;
 use cloak\result\NamedCoverageResultInterface;
 use PhpCollection\Map;
 use cloak\collection\PairCollectable;
@@ -21,7 +21,7 @@ use cloak\collection\PairCollectable;
  * Class NamedResultCollection
  * @package cloak\result\collection
  */
-class NamedResultCollection implements CollectionInterface
+class NamedResultCollection implements NamedResultCollectionInterface
 {
 
     use PairCollectable;
