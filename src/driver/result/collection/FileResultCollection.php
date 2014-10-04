@@ -39,7 +39,7 @@ class FileResultCollection implements CollectionInterface
     /**
      * @param File $file
      */
-    public function addFile(File $file)
+    public function add(File $file)
     {
         $this->collection->set($file->getPath(), $file);
     }
@@ -47,7 +47,7 @@ class FileResultCollection implements CollectionInterface
     /**
      * @return array
      */
-    public function getFiles()
+    public function all()
     {
         return $this->toArray();
     }

@@ -74,7 +74,7 @@ class Result
      */
     public function addFile(File $file)
     {
-        $this->files->addFile($file);
+        $this->files->add($file);
     }
 
     /**
