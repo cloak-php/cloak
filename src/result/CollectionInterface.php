@@ -11,15 +11,13 @@
 
 namespace cloak\result;
 
-use cloak\result\NamedCoverageResultInterface;
-use \Countable;
-use \IteratorAggregate;
+use cloak\CollectionInterface as CommonCollectionInterface;
 
 /**
  * Interface CollectionInterface
  * @package cloak\result
  */
-interface CollectionInterface extends IteratorAggregate, Countable
+interface CollectionInterface extends CommonCollectionInterface
 {
 
     /**

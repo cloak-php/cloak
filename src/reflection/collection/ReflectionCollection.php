@@ -15,6 +15,8 @@ use PhpCollection\Sequence;
 use PhpCollection\SequenceInterface;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
+use cloak\result\LineSetInterface;
+use cloak\result\collection\NamedResultCollection;
 use \Closure;
 
 
@@ -34,7 +36,7 @@ class ReflectionCollection implements CollectionInterface
     /**
      * @param SequenceInterface $collection
      */
-    public function __construct(SequenceInterface $collection)
+    public function __construct(SequenceInterface $collection = null)
     {
         if (is_null($collection) === false) {
             $this->collection = $collection;
@@ -59,6 +61,20 @@ class ReflectionCollection implements CollectionInterface
     {
         $collection = $this->collection->filter($filter);
         return new self($collection);
+    }
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return NamedResultCollection
+     */
+    public function assembleBy(LineSetInterface $lineResults)
+    {
+        $assembleCallback = function(ReflectionInterface $reflection) use($lineResults) {
+            return $reflection->assembleBy($lineResults);
+        };
+        $results = $this->collection->map($assembleCallback);
+
+        return new NamedResultCollection( $results->all() );
     }
 
     /**

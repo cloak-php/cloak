@@ -13,6 +13,7 @@ namespace cloak\reflection;
 
 use cloak\value\LineRange;
 use cloak\result\LineSetInterface;
+use cloak\result\NamedCoverageResultInterface;
 
 
 /**
@@ -31,5 +32,11 @@ interface ReflectionInterface
      * @return LineRange
      */
     public function getLineRange();
+
+    /**
+     * @param LineSetInterface $lineResults
+     * @return NamedCoverageResultInterface
+     */
+    public function assembleBy(LineSetInterface $lineResults);
 
 }

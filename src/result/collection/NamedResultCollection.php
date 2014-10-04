@@ -29,9 +29,13 @@ class NamedResultCollection implements CollectionInterface
     private $collection;
 
 
-    public function __construct()
+    /**
+     * @param NamedCoverageResultInterface[] $results
+     */
+    public function __construct(array $results = [])
     {
         $this->collection = new Map();
+        $this->addAll($results);
     }
 
     /**
@@ -40,6 +44,24 @@ class NamedResultCollection implements CollectionInterface
     public function add(NamedCoverageResultInterface $result)
     {
         $this->collection->set($result->getName(), $result);
+    }
+
+    /**
+     * @param NamedCoverageResultInterface[] $results
+     */
+    public function addAll(array $results)
+    {
+        foreach ($results as $result) {
+            $this->add($result);
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function isEmpty()
+    {
+        return $this->collection->isEmpty();
     }
 
     /**
