@@ -14,8 +14,7 @@ namespace cloak\result\collection;
 use cloak\result\CollectionInterface;
 use cloak\result\NamedCoverageResultInterface;
 use PhpCollection\Map;
-//use PhpOption\Some;
-//use PhpOption\None;
+use cloak\collection\PairCollectable;
 
 
 /**
@@ -25,10 +24,7 @@ use PhpCollection\Map;
 class NamedResultCollection implements CollectionInterface
 {
 
-    /**
-     * @var \PhpCollection\Map
-     */
-    private $collection;
+    use PairCollectable;
 
 
     /**
@@ -36,8 +32,7 @@ class NamedResultCollection implements CollectionInterface
      */
     public function __construct(array $results = [])
     {
-        $this->collection = new Map();
-        $this->addAll($results);
+        $this->collection = new Map($results);
     }
 
     /**
@@ -56,62 +51,6 @@ class NamedResultCollection implements CollectionInterface
         foreach ($results as $result) {
             $this->add($result);
         }
-    }
-
-    public function toArray()
-    {
-        $keys = $this->collection->keys();
-        $values = $this->collection->values();
-
-        return array_combine($keys, $values);
-    }
-
-    /**
-     * @return NamedCoverageResultInterface|null
-     * FIXME add logic
-     */
-    public function first()
-    {
-    }
-
-    /**
-     * @return NamedCoverageResultInterface|null
-     * FIXME add logic
-     */
-    public function last()
-    {
-        $last = $this->collection->last();
-
-        if ($last->isEmpty()) {
-            return null;
-        }
-        $keyPair = $last->get();
-
-        return array_pop($keyPair);
-    }
-
-    /**
-     * @return int
-     */
-    public function isEmpty()
-    {
-        return $this->collection->isEmpty();
-    }
-
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->collection->count();
-    }
-
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
-    {
-        return $this->collection->getIterator();
     }
 
 }
