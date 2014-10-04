@@ -27,4 +27,9 @@ interface CollectionInterface extends Countable, IteratorAggregate
      */
     public function isEmpty();
 
+    /**
+     * @return mixed
+     */
+    public function toArray();
+
 }

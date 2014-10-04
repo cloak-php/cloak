@@ -28,7 +28,7 @@ class ReflectionCollection implements CollectionInterface
 {
 
     /**
-     * @var SequenceInterface
+     * @var Sequence
      */
     private $collection;
 
@@ -107,6 +107,14 @@ class ReflectionCollection implements CollectionInterface
     public function getIterator()
     {
         return $this->collection->getIterator();
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->collection->all();
     }
 
 }
