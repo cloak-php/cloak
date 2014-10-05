@@ -208,6 +208,7 @@ class FileResult implements NamedCoverageResultInterface
      */
     public function hasChildResults()
     {
+        return $this->getChildResults()->isEmpty() === false;
     }
 
     /**
@@ -215,6 +216,8 @@ class FileResult implements NamedCoverageResultInterface
      */
     public function getChildResults()
     {
+        $results = $this->getClassResults();
+        return $results->merge($this->getTraitResults());
     }
 
 }
