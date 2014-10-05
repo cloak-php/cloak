@@ -163,13 +163,4 @@ class LineResultCollection implements LineResultCollectionInterface
         return $lines;
     }
 
-    /**
-     * @return null|LineResult
-     */
-    public function current()
-    {
-        $line = $this->collection->get($this->key());
-        return $line;
-    }
-
 }
