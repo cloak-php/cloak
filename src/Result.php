@@ -16,9 +16,6 @@ use cloak\result\FileResult;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\NamedResultCollection;
 use cloak\driver\Result as AnalyzeResult;
-use PhpCollection\Sequence;
-use PhpCollection\AbstractSequence;
-use \UnexpectedValueException;
 
 
 /**
