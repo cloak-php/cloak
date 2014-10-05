@@ -11,8 +11,8 @@
 
 namespace cloak\result;
 
-use cloak\value\LineRange;
 use cloak\reflection\MethodReflection;
+use cloak\result\collection\NamedResultCollection;
 
 
 /**
@@ -57,12 +57,20 @@ final class MethodResult implements NamedCoverageResultInterface
         return $this->reflection->getNamespaceName();
     }
 
+    /**
+     * @return bool
+     */
     public function hasChildResults()
     {
+        return false;
     }
 
+    /**
+     * @return NamedResultCollectionInterface
+     */
     public function getChildResults()
     {
+        return new NamedResultCollection();
     }
 
 }

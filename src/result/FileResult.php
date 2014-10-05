@@ -203,10 +203,16 @@ class FileResult implements NamedCoverageResultInterface
         return $this->factory->createTraitResults($this->lineCoverages);
     }
 
+    /**
+     * @return bool
+     */
     public function hasChildResults()
     {
     }
 
+    /**
+     * @return NamedResultCollectionInterface
+     */
     public function getChildResults()
     {
     }

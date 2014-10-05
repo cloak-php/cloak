@@ -26,7 +26,7 @@ class Result implements CoverageResultInterface
 {
 
     /**
-     * @var NamedResultCollection
+     * @var result\NamedResultCollectionInterface
      */
     private $fileResults;
 
@@ -71,7 +71,7 @@ class Result implements CoverageResultInterface
     }
 
     /**
-     * @return NamedResultCollection
+     * @return \cloak\result\NamedResultCollectionInterface
      */
     public function getFiles()
     {
@@ -181,12 +181,20 @@ class Result implements CoverageResultInterface
         return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
+    /**
+     * @return bool
+     */
     public function hasChildResults()
     {
+        return $this->fileResults->isEmpty() === false;
     }
 
+    /**
+     * @return result\NamedResultCollectionInterface
+     */
     public function getChildResults()
     {
+        return $this->getFiles();
     }
 
 }

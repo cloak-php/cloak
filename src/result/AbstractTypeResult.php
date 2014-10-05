@@ -74,12 +74,21 @@ abstract class AbstractTypeResult
         return $results;
     }
 
+    /**
+     * @return bool
+     */
     public function hasChildResults()
     {
+        $methods = $this->reflection->getMethods();
+        return $methods->isEmpty() === false;
     }
 
+    /**
+     * @return NamedResultCollectionInterface
+     */
     public function getChildResults()
     {
+        return $this->getMethodResults();
     }
 
 }
