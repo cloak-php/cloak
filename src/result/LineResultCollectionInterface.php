@@ -14,14 +14,14 @@ namespace cloak\result;
 use cloak\CoverageResultInterface;
 use cloak\value\LineRange;
 use cloak\reflection\ReflectionInterface;
-use \Iterator;
+use cloak\CollectionInterface;
 
 
 /**
  * Interface LineResultCollectionInterface
  * @package cloak\result
  */
-interface LineResultCollectionInterface extends CoverageResultInterface, Iterator
+interface LineResultCollectionInterface extends CoverageResultInterface, CollectionInterface
 {
 
     /**

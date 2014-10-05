@@ -144,48 +144,4 @@ describe('LineResultCollection', function() {
         });
     });
 
-    describe('#current', function() {
-        before(function() {
-            $this->lineSet = new LineResultCollection([
-                new LineResult(1, LineResult::UNUSED)
-            ]);
-            $this->line = $this->lineSet->current();
-        });
-        it('return current line', function() {
-            expect($this->line->getLineNumber())->toEqual(1);
-        });
-    });
-
-    describe('#valid', function() {
-        before(function() {
-            $this->lineSet = new LineResultCollection([
-                new LineResult(1, LineResult::UNUSED),
-                new LineResult(2, LineResult::EXECUTED)
-            ]);
-        });
-        context('when have not line', function() {
-            before(function() {
-                $this->lineSet->next();
-                $this->lineSet->next();
-            });
-            it('return false', function() {
-                expect($this->lineSet->valid())->toBeFalse();
-            });
-        });
-    });
-
-    describe('#valid', function() {
-        before(function() {
-            $this->lineSet = new LineResultCollection([
-                new LineResult(1, LineResult::UNUSED),
-                new LineResult(2, LineResult::EXECUTED)
-            ]);
-            $this->lineSet->next();
-            $this->lineSet->rewind();
-        });
-        it('return false', function() {
-            expect($this->lineSet->key())->toEqual(0);
-        });
-    });
-
 });

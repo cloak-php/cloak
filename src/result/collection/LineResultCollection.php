@@ -11,6 +11,7 @@
 
 namespace cloak\result\collection;
 
+use cloak\collection\ElementStackable;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\result\LineResultCollectionInterface;
@@ -26,23 +27,14 @@ use PhpCollection\Sequence;
 class LineResultCollection implements LineResultCollectionInterface
 {
 
-    /**
-     * @var int
-     */
-    private $index = 0;
-
-    /**
-     * @var \PhpCollection\Sequence
-     */
-    private $lines;
-
+    use ElementStackable;
 
     /**
      * @param array $lines
      */
     public function __construct(array $lines = [])
     {
-        $this->lines = new Sequence($lines);
+        $this->collection = new Sequence($lines);
     }
 
     /**
@@ -50,7 +42,7 @@ class LineResultCollection implements LineResultCollectionInterface
      */
     public function getLineCount()
     {
-        return $this->lines->count();
+        return $this->collection->count();
     }
 
     /**
@@ -147,26 +139,6 @@ class LineResultCollection implements LineResultCollectionInterface
     }
 
     /**
-     * @return null|LineResult
-     */
-    public function first()
-    {
-        $line = $this->lines->first();
-        $line = $line->isDefined() ? $line->get() : null;
-        return $line;
-    }
-
-    /**
-     * @return null|LineResult
-     */
-    public function last()
-    {
-        $line = $this->lines->last();
-        $line = $line->isDefined() ? $line->get() : null;
-        return $line;
-    }
-
-    /**
      * @param array $analyzeResults
      * @return LineResultCollectionInterface
      */
@@ -187,7 +159,7 @@ class LineResultCollection implements LineResultCollectionInterface
      */
     public function selectLines(\Closure $filter)
     {
-        $lines = $this->lines->filter($filter);
+        $lines = $this->collection->filter($filter);
         return $lines;
     }
 
@@ -196,35 +168,8 @@ class LineResultCollection implements LineResultCollectionInterface
      */
     public function current()
     {
-        $line = $this->lines->get($this->key());
+        $line = $this->collection->get($this->key());
         return $line;
-    }
-
-    /**
-     * @return int
-     */
-    public function key()
-    {
-        return $this->index;
-    }
-
-    public function next()
-    {
-        $this->index++;
-    }
-
-    public function rewind()
-    {
-        $this->index = 0;
-    }
-
-    /**
-     * @return bool
-     */
-    public function valid()
-    {
-        $size = $this->lines->count();
-        return ($size - 1) >= $this->key();
     }
 
 }
