@@ -17,11 +17,11 @@ use cloak\reflection\ReflectionInterface;
 use \Iterator;
 
 
-/***
- * Class LineSetInterface
+/**
+ * Interface LineResultCollectionInterface
  * @package cloak\result
  */
-interface LineSetInterface extends CoverageResultInterface, Iterator
+interface LineResultCollectionInterface extends CoverageResultInterface, Iterator
 {
 
     /**
@@ -32,7 +32,7 @@ interface LineSetInterface extends CoverageResultInterface, Iterator
 
     /**
      * @param ReflectionInterface $reflection
-     * @return LineSetInterface
+     * @return LineResultCollectionInterface
      */
     public function resolveLineResults(ReflectionInterface $reflection);
 

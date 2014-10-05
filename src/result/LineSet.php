@@ -21,7 +21,7 @@ use PhpCollection\Sequence;
  * Class LineSet
  * @package cloak\result
  */
-class LineSet implements LineSetInterface
+class LineSet implements LineResultCollectionInterface
 {
 
     /**

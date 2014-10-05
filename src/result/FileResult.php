@@ -47,7 +47,7 @@ class FileResult implements NamedCoverageResultInterface
      * @param $path
      * @param array $lineResults
      */
-    public function __construct($path, LineSetInterface $lineCoverages)
+    public function __construct($path, LineResultCollectionInterface $lineCoverages)
     {
         $this->path = $path;
         $this->resolveLineRange($lineCoverages);
@@ -173,9 +173,9 @@ class FileResult implements NamedCoverageResultInterface
     }
 
     /**
-     * @param LineSetInterface $lineCoverages
+     * @param LineResultCollectionInterface $lineCoverages
      */
-    protected function resolveLineRange(LineSetInterface $lineCoverages)
+    protected function resolveLineRange(LineResultCollectionInterface $lineCoverages)
     {
         $fileReflection = new FileReflection($this->getPath());
         $this->lineRange = $fileReflection->getLineRange();

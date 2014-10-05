@@ -15,7 +15,7 @@ use PhpCollection\Sequence;
 use cloak\collection\ElementStackable;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
-use cloak\result\LineSetInterface;
+use cloak\result\LineResultCollectionInterface;
 use cloak\result\collection\NamedResultCollection;
 use \Closure;
 
@@ -68,10 +68,10 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
-     * @param LineSetInterface $lineResults
+     * @param LineResultCollectionInterface $lineResults
      * @return NamedResultCollection
      */
-    public function assembleBy(LineSetInterface $lineResults)
+    public function assembleBy(LineResultCollectionInterface $lineResults)
     {
         $assembleCallback = function(ReflectionInterface $reflection) use($lineResults) {
             return $reflection->assembleBy($lineResults);
