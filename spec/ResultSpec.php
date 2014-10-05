@@ -14,7 +14,7 @@ use cloak\Result;
 use cloak\value\Coverage;
 use cloak\result\LineResult;
 use cloak\result\FileResult;
-use cloak\result\LineSet;
+use cloak\result\collection\LineResultCollection;
 use cloak\driver\Result as AnalyzeResult;
 
 
@@ -40,12 +40,12 @@ describe('Result', function() {
         before(function() {
             $filePath1 = $this->rootDirectory . 'foo.php';
             $filePath2 = $this->rootDirectory . 'bar.php';
-            $file1 = new FileResult($filePath1, new LineSet([
+            $file1 = new FileResult($filePath1, new LineResultCollection([
                 new LineResult(10, LineResult::DEAD),
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]));
-            $file2 = new FileResult($filePath2, new LineSet([
+            $file2 = new FileResult($filePath2, new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED)
             ]));
 

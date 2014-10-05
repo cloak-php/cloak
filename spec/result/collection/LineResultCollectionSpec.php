@@ -12,13 +12,14 @@
 use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\result\LineResult;
-use cloak\result\LineSet;
+use cloak\result\collection\LineResultCollection;
 
-describe('LineSet', function() {
+
+describe('LineResultCollection', function() {
 
     describe('#getCodeCoverage', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED),
                 new LineResult(2, LineResult::EXECUTED)
             ]);
@@ -30,7 +31,7 @@ describe('LineSet', function() {
 
     describe('#getDeadLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::DEAD),
                 new LineResult(2, LineResult::UNUSED)
             ]);
@@ -42,7 +43,7 @@ describe('LineSet', function() {
 
     describe('#getUnusedLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::DEAD),
                 new LineResult(2, LineResult::UNUSED)
             ]);
@@ -54,7 +55,7 @@ describe('LineSet', function() {
 
     describe('#getExecutedLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::DEAD),
                 new LineResult(2, LineResult::EXECUTED)
             ]);
@@ -66,7 +67,7 @@ describe('LineSet', function() {
 
     describe('#getExecutableLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::DEAD),
                 new LineResult(2, LineResult::UNUSED),
                 new LineResult(3, LineResult::EXECUTED)
@@ -79,7 +80,7 @@ describe('LineSet', function() {
 
     describe('#isCoverageLessThan', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED),
                 new LineResult(2, LineResult::EXECUTED)
             ]);
@@ -100,7 +101,7 @@ describe('LineSet', function() {
 
     describe('#isCoverageGreaterEqual', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED),
                 new LineResult(2, LineResult::EXECUTED)
             ]);
@@ -122,7 +123,7 @@ describe('LineSet', function() {
     describe('#selectRange', function() {
         before(function() {
             $this->range = new LineRange(2, 4);
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED),
                 new LineResult(2, LineResult::EXECUTED),
                 new LineResult(3, LineResult::EXECUTED),
@@ -145,7 +146,7 @@ describe('LineSet', function() {
 
     describe('#current', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED)
             ]);
             $this->line = $this->lineSet->current();
@@ -157,7 +158,7 @@ describe('LineSet', function() {
 
     describe('#valid', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED),
                 new LineResult(2, LineResult::EXECUTED)
             ]);
@@ -175,7 +176,7 @@ describe('LineSet', function() {
 
     describe('#valid', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::UNUSED),
                 new LineResult(2, LineResult::EXECUTED)
             ]);

@@ -9,19 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak\result\collection;
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
+use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResult;
 use cloak\reflection\ReflectionInterface;
 use PhpCollection\Sequence;
 
 
-/***
- * Class LineSet
- * @package cloak\result
+/**
+ * Class LineResultCollection
+ * @package cloak\result\collection
  */
-class LineSet implements LineResultCollectionInterface
+class LineResultCollection implements LineResultCollectionInterface
 {
 
     /**
@@ -33,6 +35,7 @@ class LineSet implements LineResultCollectionInterface
      * @var \PhpCollection\Sequence
      */
     private $lines;
+
 
     /**
      * @param array $lines
@@ -121,7 +124,7 @@ class LineSet implements LineResultCollectionInterface
 
     /**
      * @param LineRange $lineRange
-     * @return LineSet
+     * @return LineResultCollectionInterface
      */
     public function selectRange(LineRange $lineRange)
     {
@@ -135,7 +138,7 @@ class LineSet implements LineResultCollectionInterface
 
     /**
      * @param ReflectionInterface $reflection
-     * @return LineSet|LineSetInterface
+     * @return LineResultCollectionInterface
      */
     public function resolveLineResults(ReflectionInterface $reflection)
     {
@@ -165,7 +168,7 @@ class LineSet implements LineResultCollectionInterface
 
     /**
      * @param array $analyzeResults
-     * @return LineSet
+     * @return LineResultCollectionInterface
      */
     public static function from(array $analyzeResults)
     {

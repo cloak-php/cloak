@@ -11,14 +11,15 @@
 
 use cloak\result\FileResult;
 use cloak\result\LineResult;
-use cloak\result\LineSet;
+use cloak\result\collection\LineResultCollection;
 use cloak\value\Coverage;
+
 
 describe('FileResult', function() {
 
     describe('#getRelativePath', function() {
         before(function() {
-            $this->lineSet = new LineSet();
+            $this->lineSet = new LineResultCollection();
             $this->file = new FileResult(__FILE__, $this->lineSet);
         });
         it('should return relative path', function() {
@@ -28,7 +29,7 @@ describe('FileResult', function() {
 
     describe('#getLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet();
+            $this->lineSet = new LineResultCollection();
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('return total line number', function() {
@@ -39,25 +40,25 @@ describe('FileResult', function() {
     describe('#getLineResults', function() {
         context('when line is empty', function() {
             before(function() {
-                $this->lineSet = new LineSet();
+                $this->lineSet = new LineResultCollection();
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
-            it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineSet');
+            it('return cloak\result\LineResultCollectionInterface instance', function() {
+                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineResultCollectionInterface');
             });
         });
         context('when line is not empty', function() {
             before(function() {
-                $this->lineSet = new LineSet([
+                $this->lineSet = new LineResultCollection([
                     new LineResult(12, LineResult::EXECUTED),
                     new LineResult(17, LineResult::UNUSED)
                 ]);
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
-            it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineSet');
+            it('should return cloak\result\LineResultCollectionInterface instance', function() {
+                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineResultCollectionInterface');
             });
-            it('should return cloak\result\LineSet instance', function() {
+            it('should return cloak\result\LineResultCollectionInterface instance', function() {
                 expect($this->file->getLineResults()->getLineCount())->toBe(2);
             });
         });
@@ -66,8 +67,8 @@ describe('FileResult', function() {
     describe('#equals', function() {
         context('when path equals', function() {
             before(function() {
-                $this->lineSet1 = new LineSet();
-                $this->lineSet2 = new LineSet();
+                $this->lineSet1 = new LineResultCollection();
+                $this->lineSet2 = new LineResultCollection();
 
                 $this->file1 = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet1);
                 $this->file2 = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet2);
@@ -81,7 +82,7 @@ describe('FileResult', function() {
 
     describe('#matchPath', function() {
         before(function() {
-            $this->lineSet = new LineSet();
+            $this->lineSet = new LineResultCollection();
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         context('when included in the path', function() {
@@ -100,7 +101,7 @@ describe('FileResult', function() {
 
     describe('#getDeadLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::DEAD),
                 new LineResult(17, LineResult::EXECUTED)
             ]);
@@ -113,7 +114,7 @@ describe('FileResult', function() {
 
     describe('#getUnusedLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::DEAD),
                 new LineResult(2, LineResult::UNUSED)
             ]);
@@ -126,7 +127,7 @@ describe('FileResult', function() {
 
     describe('#getExecutedLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(1, LineResult::DEAD),
                 new LineResult(2, LineResult::EXECUTED)
             ]);
@@ -139,7 +140,7 @@ describe('FileResult', function() {
 
     describe('#getCodeCoverage', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
@@ -152,7 +153,7 @@ describe('FileResult', function() {
 
     describe('#isCoverageLessThan', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
@@ -174,7 +175,7 @@ describe('FileResult', function() {
 
     describe('#isCoverageGreaterEqual', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
@@ -196,7 +197,7 @@ describe('FileResult', function() {
 
     describe('getClassResults', function() {
         before(function() {
-            $this->lineSet = new LineSet([
+            $this->lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);

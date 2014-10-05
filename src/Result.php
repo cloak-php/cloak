@@ -13,7 +13,7 @@ namespace cloak;
 
 use cloak\value\Coverage;
 use cloak\result\FileResult;
-use cloak\result\LineSet;
+use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\NamedResultCollection;
 use cloak\driver\Result as AnalyzeResult;
 use PhpCollection\Sequence;
@@ -64,7 +64,7 @@ class Result implements CoverageResultInterface
 
         foreach ($fileResults as $fileResult) {
             $path = $fileResult->getPath();
-            $lineResults = LineSet::from( $fileResult->getLineResults() );
+            $lineResults = LineResultCollection::from( $fileResult->getLineResults() );
 
             $file = new FileResult($path, $lineResults);
             $files[] = $file;

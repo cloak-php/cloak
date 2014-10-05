@@ -11,7 +11,7 @@
 
 use cloak\result\collection\NamedResultCollection;
 use cloak\result\type\ClassResult;
-use cloak\result\LineSet;
+use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
 use cloak\reflection\ClassReflection;
 
@@ -19,7 +19,7 @@ use cloak\reflection\ClassReflection;
 describe('ClassResultCollection', function() {
     describe('#add', function() {
         before(function() {
-            $lineSet = new LineSet([
+            $lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
@@ -34,7 +34,7 @@ describe('ClassResultCollection', function() {
     });
     describe('#getIterator', function() {
         before(function() {
-            $lineSet = new LineSet([
+            $lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
