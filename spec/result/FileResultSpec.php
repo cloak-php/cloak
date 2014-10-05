@@ -9,27 +9,28 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\File;
-use cloak\result\Line;
-use cloak\result\LineSet;
+use cloak\result\FileResult;
+use cloak\result\LineResult;
+use cloak\result\collection\LineResultCollection;
 use cloak\value\Coverage;
 
-describe('File', function() {
+
+describe('FileResult', function() {
 
     describe('#getRelativePath', function() {
         before(function() {
-            $this->lineSet = new LineSet();
-            $this->file = new File(__FILE__, $this->lineSet);
+            $this->lineSet = new LineResultCollection();
+            $this->file = new FileResult(__FILE__, $this->lineSet);
         });
         it('should return relative path', function() {
-            expect($this->file->getRelativePath(__DIR__))->toEqual('FileSpec.php');
+            expect($this->file->getRelativePath(__DIR__))->toEqual('FileResultSpec.php');
         });
     });
 
     describe('#getLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet();
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->lineSet = new LineResultCollection();
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('return total line number', function() {
             expect($this->file->getLineCount())->toBe(32);
@@ -39,25 +40,25 @@ describe('File', function() {
     describe('#getLineResults', function() {
         context('when line is empty', function() {
             before(function() {
-                $this->lineSet = new LineSet();
-                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+                $this->lineSet = new LineResultCollection();
+                $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
-            it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineSet');
+            it('return cloak\result\LineResultCollectionInterface instance', function() {
+                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineResultCollectionInterface');
             });
         });
         context('when line is not empty', function() {
             before(function() {
-                $this->lineSet = new LineSet([
-                    new Line(12, Line::EXECUTED),
-                    new Line(17, Line::UNUSED)
+                $this->lineSet = new LineResultCollection([
+                    new LineResult(12, LineResult::EXECUTED),
+                    new LineResult(17, LineResult::UNUSED)
                 ]);
-                $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+                $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
-            it('should return cloak\result\LineSet instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineSet');
+            it('should return cloak\result\LineResultCollectionInterface instance', function() {
+                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineResultCollectionInterface');
             });
-            it('should return cloak\result\LineSet instance', function() {
+            it('should return cloak\result\LineResultCollectionInterface instance', function() {
                 expect($this->file->getLineResults()->getLineCount())->toBe(2);
             });
         });
@@ -66,11 +67,11 @@ describe('File', function() {
     describe('#equals', function() {
         context('when path equals', function() {
             before(function() {
-                $this->lineSet1 = new LineSet();
-                $this->lineSet2 = new LineSet();
+                $this->lineSet1 = new LineResultCollection();
+                $this->lineSet2 = new LineResultCollection();
 
-                $this->file1 = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet1);
-                $this->file2 = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet2);
+                $this->file1 = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet1);
+                $this->file2 = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet2);
             });
             it('should return true', function() {
                 $result = $this->file1->equals($this->file2);
@@ -81,8 +82,8 @@ describe('File', function() {
 
     describe('#matchPath', function() {
         before(function() {
-            $this->lineSet = new LineSet();
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->lineSet = new LineResultCollection();
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         context('when included in the path', function() {
             it('should return true', function() {
@@ -100,11 +101,11 @@ describe('File', function() {
 
     describe('#getDeadLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(12, Line::DEAD),
-                new Line(17, Line::EXECUTED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::DEAD),
+                new LineResult(17, LineResult::EXECUTED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('should return total number of lines is dead', function() {
             expect($this->file->getDeadLineCount())->toBe(1);
@@ -113,11 +114,11 @@ describe('File', function() {
 
     describe('#getUnusedLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::UNUSED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::UNUSED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('should return total number of lines is unused', function() {
             expect($this->file->getUnusedLineCount())->toBe(1);
@@ -126,11 +127,11 @@ describe('File', function() {
 
     describe('#getExecutedLineCount', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(1, Line::DEAD),
-                new Line(2, Line::EXECUTED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(1, LineResult::DEAD),
+                new LineResult(2, LineResult::EXECUTED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('should return total number of lines is executed', function() {
             expect($this->file->getExecutedLineCount())->toBe(1);
@@ -139,11 +140,11 @@ describe('File', function() {
 
     describe('#getCodeCoverage', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         it('should return the value of code coverage', function() {
             expect($this->file->getCodeCoverage()->value())->toBe(50.00);
@@ -152,11 +153,11 @@ describe('File', function() {
 
     describe('#isCoverageLessThan', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         context('when less than 51% of coverage', function() {
             it('should return true', function() {
@@ -174,11 +175,11 @@ describe('File', function() {
 
     describe('#isCoverageGreaterEqual', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
         });
         context('when less than 51% of coverage', function() {
             it('should return false', function() {
@@ -196,11 +197,11 @@ describe('File', function() {
 
     describe('getClassResults', function() {
         before(function() {
-            $this->lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+            $this->lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
-            $this->file = new File(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
+            $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
 
         });
         it('return \cloak\result\collection\NamedResultCollection instance', function() {

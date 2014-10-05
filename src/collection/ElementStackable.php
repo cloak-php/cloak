@@ -11,8 +11,6 @@
 
 namespace cloak\collection;
 
-use PhpOption\Option;
-
 
 /**
  * Trait ElementStackable
@@ -21,7 +19,11 @@ use PhpOption\Option;
 trait ElementStackable
 {
 
-    use Stackable;
+    /**
+     * @var \PhpCollection\Sequence
+     */
+    protected $collection;
+
 
     public function first()
     {
@@ -41,6 +43,30 @@ trait ElementStackable
     public function toArray()
     {
         return $this->collection->all();
+    }
+
+    /**
+     * @return int
+     */
+    public function isEmpty()
+    {
+        return $this->collection->isEmpty();
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->collection->count();
+    }
+
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->collection->getIterator();
     }
 
 }

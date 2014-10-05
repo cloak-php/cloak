@@ -14,14 +14,14 @@ namespace cloak\result;
 use cloak\CoverageResultInterface;
 use cloak\value\LineRange;
 use cloak\reflection\ReflectionInterface;
-use \Iterator;
+use cloak\CollectionInterface;
 
 
-/***
- * Class LineSetInterface
+/**
+ * Interface LineResultCollectionInterface
  * @package cloak\result
  */
-interface LineSetInterface extends CoverageResultInterface, Iterator
+interface LineResultCollectionInterface extends CoverageResultInterface, CollectionInterface
 {
 
     /**
@@ -32,7 +32,7 @@ interface LineSetInterface extends CoverageResultInterface, Iterator
 
     /**
      * @param ReflectionInterface $reflection
-     * @return LineSetInterface
+     * @return LineResultCollectionInterface
      */
     public function resolveLineResults(ReflectionInterface $reflection);
 

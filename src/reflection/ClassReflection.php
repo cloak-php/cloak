@@ -13,7 +13,7 @@ namespace cloak\reflection;
 
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\value\LineRange;
-use cloak\result\LineSetInterface;
+use cloak\result\LineResultCollectionInterface;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
 use cloak\result\AbstractTypeResultInterface;
@@ -105,12 +105,11 @@ class ClassReflection implements ReflectionInterface
     }
 
     /**
-     * @param LineSetInterface $lineResults
+     * @param LineResultCollectionInterface $lineResults
      * @return AbstractTypeResultInterface
      */
-    public function assembleBy(LineSetInterface $lineResults)
+    public function assembleBy(LineResultCollectionInterface $lineResults)
     {
-        $result = null;
 
         if ($this->isClass()) {
             $result = new ClassResult($this, $lineResults);

@@ -18,10 +18,15 @@ Version 1.4.0
 
 	```php
 	//after
-	$builder->inclueFile(function(\cloak\driver\result\File $file) {
+	$builder->inclueFile(function(\cloak\driver\result\FileResult $file) {
     	//do something
 	});
 	```
+
+* **cloak\result\LineSet**, **cloak\result\LineSetInterface** to **LineResultCollection**, **LineResultCollectionInterface**
+* **cloak\result\Line** to **LineResult**
+* **cloak\result\File** to **FileResult**
+
 
 Version 1.3.2.4
 ---------------------------------------------------------------

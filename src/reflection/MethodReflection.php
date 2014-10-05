@@ -12,7 +12,7 @@
 namespace cloak\reflection;
 
 use cloak\value\LineRange;
-use cloak\result\LineSetInterface;
+use cloak\result\LineResultCollectionInterface;
 use cloak\result\MethodResult;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
 
@@ -32,7 +32,7 @@ class MethodReflection implements ReflectionInterface
 
     /**
      * @param $class
-     * @param null $name
+     * @param string $name
      */
     public function __construct($class, $name = null)
     {
@@ -68,10 +68,10 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
-     * @param LineSetInterface $lineResults
+     * @param LineResultCollectionInterface $lineResults
      * @return MethodResult
      */
-    public function assembleBy(LineSetInterface $lineResults)
+    public function assembleBy(LineResultCollectionInterface $lineResults)
     {
         return new MethodResult($this, $lineResults);
     }

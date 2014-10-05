@@ -32,9 +32,9 @@ final class MethodResult implements NamedCoverageResultInterface
 
     /**
      * @param MethodReflection $classReflection
-     * @param LineSetInterface $methodLineResults
+     * @param LineResultCollectionInterface $methodLineResults
      */
-    public function __construct(MethodReflection $methodReflection, LineSetInterface $methodLineResults)
+    public function __construct(MethodReflection $methodReflection, LineResultCollectionInterface $methodLineResults)
     {
         $rangeResults = $methodLineResults->resolveLineResults($methodReflection);
         $this->reflection = $methodReflection;

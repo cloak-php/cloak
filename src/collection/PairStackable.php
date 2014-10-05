@@ -12,7 +12,7 @@
 namespace cloak\collection;
 
 use PhpOption\Option;
-use PhpCollection\Map;
+use PhpCollection\AbstractMap;
 
 
 /**
@@ -22,7 +22,10 @@ use PhpCollection\Map;
 trait PairStackable
 {
 
-    use Stackable;
+    /**
+     * @var \PhpCollection\Map
+     */
+    protected $collection;
 
 
     /**
@@ -66,15 +69,39 @@ trait PairStackable
     }
 
     /**
-     * @param Map $files
+     * @param \PhpCollection\AbstractMap $files
      * @return array
      */
-    private function createArray(Map $collection)
+    private function createArray(AbstractMap $collection)
     {
         $keys = $collection->keys();
         $values = $collection->values();
 
         return array_combine($keys, $values);
+    }
+
+    /**
+     * @return int
+     */
+    public function isEmpty()
+    {
+        return $this->collection->isEmpty();
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->collection->count();
+    }
+
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->collection->getIterator();
     }
 
 }

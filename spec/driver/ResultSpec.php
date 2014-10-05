@@ -10,8 +10,8 @@
  */
 
 use cloak\driver\Result;
-use cloak\driver\result\File;
-use cloak\result\Line;
+use cloak\driver\result\FileResult;
+use cloak\result\LineResult;
 
 
 describe('Result', function() {
@@ -24,7 +24,7 @@ describe('Result', function() {
         before(function() {
             $results = [
                 $this->fixtureFilePath => [
-                    1 => Line::EXECUTED
+                    1 => LineResult::EXECUTED
                 ]
             ];
             $this->returnValue = Result::fromArray($results);
@@ -37,7 +37,7 @@ describe('Result', function() {
     describe('#addFile', function() {
         before(function() {
             $this->result = new Result();
-            $this->result->addFile(new File($this->fixtureFilePath));
+            $this->result->addFile(new FileResult($this->fixtureFilePath));
         });
         it('add file', function() {
             expect($this->result->getFileCount())->toEqual(1);
@@ -56,7 +56,7 @@ describe('Result', function() {
         context('when not empty', function() {
             before(function() {
                 $this->result = new Result();
-                $this->result->addFile(new File($this->fixtureFilePath));
+                $this->result->addFile(new FileResult($this->fixtureFilePath));
             });
             it('return false', function() {
                 expect($this->result->isEmpty())->toBeFalse();

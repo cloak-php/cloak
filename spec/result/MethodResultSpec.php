@@ -10,8 +10,8 @@
  */
 
 use cloak\result\MethodResult;
-use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\collection\LineResultCollection;
+use cloak\result\LineResult;
 use cloak\value\Coverage;
 use cloak\reflection\MethodReflection;
 use \Mockery;
@@ -19,8 +19,8 @@ use \Mockery;
 
 describe('MethodResult', function() {
     before(function() {
-        $lineSet = new LineSet([
-            new Line(12, Line::EXECUTED)
+        $lineSet = new LineResultCollection([
+            new LineResult(12, LineResult::EXECUTED)
         ]);
         $methodReflection = new MethodReflection('Example\\Example', '__construct');
         $this->result = new MethodResult($methodReflection, $lineSet);
@@ -38,9 +38,9 @@ describe('MethodResult', function() {
 
     describe('NamedCoverageResultInterface', function() {
         beforeEach(function() {
-            $this->cleanMethodLineResults = Mockery::mock('cloak\result\LineSetInterface');
+            $this->cleanMethodLineResults = Mockery::mock('cloak\result\LineResultCollectionInterface');
 
-            $this->methodLineResults = Mockery::mock('cloak\result\LineSetInterface');
+            $this->methodLineResults = Mockery::mock('cloak\result\LineResultCollectionInterface');
             $this->methodLineResults->shouldReceive('resolveLineResults')
                 ->once()->andReturn($this->cleanMethodLineResults);
 

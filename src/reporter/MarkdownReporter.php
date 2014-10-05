@@ -12,7 +12,7 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
@@ -147,9 +147,9 @@ class MarkdownReporter implements ReporterInterface
 
     /**
      * @param int $orderNumber
-     * @param File $file
+     * @param FileResult $file
      */
-    private function writeFileResult($orderNumber, File $file)
+    private function writeFileResult($orderNumber, FileResult $file)
     {
 
         $lineResult = sprintf("%2d/%2d",

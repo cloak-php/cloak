@@ -11,8 +11,8 @@
 
 use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
-use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\collection\LineResultCollection;
+use cloak\result\LineResult;
 
 
 describe('FileReflection', function() {
@@ -56,13 +56,13 @@ describe('FileReflection', function() {
 
     describe('#assembleBy', function() {
         before(function() {
-            $result = $this->reflection->assembleBy(new LineSet([
-                new Line(11, Line::UNUSED)
+            $result = $this->reflection->assembleBy(new LineResultCollection([
+                new LineResult(11, LineResult::UNUSED)
             ]));
             $this->result = $result;
         });
-        it('return cloak\result\File', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\File');
+        it('return cloak\result\FileResult', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\FileResult');
         });
         context('when line 11 unused', function() {
             it('have unused line result', function() {

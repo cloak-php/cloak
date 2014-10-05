@@ -13,8 +13,9 @@ namespace cloak\driver\result\collection;
 
 use cloak\CollectionInterface;
 use cloak\collection\PairStackable;
-use cloak\driver\result\File;
+use cloak\driver\result\FileResult;
 use PhpCollection\Map;
+use PhpCollection\AbstractMap;
 use \Closure;
 
 
@@ -29,7 +30,7 @@ class FileResultCollection implements CollectionInterface
 
 
     /**
-     * @param \cloak\driver\result\File[] $files
+     * @param \cloak\driver\result\FileResult[] $files
      */
     public function __construct(array $files = [])
     {
@@ -37,9 +38,9 @@ class FileResultCollection implements CollectionInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    public function add(File $file)
+    public function add(FileResult $file)
     {
         $this->collection->set($file->getPath(), $file);
     }
@@ -54,7 +55,7 @@ class FileResultCollection implements CollectionInterface
 
     /**
      * @param callable $filter
-     * @return Result
+     * @return FileResultCollection
      */
     public function includeFile(Closure $filter)
     {
@@ -64,7 +65,7 @@ class FileResultCollection implements CollectionInterface
 
     /**
      * @param array $filters
-     * @return Result
+     * @return FileResultCollection
      */
     public function includeFiles(array $filters)
     {
@@ -79,7 +80,7 @@ class FileResultCollection implements CollectionInterface
 
     /**
      * @param callable $filter
-     * @return Result
+     * @return FileResultCollection
      */
     public function excludeFile(Closure $filter)
     {
@@ -89,7 +90,7 @@ class FileResultCollection implements CollectionInterface
 
     /**
      * @param array $filters
-     * @return Result
+     * @return FileResultCollection
      */
     public function excludeFiles(array $filters)
     {
@@ -103,10 +104,10 @@ class FileResultCollection implements CollectionInterface
     }
 
     /**
-     * @param Map $files
+     * @param \PhpCollection\AbstractMap $files
      * @return FileResultCollection
      */
-    private function createNew(Map $files)
+    private function createNew(AbstractMap $files)
     {
         $values = $this->createArray($files);
         return new self($values);

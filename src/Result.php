@@ -12,13 +12,10 @@
 namespace cloak;
 
 use cloak\value\Coverage;
-use cloak\result\File;
-use cloak\result\LineSet;
+use cloak\result\FileResult;
+use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\NamedResultCollection;
 use cloak\driver\Result as AnalyzeResult;
-use PhpCollection\Sequence;
-use PhpCollection\AbstractSequence;
-use \UnexpectedValueException;
 
 
 /**
@@ -29,9 +26,9 @@ class Result implements CoverageResultInterface
 {
 
     /**
-     * @var AbstractSequence
+     * @var NamedResultCollection
      */
-    private $files;
+    private $fileResults;
 
 
     /**
@@ -39,20 +36,9 @@ class Result implements CoverageResultInterface
      */
     public function __construct($files = [])
     {
-        $this->files = new Sequence();
-
-        foreach ($files as $file) {
-            $this->addFile($file);
-        }
-
-
-
-//        if (is_null($files)) {
-  //          $this->files = new Sequence();
-    //    } else {
-      //      $this->files = $files;
-        //}
+        $this->fileResults = new NamedResultCollection($files);
     }
+
 
     /**
      * @param driver\Result $result
@@ -75,9 +61,9 @@ class Result implements CoverageResultInterface
 
         foreach ($fileResults as $fileResult) {
             $path = $fileResult->getPath();
-            $lineResults = LineSet::from( $fileResult->getLineResults() );
+            $lineResults = LineResultCollection::from( $fileResult->getLineResults() );
 
-            $file = new File($path, $lineResults);
+            $file = new FileResult($path, $lineResults);
             $files[] = $file;
         }
 
@@ -85,98 +71,12 @@ class Result implements CoverageResultInterface
     }
 
     /**
-     * @param callable $filter
-     * @return Result
-     */
-    public function includeFile(\Closure $filter)
-    {
-        $files = $this->files->filter($filter);
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param array $filters
-     * @return Result
-     */
-    public function includeFiles(array $filters)
-    {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filter($filter);
-        }
-
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param callable $filter
-     * @return Result
-     */
-    public function excludeFile(\Closure $filter)
-    {
-        $files = $this->files->filterNot($filter);
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param array $filters
-     * @return Result
-     */
-    public function excludeFiles(array $filters)
-    {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filterNot($filter);
-        }
-
-        return new self( $files->all() );
-    }
-
-    /**
-     * @param File[] $files
-     * @return $this
-     */
-    public function setFiles(array $files)
-    {
-        $this->files = new Sequence($files);
-        return $this;
-    }
-
-    /**
      * @return NamedResultCollection
      */
     public function getFiles()
     {
-        $files = $this->files->all();
-        return new NamedResultCollection($files);
-    }
-
-    /**
-     * @param File $file
-     * @return $this
-     */
-    public function addFile(File $file)
-    {
-        $this->files->add($file);
-        return $this;
-    }
-
-    /**
-     * @param File $file
-     * @return $this
-     */
-    public function removeFile(File $file)
-    {
-        $indexAt = $this->files->indexOf($file);
-
-        if ($indexAt === -1) {
-            throw new UnexpectedValueException("File that does not exist {$file->getPath()}");
-        }
-        $this->files->remove($indexAt);
-
-        return $this;
+        $fileResults = $this->fileResults->toArray();
+        return new NamedResultCollection($fileResults);
     }
 
     /**
@@ -185,10 +85,9 @@ class Result implements CoverageResultInterface
     public function getLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getLineCount();
         }
 
         return $totalLineCount;
@@ -200,10 +99,9 @@ class Result implements CoverageResultInterface
     public function getDeadLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getDeadLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getDeadLineCount();
         }
 
         return $totalLineCount;
@@ -215,10 +113,9 @@ class Result implements CoverageResultInterface
     public function getExecutedLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getExecutedLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getExecutedLineCount();
         }
 
         return $totalLineCount;
@@ -230,10 +127,9 @@ class Result implements CoverageResultInterface
     public function getUnusedLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getUnusedLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getUnusedLineCount();
         }
 
         return $totalLineCount;
@@ -245,10 +141,9 @@ class Result implements CoverageResultInterface
     public function getExecutableLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getExecutableLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getExecutableLineCount();
         }
 
         return $totalLineCount;

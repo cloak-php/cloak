@@ -13,8 +13,8 @@ use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
-use cloak\result\Line;
-use cloak\result\File;
+use cloak\result\LineResult;
+use cloak\result\FileResult;
 use \Mockery;
 
 describe('Analyzer', function() {
@@ -72,7 +72,7 @@ describe('Analyzer', function() {
 
                 $analyzeResult = AnalyzeResult::fromArray([
                     $rootDirectory . 'foo.php' => [
-                        1 => Line::EXECUTED
+                        1 => LineResult::EXECUTED
                     ]
                 ]);
 
@@ -163,10 +163,10 @@ describe('Analyzer', function() {
                 $rootDirectory = __DIR__ . '/fixtures/src/';
 
                 $coverageResults = [
-                    $rootDirectory . 'foo.php' => array( 1 => Line::EXECUTED ),
-                    $rootDirectory . 'bar.php' => array( 1 => Line::EXECUTED ),
-                    $rootDirectory . 'vendor/foo1.php' => array( 1 => Line::EXECUTED ),
-                    $rootDirectory . 'vendor/foo2.php' => array( 1 => Line::EXECUTED )
+                    $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED ),
+                    $rootDirectory . 'bar.php' => array( 1 => LineResult::EXECUTED ),
+                    $rootDirectory . 'vendor/foo1.php' => array( 1 => LineResult::EXECUTED ),
+                    $rootDirectory . 'vendor/foo2.php' => array( 1 => LineResult::EXECUTED )
                 ];
 
                 $analyzeResult = AnalyzeResult::fromArray($coverageResults);
@@ -177,9 +177,9 @@ describe('Analyzer', function() {
                 $driver->shouldReceive('getAnalyzeResult')->twice()->andReturn($analyzeResult);
 
                 $builder->driver($driver)
-                    ->includeFile(function(File $file) {
+                    ->includeFile(function(FileResult $file) {
                         return $file->matchPath('src');
-                    })->excludeFile(function(File $file) {
+                    })->excludeFile(function(FileResult $file) {
                         return $file->matchPath('vendor');
                     });
             });

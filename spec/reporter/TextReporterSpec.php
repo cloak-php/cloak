@@ -10,7 +10,7 @@
  */
 
 use cloak\Result;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\reporter\TextReporter;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\event\StopEvent;
@@ -47,30 +47,30 @@ describe('TextReporter', function() {
 
             $coverages = [
                 realpath(__DIR__ . '/../../src/driver/XdebugDriver.php') => [
-                    1 => Line::EXECUTED,
-                    2 => Line::EXECUTED,
-                    3 => Line::UNUSED
+                    1 => LineResult::EXECUTED,
+                    2 => LineResult::EXECUTED,
+                    3 => LineResult::UNUSED
                 ],
-                realpath(__DIR__ . '/../../src/result/Line.php') => [
-                    1 => Line::EXECUTED,
-                    2 => Line::EXECUTED,
-                    3 => Line::EXECUTED,
-                    4 => Line::EXECUTED,
-                    5 => Line::EXECUTED,
-                    6 => Line::EXECUTED,
-                    7 => Line::EXECUTED,
-                    8 => Line::UNUSED,
-                    9 => Line::UNUSED,
-                    10 => Line::UNUSED
+                realpath(__DIR__ . '/../../src/result/LineResult.php') => [
+                    1 => LineResult::EXECUTED,
+                    2 => LineResult::EXECUTED,
+                    3 => LineResult::EXECUTED,
+                    4 => LineResult::EXECUTED,
+                    5 => LineResult::EXECUTED,
+                    6 => LineResult::EXECUTED,
+                    7 => LineResult::EXECUTED,
+                    8 => LineResult::UNUSED,
+                    9 => LineResult::UNUSED,
+                    10 => LineResult::UNUSED
                 ],
-                realpath(__DIR__ . '/../../src/result/File.php') => [
-                    1 => Line::EXECUTED,
-                    2 => Line::EXECUTED,
-                    3 => Line::UNUSED,
-                    4 => Line::UNUSED,
-                    5 => Line::UNUSED,
-                    6 => Line::UNUSED,
-                    7 => Line::UNUSED
+                realpath(__DIR__ . '/../../src/result/FileResult.php') => [
+                    1 => LineResult::EXECUTED,
+                    2 => LineResult::EXECUTED,
+                    3 => LineResult::UNUSED,
+                    4 => LineResult::UNUSED,
+                    5 => LineResult::UNUSED,
+                    6 => LineResult::UNUSED,
+                    7 => LineResult::UNUSED
                 ]
             ];
 
@@ -97,8 +97,8 @@ describe('TextReporter', function() {
         it('output coverage', function() {
             $output  = "";
             $output .= $this->normal . "( 2/ 3) src/driver/XdebugDriver.php" . PHP_EOL;
-            $output .= $this->high . "( 7/10) src/result/Line.php" . PHP_EOL;
-            $output .= $this->low . "( 2/ 7) src/result/File.php" . PHP_EOL;
+            $output .= $this->high . "( 7/10) src/result/LineResult.php" . PHP_EOL;
+            $output .= $this->low . "( 2/ 7) src/result/FileResult.php" . PHP_EOL;
             $output .= PHP_EOL . "Code Coverage:" . $this->totalCoverage . PHP_EOL;
 
             expect(function() {

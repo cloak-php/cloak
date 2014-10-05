@@ -17,10 +17,10 @@ use cloak\reflection\FileReflection;
 
 
 /**
- * Class File
+ * Class FileResult
  * @package cloak\result
  */
-class File implements NamedCoverageResultInterface
+class FileResult implements NamedCoverageResultInterface
 {
 
     /**
@@ -47,7 +47,7 @@ class File implements NamedCoverageResultInterface
      * @param $path
      * @param array $lineResults
      */
-    public function __construct($path, LineSetInterface $lineCoverages)
+    public function __construct($path, LineResultCollectionInterface $lineCoverages)
     {
         $this->path = $path;
         $this->resolveLineRange($lineCoverages);
@@ -108,10 +108,10 @@ class File implements NamedCoverageResultInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      * @return bool
      */
-    public function equals(File $file)
+    public function equals(FileResult $file)
     {
         return $file->getPath() === $this->getPath();
     }
@@ -173,9 +173,9 @@ class File implements NamedCoverageResultInterface
     }
 
     /**
-     * @param LineSetInterface $lineCoverages
+     * @param LineResultCollectionInterface $lineCoverages
      */
-    protected function resolveLineRange(LineSetInterface $lineCoverages)
+    protected function resolveLineRange(LineResultCollectionInterface $lineCoverages)
     {
         $fileReflection = new FileReflection($this->getPath());
         $this->lineRange = $fileReflection->getLineRange();
