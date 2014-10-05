@@ -9,14 +9,15 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\driver\result\File;
+use cloak\driver\result\FileResult;
 
-describe('File', function() {
+
+describe('FileResult', function() {
     describe('#__construct', function() {
         context('when file not found', function() {
             it('return true', function() {
                 expect(function() {
-                    new File(__DIR__ . '/not_found.php');
+                    new FileResult(__DIR__ . '/not_found.php');
                 })->toThrow('cloak\driver\result\FileNotFoundException');
             });
         });
@@ -26,7 +27,7 @@ describe('File', function() {
             $rootDirectory = __DIR__ . '/../../fixtures/src/';
 
             $filePath = $rootDirectory . 'foo.php';
-            $this->file = new File($filePath);
+            $this->file = new FileResult($filePath);
         });
         context('when match', function() {
             it('return true', function() {

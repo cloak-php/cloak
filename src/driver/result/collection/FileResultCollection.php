@@ -13,7 +13,7 @@ namespace cloak\driver\result\collection;
 
 use cloak\CollectionInterface;
 use cloak\collection\PairStackable;
-use cloak\driver\result\File;
+use cloak\driver\result\FileResult;
 use PhpCollection\Map;
 use PhpCollection\AbstractMap;
 use \Closure;
@@ -30,7 +30,7 @@ class FileResultCollection implements CollectionInterface
 
 
     /**
-     * @param \cloak\driver\result\File[] $files
+     * @param \cloak\driver\result\FileResult[] $files
      */
     public function __construct(array $files = [])
     {
@@ -38,9 +38,9 @@ class FileResultCollection implements CollectionInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    public function add(File $file)
+    public function add(FileResult $file)
     {
         $this->collection->set($file->getPath(), $file);
     }

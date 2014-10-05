@@ -11,7 +11,7 @@
 
 namespace cloak\driver;
 
-use cloak\driver\result\File;
+use cloak\driver\result\FileResult;
 use cloak\driver\result\FileNotFoundException;
 use cloak\driver\result\collection\FileResultCollection;
 use Closure;
@@ -31,7 +31,7 @@ class Result
 
 
     /**
-     * @param \cloak\driver\result\File[] $files
+     * @param \cloak\driver\result\FileResult[] $files
      */
     public function __construct(array $files = [])
     {
@@ -50,7 +50,7 @@ class Result
 
     /**
      * @param array $results
-     * @return \cloak\driver\result\File[]
+     * @return \cloak\driver\result\FileResult[]
      */
     protected static function parseResult(array $results)
     {
@@ -58,7 +58,7 @@ class Result
 
         foreach ($results as $path => $lineResults) {
             try {
-                $file = new File($path, $lineResults);
+                $file = new FileResult($path, $lineResults);
             } catch (FileNotFoundException $exception) {
                 continue;
             }
@@ -70,9 +70,9 @@ class Result
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    public function addFile(File $file)
+    public function addFile(FileResult $file)
     {
         $this->files->add($file);
     }

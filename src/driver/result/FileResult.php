@@ -14,10 +14,10 @@ namespace cloak\driver\result;
 use Eloquent\Pathogen\AbsolutePath;
 
 /**
- * Class File
+ * Class FileResult
  * @package cloak\driver\result
  */
-class File
+class FileResult
 {
 
     /**
