@@ -25,4 +25,10 @@ interface NamedResultCollectionInterface extends CommonCollectionInterface
      */
     public function add(NamedCoverageResultInterface $result);
 
+    /**
+     * @param NamedResultCollectionInterface $results
+     * @return NamedResultCollectionInterface
+     */
+    public function merge(NamedResultCollectionInterface $results);
+
 }

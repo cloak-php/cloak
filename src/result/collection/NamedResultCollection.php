@@ -53,4 +53,16 @@ class NamedResultCollection implements NamedResultCollectionInterface
         }
     }
 
+    /**
+     * @param NamedResultCollectionInterface $results
+     * @return NamedResultCollectionInterface|void
+     */
+    public function merge(NamedResultCollectionInterface $results)
+    {
+        foreach ($results as $result) {
+            $this->add($result);
+        }
+        return $this;
+    }
+
 }
