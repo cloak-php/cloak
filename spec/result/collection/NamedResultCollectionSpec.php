@@ -34,8 +34,6 @@ describe('NamedResultCollection', function() {
             expect($this->results->count())->toEqual(1);
         });
     });
-
-
     describe('#merge', function() {
         before(function() {
             $lineSet = new LineResultCollection([
@@ -62,19 +60,4 @@ describe('NamedResultCollection', function() {
         });
     });
 
-    describe('#getIterator', function() {
-        before(function() {
-            $lineSet = new LineResultCollection([
-                new LineResult(12, LineResult::EXECUTED),
-                new LineResult(17, LineResult::UNUSED)
-            ]);
-            $classReflection = new ClassReflection('Example\\Example');
-
-            $this->results = new NamedResultCollection();
-            $this->results->add(new ClassResult($classReflection, $lineSet));
-        });
-        it('return ArrayIterator instance', function() {
-            expect($this->results->getIterator())->toBeAnInstanceOf('ArrayIterator');
-        });
-    });
 });
