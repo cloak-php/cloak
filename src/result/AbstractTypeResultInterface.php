@@ -19,7 +19,7 @@ interface AbstractTypeResultInterface extends NamedCoverageResultInterface
 {
 
     /**
-     * @return NamedResultCollection
+     * @return \cloak\result\NamedResultCollectionInterface
      */
     public function getMethodResults();
 

@@ -59,7 +59,7 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return NamedResultCollection
+     * @return \cloak\result\NamedResultCollectionInterface
      */
     public function getMethodResults()
     {

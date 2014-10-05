@@ -32,7 +32,7 @@ class MethodReflection implements ReflectionInterface
 
     /**
      * @param $class
-     * @param null $name
+     * @param string $name
      */
     public function __construct($class, $name = null)
     {

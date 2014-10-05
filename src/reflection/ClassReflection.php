@@ -110,7 +110,6 @@ class ClassReflection implements ReflectionInterface
      */
     public function assembleBy(LineResultCollectionInterface $lineResults)
     {
-        $result = null;
 
         if ($this->isClass()) {
             $result = new ClassResult($this, $lineResults);
