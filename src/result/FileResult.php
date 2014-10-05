@@ -39,13 +39,14 @@ class FileResult implements NamedCoverageResultInterface
     private $lineRange;
 
     /**
-     * @var LineSet
+     * @var \cloak\result\LineResultCollectionInterface
      */
     private $lineCoverages;
 
+
     /**
      * @param $path
-     * @param array $lineResults
+     * @param \cloak\result\LineResultCollectionInterface $lineResults
      */
     public function __construct($path, LineResultCollectionInterface $lineCoverages)
     {
@@ -100,7 +101,7 @@ class FileResult implements NamedCoverageResultInterface
     }
 
     /**
-     * @return LineSet
+     * @return \cloak\result\LineResultCollectionInterface
      */
     public function getLineResults()
     {
@@ -200,6 +201,14 @@ class FileResult implements NamedCoverageResultInterface
     public function getTraitResults()
     {
         return $this->factory->createTraitResults($this->lineCoverages);
+    }
+
+    public function hasChildResults()
+    {
+    }
+
+    public function getChildResults()
+    {
     }
 
 }

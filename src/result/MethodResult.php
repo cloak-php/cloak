@@ -57,4 +57,12 @@ final class MethodResult implements NamedCoverageResultInterface
         return $this->reflection->getNamespaceName();
     }
 
+    public function hasChildResults()
+    {
+    }
+
+    public function getChildResults()
+    {
+    }
+
 }

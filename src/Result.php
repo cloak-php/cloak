@@ -181,4 +181,12 @@ class Result implements CoverageResultInterface
         return $this->getCodeCoverage()->greaterEqual($coverage);
     }
 
+    public function hasChildResults()
+    {
+    }
+
+    public function getChildResults()
+    {
+    }
+
 }

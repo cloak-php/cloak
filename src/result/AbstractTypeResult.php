@@ -74,4 +74,12 @@ abstract class AbstractTypeResult
         return $results;
     }
 
+    public function hasChildResults()
+    {
+    }
+
+    public function getChildResults()
+    {
+    }
+
 }
