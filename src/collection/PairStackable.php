@@ -22,7 +22,10 @@ use PhpCollection\Map;
 trait PairStackable
 {
 
-    use Stackable;
+    /**
+     * @var \PhpCollection\Map
+     */
+    protected $collection;
 
 
     /**
@@ -75,6 +78,30 @@ trait PairStackable
         $values = $collection->values();
 
         return array_combine($keys, $values);
+    }
+
+    /**
+     * @return int
+     */
+    public function isEmpty()
+    {
+        return $this->collection->isEmpty();
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->collection->count();
+    }
+
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return $this->collection->getIterator();
     }
 
 }
