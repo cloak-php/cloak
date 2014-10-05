@@ -11,7 +11,6 @@
 
 namespace cloak\result;
 
-use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\reflection\FileReflection;
 
@@ -22,6 +21,9 @@ use cloak\reflection\FileReflection;
  */
 class FileResult implements NamedCoverageResultInterface
 {
+
+    use CoverageResult;
+
 
     /**
      * @var string
@@ -37,11 +39,6 @@ class FileResult implements NamedCoverageResultInterface
      * @var LineRange
      */
     private $lineRange;
-
-    /**
-     * @var \cloak\result\LineResultCollectionInterface
-     */
-    private $lineCoverages;
 
 
     /**
@@ -105,7 +102,7 @@ class FileResult implements NamedCoverageResultInterface
      */
     public function getLineResults()
     {
-        return $this->lineCoverages;
+        return $this->lineResults;
     }
 
     /**
@@ -115,62 +112,6 @@ class FileResult implements NamedCoverageResultInterface
     public function equals(FileResult $file)
     {
         return $file->getPath() === $this->getPath();
-    }
-
-    /**
-     * @return int
-     */
-    public function getDeadLineCount()
-    {
-        return $this->lineCoverages->getDeadLineCount();
-    }
-
-    /**
-     * @return int
-     */
-    public function getUnusedLineCount()
-    {
-        return $this->lineCoverages->getUnusedLineCount();
-    }
-
-    /**
-     * @return int
-     */
-    public function getExecutedLineCount()
-    {
-        return $this->lineCoverages->getExecutedLineCount();
-    }
-
-    /**
-     * @return int
-     */
-    public function getExecutableLineCount()
-    {
-        return $this->lineCoverages->getExecutableLineCount();
-    }
-
-    /**
-     * @return Coverage The value of code coverage
-     */
-    public function getCodeCoverage()
-    {
-        return $this->lineCoverages->getCodeCoverage();
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCoverageLessThan(Coverage $coverage)
-    {
-        return $this->lineCoverages->isCoverageLessThan($coverage);
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCoverageGreaterEqual(Coverage $coverage)
-    {
-        return $this->lineCoverages->isCoverageGreaterEqual($coverage);
     }
 
     /**
@@ -184,7 +125,7 @@ class FileResult implements NamedCoverageResultInterface
         $this->factory = new ResultFactory($fileReflection);
 
         $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
-        $this->lineCoverages = $cleanUpResults;
+        $this->lineResults = $cleanUpResults;
     }
 
     /**
@@ -192,7 +133,7 @@ class FileResult implements NamedCoverageResultInterface
      */
     public function getClassResults()
     {
-        return $this->factory->createClassResults($this->lineCoverages);
+        return $this->factory->createClassResults($this->lineResults);
     }
 
     /**
@@ -200,7 +141,7 @@ class FileResult implements NamedCoverageResultInterface
      */
     public function getTraitResults()
     {
-        return $this->factory->createTraitResults($this->lineCoverages);
+        return $this->factory->createTraitResults($this->lineResults);
     }
 
     /**
