@@ -9,18 +9,24 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak;
+
 
 /**
- * Interface AbstractTypeResultInterface
- * @package cloak\result
+ * Interface ResultNodeInterface
+ * @package cloak
  */
-interface AbstractTypeResultInterface extends NamedCoverageResultInterface
+interface ResultNodeInterface
 {
+
+    /**
+     * @return bool
+     */
+    public function hasChildResults();
 
     /**
      * @return \cloak\result\NamedResultCollectionInterface
      */
-    public function getMethodResults();
+    public function getChildResults();
 
 }

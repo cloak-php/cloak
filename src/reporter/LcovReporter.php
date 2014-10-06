@@ -13,8 +13,8 @@ namespace cloak\reporter;
 
 
 use cloak\Result;
-use cloak\result\File;
-use cloak\result\Line;
+use cloak\result\FileResult;
+use cloak\result\LineResult;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\writer\FileWriter;
@@ -78,9 +78,9 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    private function writeFileResult(File $file)
+    private function writeFileResult(FileResult $file)
     {
         $this->writeFileHeader($file);
 
@@ -94,9 +94,9 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      */
-    private function writeFileHeader(File $file)
+    private function writeFileHeader(FileResult $file)
     {
         $parts = [
             self::SOURCE_FILE_PREFIX,
@@ -113,9 +113,9 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param \cloak\result\Line $line
+     * @param \cloak\result\LineResult $line
      */
-    private function writeLineResult(Line $line)
+    private function writeLineResult(LineResult $line)
     {
 
         $executedCount = $line->isExecuted() ? 1 : 0;
@@ -129,14 +129,14 @@ class LcovReporter implements ReporterInterface
     }
 
     /**
-     * @param File $file
+     * @param FileResult $file
      * @return array
      */
-    private function getTargetLinesFromFile(File $file)
+    private function getTargetLinesFromFile(FileResult $file)
     {
         $lineResults = $file->getLineResults();
 
-        $results = $lineResults->selectLines(function(Line $line) {
+        $results = $lineResults->selectLines(function(LineResult $line) {
             return $line->isExecuted() || $line->isUnused();
         })->all();
 

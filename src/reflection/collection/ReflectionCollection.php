@@ -12,9 +12,11 @@
 namespace cloak\reflection\collection;
 
 use PhpCollection\Sequence;
-use PhpCollection\SequenceInterface;
+use cloak\collection\ElementStackable;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
+use cloak\result\LineResultCollectionInterface;
+use cloak\result\collection\NamedResultCollection;
 use \Closure;
 
 
@@ -25,23 +27,17 @@ use \Closure;
 class ReflectionCollection implements CollectionInterface
 {
 
-    /**
-     * @var SequenceInterface
-     */
-    private $collection;
+    use ElementStackable;
 
 
     /**
-     * @param SequenceInterface $collection
+     * @param ReflectionInterface[] $reflections
      */
-    public function __construct(SequenceInterface $collection)
+    public function __construct(array $reflections = [])
     {
-        if (is_null($collection) === false) {
-            $this->collection = $collection;
-        } else {
-            $this->collection = new Sequence();
-        }
+        $this->collection = new Sequence($reflections);
     }
+
 
     /**
      * @param ReflectionInterface $reflection
@@ -52,37 +48,37 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
+     * @param ReflectionInterface[] $reflections
+     */
+    public function addAll(array $reflections)
+    {
+        foreach ($reflections as $reflection) {
+            $this->add($reflection);
+        }
+    }
+
+    /**
      * @param callable $filter
      * @return ReflectionCollection
      */
     public function filter(Closure $filter)
     {
         $collection = $this->collection->filter($filter);
-        return new self($collection);
+        return new self( $collection->all() );
     }
 
     /**
-     * @return bool
+     * @param LineResultCollectionInterface $lineResults
+     * @return NamedResultCollection
      */
-    public function isEmpty()
+    public function assembleBy(LineResultCollectionInterface $lineResults)
     {
-        return $this->collection->isEmpty();
-    }
+        $assembleCallback = function(ReflectionInterface $reflection) use($lineResults) {
+            return $reflection->assembleBy($lineResults);
+        };
+        $results = $this->collection->map($assembleCallback);
 
-    /**
-     * @return int
-     */
-    public function count()
-    {
-        return $this->collection->count();
-    }
-
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
-    {
-        return $this->collection->getIterator();
+        return new NamedResultCollection( $results->all() );
     }
 
 }

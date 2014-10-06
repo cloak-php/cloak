@@ -17,15 +17,15 @@ require_once __DIR__ . "/src/functions.php";
 
 use cloak\Analyzer;
 use cloak\ConfigurationBuilder;
-use cloak\Result\File;
+use cloak\driver\result\FileResult;
 
 use Example as example;
 
 $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-    $builder->includeFile(function(File $file) {
+    $builder->includeFile(function(FileResult $file) {
         return $file->matchPath('/example/src');
-    })->excludeFile(function(File $file) {
+    })->excludeFile(function(FileResult $file) {
         return $file->matchPath('/spec');
     });
 
@@ -42,8 +42,8 @@ $files = $analyzer->getResult()->getFiles();
 
 foreach ($files as $file) {
     $result = sprintf("%s > %6.2f%% (%d/%d)",
-        $file->getPath(),
-        $file->getCodeCoverage()->valueOf(),
+        $file->getName(),
+        $file->getCodeCoverage()->value(),
         $file->getExecutedLineCount(),
         $file->getExecutableLineCount()
     );

@@ -12,12 +12,10 @@
 namespace cloak;
 
 use cloak\value\Coverage;
-use cloak\result\File;
-use cloak\result\LineSet;
+use cloak\result\FileResult;
+use cloak\result\collection\LineResultCollection;
+use cloak\result\collection\NamedResultCollection;
 use cloak\driver\Result as AnalyzeResult;
-use PhpCollection\Sequence;
-use PhpCollection\AbstractSequence;
-use \UnexpectedValueException;
 
 
 /**
@@ -28,22 +26,19 @@ class Result implements CoverageResultInterface
 {
 
     /**
-     * @var AbstractSequence
+     * @var result\NamedResultCollectionInterface
      */
-    private $files;
+    private $fileResults;
 
 
     /**
-     * @param AbstractSequence $files
+     * @param File[] $files
      */
-    public function __construct(AbstractSequence $files = null)
+    public function __construct($files = [])
     {
-        if (is_null($files)) {
-            $this->files = new Sequence();
-        } else {
-            $this->files = $files;
-        }
+        $this->fileResults = new NamedResultCollection($files);
     }
+
 
     /**
      * @param driver\Result $result
@@ -57,146 +52,106 @@ class Result implements CoverageResultInterface
 
     /**
      * @param driver\Result $result
-     * @return Sequence
+     * @return array
      */
     public static function parseResult(AnalyzeResult $result)
     {
-        $files = new Sequence();
+        $files = [];
         $fileResults = $result->getFiles();
 
         foreach ($fileResults as $fileResult) {
             $path = $fileResult->getPath();
-            $lineResults = LineSet::from( $fileResult->getLineResults() );
-            $file = new File($path, $lineResults);
-            $files->add($file);
+            $lineResults = LineResultCollection::from( $fileResult->getLineResults() );
+
+            $file = new FileResult($path, $lineResults);
+            $files[] = $file;
         }
 
         return $files;
     }
 
-    public function includeFile(\Closure $filter)
-    {
-        $files = $this->files->filter($filter);
-        return new self($files);
-    }
-
-    public function includeFiles(array $filters)
-    {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filter($filter);
-        }
-
-        return new self($files);
-    }
-
-    public function excludeFile(\Closure $filter)
-    {
-        $files = $this->files->filterNot($filter);
-        return new self($files);
-    }
-
-    public function excludeFiles(array $filters)
-    {
-        $files = $this->files;
-
-        foreach ($filters as $filter) {
-            $files = $files->filterNot($filter);
-        }
-
-        return new self($files);
-    }
-
-    public function setFiles(AbstractSequence $files)
-    {
-        $this->files = $files;
-        return $this;
-    }
-
+    /**
+     * @return \cloak\result\NamedResultCollectionInterface
+     */
     public function getFiles()
     {
-        return $this->files;
+        $fileResults = $this->fileResults->toArray();
+        return new NamedResultCollection($fileResults);
     }
 
-    public function addFile(File $file)
-    {
-        $this->files->add($file);
-        return $this;
-    }
-
-    public function removeFile(File $file)
-    {
-        $indexAt = $this->files->indexOf($file);
-
-        if ($indexAt === -1) {
-            throw new UnexpectedValueException("File that does not exist {$file->getPath()}");
-        }
-        $this->files->remove($indexAt);
-
-        return $this;
-    }
-
+    /**
+     * @return int
+     */
     public function getLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getLineCount();
         }
 
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getDeadLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getDeadLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getDeadLineCount();
         }
 
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getExecutedLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getExecutedLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getExecutedLineCount();
         }
 
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getUnusedLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getUnusedLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getUnusedLineCount();
         }
 
         return $totalLineCount;
     }
 
+    /**
+     * @return int
+     */
     public function getExecutableLineCount()
     {
         $totalLineCount = 0;
-        $files = $this->files->getIterator();
 
-        foreach ($files as $file) {
-            $totalLineCount += $file->getExecutableLineCount();
+        foreach ($this->fileResults as $fileResult) {
+            $totalLineCount += $fileResult->getExecutableLineCount();
         }
 
         return $totalLineCount;
     }
 
+    /**
+     * @return Coverage
+     */
     public function getCodeCoverage()
     {
         $executedLineCount = $this->getExecutedLineCount();
@@ -208,14 +163,38 @@ class Result implements CoverageResultInterface
         return new Coverage($coverage);
     }
 
+    /**
+     * @param Coverage $coverage
+     * @return bool
+     */
     public function isCoverageLessThan(Coverage $coverage)
     {
         return $this->getCodeCoverage()->lessThan($coverage);
     }
 
+    /**
+     * @param Coverage $coverage
+     * @return bool
+     */
     public function isCoverageGreaterEqual(Coverage $coverage)
     {
         return $this->getCodeCoverage()->greaterEqual($coverage);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChildResults()
+    {
+        return $this->fileResults->isEmpty() === false;
+    }
+
+    /**
+     * @return result\NamedResultCollectionInterface
+     */
+    public function getChildResults()
+    {
+        return $this->getFiles();
     }
 
 }

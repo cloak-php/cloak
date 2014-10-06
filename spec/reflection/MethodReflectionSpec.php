@@ -10,8 +10,8 @@
  */
 
 use cloak\reflection\MethodReflection;
-use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\collection\LineResultCollection;
+use cloak\result\LineResult;
 
 
 describe('MethodReflection', function() {
@@ -20,8 +20,8 @@ describe('MethodReflection', function() {
     });
     describe('#assembleBy', function() {
         before(function() {
-            $result = $this->reflection->assembleBy(new LineSet([
-                new Line(29, Line::UNUSED)
+            $result = $this->reflection->assembleBy(new LineResultCollection([
+                new LineResult(29, LineResult::UNUSED)
             ]));
             $this->result = $result;
         });

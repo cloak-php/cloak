@@ -13,6 +13,7 @@ namespace cloak\result;
 
 use cloak\value\Coverage;
 
+
 /**
  * Trait CoverageResult
  * @package cloak\result
@@ -21,7 +22,7 @@ trait CoverageResult
 {
 
     /**
-     * @var LineSetInterace
+     * @var LineResultCollectionInterface
      */
     protected $lineResults;
 

@@ -11,55 +11,11 @@
 
 namespace cloak;
 
-use cloak\value\Coverage;
 
 /***
  * Class CoverageResultInterface
  * @package cloak\result
  */
-interface CoverageResultInterface
+interface CoverageResultInterface extends CodeCoverageResultInterface, LineResultInterface, ResultNodeInterface
 {
-
-    /**
-     * @return int
-     */
-    public function getLineCount();
-
-    /**
-     * @return int
-     */
-    public function getDeadLineCount();
-
-    /**
-     * @return int
-     */
-    public function getUnusedLineCount();
-
-    /**
-     * @return int
-     */
-    public function getExecutedLineCount();
-
-    /**
-     * @return int
-     */
-    public function getExecutableLineCount();
-
-    /**
-     * @return Coverage The value of code coverage
-     */
-    public function getCodeCoverage();
-
-    /**
-     * @param Coverage $coverage
-     * @return bool
-     */
-    public function isCoverageLessThan(Coverage $coverage);
-
-    /**
-     * @param Coverage $coverage
-     * @return bool
-     */
-    public function isCoverageGreaterEqual(Coverage $coverage);
-
 }

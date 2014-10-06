@@ -33,9 +33,9 @@ abstract class AbstractTypeResult
 
     /**
      * @param ClassReflection $classReflection
-     * @param LineSet $classLineResults
+     * @param LineResultCollectionInterface $classLineResults
      */
-    public function __construct(ClassReflection $classReflection, LineSetInterface $classLineResults)
+    public function __construct(ClassReflection $classReflection, LineResultCollectionInterface $classLineResults)
     {
         $rangeResults = $classLineResults->resolveLineResults($classReflection);
         $this->reflection = $classReflection;
@@ -59,7 +59,7 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return NamedResultCollection
+     * @return \cloak\result\NamedResultCollectionInterface
      */
     public function getMethodResults()
     {
@@ -72,6 +72,23 @@ abstract class AbstractTypeResult
         }
 
         return $results;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChildResults()
+    {
+        $methods = $this->reflection->getMethods();
+        return $methods->isEmpty() === false;
+    }
+
+    /**
+     * @return NamedResultCollectionInterface
+     */
+    public function getChildResults()
+    {
+        return $this->getMethodResults();
     }
 
 }

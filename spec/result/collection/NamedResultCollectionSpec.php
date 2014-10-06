@@ -11,17 +11,19 @@
 
 use cloak\result\collection\NamedResultCollection;
 use cloak\result\type\ClassResult;
-use cloak\result\LineSet;
-use cloak\result\Line;
+use cloak\result\type\TraitResult;
+use cloak\result\collection\LineResultCollection;
+use cloak\result\LineResult;
 use cloak\reflection\ClassReflection;
 
 
-describe('ClassResultCollection', function() {
+describe('NamedResultCollection', function() {
+
     describe('#add', function() {
         before(function() {
-            $lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+            $lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
@@ -32,19 +34,30 @@ describe('ClassResultCollection', function() {
             expect($this->results->count())->toEqual(1);
         });
     });
-    describe('#getIterator', function() {
+    describe('#merge', function() {
         before(function() {
-            $lineSet = new LineSet([
-                new Line(12, Line::EXECUTED),
-                new Line(17, Line::UNUSED)
+            $lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED),
+                new LineResult(17, LineResult::UNUSED)
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $this->results = new NamedResultCollection();
-            $this->results->add(new ClassResult($classReflection, $lineSet));
+            $result1 = new NamedResultCollection();
+            $result1->add(new ClassResult($classReflection, $lineSet));
+
+            $lineSet = new LineResultCollection([
+                new LineResult(11, LineResult::EXECUTED)
+            ]);
+            $traitReflection = new ClassReflection('Example\\ExampleTrait');
+
+            $result2 = new NamedResultCollection();
+            $result2->add(new TraitResult($traitReflection, $lineSet));
+
+            $this->result = $result1->merge($result2);
         });
-        it('return ArrayIterator instance', function() {
-            expect($this->results->getIterator())->toBeAnInstanceOf('ArrayIterator');
+        it('merge coverage result', function() {
+            expect($this->result->count())->toEqual(2);
         });
     });
+
 });
