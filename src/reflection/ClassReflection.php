@@ -91,10 +91,13 @@ class ClassReflection implements ReflectionInterface
      */
     public function getMethods()
     {
-        $methods = $this->reflection->getMethods();
+        $filter = ZendMethodReflection::IS_PUBLIC;
+        $methods = $this->reflection->getMethods($filter);
 
         $reflections = new Sequence($methods);
-        $reflections = $reflections->map(function(ZendMethodReflection $reflection) {
+        $reflections = $reflections->filter(function(ZendMethodReflection $reflection) {
+            return $reflection->isUserDefined();
+        })->map(function(ZendMethodReflection $reflection) {
             $class = $reflection->getDeclaringClass()->getName();
             $methodName = $reflection->getName();
 
