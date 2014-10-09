@@ -23,6 +23,7 @@ use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
 use \AppendIterator;
 use \ArrayIterator;
+use \Iterator;
 
 
 /**
@@ -139,15 +140,9 @@ class ClassReflection implements ReflectionInterface
             $reflectionMethods->append(new ArrayIterator($methods));
         }
 
-        $reflections = new ReflectionCollection();
-
-        foreach ($reflectionMethods as $reflectionMethod) {
-            $method = new MethodReflection($reflectionMethod->getName());
-            $reflections->add($method);
-        }
-
-        return $reflections;
+        return $this->createCollectionFromIterator($reflectionMethods);
     }
+
 
     /**
      * @return ReflectionCollection
@@ -162,6 +157,22 @@ class ClassReflection implements ReflectionInterface
         }
 
         return new ReflectionCollection($reflectionMethods);
+    }
+
+    /**
+     * @param Iterator $methods
+     * @return ReflectionCollection
+     */
+    private function createCollectionFromIterator(Iterator $methods)
+    {
+        $reflections = new ReflectionCollection();
+
+        foreach ($methods as $method) {
+            $reflection = new MethodReflection( $method->getName() );
+            $reflections->add($reflection);
+        }
+
+        return $reflections;
     }
 
 }
