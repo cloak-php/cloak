@@ -58,6 +58,16 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
+     * @param ReflectionCollection $collection
+     */
+    public function merge(ReflectionCollection $reflections)
+    {
+        foreach ($reflections as $reflection) {
+            $this->add($reflection);
+        }
+    }
+
+    /**
      * @param callable $filter
      * @return ReflectionCollection
      */

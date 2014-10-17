@@ -132,6 +132,33 @@ class ClassReflection implements ReflectionInterface
      */
     public function getTraitMethods()
     {
+        $traitMethods = $this->getTraitAllMethods();
+        $traitMethods->merge($this->getTraitAliasMethods());
+
+        return $traitMethods;
+    }
+
+    /**
+     * @return ReflectionCollection
+     */
+    public function getTraitAliasMethods()
+    {
+        $reflectionMethods = [];
+        $traitAliasMethods = $this->reflection->getTraitAliases();
+
+        foreach ($traitAliasMethods as $aliasName => $originalName) {
+            list($className, $methodName) =  explode('::', $originalName);
+            $reflectionMethods[] = new MethodReflection($className, $methodName);
+        }
+
+        return new ReflectionCollection($reflectionMethods);
+    }
+
+    /**
+     * @return ReflectionCollection
+     */
+    private function getTraitAllMethods()
+    {
         $reflectionMethods = new AppendIterator;
         $traits = $this->reflection->getTraits();
 
@@ -143,22 +170,6 @@ class ClassReflection implements ReflectionInterface
         return $this->createCollectionFromIterator($reflectionMethods);
     }
 
-
-    /**
-     * @return ReflectionCollection
-     */
-    public function getTraitAliasMethods()
-    {
-        $reflectionMethods = [];
-        $traitAliasMethods = $this->reflection->getTraitAliases();
-
-        foreach ($traitAliasMethods as $aliasName => $originalName) {
-            $reflectionMethods[] = new MethodReflection($originalName);
-        }
-
-        return new ReflectionCollection($reflectionMethods);
-    }
-
     /**
      * @param Iterator $methods
      * @return ReflectionCollection
@@ -168,7 +179,10 @@ class ClassReflection implements ReflectionInterface
         $reflections = new ReflectionCollection();
 
         foreach ($methods as $method) {
-            $reflection = new MethodReflection( $method->getName() );
+            $methodName = $method->getName();
+            $className = $method->getDeclaringClass()->getName();
+
+            $reflection = new MethodReflection($className, $methodName);
             $reflections->add($reflection);
         }
 
