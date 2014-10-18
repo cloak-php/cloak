@@ -14,7 +14,7 @@ namespace cloak;
 use cloak\value\Coverage;
 use cloak\result\FileResult;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use cloak\driver\Result as AnalyzeResult;
 
 
@@ -26,7 +26,7 @@ class Result implements CoverageResultInterface
 {
 
     /**
-     * @var NamedResultCollection
+     * @var result\CoverageResultCollectionInterface
      */
     private $fileResults;
 
@@ -36,7 +36,7 @@ class Result implements CoverageResultInterface
      */
     public function __construct($files = [])
     {
-        $this->fileResults = new NamedResultCollection($files);
+        $this->fileResults = new CoverageResultCollection($files);
     }
 
 
@@ -71,12 +71,20 @@ class Result implements CoverageResultInterface
     }
 
     /**
-     * @return NamedResultCollection
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Package';
+    }
+
+    /**
+     * @return \cloak\result\CoverageResultCollectionInterface
      */
     public function getFiles()
     {
         $fileResults = $this->fileResults->toArray();
-        return new NamedResultCollection($fileResults);
+        return new CoverageResultCollection($fileResults);
     }
 
     /**
@@ -179,6 +187,30 @@ class Result implements CoverageResultInterface
     public function isCoverageGreaterEqual(Coverage $coverage)
     {
         return $this->getCodeCoverage()->greaterEqual($coverage);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChildResults()
+    {
+        return $this->fileResults->isEmpty() === false;
+    }
+
+    /**
+     * @return result\CoverageResultCollectionInterface
+     */
+    public function getChildResults()
+    {
+        return $this->getFiles();
+    }
+
+    /**
+     * @param CoverageResultVisitorInterface $visitor
+     */
+    public function accept(CoverageResultVisitorInterface $visitor)
+    {
+        $visitor->visit($this);
     }
 
 }

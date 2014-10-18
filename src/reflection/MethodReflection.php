@@ -42,6 +42,22 @@ class MethodReflection implements ReflectionInterface
     /**
      * @return string
      */
+    public function getIdentityName()
+    {
+        $template = '%s\\%s::%s';
+        $assembleContent = sprintf(
+            $template,
+            $this->getNamespaceName(),
+            $this->getDeclaringClassName(),
+            $this->getName()
+        );
+
+        return $assembleContent;
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->reflection->getName();
@@ -54,6 +70,15 @@ class MethodReflection implements ReflectionInterface
     {
         $declaringClass = $this->reflection->getDeclaringClass();
         return $declaringClass->getNamespaceName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeclaringClassName()
+    {
+        $declaringClass = $this->reflection->getDeclaringClass();
+        return $declaringClass->getName();
     }
 
     /**
@@ -74,6 +99,14 @@ class MethodReflection implements ReflectionInterface
     public function assembleBy(LineResultCollectionInterface $lineResults)
     {
         return new MethodResult($this, $lineResults);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getIdentityName();
     }
 
 }

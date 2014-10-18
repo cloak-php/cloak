@@ -91,7 +91,15 @@ class LineResultCollection implements LineResultCollectionInterface
      */
     public function getCodeCoverage()
     {
-        $value = (float) $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+        $executedCount = $this->getExecutedLineCount();
+        $executableCount = $this->getExecutableLineCount();
+
+        $value = (float) 100;
+
+        //PHP Warning:  Division by zero in ....
+        if ($executedCount >= 1 && $executableCount >= 1) {
+            $value = (float) $executedCount / $executableCount * 100;
+        }
 
         return new Coverage($value);
     }
@@ -161,15 +169,6 @@ class LineResultCollection implements LineResultCollectionInterface
     {
         $lines = $this->collection->filter($filter);
         return $lines;
-    }
-
-    /**
-     * @return null|LineResult
-     */
-    public function current()
-    {
-        $line = $this->collection->get($this->key());
-        return $line;
     }
 
 }

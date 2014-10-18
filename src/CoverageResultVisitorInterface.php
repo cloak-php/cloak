@@ -9,20 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak;
 
-use cloak\CoverageResultInterface;
 
 /**
- * Interface NamedCoverageResultInterface
- * @package cloak\result
+ * Interface CoverageResultVisitorInterface
+ * @package cloak
  */
-interface NamedCoverageResultInterface extends CoverageResultInterface
+interface CoverageResultVisitorInterface
 {
 
     /**
-     * @return string
+     * @param CoverageResultInterface $result
      */
-    public function getName();
+    public function visit(CoverageResultInterface $result);
 
 }

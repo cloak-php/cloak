@@ -9,14 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use cloak\result\type\ClassResult;
+use cloak\result\type\TraitResult;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
 use cloak\reflection\ClassReflection;
 
 
-describe('ClassResultCollection', function() {
+describe('CoverageResultCollection', function() {
+
     describe('#add', function() {
         before(function() {
             $lineSet = new LineResultCollection([
@@ -25,14 +27,14 @@ describe('ClassResultCollection', function() {
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $this->results = new NamedResultCollection();
+            $this->results = new CoverageResultCollection();
             $this->results->add(new ClassResult($classReflection, $lineSet));
         });
         it('add coverage result', function() {
             expect($this->results->count())->toEqual(1);
         });
     });
-    describe('#getIterator', function() {
+    describe('#merge', function() {
         before(function() {
             $lineSet = new LineResultCollection([
                 new LineResult(12, LineResult::EXECUTED),
@@ -40,11 +42,22 @@ describe('ClassResultCollection', function() {
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $this->results = new NamedResultCollection();
-            $this->results->add(new ClassResult($classReflection, $lineSet));
+            $result1 = new CoverageResultCollection();
+            $result1->add(new ClassResult($classReflection, $lineSet));
+
+            $lineSet = new LineResultCollection([
+                new LineResult(11, LineResult::EXECUTED)
+            ]);
+            $traitReflection = new ClassReflection('Example\\ExampleTrait');
+
+            $result2 = new CoverageResultCollection();
+            $result2->add(new TraitResult($traitReflection, $lineSet));
+
+            $this->result = $result1->merge($result2);
         });
-        it('return ArrayIterator instance', function() {
-            expect($this->results->getIterator())->toBeAnInstanceOf('ArrayIterator');
+        it('merge coverage result', function() {
+            expect($this->result->count())->toEqual(2);
         });
     });
+
 });

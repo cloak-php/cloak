@@ -29,6 +29,11 @@ interface ReflectionInterface
     public function getName();
 
     /**
+     * @return string
+     */
+    public function getIdentityName();
+
+    /**
      * @return LineRange
      */
     public function getLineRange();

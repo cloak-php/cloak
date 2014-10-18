@@ -55,6 +55,14 @@ class FileReflection implements ReflectionInterface
     /**
      * @return string
      */
+    public function getIdentityName()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->reflection->getFileName();
@@ -112,6 +120,14 @@ class FileReflection implements ReflectionInterface
     public function assembleBy(LineResultCollectionInterface $lineResults)
     {
         return new FileResult($this->getName(), $lineResults);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getIdentityName();
     }
 
 }
