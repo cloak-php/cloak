@@ -71,6 +71,14 @@ class Result implements CoverageResultInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Package';
+    }
+
+    /**
      * @return \cloak\result\NamedResultCollectionInterface
      */
     public function getFiles()

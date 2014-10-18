@@ -19,10 +19,4 @@ use cloak\CoverageResultInterface;
  */
 interface NamedCoverageResultInterface extends CoverageResultInterface
 {
-
-    /**
-     * @return string
-     */
-    public function getName();
-
 }
