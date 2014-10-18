@@ -25,8 +25,13 @@ interface ResultNodeInterface
     public function hasChildResults();
 
     /**
-     * @return \cloak\result\NamedResultCollectionInterface
+     * @return \cloak\result\CoverageResultCollectionInterface
      */
     public function getChildResults();
+
+    /**
+     * @param CoverageResultVisitorInterface $visitor
+     */
+    public function accept(CoverageResultVisitorInterface $visitor);
 
 }

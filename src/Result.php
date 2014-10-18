@@ -205,4 +205,12 @@ class Result implements CoverageResultInterface
         return $this->getFiles();
     }
 
+    /**
+     * @param CoverageResultVisitorInterface $visitor
+     */
+    public function accept(CoverageResultVisitorInterface $visitor)
+    {
+        $visitor->visit($this);
+    }
+
 }

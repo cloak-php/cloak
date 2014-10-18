@@ -13,17 +13,15 @@ namespace cloak;
 
 
 /**
- * Class Visitor
+ * Interface CoverageResultVisitorInterface
  * @package cloak
  */
-class Visitor implements VisitorInterface
+interface CoverageResultVisitorInterface
 {
 
     /**
      * @param CoverageResultInterface $result
      */
-    public function visit(CoverageResultInterface $result)
-    {
-    }
+    public function visit(CoverageResultInterface $result);
 
 }
