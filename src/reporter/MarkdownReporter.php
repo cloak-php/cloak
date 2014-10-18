@@ -16,7 +16,7 @@ use cloak\result\FileResult;
 use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 
 
 /**
@@ -133,9 +133,9 @@ class MarkdownReporter implements ReporterInterface
     }
 
     /**
-     * @param NamedResultCollection $files
+     * @param CoverageResultCollection $files
      */
-    private function writeFilesResult(NamedResultCollection $files)
+    private function writeFilesResult(CoverageResultCollection $files)
     {
         $orderNumber = 1;
 

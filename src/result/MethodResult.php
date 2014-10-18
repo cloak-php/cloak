@@ -13,13 +13,13 @@ namespace cloak\result;
 
 use cloak\reflection\MethodReflection;
 use cloak\result\collection\NamedResultCollection;
-
+use cloak\CoverageResultInterface;
 
 /**
  * Class MethodResult
  * @package cloak\result
  */
-final class MethodResult implements NamedCoverageResultInterface
+final class MethodResult implements CoverageResultInterface
 {
 
     use CoverageResult;

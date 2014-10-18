@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
 use cloak\result\collection\LineResultCollection;
@@ -17,7 +17,7 @@ use cloak\result\LineResult;
 use cloak\reflection\ClassReflection;
 
 
-describe('NamedResultCollection', function() {
+describe('CoverageResultCollection', function() {
 
     describe('#add', function() {
         before(function() {
@@ -27,7 +27,7 @@ describe('NamedResultCollection', function() {
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $this->results = new NamedResultCollection();
+            $this->results = new CoverageResultCollection();
             $this->results->add(new ClassResult($classReflection, $lineSet));
         });
         it('add coverage result', function() {
@@ -42,7 +42,7 @@ describe('NamedResultCollection', function() {
             ]);
             $classReflection = new ClassReflection('Example\\Example');
 
-            $result1 = new NamedResultCollection();
+            $result1 = new CoverageResultCollection();
             $result1->add(new ClassResult($classReflection, $lineSet));
 
             $lineSet = new LineResultCollection([
@@ -50,7 +50,7 @@ describe('NamedResultCollection', function() {
             ]);
             $traitReflection = new ClassReflection('Example\\ExampleTrait');
 
-            $result2 = new NamedResultCollection();
+            $result2 = new CoverageResultCollection();
             $result2->add(new TraitResult($traitReflection, $lineSet));
 
             $this->result = $result1->merge($result2);

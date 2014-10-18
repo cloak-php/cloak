@@ -18,4 +18,10 @@ namespace cloak;
  */
 interface CoverageResultInterface extends CodeCoverageResultInterface, LineResultInterface, ResultNodeInterface
 {
+
+    /**
+     * @return string
+     */
+    public function getName();
+
 }

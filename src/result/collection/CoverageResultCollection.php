@@ -11,24 +11,24 @@
 
 namespace cloak\result\collection;
 
-use cloak\result\NamedResultCollectionInterface;
-use cloak\result\NamedCoverageResultInterface;
+use cloak\result\CoverageResultCollectionInterface;
+use cloak\CoverageResultInterface;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
 
 
 /**
- * Class NamedResultCollection
+ * Class CoverageResultCollection
  * @package cloak\result\collection
  */
-class NamedResultCollection implements NamedResultCollectionInterface
+class CoverageResultCollection implements CoverageResultCollectionInterface
 {
 
     use PairStackable;
 
 
     /**
-     * @param NamedCoverageResultInterface[] $results
+     * @param CoverageResultInterface[] $results
      */
     public function __construct(array $results = [])
     {
@@ -36,15 +36,15 @@ class NamedResultCollection implements NamedResultCollectionInterface
     }
 
     /**
-     * @param \cloak\result\NamedCoverageResultInterface $result
+     * @param \cloak\CoverageResultInterface $result
      */
-    public function add(NamedCoverageResultInterface $result)
+    public function add(CoverageResultInterface $result)
     {
         $this->collection->set($result->getName(), $result);
     }
 
     /**
-     * @param NamedCoverageResultInterface[] $results
+     * @param CoverageResultInterface[] $results
      */
     public function addAll(array $results)
     {
@@ -54,10 +54,10 @@ class NamedResultCollection implements NamedResultCollectionInterface
     }
 
     /**
-     * @param NamedResultCollectionInterface $results
-     * @return NamedResultCollectionInterface|void
+     * @param CoverageResultCollectionInterface $results
+     * @return CoverageResultCollectionInterface|void
      */
-    public function merge(NamedResultCollectionInterface $results)
+    public function merge(CoverageResultCollectionInterface $results)
     {
         foreach ($results as $result) {
             $this->add($result);
