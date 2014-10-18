@@ -18,6 +18,8 @@ use cloak\CollectionInterface;
 use cloak\result\LineResultCollectionInterface;
 use cloak\result\collection\NamedResultCollection;
 use \Closure;
+use \Iterator;
+use \ArrayIterator;
 
 
 /**
@@ -51,6 +53,22 @@ class ReflectionCollection implements CollectionInterface
      * @param ReflectionInterface[] $reflections
      */
     public function addAll(array $reflections)
+    {
+        $this->pushAll(new ArrayIterator($reflections));
+    }
+
+    /**
+     * @param ReflectionCollection $collection
+     */
+    public function merge(ReflectionCollection $reflections)
+    {
+        $this->pushAll( $reflections->getIterator() );
+    }
+
+    /**
+     * @param Iterator $reflections
+     */
+    private function pushAll(Iterator $reflections)
     {
         foreach ($reflections as $reflection) {
             $this->add($reflection);
