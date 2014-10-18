@@ -114,4 +114,12 @@ class FileReflection implements ReflectionInterface
         return new FileResult($this->getName(), $lineResults);
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }

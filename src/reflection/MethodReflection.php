@@ -57,6 +57,15 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
+     * @return string
+     */
+    public function getDeclaringClassName()
+    {
+        $declaringClass = $this->reflection->getDeclaringClass();
+        return $declaringClass->getName();
+    }
+
+    /**
      * @return LineRange
      */
     public function getLineRange()
@@ -74,6 +83,22 @@ class MethodReflection implements ReflectionInterface
     public function assembleBy(LineResultCollectionInterface $lineResults)
     {
         return new MethodResult($this, $lineResults);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $template = '%s\\%s::%s';
+        $assembleContent = sprintf(
+            $template,
+            $this->getNamespaceName(),
+            $this->getDeclaringClassName(),
+            $this->getName()
+        );
+
+        return $assembleContent;
     }
 
 }

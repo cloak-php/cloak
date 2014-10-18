@@ -132,10 +132,18 @@ class ClassReflection implements ReflectionInterface
      */
     public function getTraitMethods()
     {
+        $uniqueMethods = [];
         $traitMethods = $this->getTraitAllMethods();
         $traitMethods->merge($this->getTraitAliasMethods());
 
-        return $traitMethods;
+        foreach ($traitMethods as $traitMethod) {
+            $key = (string) $traitMethod;
+            $uniqueMethods[$key] = $traitMethod;
+        }
+
+        $uniqueMethods = array_values($uniqueMethods);
+
+        return new ReflectionCollection($uniqueMethods);
     }
 
     /**
@@ -152,6 +160,21 @@ class ClassReflection implements ReflectionInterface
         }
 
         return new ReflectionCollection($reflectionMethods);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $template = '%s\\%s';
+        $assembleContent = sprintf(
+            $template,
+            $this->getNamespaceName(),
+            $this->getName()
+        );
+
+        return $assembleContent;
     }
 
     /**
