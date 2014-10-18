@@ -26,6 +26,11 @@ interface ReflectionInterface
     /**
      * @return string
      */
+    public function getIdentityKey();
+
+    /**
+     * @return string
+     */
     public function getName();
 
     /**

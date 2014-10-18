@@ -42,6 +42,22 @@ class MethodReflection implements ReflectionInterface
     /**
      * @return string
      */
+    public function getIdentityKey()
+    {
+        $template = '%s\\%s::%s';
+        $assembleContent = sprintf(
+            $template,
+            $this->getNamespaceName(),
+            $this->getDeclaringClassName(),
+            $this->getName()
+        );
+
+        return $assembleContent;
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->reflection->getName();
@@ -90,15 +106,7 @@ class MethodReflection implements ReflectionInterface
      */
     public function __toString()
     {
-        $template = '%s\\%s::%s';
-        $assembleContent = sprintf(
-            $template,
-            $this->getNamespaceName(),
-            $this->getDeclaringClassName(),
-            $this->getName()
-        );
-
-        return $assembleContent;
+        return $this->getIdentityKey();
     }
 
 }
