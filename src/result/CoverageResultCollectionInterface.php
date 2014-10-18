@@ -15,21 +15,21 @@ use cloak\CollectionInterface as CommonCollectionInterface;
 use cloak\CoverageResultInterface;
 
 /**
- * Interface NamedResultCollectionInterface
+ * Interface CoverageResultCollectionInterface
  * @package cloak\result
  */
-interface NamedResultCollectionInterface extends CommonCollectionInterface
+interface CoverageResultCollectionInterface extends CommonCollectionInterface
 {
 
     /**
-     * @param \cloak\result\CoverageResultInterface $result
+     * @param \cloak\CoverageResultInterface $result
      */
     public function add(CoverageResultInterface $result);
 
     /**
-     * @param NamedResultCollectionInterface $results
-     * @return NamedResultCollectionInterface
+     * @param CoverageResultCollectionInterface $results
+     * @return CoverageResultCollectionInterface
      */
-    public function merge(NamedResultCollectionInterface $results);
+    public function merge(CoverageResultCollectionInterface $results);
 
 }

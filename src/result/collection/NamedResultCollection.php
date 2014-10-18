@@ -11,7 +11,7 @@
 
 namespace cloak\result\collection;
 
-use cloak\result\NamedResultCollectionInterface;
+use cloak\result\CoverageResultCollectionInterface;
 use cloak\CoverageResultInterface;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
@@ -21,7 +21,7 @@ use cloak\collection\PairStackable;
  * Class NamedResultCollection
  * @package cloak\result\collection
  */
-class NamedResultCollection implements NamedResultCollectionInterface
+class NamedResultCollection implements CoverageResultCollectionInterface
 {
 
     use PairStackable;
@@ -54,10 +54,10 @@ class NamedResultCollection implements NamedResultCollectionInterface
     }
 
     /**
-     * @param NamedResultCollectionInterface $results
-     * @return NamedResultCollectionInterface|void
+     * @param CoverageResultCollectionInterface $results
+     * @return CoverageResultCollectionInterface|void
      */
-    public function merge(NamedResultCollectionInterface $results)
+    public function merge(CoverageResultCollectionInterface $results)
     {
         foreach ($results as $result) {
             $this->add($result);
