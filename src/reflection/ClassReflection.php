@@ -50,7 +50,7 @@ class ClassReflection implements ReflectionInterface
     /**
      * @return string
      */
-    public function getIdentityKey()
+    public function getIdentityName()
     {
         $template = '%s\\%s';
         $assembleContent = sprintf(
@@ -182,7 +182,7 @@ class ClassReflection implements ReflectionInterface
      */
     public function __toString()
     {
-        return $this->getIdentityKey();
+        return $this->getIdentityName();
     }
 
     /**

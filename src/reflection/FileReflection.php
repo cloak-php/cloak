@@ -55,7 +55,7 @@ class FileReflection implements ReflectionInterface
     /**
      * @return string
      */
-    public function getIdentityKey()
+    public function getIdentityName()
     {
         return $this->getName();
     }
@@ -127,7 +127,7 @@ class FileReflection implements ReflectionInterface
      */
     public function __toString()
     {
-        return $this->getIdentityKey();
+        return $this->getIdentityName();
     }
 
 }

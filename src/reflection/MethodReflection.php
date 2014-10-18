@@ -42,7 +42,7 @@ class MethodReflection implements ReflectionInterface
     /**
      * @return string
      */
-    public function getIdentityKey()
+    public function getIdentityName()
     {
         $template = '%s\\%s::%s';
         $assembleContent = sprintf(
@@ -106,7 +106,7 @@ class MethodReflection implements ReflectionInterface
      */
     public function __toString()
     {
-        return $this->getIdentityKey();
+        return $this->getIdentityName();
     }
 
 }
