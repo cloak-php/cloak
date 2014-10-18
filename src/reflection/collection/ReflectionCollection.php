@@ -12,7 +12,8 @@
 namespace cloak\reflection\collection;
 
 use PhpCollection\Sequence;
-use cloak\collection\ElementStackable;
+use PhpCollection\Map;
+use cloak\collection\PairStackable;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
 use cloak\result\LineResultCollectionInterface;
@@ -29,7 +30,7 @@ use \ArrayIterator;
 class ReflectionCollection implements CollectionInterface
 {
 
-    use ElementStackable;
+    use PairStackable;
 
 
     /**
@@ -37,16 +38,17 @@ class ReflectionCollection implements CollectionInterface
      */
     public function __construct(array $reflections = [])
     {
-        $this->collection = new Sequence($reflections);
+        $this->collection = new Map();
+        $this->addAll($reflections);
     }
-
 
     /**
      * @param ReflectionInterface $reflection
      */
     public function add(ReflectionInterface $reflection)
     {
-        $this->collection->add($reflection);
+        $identityName = $reflection->getIdentityName();
+        $this->collection->set($identityName, $reflection);
     }
 
     /**
@@ -82,7 +84,7 @@ class ReflectionCollection implements CollectionInterface
     public function filter(Closure $filter)
     {
         $collection = $this->collection->filter($filter);
-        return new self( $collection->all() );
+        return new self( $collection->values() );
     }
 
     /**
@@ -91,10 +93,13 @@ class ReflectionCollection implements CollectionInterface
      */
     public function assembleBy(LineResultCollectionInterface $lineResults)
     {
+        $values = $this->collection->values();
+        $collection = new Sequence($values);
+
         $assembleCallback = function(ReflectionInterface $reflection) use($lineResults) {
             return $reflection->assembleBy($lineResults);
         };
-        $results = $this->collection->map($assembleCallback);
+        $results = $collection->map($assembleCallback);
 
         return new NamedResultCollection( $results->all() );
     }
