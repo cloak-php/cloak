@@ -13,13 +13,14 @@ namespace cloak\result;
 
 use cloak\value\LineRange;
 use cloak\reflection\FileReflection;
+use cloak\CoverageResultInterface;
 
 
 /**
  * Class FileResult
  * @package cloak\result
  */
-class FileResult implements NamedCoverageResultInterface
+class FileResult implements CoverageResultInterface
 {
 
     use CoverageResult;
