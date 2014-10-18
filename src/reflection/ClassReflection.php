@@ -147,18 +147,10 @@ class ClassReflection implements ReflectionInterface
      */
     public function getTraitMethods()
     {
-        $uniqueMethods = [];
         $traitMethods = $this->getTraitAllMethods();
         $traitMethods->merge($this->getTraitAliasMethods());
 
-        foreach ($traitMethods as $traitMethod) {
-            $key = (string) $traitMethod;
-            $uniqueMethods[$key] = $traitMethod;
-        }
-
-        $uniqueMethods = array_values($uniqueMethods);
-
-        return new ReflectionCollection($uniqueMethods);
+        return $traitMethods;
     }
 
     /**
