@@ -12,7 +12,7 @@
 namespace cloak\result;
 
 use cloak\reflection\MethodReflection;
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use cloak\CoverageResultInterface;
 
 /**
@@ -66,11 +66,11 @@ final class MethodResult implements CoverageResultInterface
     }
 
     /**
-     * @return NamedResultCollectionInterface
+     * @return CoverageResultCollectionInterface
      */
     public function getChildResults()
     {
-        return new NamedResultCollection();
+        return new CoverageResultCollection();
     }
 
 }
