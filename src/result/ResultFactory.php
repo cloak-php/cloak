@@ -11,7 +11,7 @@
 
 namespace cloak\result;
 
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use cloak\reflection\FileReflection;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
@@ -40,7 +40,7 @@ class ResultFactory
 
     /**
      * @param LineResultCollectionInterface $lineCoverages
-     * @return NamedResultCollection
+     * @return CoverageResultCollection
      */
     public function createClassResults(LineResultCollectionInterface $lineCoverages)
     {
@@ -50,7 +50,7 @@ class ResultFactory
 
     /**
      * @param LineResultCollectionInterface $lineCoverages
-     * @return NamedResultCollection
+     * @return CoverageResultCollection
      */
     public function createTraitResults(LineResultCollectionInterface $lineCoverages)
     {
