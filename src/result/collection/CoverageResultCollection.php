@@ -18,10 +18,10 @@ use cloak\collection\PairStackable;
 
 
 /**
- * Class NamedResultCollection
+ * Class CoverageResultCollection
  * @package cloak\result\collection
  */
-class NamedResultCollection implements CoverageResultCollectionInterface
+class CoverageResultCollection implements CoverageResultCollectionInterface
 {
 
     use PairStackable;

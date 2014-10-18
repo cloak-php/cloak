@@ -17,7 +17,7 @@ use cloak\collection\PairStackable;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
 use cloak\result\LineResultCollectionInterface;
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use \Closure;
 use \Iterator;
 use \ArrayIterator;
@@ -89,7 +89,7 @@ class ReflectionCollection implements CollectionInterface
 
     /**
      * @param LineResultCollectionInterface $lineResults
-     * @return NamedResultCollection
+     * @return CoverageResultCollection
      */
     public function assembleBy(LineResultCollectionInterface $lineResults)
     {
@@ -101,7 +101,7 @@ class ReflectionCollection implements CollectionInterface
         };
         $results = $collection->map($assembleCallback);
 
-        return new NamedResultCollection( $results->all() );
+        return new CoverageResultCollection( $results->all() );
     }
 
 }

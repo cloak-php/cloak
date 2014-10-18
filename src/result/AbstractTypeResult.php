@@ -12,7 +12,7 @@
 namespace cloak\result;
 
 use cloak\value\LineRange;
-use cloak\result\collection\NamedResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 use cloak\reflection\ClassReflection;
 
 
@@ -59,11 +59,11 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return \cloak\result\NamedResultCollectionInterface
+     * @return \cloak\result\CoverageResultCollectionInterface
      */
     public function getMethodResults()
     {
-        $results = new NamedResultCollection();
+        $results = new CoverageResultCollection();
         $methods = $this->reflection->getMethods();
 
         foreach ($methods as $method) {
@@ -84,7 +84,7 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return NamedResultCollectionInterface
+     * @return CoverageResultCollectionInterface
      */
     public function getChildResults()
     {

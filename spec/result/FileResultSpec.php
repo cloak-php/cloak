@@ -97,8 +97,8 @@ describe('FileResult', function() {
             $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
 
         });
-        it('return \cloak\result\collection\NamedResultCollection instance', function() {
-            expect($this->file->getClassResults())->toBeAnInstanceOf('\cloak\result\collection\NamedResultCollection');
+        it('return \cloak\result\collection\CoverageResultCollection instance', function() {
+            expect($this->file->getClassResults())->toBeAnInstanceOf('\cloak\result\collection\CoverageResultCollection');
         });
     });
 

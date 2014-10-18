@@ -25,8 +25,8 @@ describe('ReflectionCollection', function() {
             $this->classReflection->add(new ClassReflection('Example\Example'));
             $this->result = $this->classReflection->assembleBy($this->mock);
         });
-        it('return cloak\result\collection\NamedResultCollection', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\collection\NamedResultCollection');
+        it('return cloak\result\collection\CoverageResultCollection', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\result\collection\CoverageResultCollection');
         });
         it('converted to results', function() {
             Mockery::close();

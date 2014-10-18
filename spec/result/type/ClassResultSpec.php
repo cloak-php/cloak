@@ -40,8 +40,8 @@ describe('ClassResult', function() {
         before(function() {
             $this->methodResults = $this->result->getMethodResults();
         });
-        it('return cloak\result\collection\NamedResultCollection instance', function() {
-            expect($this->methodResults)->toBeAnInstanceOf('cloak\result\collection\NamedResultCollection');
+        it('return cloak\result\collection\CoverageResultCollection instance', function() {
+            expect($this->methodResults)->toBeAnInstanceOf('cloak\result\collection\CoverageResultCollection');
         });
         context('when all results', function() {
             it('return results', function() {
