@@ -25,7 +25,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.2.4"
+			"cloak/cloak": "1.4.0"
 		}
 	}
 
