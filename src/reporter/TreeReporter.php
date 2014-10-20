@@ -81,6 +81,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     {
         $result = $event->getResult();
 
+        $this->writeHeader($result);
         $this->writeChildResults($result);
         $this->writeTotalCoverage($event->getResult());
     }
@@ -93,6 +94,14 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
         $this->writeResult($result);
     }
 
+    /**
+     * @param CoverageResultInterface $result
+     */
+    protected function writeHeader(CoverageResultInterface $result)
+    {
+        $header = sprintf('%s code coverage', $result->getName());
+        $this->console->writeLine($header, Color::CYAN);
+    }
 
     /**
      * @param CoverageResultInterface $result
