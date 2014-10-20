@@ -12,7 +12,7 @@
 use cloak\ConfigurationBuilder;
 use cloak\Configuration;
 use cloak\driver\Result;
-use cloak\driver\result\File;
+use cloak\driver\result\FileResult;
 
 
 describe('Configuration', function() {
@@ -30,19 +30,19 @@ describe('Configuration', function() {
     });
 
     describe('#applyTo', function() {
-        $filter1 = function(File $file) {
+        $filter1 = function(FileResult $file) {
             return $file->matchPath('foo');
         };
-        $filter2 = function(File $file) {
+        $filter2 = function(FileResult $file) {
             return $file->matchPath('vendor/foo1.php');
         };
 
         $rootDirectory = __DIR__ . '/fixtures/src/';
 
         $this->result = new Result();
-        $this->result->addFile(new File($rootDirectory . 'foo.php', []));
-        $this->result->addFile(new File($rootDirectory . 'bar.php', []));
-        $this->result->addFile(new File($rootDirectory . 'vendor/foo1.php',  []));
+        $this->result->addFile(new FileResult($rootDirectory . 'foo.php', []));
+        $this->result->addFile(new FileResult($rootDirectory . 'bar.php', []));
+        $this->result->addFile(new FileResult($rootDirectory . 'vendor/foo1.php',  []));
 
         $builder = new ConfigurationBuilder();
         $this->configuration = $builder->includeFile($filter1)
@@ -53,7 +53,7 @@ describe('Configuration', function() {
 
         it('apply configuration', function() {
             $files = $this->returnValue->getFiles();
-            $file = $files->last()->get();
+            $file = $files->last();
             expect($files->count())->toBe(1);
             expect($file->matchPath('/foo.php'))->toBeTrue();
         });

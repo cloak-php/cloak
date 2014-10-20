@@ -10,9 +10,10 @@
  */
 
 use cloak\result\ResultFactory;
-use cloak\result\LineSet;
-use cloak\result\Line;
-use Zend\Code\Reflection\FileReflection;
+use cloak\result\collection\LineResultCollection;
+use cloak\result\LineResult;
+use cloak\reflection\FileReflection;
+
 
 describe('ResultFactory', function() {
     before(function() {
@@ -23,13 +24,13 @@ describe('ResultFactory', function() {
     });
     describe('createClassResults', function() {
         before(function() {
-            $lineSet = new LineSet([
-                new Line(12, Line::EXECUTED)
+            $lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED)
             ]);
             $this->results = $this->factory->createClassResults($lineSet);
         });
-        it('return \cloak\result\collection\NamedResultCollection', function() {
-            expect($this->results)->toBeAnInstanceOf('\cloak\result\collection\NamedResultCollection');
+        it('return \cloak\result\collection\CoverageResultCollection', function() {
+            expect($this->results)->toBeAnInstanceOf('\cloak\result\collection\CoverageResultCollection');
         });
         it('ClassResult only not included in the results', function() {
             expect(count($this->results))->toEqual(1);
@@ -37,13 +38,13 @@ describe('ResultFactory', function() {
     });
     describe('createTraitResults', function() {
         before(function() {
-            $lineSet = new LineSet([
-                new Line(12, Line::EXECUTED)
+            $lineSet = new LineResultCollection([
+                new LineResult(12, LineResult::EXECUTED)
             ]);
             $this->results = $this->factory->createTraitResults($lineSet);
         });
-        it('return \cloak\result\collection\NamedResultCollection', function() {
-            expect($this->results)->toBeAnInstanceOf('\cloak\result\collection\NamedResultCollection');
+        it('return \cloak\result\collection\CoverageResultCollection', function() {
+            expect($this->results)->toBeAnInstanceOf('\cloak\result\collection\CoverageResultCollection');
         });
         it('TraitResult only not included in the results', function() {
             expect(count($this->results))->toEqual(1);

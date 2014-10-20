@@ -9,15 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak\spec\reflection;
 
-use \Iterator;
-use cloak\CoverageResultInterface;
-
-/***
- * Class LineSetInterface
- * @package cloak\result
+/**
+ * Class FixtureTargetClass
+ * @package cloak\spec\reflection
  */
-interface LineSetInterface extends CoverageResultInterface, Iterator
+class FixtureTargetClass
 {
+    use FixtureTargetTrait
+    {
+        bar as public bar1;
+    }
 }

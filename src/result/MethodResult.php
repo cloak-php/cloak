@@ -11,14 +11,15 @@
 
 namespace cloak\result;
 
-use cloak\value\LineRange;
-use Zend\Code\Reflection\MethodReflection;
+use cloak\reflection\MethodReflection;
+use cloak\result\collection\CoverageResultCollection;
+use cloak\CoverageResultInterface;
 
 /**
  * Class MethodResult
  * @package cloak\result
  */
-final class MethodResult implements NamedCoverageResultInterface
+final class MethodResult implements CoverageResultInterface
 {
 
     use CoverageResult;
@@ -31,16 +32,11 @@ final class MethodResult implements NamedCoverageResultInterface
 
     /**
      * @param MethodReflection $classReflection
-     * @param LineSetInterface $methodLineResults
+     * @param LineResultCollectionInterface $methodLineResults
      */
-    public function __construct(MethodReflection $methodReflection, LineSetInterface $methodLineResults)
+    public function __construct(MethodReflection $methodReflection, LineResultCollectionInterface $methodLineResults)
     {
-        $lineRange = new LineRange(
-            $methodReflection->getStartLine(),
-            $methodReflection->getEndLine()
-        );
-        $rangeResults = $methodLineResults->selectRange($lineRange);
-
+        $rangeResults = $methodLineResults->resolveLineResults($methodReflection);
         $this->reflection = $methodReflection;
         $this->lineResults = $rangeResults;
     }
@@ -58,8 +54,23 @@ final class MethodResult implements NamedCoverageResultInterface
      */
     public function getNamespaceName()
     {
-        $declaringClass = $this->reflection->getDeclaringClass();
-        return $declaringClass->getNamespaceName();
+        return $this->reflection->getNamespaceName();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChildResults()
+    {
+        return false;
+    }
+
+    /**
+     * @return CoverageResultCollectionInterface
+     */
+    public function getChildResults()
+    {
+        return new CoverageResultCollection();
     }
 
 }

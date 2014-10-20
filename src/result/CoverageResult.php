@@ -12,6 +12,8 @@
 namespace cloak\result;
 
 use cloak\value\Coverage;
+use cloak\CoverageResultVisitorInterface;
+
 
 /**
  * Trait CoverageResult
@@ -21,7 +23,7 @@ trait CoverageResult
 {
 
     /**
-     * @var LineSetInterace
+     * @var LineResultCollectionInterface
      */
     protected $lineResults;
 
@@ -90,6 +92,14 @@ trait CoverageResult
     public function isCoverageGreaterEqual(Coverage $coverage)
     {
         return $this->lineResults->isCoverageGreaterEqual($coverage);
+    }
+
+    /**
+     * @param CoverageResultVisitorInterface $visitor
+     */
+    public function accept(CoverageResultVisitorInterface $visitor)
+    {
+        $visitor->visit($this);
     }
 
 }

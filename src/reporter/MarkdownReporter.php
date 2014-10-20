@@ -12,11 +12,11 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\result\File;
+use cloak\result\FileResult;
 use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use PhpCollection\Sequence;
+use cloak\result\collection\CoverageResultCollection;
 
 
 /**
@@ -107,6 +107,9 @@ class MarkdownReporter implements ReporterInterface
         $this->reportWriter->writeEOL();
     }
 
+    /**
+     * @param Result $result
+     */
     private function writeResult(Result $result)
     {
         $this->writeResultHeader();
@@ -130,21 +133,23 @@ class MarkdownReporter implements ReporterInterface
     }
 
     /**
-     * @param Sequence $files
+     * @param CoverageResultCollection $files
      */
-    private function writeFilesResult(Sequence $files)
+    private function writeFilesResult(CoverageResultCollection $files)
     {
+        $orderNumber = 1;
+
         foreach ($files as $key => $file) {
-            $orderNumber = $key + 1;
             $this->writeFileResult($orderNumber, $file);
+            $orderNumber++;
         }
     }
 
     /**
      * @param int $orderNumber
-     * @param File $file
+     * @param FileResult $file
      */
-    private function writeFileResult($orderNumber, File $file)
+    private function writeFileResult($orderNumber, FileResult $file)
     {
 
         $lineResult = sprintf("%2d/%2d",
@@ -165,6 +170,10 @@ class MarkdownReporter implements ReporterInterface
         $this->reportWriter->writeLine($record);
     }
 
+    /**
+     * @param array $values
+     * @return string
+     */
     private function toTableRow(array $values)
     {
         $record = implode(static::TABLE_SEPARATOR_CHAR, $values);

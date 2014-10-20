@@ -10,7 +10,7 @@
  */
 
 use cloak\Result;
-use cloak\result\Line;
+use cloak\result\LineResult;
 use cloak\reporter\LcovReporter;
 use cloak\driver\Result as AnalyzeResult;
 use \Mockery;
@@ -43,12 +43,12 @@ describe('LcovReporter', function() {
 
             $analyzeResult = AnalyzeResult::fromArray([
                 $this->source1 => [
-                    10 => Line::EXECUTED,
-                    11 => Line::EXECUTED
+                    10 => LineResult::EXECUTED,
+                    11 => LineResult::EXECUTED
                 ],
                 $this->source2 => [
-                    10 => Line::EXECUTED,
-                    15 => Line::UNUSED
+                    10 => LineResult::EXECUTED,
+                    15 => LineResult::UNUSED
                 ]
             ]);
 

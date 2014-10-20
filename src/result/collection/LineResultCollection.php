@@ -9,35 +9,32 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak\result\collection;
 
+use cloak\collection\ElementStackable;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
+use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResult;
+use cloak\reflection\ReflectionInterface;
 use PhpCollection\Sequence;
 
-/***
- * Class LineSet
- * @package cloak\result
+
+/**
+ * Class LineResultCollection
+ * @package cloak\result\collection
  */
-class LineSet implements LineSetInterface
+class LineResultCollection implements LineResultCollectionInterface
 {
 
-    /**
-     * @var int
-     */
-    private $index = 0;
-
-    /**
-     * @var \PhpCollection\Sequence
-     */
-    private $lines;
+    use ElementStackable;
 
     /**
      * @param array $lines
      */
     public function __construct(array $lines = [])
     {
-        $this->lines = new Sequence($lines);
+        $this->collection = new Sequence($lines);
     }
 
     /**
@@ -45,7 +42,7 @@ class LineSet implements LineSetInterface
      */
     public function getLineCount()
     {
-        return $this->lines->count();
+        return $this->collection->count();
     }
 
     /**
@@ -53,7 +50,7 @@ class LineSet implements LineSetInterface
      */
     public function getDeadLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
+        $lines = $this->selectLines(function(LineResult $line) {
             return $line->isDead();
         });
         return $lines->count();
@@ -64,7 +61,7 @@ class LineSet implements LineSetInterface
      */
     public function getUnusedLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
+        $lines = $this->selectLines(function(LineResult $line) {
             return $line->isUnused();
         });
         return $lines->count();
@@ -75,7 +72,7 @@ class LineSet implements LineSetInterface
      */
     public function getExecutedLineCount()
     {
-        $lines = $this->selectLines(function(Line $line) {
+        $lines = $this->selectLines(function(LineResult $line) {
             return $line->isExecuted();
         });
         return $lines->count();
@@ -94,7 +91,15 @@ class LineSet implements LineSetInterface
      */
     public function getCodeCoverage()
     {
-        $value = (float) $this->getExecutedLineCount() / $this->getExecutableLineCount() * 100;
+        $executedCount = $this->getExecutedLineCount();
+        $executableCount = $this->getExecutableLineCount();
+
+        $value = (float) 100;
+
+        //PHP Warning:  Division by zero in ....
+        if ($executedCount >= 1 && $executableCount >= 1) {
+            $value = (float) $executedCount / $executableCount * 100;
+        }
 
         return new Coverage($value);
     }
@@ -119,11 +124,11 @@ class LineSet implements LineSetInterface
 
     /**
      * @param LineRange $lineRange
-     * @return LineSet
+     * @return LineResultCollectionInterface
      */
     public function selectRange(LineRange $lineRange)
     {
-        $lines = $this->selectLines(function(Line $line) use ($lineRange) {
+        $lines = $this->selectLines(function(LineResult $line) use ($lineRange) {
             $lineNumber = $line->getLineNumber();
             return $lineRange->contains($lineNumber);
         });
@@ -132,35 +137,25 @@ class LineSet implements LineSetInterface
     }
 
     /**
-     * @return null|Line
+     * @param ReflectionInterface $reflection
+     * @return LineResultCollectionInterface
      */
-    public function first()
+    public function resolveLineResults(ReflectionInterface $reflection)
     {
-        $line = $this->lines->first();
-        $line = $line->isDefined() ? $line->get() : null;
-        return $line;
-    }
-
-    /**
-     * @return null|Line
-     */
-    public function last()
-    {
-        $line = $this->lines->last();
-        $line = $line->isDefined() ? $line->get() : null;
-        return $line;
+        $lineRange = $reflection->getLineRange();
+        return $this->selectRange($lineRange);
     }
 
     /**
      * @param array $analyzeResults
-     * @return LineSet
+     * @return LineResultCollectionInterface
      */
     public static function from(array $analyzeResults)
     {
         $results = [];
 
         foreach ($analyzeResults as $lineNumber => $analyzeResult) {
-            $results[] = new Line($lineNumber, $analyzeResult);
+            $results[] = new LineResult($lineNumber, $analyzeResult);
         }
 
         return new self($results);
@@ -172,44 +167,8 @@ class LineSet implements LineSetInterface
      */
     public function selectLines(\Closure $filter)
     {
-        $lines = $this->lines->filter($filter);
+        $lines = $this->collection->filter($filter);
         return $lines;
-    }
-
-    /**
-     * @return null|Line
-     */
-    public function current()
-    {
-        $line = $this->lines->get($this->key());
-        return $line;
-    }
-
-    /**
-     * @return int
-     */
-    public function key()
-    {
-        return $this->index;
-    }
-
-    public function next()
-    {
-        $this->index++;
-    }
-
-    public function rewind()
-    {
-        $this->index = 0;
-    }
-
-    /**
-     * @return bool
-     */
-    public function valid()
-    {
-        $size = $this->lines->count();
-        return ($size - 1) >= $this->key();
     }
 
 }

@@ -12,8 +12,9 @@
 namespace cloak\result;
 
 use cloak\value\LineRange;
-use cloak\result\collection\NamedResultCollection;
-use Zend\Code\Reflection\ClassReflection;
+use cloak\result\collection\CoverageResultCollection;
+use cloak\reflection\ClassReflection;
+
 
 /**
  * Class AbstractTypeResult
@@ -29,18 +30,14 @@ abstract class AbstractTypeResult
      */
     private $reflection;
 
+
     /**
      * @param ClassReflection $classReflection
-     * @param LineSet $classLineResults
+     * @param LineResultCollectionInterface $classLineResults
      */
-    public function __construct(ClassReflection $classReflection, LineSetInterface $classLineResults)
+    public function __construct(ClassReflection $classReflection, LineResultCollectionInterface $classLineResults)
     {
-        $lineRange = new LineRange(
-            $classReflection->getStartLine(),
-            $classReflection->getEndLine()
-        );
-        $rangeResults = $classLineResults->selectRange($lineRange);
-
+        $rangeResults = $classLineResults->resolveLineResults($classReflection);
         $this->reflection = $classReflection;
         $this->lineResults = $rangeResults;
     }
@@ -62,11 +59,11 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return NamedResultCollection
+     * @return \cloak\result\CoverageResultCollectionInterface
      */
     public function getMethodResults()
     {
-        $results = new NamedResultCollection();
+        $results = new CoverageResultCollection();
         $methods = $this->reflection->getMethods();
 
         foreach ($methods as $method) {
@@ -75,6 +72,23 @@ abstract class AbstractTypeResult
         }
 
         return $results;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChildResults()
+    {
+        $methods = $this->reflection->getMethods();
+        return $methods->isEmpty() === false;
+    }
+
+    /**
+     * @return CoverageResultCollectionInterface
+     */
+    public function getChildResults()
+    {
+        return $this->getMethodResults();
     }
 
 }
