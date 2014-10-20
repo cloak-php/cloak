@@ -101,6 +101,7 @@ Reporter that are supported by default are as follows.
 * ProcessingTimeReporter
 * LcovReporter
 * MarkdownReporter
+* TreeReporter
 
 Usage is as follows.  
 
