@@ -32,6 +32,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
 
     const DEFAULT_LOW_BOUND = 35.0;
     const DEFAULT_HIGH_BOUND = 70.0;
+    const IDENT_SIZE = 2;
 
     /**
      * @var \cloak\writer\ConsoleWriter
@@ -48,6 +49,10 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
      */
     private $highLowerBound;
 
+    /**
+     * @var int
+     */
+    private $indent;
 
     /**
      * @param float $highLowerBound
@@ -58,6 +63,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
         $this->console = new ConsoleWriter();
         $this->lowUpperBound = new Coverage($lowUpperBound);
         $this->highLowerBound = new Coverage($highLowerBound);
+        $this->indent = 0;
     }
 
 
@@ -73,7 +79,10 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
      */
     public function onStop(StopEventInterface $event)
     {
-        $this->visit($event->getResult());
+        $result = $event->getResult();
+
+        $this->writeChildResults($result);
+        $this->writeTotalCoverage($event->getResult());
     }
 
     /**
@@ -81,14 +90,71 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
      */
     public function visit(CoverageResultInterface $result)
     {
-        $this->console->writeText($result->getName());
-        $this->console->writeEOL();
+        $this->writeResult($result);
+    }
 
+
+    /**
+     * @param CoverageResultInterface $result
+     */
+    protected function writeResult(CoverageResultInterface $result)
+    {
+        $this->writeCoverageResult($result);
+        $this->indent++;
+        $this->writeChildResults($result);
+        $this->indent--;
+    }
+
+    /**
+     * @param CoverageResultInterface $result
+     */
+    protected function writeChildResults(CoverageResultInterface $result)
+    {
         $childResults = $result->getChildResults();
 
-        foreach ($childResults as $childResult){
+        foreach ($childResults as $childResult) {
             $this->visit($childResult);
         }
+    }
+
+    protected function writeCoverageResult(CoverageResultInterface $result)
+    {
+        $size = $this->indent * $this->indent;
+        $indent = str_pad('', $size, ' ');
+        $this->console->writeText($indent);
+
+        $this->writeCoverage($result);
+
+        $this->console->writeText(' ');
+        $this->console->writeText($result->getName());
+        $this->console->writeEOL();
+    }
+
+    /**
+     * @param CoverageResultInterface $result
+     */
+    protected function writeCoverage(CoverageResultInterface $result)
+    {
+        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
+
+        if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
+            $this->console->writeText($text, Color::GREEN);
+        } else if ($result->isCoverageLessThan($this->lowUpperBound)) {
+            $this->console->writeText($text, Color::YELLOW);
+        } else {
+            $this->console->writeText($text, Color::NORMAL);
+        }
+    }
+
+    /**
+     * @param Result $result
+     */
+    protected function writeTotalCoverage(Result $result)
+    {
+        $this->console->writeText(PHP_EOL);
+        $this->console->writeText('Code Coverage:');
+        $this->writeCoverage($result);
+        $this->console->writeText(PHP_EOL);
     }
 
 }
