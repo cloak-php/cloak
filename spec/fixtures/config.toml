@@ -1,0 +1,30 @@
+[defaults]
+# Include source files.
+includes = ["src"]
+ 
+# Exclude source files.
+excludes = ["vendor", "spec"]
+ 
+# Reporter to be used
+reporters = ["text", "tree", "markdown", "lcov", "processingTime"]
+ 
+ 
+# TextReporter
+[reporters.text]
+highLowerBound = 70.0
+lowUpperBound = 35.0
+ 
+# TreeReporter
+[reporters.tree]
+highLowerBound = 70.0
+lowUpperBound = 35.0
+ 
+# MarkdownReporter
+[reporters.markdown]
+outputFilePath = "report.md"
+ 
+# LcovReporter
+[reporters.lcov]
+outputFilePath = "report.lcov"
+
+
