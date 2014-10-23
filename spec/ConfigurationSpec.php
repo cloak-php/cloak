@@ -62,4 +62,14 @@ describe('Configuration', function() {
         });
     });
 
+    describe('#loadConfigration', function() {
+        before(function() {
+            $this->configFile = realpath(__DIR__ . '/spec/fixtures/config.toml');
+            $this->config = Configuration::loadConfigration($this->configFile);
+        });
+        it('return cloak\Configuration instance', function() {
+            expect($this->config)->toBeAnInstanceOf('cloak\Configuration');
+        });
+    });
+
 });

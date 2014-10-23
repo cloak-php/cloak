@@ -68,6 +68,14 @@ class Configuration
     }
 
     /**
+     * @param string $configFilePath
+     * @return \cloak\Configuration
+     */
+    public static function loadConfigration($configFilePath)
+    {
+    }
+
+    /**
      * @param \cloak\driver\Result $result
      * @return \cloak\driver\Result
      */
