@@ -21,6 +21,7 @@ use cloak\reporter\ProcessingTimeReporter;
 use cloak\reporter\TextReporter;
 use cloak\reporter\LcovReporter;
 use cloak\reporter\MarkdownReporter;
+use cloak\reporter\TreeReporter;
 use Symfony\Component\Yaml\Yaml;
 use RecursiveDirectoryIterator;
 use FilesystemIterator;
@@ -32,6 +33,7 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
         new LcovReporter(__DIR__ . '/report.lcov'),
         new MarkdownReporter(__DIR__ . '/report.md'),
         new TextReporter(),
+        new TreeReporter(),
         new ProcessingTimeReporter()
     ]));
     $builder->includeFile(function(FileResult $file) {
