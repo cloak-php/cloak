@@ -12,6 +12,7 @@
 namespace cloak;
 
 use Yosymfony\Toml\Toml;
+use cloak\driver\result\FileResult;
 
 
 /**
@@ -28,6 +29,16 @@ class ConfigurationLoader
     public static function loadConfigration($configFilePath)
     {
         $configValues = Toml::Parse($configFilePath);
+        $defaults = $configValues['defaults'];
+
+        $builder = new ConfigurationBuilder();
+        $builder->includeFile(function (FileResult $file) {
+            return $file->matchPaths($defaults['includes']);
+        })->excludeFile(function (FileResult $file) {
+            return $file->matchPaths($defaults['excludes']);
+        });
+
+        return $builder->build();
     }
 
 }

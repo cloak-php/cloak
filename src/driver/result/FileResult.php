@@ -75,4 +75,20 @@ class FileResult
         return ($result === 0) ? false : true;
     }
 
+    /**
+     * @param array $paths
+     * @return bool
+     */
+    public function matchPaths(array $paths)
+    {
+        foreach ($paths as $path) {
+            if ($this->matchPath($path) === false) {
+                continue;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
 }
