@@ -16,7 +16,6 @@ use cloak\driver\Result as AnalyzeResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
 
-
 /**
  * Class Configuration
  * @package cloak
@@ -65,14 +64,6 @@ class Configuration
     {
         $this->driver = $this->driver ? $this->driver : new XdebugDriver();
         return $this->driver;
-    }
-
-    /**
-     * @param string $configFilePath
-     * @return \cloak\Configuration
-     */
-    public static function loadConfigration($configFilePath)
-    {
     }
 
     /**
