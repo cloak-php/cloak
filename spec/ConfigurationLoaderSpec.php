@@ -16,7 +16,8 @@ describe('ConfigurationLoader', function() {
     describe('#loadConfigration', function() {
         before(function() {
             $this->configFile = realpath(__DIR__ . '/fixtures/config.toml');
-            $this->config = ConfigurationLoader::loadConfigration($this->configFile);
+            $this->loader = new ConfigurationLoader();
+            $this->config = $this->loader->loadConfigration($this->configFile);
         });
         it('return cloak\Configuration instance', function() {
             expect($this->config)->toBeAnInstanceOf('cloak\Configuration');
