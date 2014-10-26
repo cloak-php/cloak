@@ -21,7 +21,7 @@ use Zend\Config\Config;
  * Class Reporter
  * @package cloak\configuration
  */
-class Reporter extends AbstractNode implements NodeInterface
+final class Reporter extends AbstractNode implements NodeInterface
 {
 
     /**
