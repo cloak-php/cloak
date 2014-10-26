@@ -13,6 +13,7 @@ namespace cloak\reporter;
 
 use PhpCollection\Map;
 use \ReflectionClass;
+use \ReflectionException;
 
 
 /**

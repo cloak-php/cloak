@@ -30,6 +30,13 @@ describe('ReporterFactory', function() {
                 expect($this->factory)->toBeAnInstanceOf('cloak\reporter\ReporterFactory');
             });
         });
+        context('when reporter not exists', function() {
+            it('throw \cloak\reporter\ReporterNotFoundException', function() {
+                expect(function() {
+                    ReporterFactory::fromClassName('NotFoundClass');
+                })->toThrow('\cloak\reporter\ReporterNotFoundException');
+            });
+        });
     });
     describe('#createWithArguments', function() {
         context('when two arguments', function() {
