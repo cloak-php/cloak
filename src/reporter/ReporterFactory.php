@@ -37,6 +37,21 @@ class ReporterFactory
     }
 
     /**
+     * @param string $className
+     * @return ReporterFactory
+     */
+    public static function fromClassName($className)
+    {
+        try {
+            $reflection = new ReflectionClass($className);
+        } catch (ReflectionException $exception) {
+            throw new ReporterNotFoundException($exception);
+        }
+
+        return new self($reflection);
+    }
+
+    /**
      * @param array $arguments
      * @return \cloak\reporter\RepoterInterface
      */

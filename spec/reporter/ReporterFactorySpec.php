@@ -18,6 +18,19 @@ describe('ReporterFactory', function() {
         $reporterName = 'cloak\spec\reporter\FixtureReporter';
         $this->reflectionClass = new ReflectionClass($reporterName);
     });
+    describe('#fromClassName', function() {
+        before(function() {
+            $this->reporterName = 'cloak\spec\reporter\FixtureReporter';
+        });
+        context('when reporter exists', function() {
+            before(function() {
+                $this->factory = ReporterFactory::fromClassName($this->reporterName);
+            });
+            it('return cloak\reporter\ReporterFactory instance', function() {
+                expect($this->factory)->toBeAnInstanceOf('cloak\reporter\ReporterFactory');
+            });
+        });
+    });
     describe('#createWithArguments', function() {
         context('when two arguments', function() {
             before(function() {
