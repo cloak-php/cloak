@@ -71,38 +71,15 @@ class ConfigurationLoader
         $reporterConfigs = $config->get('config');
 
         foreach ($reporterNames as $reporterName) {
-            $args = $reporterConfigs->get($reporterName, new Config([]));
-            $reporters[] = $this->loadReporter($reporterName, $args->toArray());
+            $arguments = $reporterConfigs->get($reporterName, new Config([]));
+
+            $factory = ReporterFactory::fromName($reporterName);
+            $reporter = $factory->createWithArguments( $arguments->toArray() );
+
+            $reporters[] = $reporter;
         }
 
         return new CompositeReporter($reporters);
-    }
-
-    /**
-     * @param string $reporterName
-     * @param Config $arguments
-     * @return \cloak\reporter\ReporterInterface
-     */
-    private function loadReporter($reporterName, array $arguments)
-    {
-        $reporterClassNameWithNamespace = $this->getReporterFullName($reporterName);
-
-        try {
-            $reflection = new ReflectionClass($reporterClassNameWithNamespace);
-        } catch (ReflectionException $exception) {
-            throw new ReporterNotFoundException($exception);
-        }
-
-        $factory = new ReporterFactory($reflection);
-        return $factory->createWithArguments($arguments);
-    }
-
-    private function getReporterFullName($reporterName)
-    {
-        $reporterClassName = ucfirst($reporterName) . 'Reporter';
-        $reporterClassNameWithNamespace = "cloak\\reporter\\{$reporterClassName}";
-
-        return $reporterClassNameWithNamespace;
     }
 
 }

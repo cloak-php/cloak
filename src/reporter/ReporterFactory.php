@@ -23,6 +23,8 @@ use \ReflectionException;
 class ReporterFactory
 {
 
+    const REPORTER_NAMESPACE = 'cloak\\reporter\\';
+
     /**
      * @var ReflectionClass
      */
@@ -50,6 +52,18 @@ class ReporterFactory
         }
 
         return new self($reflection);
+    }
+
+    /**
+     * @param string $name
+     * @return ReporterFactory
+     */
+    public static function fromName($name)
+    {
+        $className = ucfirst($name) . 'Reporter';
+        $fullClassName = static::REPORTER_NAMESPACE . $className;
+
+        return static::fromClassName($fullClassName);
     }
 
     /**
