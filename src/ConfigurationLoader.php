@@ -16,6 +16,7 @@ use cloak\driver\result\FileResult;
 use cloak\reporter\ReporterNotFoundException;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ReporterFactory;
+use Zend\Config\Config;
 use \ReflectionClass;
 use \ReflectionException;
 
@@ -28,15 +29,24 @@ class ConfigurationLoader
 {
 
     /**
+     * @var \Zend\Config\Config
+     */
+    private $config;
+
+
+    /**
      * @param string $configFilePath
      * @return \cloak\Configuration
      */
     public function loadConfigration($configFilePath)
     {
         $configValues = Toml::Parse($configFilePath);
+        $this->config = new Config($configValues);
 
-        $defaults = $configValues['defaults'];
-        $reporter = $this->loadReporters($defaults['reporters']);
+        $defaults = $this->config->get('defaults');
+        $reporters = $defaults->get('reporters');
+
+        $reporter = $this->loadReporters($reporters);
 
         $builder = new ConfigurationBuilder();
         $builder->reporter($reporter);
@@ -52,18 +62,17 @@ class ConfigurationLoader
 
 
     /**
-     * @param array $config
+     * @param \Zend\Config\Config
      */
-    private function loadReporters(array $config)
+    private function loadReporters(Config $config)
     {
-
         $reporters = [];
-        $reporterNames = $config['uses'];
-        $reporterConfigs = $config['config'];
+        $reporterNames = $config->get('uses');
+        $reporterConfigs = $config->get('config');
 
         foreach ($reporterNames as $reporterName) {
-            $args = $reporterConfigs[$reporterName];
-            $reporters[] = $this->loadReporter($reporterName, $args);
+            $args = $reporterConfigs->get($reporterName, new Config([]));
+            $reporters[] = $this->loadReporter($reporterName, $args->toArray());
         }
 
         return new CompositeReporter($reporters);
@@ -71,10 +80,10 @@ class ConfigurationLoader
 
     /**
      * @param string $reporterName
-     * @param array $arguments
+     * @param Config $arguments
      * @return \cloak\reporter\ReporterInterface
      */
-    private function loadReporter($reporterName, array $arguments = [])
+    private function loadReporter($reporterName, array $arguments)
     {
         $reporterClassNameWithNamespace = $this->getReporterFullName($reporterName);
 
@@ -85,7 +94,6 @@ class ConfigurationLoader
         }
 
         $factory = new ReporterFactory($reflection);
-
         return $factory->createWithArguments($arguments);
     }
 
@@ -95,20 +103,6 @@ class ConfigurationLoader
         $reporterClassNameWithNamespace = "cloak\\reporter\\{$reporterClassName}";
 
         return $reporterClassNameWithNamespace;
-    }
-
-
-    private function getReporterReflection($reporterName)
-    {
-        $reporterClassNameWithNamespace = $this->getReporterFullName($reporterName);
-
-        try {
-            $reflection = new ReflectionClass($reporterClassNameWithNamespace);
-        } catch (ReflectionException $exception) {
-            throw new ReporterNotFoundException($exception);
-        }
-
-        return $reflection;
     }
 
 }

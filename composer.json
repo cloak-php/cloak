@@ -9,6 +9,7 @@
         "zendframework/zend-eventmanager": "2.3.*",
         "zendframework/zend-console": "2.3.*",
         "zendframework/zend-code": "2.3.*",
+        "zendframework/zend-config": "2.3.*",
         "yosymfony/toml": "0.2.*"
     },
     "autoload": {
