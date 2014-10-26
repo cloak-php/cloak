@@ -19,14 +19,10 @@ describe('Reporter', function() {
         before(function() {
             $this->builder = new ConfigurationBuilder();
             $this->config = new Reporter([
-                'reporters' => [
-                    'uses' => ['lcov', 'processingTime'],
-                    'configs' => [
-                        'lcov' => [
-                            'outputFilePath' => 'report.lcov'
-                        ]
-                    ]
-                ]
+                'lcov' => [
+                    'outputFilePath' => 'report.lcov'
+                ],
+                'processingTime' => []
             ]);
             $this->config->applyTo($this->builder);
         });

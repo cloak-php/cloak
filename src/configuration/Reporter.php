@@ -14,7 +14,6 @@ namespace cloak\configuration;
 use cloak\ConfigurationBuilder;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ReporterFactory;
-use Zend\Config\Config;
 
 
 /**
@@ -38,12 +37,8 @@ final class Reporter extends AbstractNode implements NodeInterface
     private function loadReporters()
     {
         $reporters = [];
-        $reporterNames = $this->values->get('uses');
-        $reporterConfigs = $this->values->get('configs');
 
-        foreach ($reporterNames as $reporterName) {
-            $arguments = $reporterConfigs->get($reporterName, new Config([]));
-
+        foreach ($this->values as $reporterName => $arguments) {
             $factory = ReporterFactory::fromName($reporterName);
             $reporter = $factory->createWithArguments( $arguments->toArray() );
 
