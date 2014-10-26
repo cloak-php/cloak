@@ -1,29 +1,27 @@
-[defaults]
-
 # Include source files.
 includes = ["src"]
 
 # Exclude source files.
 excludes = ["vendor", "spec"]
 
-[defaults.reporters]
+[reporters]
 # Reporter to be used
 uses = ["text", "tree", "markdown", "lcov", "processingTime"]
 
 # TextReporter
-[defaults.reporters.configs.text]
+[reporters.configs.text]
 highLowerBound = 70.0
 lowUpperBound = 35.0
 
 # TreeReporter
-[defaults.reporters.configs.tree]
+[reporters.configs.tree]
 highLowerBound = 70.0
 lowUpperBound = 35.0
 
 # MarkdownReporter
-[defaults.reporters.configs.markdown]
+[reporters.configs.markdown]
 outputFilePath = "script/report.md"
 
 # LcovReporter
-[defaults.reporters.configs.lcov]
+[reporters.configs.lcov]
 outputFilePath = "script/report.lcov"

@@ -40,16 +40,14 @@ class ConfigurationLoader
         $configValues = Toml::Parse($configFilePath);
         $this->config = new Config($configValues);
 
-        $defaults = $this->config->get('defaults');
-        $reporters = $defaults->get('reporters');
-
+        $reporters = $this->config->get('reporters');
         $reporter = $this->loadReporters($reporters);
 
         $builder = new ConfigurationBuilder();
         $builder->reporter($reporter);
 
-        $includes = $defaults->get('includes', new Config([]));
-        $excludes = $defaults->get('excludes', new Config([]));
+        $includes = $this->config->get('includes', new Config([]));
+        $excludes = $this->config->get('excludes', new Config([]));
 
         $builder->includeFile(function (FileResult $file) use($includes) {
             return $file->matchPaths($includes->toArray());
