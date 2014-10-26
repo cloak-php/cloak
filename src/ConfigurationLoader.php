@@ -48,10 +48,13 @@ class ConfigurationLoader
         $builder = new ConfigurationBuilder();
         $builder->reporter($reporter);
 
-        $builder->includeFile(function (FileResult $file) {
-            return $file->matchPaths($defaults['includes']);
-        })->excludeFile(function (FileResult $file) {
-            return $file->matchPaths($defaults['excludes']);
+        $includes = $defaults->get('includes', new Config([]));
+        $excludes = $defaults->get('excludes', new Config([]));
+
+        $builder->includeFile(function (FileResult $file) use($includes) {
+            return $file->matchPaths($includes->toArray());
+        })->excludeFile(function (FileResult $file) use($excludes) {
+            return $file->matchPaths($excludes->toArray());
         });
 
         return $builder->build();
