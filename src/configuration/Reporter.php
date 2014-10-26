@@ -21,31 +21,16 @@ use Zend\Config\Config;
  * Class Reporter
  * @package cloak\configuration
  */
-class Reporter implements Node
+class Reporter extends AbstractNode implements NodeInterface
 {
 
     /**
-     * @var Config
-     */
-    private $values;
-
-
-    /**
-     * @param array $values
-     */
-    public function __construct(array $values = [])
-    {
-        $this->values = new Config($values);
-    }
-
-    /**
-     * @param ConfigurationBuilder $builder
+     * {@inheritdoc}
      */
     public function applyTo(ConfigurationBuilder $builder)
     {
         return $builder->reporter($this->loadReporters());
     }
-
 
     /**
      * @return CompositeReporter

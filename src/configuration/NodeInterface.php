@@ -11,10 +11,20 @@
 
 namespace cloak\configuration;
 
+use cloak\ConfigurationBuilder;
+
+
 /**
- * Interface Node
+ * Interface NodeInterface
  * @package cloak\configuration
  */
-interface Node
+interface NodeInterface
 {
+
+    /**
+     * @param ConfigurationBuilder $builder
+     * @return ConfigurationBuilder
+     */
+    public function applyTo(ConfigurationBuilder $builder);
+
 }
