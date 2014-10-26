@@ -11,19 +11,19 @@ excludes = ["vendor", "spec"]
 uses = ["text", "tree", "markdown", "lcov", "processingTime"]
 
 # TextReporter
-[defaults.reporters.config.text]
+[defaults.reporters.configs.text]
 highLowerBound = 70.0
 lowUpperBound = 35.0
 
 # TreeReporter
-[defaults.reporters.config.tree]
+[defaults.reporters.configs.tree]
 highLowerBound = 70.0
 lowUpperBound = 35.0
  
 # MarkdownReporter
-[defaults.reporters.config.markdown]
+[defaults.reporters.configs.markdown]
 outputFilePath = "report.md"
 
 # LcovReporter
-[defaults.reporters.config.lcov]
+[defaults.reporters.configs.lcov]
 outputFilePath = "report.lcov"

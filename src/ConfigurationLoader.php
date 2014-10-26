@@ -13,12 +13,9 @@ namespace cloak;
 
 use Yosymfony\Toml\Toml;
 use cloak\driver\result\FileResult;
-use cloak\reporter\ReporterNotFoundException;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ReporterFactory;
 use Zend\Config\Config;
-use \ReflectionClass;
-use \ReflectionException;
 
 
 /**
@@ -68,7 +65,7 @@ class ConfigurationLoader
     {
         $reporters = [];
         $reporterNames = $config->get('uses');
-        $reporterConfigs = $config->get('config');
+        $reporterConfigs = $config->get('configs');
 
         foreach ($reporterNames as $reporterName) {
             $arguments = $reporterConfigs->get($reporterName, new Config([]));
