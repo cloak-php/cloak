@@ -44,9 +44,16 @@ $quotePatterns = array_map(function($excludeTarget) {
 $pattern = '(' . implode('|', $quotePatterns) . ')';
 
 foreach ($filterIterator as $key => $file) {
-    if (preg_match("/{$pattern}/", $file->getPathname()) === 1) {
+    $pathName = $file->getPathname();
+
+    if (preg_match("/{$pattern}/", $pathName) === 1) {
         continue;
     }
+
+    if (preg_match("/.+Spec\.php$/", $pathName) === 0) {
+        continue;
+    }
+
     $targetFiles[] = $file;
 }
 
