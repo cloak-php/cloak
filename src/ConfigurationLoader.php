@@ -26,7 +26,7 @@ class ConfigurationLoader
      * @param string $configFilePath
      * @return \cloak\Configuration
      */
-    public function loadConfigration($configFilePath)
+    public function loadConfiguration($configFilePath)
     {
         $configValues = Toml::Parse($configFilePath);
 

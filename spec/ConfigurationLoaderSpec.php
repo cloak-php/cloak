@@ -13,11 +13,11 @@ use cloak\ConfigurationLoader;
 
 describe('ConfigurationLoader', function() {
 
-    describe('#loadConfigration', function() {
+    describe('#loadConfiguration', function() {
         before(function() {
             $this->configFile = realpath(__DIR__ . '/fixtures/config.toml');
             $this->loader = new ConfigurationLoader();
-            $this->config = $this->loader->loadConfigration($this->configFile);
+            $this->config = $this->loader->loadConfiguration($this->configFile);
         });
         it('return cloak\Configuration instance', function() {
             expect($this->config)->toBeAnInstanceOf('cloak\Configuration');
