@@ -11,8 +11,6 @@
 
 namespace cloak\result;
 
-use cloak\CoverageResultInterface;
-
 
 /**
  * Interface AbstractTypeResultInterface
@@ -22,7 +20,7 @@ interface AbstractTypeResultInterface extends CoverageResultInterface
 {
 
     /**
-     * @return \cloak\result\NamedResultCollectionInterface
+     * @return \cloak\result\CoverageResultCollectionInterface
      */
     public function getMethodResults();
 

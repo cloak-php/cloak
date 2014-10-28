@@ -9,19 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
-
+namespace cloak\driver;
 
 /**
- * Interface CoverageResultVisitorInterface
- * @package cloak
+ * Interface DriverDetectorInterface
+ * @package cloak\driver
  */
-interface CoverageResultVisitorInterface
+interface DriverDetectorInterface
 {
 
     /**
-     * @param CoverageResultInterface $result
+     * @return \cloak\driver\DriverInterface
+     * @throws \cloak\driver\DriverNotFoundException
      */
-    public function visit(CoverageResultInterface $result);
+    public function detect();
 
 }

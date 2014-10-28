@@ -13,7 +13,7 @@ namespace cloak\result;
 
 use cloak\reflection\MethodReflection;
 use cloak\result\collection\CoverageResultCollection;
-use cloak\CoverageResultInterface;
+
 
 /**
  * Class MethodResult

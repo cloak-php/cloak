@@ -9,20 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\result;
 
-use Exception;
 
 /**
- * Class DriverNotFoundException
+ * Interface CoverageResultVisitorInterface
  * @package cloak
  */
-class DriverNotFoundException extends Exception
+interface CoverageResultVisitorInterface
 {
 
-    public function __construct(array $messages)
-    {
-        parent::__construct(implode("\n", $messages));
-    }
+    /**
+     * @param CoverageResultInterface $result
+     */
+    public function visit(CoverageResultInterface $result);
 
 }

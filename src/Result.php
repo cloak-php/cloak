@@ -13,6 +13,8 @@ namespace cloak;
 
 use cloak\value\Coverage;
 use cloak\result\FileResult;
+use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultVisitorInterface;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\driver\Result as AnalyzeResult;
@@ -32,7 +34,7 @@ class Result implements CoverageResultInterface
 
 
     /**
-     * @param File[] $files
+     * @param FileResult[] $files
      */
     public function __construct($files = [])
     {

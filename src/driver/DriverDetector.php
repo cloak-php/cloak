@@ -9,13 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
-
-use cloak\driver\DriverNotAvailableException;
+namespace cloak\driver;
 
 /**
  * Class DriverDetector
- * @package cloak
+ * @package cloak\driver
  */
 class DriverDetector implements DriverDetectorInterface
 {
@@ -35,7 +33,7 @@ class DriverDetector implements DriverDetectorInterface
 
     /**
      * @return \cloak\driver\DriverInterface
-     * @throws \cloak\DriverNotFoundException
+     * @throws \cloak\driver\DriverNotFoundException
      */
     public function detect()
     {

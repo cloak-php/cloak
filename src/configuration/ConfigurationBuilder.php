@@ -12,7 +12,7 @@
 namespace cloak\configuration;
 
 use cloak\Configuration;
-use cloak\DriverDetector;
+use cloak\driver\DriverDetector;
 use cloak\driver\DriverInterface;
 use cloak\reporter\ReporterInterface;
 

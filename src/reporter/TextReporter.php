@@ -16,7 +16,7 @@ use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\FileResult;
 use cloak\value\Coverage;
-use cloak\CoverageResultInterface;
+use cloak\result\CoverageResultInterface;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 
