@@ -26,6 +26,9 @@ Version 1.4.0
 * **cloak\result\LineSet**, **cloak\result\LineSetInterface** to **LineResultCollection**, **LineResultCollectionInterface**
 * **cloak\result\Line** to **LineResult**
 * **cloak\result\File** to **FileResult**
+* **cloak\ConfigrationBuilder** to **cloak\configration\ConfigrationBuilder**
+* Support configuration file (toml format)
+* Support class, trait, method code coverage
 
 
 Version 1.3.2.4
