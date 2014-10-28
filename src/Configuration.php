@@ -16,7 +16,6 @@ use cloak\driver\Result as AnalyzeResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
 
-
 /**
  * Class Configuration
  * @package cloak

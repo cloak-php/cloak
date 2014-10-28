@@ -8,7 +8,9 @@
         "phpcollection/phpcollection": "0.4.*",
         "zendframework/zend-eventmanager": "2.3.*",
         "zendframework/zend-console": "2.3.*",
-        "zendframework/zend-code": "2.3.*"
+        "zendframework/zend-code": "2.3.*",
+        "zendframework/zend-config": "2.3.*",
+        "yosymfony/toml": "0.2.*"
     },
     "autoload": {
         "psr-4": { "cloak\\": "src/" }
@@ -18,7 +20,8 @@
             "cloak\\spec\\driver\\": "spec/fixtures/driver",
             "cloak\\spec\\result\\": "spec/fixtures/result",
             "cloak\\spec\\reflection\\": "spec/fixtures/reflection",
-            "cloak\\spec\\collection\\": "spec/fixtures/collection"
+            "cloak\\spec\\collection\\": "spec/fixtures/collection",
+            "cloak\\spec\\reporter\\": "spec/fixtures/reporter"
         },
         "files": [
             "spec/fixtures/src/foo.php"

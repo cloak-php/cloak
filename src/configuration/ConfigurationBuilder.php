@@ -9,14 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\configuration;
 
+use cloak\Configuration;
+use cloak\DriverDetector;
 use cloak\driver\DriverInterface;
 use cloak\reporter\ReporterInterface;
 
+
 /**
  * Class ConfigurationBuilder
- * @package cloak
+ * @package cloak\configuration
  */
 class ConfigurationBuilder
 {
