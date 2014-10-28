@@ -9,18 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\driver;
 
 /**
  * Interface DriverDetectorInterface
- * @package cloak
+ * @package cloak\driver
  */
 interface DriverDetectorInterface
 {
 
     /**
      * @return \cloak\driver\DriverInterface
-     * @throws \cloak\DriverNotFoundException
+     * @throws \cloak\driver\DriverNotFoundException
      */
     public function detect();
 

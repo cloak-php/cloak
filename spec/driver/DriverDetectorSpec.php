@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\DriverDetector;
+use cloak\driver\DriverDetector;
 
 describe('DriverDetector', function() {
 
@@ -31,10 +31,10 @@ describe('DriverDetector', function() {
                     'cloak\spec\driver\FixtureDriver'
                 ]);
             });
-            it('should throw cloak\DriverNotFoundException', function() {
+            it('should throw cloak\driver\DriverNotFoundException', function() {
                 expect(function() {
                     $this->detector->detect();
-                })->toThrow('cloak\DriverNotFoundException');
+                })->toThrow('cloak\driver\DriverNotFoundException');
             });
         });
     });

@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\driver;
 
 use Exception;
 
 /**
  * Class DriverNotFoundException
- * @package cloak
+ * @package cloak\driver
  */
 class DriverNotFoundException extends Exception
 {
