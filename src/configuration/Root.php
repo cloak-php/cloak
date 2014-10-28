@@ -11,7 +11,6 @@
 
 namespace cloak\configuration;
 
-use cloak\ConfigurationBuilder;
 use Zend\Config\Config;
 
 

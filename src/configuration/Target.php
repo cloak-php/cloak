@@ -11,7 +11,6 @@
 
 namespace cloak\configuration;
 
-use cloak\ConfigurationBuilder;
 use cloak\driver\result\FileResult;
 use Zend\Config\Config;
 

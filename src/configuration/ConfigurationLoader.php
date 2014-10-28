@@ -9,15 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\configuration;
 
 use Yosymfony\Toml\Toml;
 use cloak\configuration\Root;
 
-
 /**
  * Class ConfigurationLoader
- * @package cloak
+ * @package cloak\configuration
  */
 class ConfigurationLoader
 {

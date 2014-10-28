@@ -10,12 +10,13 @@
  */
 
 use cloak\Analyzer;
-use cloak\ConfigurationBuilder;
+use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
 use cloak\result\FileResult;
 use \Mockery;
+
 
 describe('Analyzer', function() {
     before(function() {
@@ -48,8 +49,8 @@ describe('Analyzer', function() {
         it('should called once', function() {
             expect($this->subject->called)->toBe(1);
         });
-        it('should argument is an instance of cloak\ConfigurationBuilder', function() {
-            expect($this->subject->builder)->toBeAnInstanceOf('cloak\ConfigurationBuilder');
+        it('should argument is an instance of cloak\configuration\ConfigurationBuilder', function() {
+            expect($this->subject->builder)->toBeAnInstanceOf('cloak\configuration\ConfigurationBuilder');
         });
         it('should return an instance of cloak\Analyzer', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Analyzer');

@@ -11,8 +11,6 @@
 
 namespace cloak\configuration;
 
-use cloak\ConfigurationBuilder;
-
 
 /**
  * Interface NodeInterface

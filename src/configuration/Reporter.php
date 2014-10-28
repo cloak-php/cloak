@@ -11,7 +11,6 @@
 
 namespace cloak\configuration;
 
-use cloak\ConfigurationBuilder;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ReporterFactory;
 

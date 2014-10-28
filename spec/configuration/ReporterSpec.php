@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\ConfigurationBuilder;
+use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\Reporter;
 
 

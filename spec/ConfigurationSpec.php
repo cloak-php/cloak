@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\ConfigurationBuilder;
+use cloak\configuration\ConfigurationBuilder;
 use cloak\Configuration;
 use cloak\driver\Result;
 use cloak\driver\result\FileResult;

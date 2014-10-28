@@ -14,7 +14,7 @@ namespace cloak\script;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use cloak\Analyzer;
-use cloak\ConfigurationLoader;
+use cloak\configuration\ConfigurationLoader;
 use Symfony\Component\Yaml\Yaml;
 use RecursiveDirectoryIterator;
 use FilesystemIterator;
@@ -22,7 +22,7 @@ use RecursiveIteratorIterator;
 
 
 $loader = new ConfigurationLoader();
-$configuration = $loader->loadConfigration('cloak.toml');
+$configuration = $loader->loadConfiguration('cloak.toml');
 $analyzer = new Analyzer($configuration);
 
 $directoryIterator = new RecursiveDirectoryIterator(__DIR__ . '/../spec',

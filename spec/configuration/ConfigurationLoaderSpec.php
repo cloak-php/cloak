@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\ConfigurationLoader;
+use cloak\configuration\ConfigurationLoader;
 
 describe('ConfigurationLoader', function() {
 
     describe('#loadConfiguration', function() {
         before(function() {
-            $this->configFile = realpath(__DIR__ . '/fixtures/config.toml');
+            $this->configFile = realpath(__DIR__ . '../fixtures/config.toml');
             $this->loader = new ConfigurationLoader();
             $this->config = $this->loader->loadConfiguration($this->configFile);
         });
