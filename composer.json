@@ -1,6 +1,6 @@
 {
     "name": "cloak/cloak",
-    "keywords": [ "code coverage", "simple", "text report", "php" ],
+    "keywords": [ "code coverage", "markdown report", "lcov report", "tree report", "text report", "php" ],
     "description": "cloak is a library that takes a code coverage.",
     "version": "1.4.0",
     "require": {
