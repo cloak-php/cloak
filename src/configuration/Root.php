@@ -12,17 +12,19 @@
 namespace cloak\configuration;
 
 use Zend\Config\Config;
+use cloak\configuration\section\Target;
+use cloak\configuration\section\Reporter;
 
 
 /**
  * Class Root
  * @package cloak\configuration
  */
-final class Root implements NodeInterface
+final class Root implements SectionInterface
 {
 
     /**
-     * @var NodeInterface[]
+     * @var SectionInterface[]
      */
     private $configurations = [];
 

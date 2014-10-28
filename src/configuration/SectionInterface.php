@@ -11,28 +11,17 @@
 
 namespace cloak\configuration;
 
-use Zend\Config\Config;
-
-
 /**
- * Class AbstractNode
+ * Interface SectionInterface
  * @package cloak\configuration
  */
-abstract class AbstractNode implements NodeInterface
+interface SectionInterface
 {
 
     /**
-     * @var Config
+     * @param ConfigurationBuilder $builder
+     * @return ConfigurationBuilder
      */
-    protected $values;
-
-
-    /**
-     * @param array $values
-     */
-    public function __construct(array $values = [])
-    {
-        $this->values = new Config($values);
-    }
+    public function applyTo(ConfigurationBuilder $builder);
 
 }

@@ -10,7 +10,7 @@
  */
 
 use cloak\configuration\ConfigurationBuilder;
-use cloak\configuration\Reporter;
+use cloak\configuration\section\Reporter;
 
 
 describe('Reporter', function() {

@@ -12,7 +12,6 @@
 namespace cloak\configuration;
 
 use Yosymfony\Toml\Toml;
-use cloak\configuration\Root;
 
 /**
  * Class ConfigurationLoader

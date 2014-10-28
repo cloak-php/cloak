@@ -9,8 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\configuration;
+namespace cloak\configuration\section;
 
+use cloak\configuration\ConfigurationBuilder;
+use cloak\configuration\AbstractSection;
+use cloak\configuration\SectionInterface;
 use cloak\driver\result\FileResult;
 use Zend\Config\Config;
 
@@ -19,7 +22,7 @@ use Zend\Config\Config;
  * Class Target
  * @package cloak\configuration
  */
-final class Target extends AbstractNode implements NodeInterface
+final class Target extends AbstractSection implements SectionInterface
 {
 
     /**

@@ -10,7 +10,7 @@
  */
 
 use cloak\configuration\ConfigurationBuilder;
-use cloak\configuration\Target;
+use cloak\configuration\section\Target;
 
 
 describe('Target', function() {
