@@ -14,35 +14,16 @@ namespace cloak\script;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use cloak\Analyzer;
-use cloak\ConfigurationBuilder;
-use cloak\driver\result\FileResult;
-use cloak\reporter\CompositeReporter;
-use cloak\reporter\ProcessingTimeReporter;
-use cloak\reporter\TextReporter;
-use cloak\reporter\LcovReporter;
-use cloak\reporter\MarkdownReporter;
-use cloak\reporter\TreeReporter;
+use cloak\ConfigurationLoader;
 use Symfony\Component\Yaml\Yaml;
 use RecursiveDirectoryIterator;
 use FilesystemIterator;
 use RecursiveIteratorIterator;
 
-$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-    $builder->reporter(new CompositeReporter([
-        new LcovReporter(__DIR__ . '/report.lcov'),
-        new MarkdownReporter(__DIR__ . '/report.md'),
-        new TextReporter(),
-        new TreeReporter(),
-        new ProcessingTimeReporter()
-    ]));
-    $builder->includeFile(function(FileResult $file) {
-        return $file->matchPath('/src');
-    })->excludeFile(function(FileResult $file) {
-        return $file->matchPath('/spec') || $file->matchPath('/vendor');
-    });
-
-});
+$loader = new ConfigurationLoader();
+$configuration = $loader->loadConfigration('cloak.toml');
+$analyzer = new Analyzer($configuration);
 
 $directoryIterator = new RecursiveDirectoryIterator(__DIR__ . '/../spec',
     FilesystemIterator::CURRENT_AS_FILEINFO |
@@ -63,9 +44,16 @@ $quotePatterns = array_map(function($excludeTarget) {
 $pattern = '(' . implode('|', $quotePatterns) . ')';
 
 foreach ($filterIterator as $key => $file) {
-    if (preg_match("/{$pattern}/", $file->getPathname()) === 1) {
+    $pathName = $file->getPathname();
+
+    if (preg_match("/{$pattern}/", $pathName) === 1) {
         continue;
     }
+
+    if (preg_match("/.+Spec\.php$/", $pathName) === 0) {
+        continue;
+    }
+
     $targetFiles[] = $file;
 }
 

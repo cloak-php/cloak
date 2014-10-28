@@ -7,8 +7,6 @@ includes = ["src"]
 excludes = ["vendor", "spec"]
 
 
-
-
 [reporter]
 
 # TextReporter
@@ -23,11 +21,11 @@ lowUpperBound = 35.0
  
 # MarkdownReporter
 [reporter.markdown]
-outputFilePath = "report.md"
+outputFilePath = "script/report.md"
 
 # LcovReporter
 [reporter.lcov]
-outputFilePath = "report.lcov"
+outputFilePath = "script/report.lcov"
 
 # ProcessingTimeReporter
 [reporter.processingTime]
