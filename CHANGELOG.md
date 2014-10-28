@@ -27,6 +27,9 @@ Version 1.4.0
 * **cloak\result\Line** to **LineResult**
 * **cloak\result\File** to **FileResult**
 * **cloak\ConfigrationBuilder** to **cloak\configration\ConfigrationBuilder**
+* **cloak/DriverDetector** to **cloak/driver/DriverDetector**
+* **cloak/DriverDetectorInterface** to **cloak/driver/DriverDetectorInterface**
+* **cloak/DriverNotFoundException** to **cloak/driver/DriverNotFoundException**
 * Support configuration file (toml format)
 * Support class, trait, method code coverage
 
