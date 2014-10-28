@@ -15,10 +15,10 @@ use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\value\Coverage;
-use cloak\CoverageResultInterface;
+use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultVisitorInterface;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
-use cloak\CoverageResultVisitorInterface;
 
 
 /**

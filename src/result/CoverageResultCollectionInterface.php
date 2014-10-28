@@ -12,7 +12,6 @@
 namespace cloak\result;
 
 use cloak\CollectionInterface as CommonCollectionInterface;
-use cloak\CoverageResultInterface;
 
 /**
  * Interface CoverageResultCollectionInterface
@@ -22,7 +21,7 @@ interface CoverageResultCollectionInterface extends CommonCollectionInterface
 {
 
     /**
-     * @param \cloak\CoverageResultInterface $result
+     * @param \cloak\result\CoverageResultInterface $result
      */
     public function add(CoverageResultInterface $result);
 
