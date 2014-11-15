@@ -34,7 +34,10 @@
         "mockery/mockery": "0.9.*",
         "symfony/yaml": "2.5.*",
         "halleck45/php-metrics": "1.0.*",
-        "hoa/ruler": "dev-master"
+        "hoa/ruler": "dev-master",
+        "peridot-php/peridot": "~1.8",
+        "expectation/peridot-expectation": "~1.1.1",
+        "noodlehaus/config": "dev-master"
     },
     "scripts": {
         "test": "vendor/bin/phake test:coverage",
