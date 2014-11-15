@@ -21,11 +21,11 @@ lowUpperBound = 35.0
  
 # MarkdownReporter
 [reporter.markdown]
-outputFilePath = "script/report.md"
+outputFilePath = "tmp/report.md"
 
 # LcovReporter
 [reporter.lcov]
-outputFilePath = "script/report.lcov"
+outputFilePath = "tmp/report.lcov"
 
 # ProcessingTimeReporter
 [reporter.processingTime]
