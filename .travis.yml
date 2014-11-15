@@ -7,7 +7,7 @@ before_install:
   - composer self-update
   - composer install
 script:
-  - ./vendor/bin/phake test:coverage
+  - composer coverage
 after_script:
-  - ./vendor/bin/phake test:coveralls
+  - composer coveralls
   - composer metrics

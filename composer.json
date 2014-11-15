@@ -41,7 +41,9 @@
         "codegyre/robo": "0.4.*"
     },
     "scripts": {
-        "test": "vendor/bin/phake test:coverage",
+        "test": "vendor/bin/robo spec:all",
+        "coverage": "vendor/bin/robo spec:coverage",
+        "coveralls": "vendor/bin/robo spec:coveralls",
         "metrics": "vendor/bin/phpmetrics src"
     },
     "license": "MIT",

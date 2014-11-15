@@ -1,6 +1,9 @@
 <?php
 
 use \Robo\Tasks;
+use \coverallskit\Configuration;
+use \coverallskit\ReportBuilder;
+
 
 /**
  * Class RoboFile
@@ -22,6 +25,13 @@ class RoboFile extends Tasks
         $configurationFileOption = '--configuration peridot.coverage.php';
 
         return $this->taskExec($peridot . ' ' . $configurationFileOption)->run();
+    }
+
+    public function specCoveralls()
+    {
+        $configuration = Configuration::loadFromFile('.coveralls.yml');
+        $builder = ReportBuilder::fromConfiguration($configuration);
+        $builder->build()->save()->upload();
     }
 
 }
