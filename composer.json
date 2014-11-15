@@ -37,7 +37,8 @@
         "hoa/ruler": "dev-master",
         "peridot-php/peridot": "~1.8",
         "expectation/peridot-expectation": "~1.1.1",
-        "noodlehaus/config": "dev-master"
+        "noodlehaus/config": "dev-master",
+        "codegyre/robo": "0.4.*"
     },
     "scripts": {
         "test": "vendor/bin/phake test:coverage",
