@@ -12,7 +12,6 @@
 namespace cloak\result;
 
 use cloak\value\Coverage;
-use cloak\CoverageResultVisitorInterface;
 
 
 /**

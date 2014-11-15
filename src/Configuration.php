@@ -16,10 +16,13 @@ use cloak\driver\Result as AnalyzeResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
 
-
 /**
  * Class Configuration
  * @package cloak
+ * @property-read \cloak\driver\DriverInterface $driver
+ * @property-read \cloak\reporter\ReporterInterface $reporter
+ * @property-read \Closure[] $includeFiles
+ * @property-read \Closure[] $excludeFiles
  */
 class Configuration
 {
@@ -35,12 +38,12 @@ class Configuration
     private $reporter;
 
     /**
-     * @var array
+     * @var \Closure[]
      */
     private $includeFiles = [];
 
     /**
-     * @var array
+     * @var \Closure[]
      */
     private $excludeFiles = [];
 

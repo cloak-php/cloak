@@ -16,7 +16,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/src/functions.php";
 
 use cloak\Analyzer;
-use cloak\ConfigurationBuilder;
+use cloak\configuration\ConfigurationBuilder;
 use cloak\driver\result\FileResult;
 
 use Example as example;

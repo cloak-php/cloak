@@ -11,7 +11,9 @@
 
 namespace cloak;
 
+use cloak\configuration\ConfigurationBuilder;
 use cloak\ProvidesLifeCycleNotifier;
+
 
 /**
  * Class Analyzer

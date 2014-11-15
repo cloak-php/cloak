@@ -13,7 +13,6 @@ namespace cloak\result;
 
 use cloak\value\LineRange;
 use cloak\reflection\FileReflection;
-use cloak\CoverageResultInterface;
 
 
 /**

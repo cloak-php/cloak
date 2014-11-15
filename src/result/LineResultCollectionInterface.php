@@ -11,9 +11,6 @@
 
 namespace cloak\result;
 
-
-use cloak\LineResultInterface;
-use cloak\CodeCoverageResultInterface;
 use cloak\value\LineRange;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;

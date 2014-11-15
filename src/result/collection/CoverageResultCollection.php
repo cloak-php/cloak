@@ -12,7 +12,7 @@
 namespace cloak\result\collection;
 
 use cloak\result\CoverageResultCollectionInterface;
-use cloak\CoverageResultInterface;
+use cloak\result\CoverageResultInterface;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
 
@@ -28,7 +28,7 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
 
 
     /**
-     * @param CoverageResultInterface[] $results
+     * @param \cloak\result\CoverageResultInterface[] $results
      */
     public function __construct(array $results = [])
     {
@@ -36,7 +36,7 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param \cloak\CoverageResultInterface $result
+     * @param \cloak\result\CoverageResultInterface $result
      */
     public function add(CoverageResultInterface $result)
     {
