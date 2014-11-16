@@ -75,10 +75,7 @@ describe('TextReporter', function() {
             ];
 
             $analyzeResult = AnalyzeResult::fromArray($coverages);
-
-            $this->stopEvent = new StopEvent(null, [
-                'result' => Result::fromAnalyzeResult($analyzeResult)
-            ]);
+            $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
 
             $totalCoverage = sprintf('%6.2f%%', 55.00);
             $this->totalCoverage = $this->console->colorize($totalCoverage, Color::NORMAL);

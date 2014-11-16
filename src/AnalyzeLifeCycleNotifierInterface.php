@@ -12,7 +12,7 @@
 namespace cloak;
 
 use cloak\Result;
-use Zend\EventManager\EventManagerAwareInterface;
+use PHPExtra\EventManager\EventManagerAwareInterface;
 
 /**
  * Interface AnalyzeLifeCycleNotifierInterface

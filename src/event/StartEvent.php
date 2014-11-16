@@ -11,6 +11,8 @@
 
 namespace cloak\event;
 
+use \DateTime;
+
 /**
  * Class StartEvent
  * @package cloak\event
@@ -18,6 +20,9 @@ namespace cloak\event;
 final class StartEvent extends Event implements StartEventInterface
 {
 
-    protected $name = 'start';
+    public function __construct()
+    {
+        $this->sendAt = new DateTime();
+    }
 
 }

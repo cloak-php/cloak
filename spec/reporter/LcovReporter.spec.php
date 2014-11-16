@@ -22,11 +22,11 @@ describe('LcovReporter', function() {
         beforeEach(function() {
             $this->reportFile = __DIR__ . '/../tmp/report.lcov';
 
-            $this->reporter = new LcovReporter($this->reportFile);
-            $this->reporter->onStart($this->startEvent);
-
             $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
             $this->startEvent->shouldReceive('getSendAt')->never();
+
+            $this->reporter = new LcovReporter($this->reportFile);
+            $this->reporter->onStart($this->startEvent);
         });
         it('check mock object expectations', function() {
             Mockery::close();
