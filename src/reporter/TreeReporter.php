@@ -14,10 +14,10 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use cloak\value\Coverage;
+use cloak\value\CoverageBound;
 use cloak\result\CoverageResultInterface;
 use cloak\result\CoverageResultVisitorInterface;
-use cloak\writer\ConsoleWriter;
+use cloak\writer\ResultConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 
 
@@ -39,15 +39,6 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
      */
     private $console;
 
-    /**
-     * @var \cloak\value\Coverage
-     */
-    private $lowUpperBound;
-
-    /**
-     * @var \cloak\value\Coverage
-     */
-    private $highLowerBound;
 
     /**
      * @var int
@@ -60,9 +51,8 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
      */
     public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
-        $this->console = new ConsoleWriter();
-        $this->lowUpperBound = new Coverage($lowUpperBound);
-        $this->highLowerBound = new Coverage($highLowerBound);
+        $coverageBound = new CoverageBound($lowUpperBound, $highLowerBound);
+        $this->console = new ResultConsoleWriter($coverageBound);
         $this->indent = 0;
     }
 
@@ -131,9 +121,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
         $size = $this->indent * $this->indent;
         $indent = str_pad('', $size, ' ');
         $this->console->writeText($indent);
-
-        $this->writeCoverage($result);
-
+        $this->console->writeResult($result);
         $this->console->writeText(' ');
         $this->console->writeText($result->getName());
         $this->console->writeEOL();
@@ -162,7 +150,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     {
         $this->console->writeText(PHP_EOL);
         $this->console->writeText('Code Coverage:');
-        $this->writeCoverage($result);
+        $this->console->writeResult($result);
         $this->console->writeText(PHP_EOL);
     }
 

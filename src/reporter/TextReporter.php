@@ -15,10 +15,8 @@ use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\FileResult;
-use cloak\value\Coverage;
-use cloak\result\CoverageResultInterface;
-use cloak\writer\ConsoleWriter;
-use Zend\Console\ColorInterface as Color;
+use cloak\value\CoverageBound;
+use cloak\writer\ResultConsoleWriter;
 
 
 /**
@@ -38,15 +36,6 @@ class TextReporter implements ReporterInterface
      */
     private $console;
 
-    /**
-     * @var \cloak\value\Coverage
-     */
-    private $lowUpperBound;
-
-    /**
-     * @var \cloak\value\Coverage
-     */
-    private $highLowerBound;
 
 
     /**
@@ -55,9 +44,8 @@ class TextReporter implements ReporterInterface
      */
     public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
     {
-        $this->console = new ConsoleWriter();
-        $this->lowUpperBound = new Coverage($lowUpperBound);
-        $this->highLowerBound = new Coverage($highLowerBound);
+        $coverageBound = new CoverageBound($lowUpperBound, $highLowerBound);
+        $this->console = new ResultConsoleWriter($coverageBound);
     }
 
     /**
@@ -98,7 +86,7 @@ class TextReporter implements ReporterInterface
 
         $filePathReport = $file->getRelativePath($currentDirectory);
 
-        $this->writeCoverage($file);
+        $this->console->writeResult($file);
         $this->console->writeText(' ');
         $this->console->writeText(sprintf("(%2d/%2d)",
             $file->getExecutedLineCount(),
@@ -117,24 +105,8 @@ class TextReporter implements ReporterInterface
     {
         $this->console->writeText(PHP_EOL);
         $this->console->writeText('Code Coverage:');
-        $this->writeCoverage($result);
+        $this->console->writeResult($result);
         $this->console->writeText(PHP_EOL);
-    }
-
-    /**
-     * @param CoverageResultInterface $result
-     */
-    protected function writeCoverage(CoverageResultInterface $result)
-    {
-        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
-
-        if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
-            $this->console->writeText($text, Color::GREEN);
-        } else if ($result->isCoverageLessThan($this->lowUpperBound)) {
-            $this->console->writeText($text, Color::YELLOW);
-        } else {
-            $this->console->writeText($text, Color::NORMAL);
-        }
     }
 
 }

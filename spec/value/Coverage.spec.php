@@ -105,6 +105,13 @@ describe('Coverage', function() {
         });
     });
 
+    describe('#formattedValue', function() {
+        it('return formatted string value', function() {
+            $v = new Coverage(11);
+            expect( $v->formattedValue() )->toEqual(' 11.00%');
+        });
+    });
+
     describe('#__toString', function() {
         it('return string value', function() {
             $v = new Coverage(11);

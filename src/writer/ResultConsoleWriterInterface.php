@@ -11,19 +11,18 @@
 
 namespace cloak\writer;
 
-use Zend\Console\Console;
-
+use cloak\result\CoverageResultInterface;
 
 /**
- * Class ConsoleWriter
+ * Interface ResultConsoleWriterInterface
  * @package cloak\writer
  */
-class ConsoleWriter extends AbstractConsoleWriter implements ConsoleWriterInterface
+interface ResultConsoleWriterInterface extends ConsoleWriterInterface
 {
 
-    public function __construct()
-    {
-        $this->console = Console::getInstance();
-    }
+    /**
+     * @param CoverageResultInterface $result
+     */
+    public function writeResult(CoverageResultInterface $result);
 
 }

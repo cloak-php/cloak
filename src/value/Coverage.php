@@ -84,6 +84,14 @@ class Coverage
     /**
      * @return string
      */
+    public function formattedValue()
+    {
+        return sprintf('%6.2f%%', $this->value());
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->value;
