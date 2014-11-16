@@ -9,6 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
+use cloak\value\Coverage;
 use cloak\value\CoverageBound;
 
 describe('CoverageBound', function() {
@@ -29,6 +30,50 @@ describe('CoverageBound', function() {
         });
         it('return high coverage bound', function() {
             expect($this->coverage->value())->toEqual(75.0);
+        });
+    });
+    describe('#isHighBoundGreaterThan', function() {
+        context('when less than', function() {
+            beforeEach(function() {
+                $this->returnValue = $this->coverageBound->isHighBoundGreaterThan(new Coverage(74.0));
+            });
+            it('return false', function() {
+                expect($this->returnValue)->toBeFalse();
+            });
+        });
+        context('when greater equal than', function() {
+            beforeEach(function() {
+                $this->returnValue = $this->coverageBound->isHighBoundGreaterThan(new Coverage(75.0));
+            });
+            it('return true', function() {
+                expect($this->returnValue)->toBeTrue();
+            });
+        });
+    });
+    describe('#isLowBoundLessThan', function() {
+        context('when greater than', function() {
+            beforeEach(function() {
+                $this->returnValue = $this->coverageBound->isLowBoundLessThan(new Coverage(31.0));
+            });
+            it('return false', function() {
+                expect($this->returnValue)->toBeFalse();
+            });
+        });
+        context('when equal', function() {
+            beforeEach(function() {
+                $this->returnValue = $this->coverageBound->isLowBoundLessThan(new Coverage(30.0));
+            });
+            it('return false', function() {
+                expect($this->returnValue)->toBeFalse();
+            });
+        });
+        context('when less than', function() {
+            beforeEach(function() {
+                $this->returnValue = $this->coverageBound->isLowBoundLessThan(new Coverage(29.0));
+            });
+            it('return true', function() {
+                expect($this->returnValue)->toBeTrue();
+            });
         });
     });
 });

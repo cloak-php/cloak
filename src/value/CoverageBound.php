@@ -55,4 +55,14 @@ class CoverageBound
         return $this->highCoverageBound;
     }
 
+    public function isHighBoundGreaterThan(Coverage $coverage)
+    {
+        return $coverage->greaterEqual($this->getHighCoverageBound());
+    }
+
+    public function isLowBoundLessThan(Coverage $coverage)
+    {
+        return $coverage->lessThan($this->getLowCoverageBound());
+    }
+
 }
