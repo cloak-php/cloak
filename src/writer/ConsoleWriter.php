@@ -11,11 +11,7 @@
 
 namespace cloak\writer;
 
-use cloak\value\Coverage;
-use cloak\result\CoverageResultInterface;
 use Zend\Console\Console;
-use Zend\Console\Adapter\AdapterInterface;
-use Zend\Console\ColorInterface as Color;
 
 
 /**
@@ -37,12 +33,7 @@ class ConsoleWriter implements ConsoleWriterInterface
     }
 
     /**
-     * Alias for write()
-     *
-     * @param string $text
-     * @param null|int $color
-     * @param null|int $bgColor
-     * @return void
+     * @{inheritDoc}
      */
     public function writeText($text, $color = null, $bgColor = null)
     {
@@ -50,13 +41,7 @@ class ConsoleWriter implements ConsoleWriterInterface
     }
 
     /**
-     * Write a single line of text to console and advance cursor to the next line.
-     * If the text is longer than console width it will be truncated.
-     *
-     * @param string                   $text
-     * @param null|int $color
-     * @param null|int $bgColor
-     * @return void
+     * @{inheritDoc}
      */
     public function writeLine($text = "", $color = null, $bgColor = null)
     {
@@ -64,7 +49,7 @@ class ConsoleWriter implements ConsoleWriterInterface
     }
 
     /**
-     * Write a blank line
+     * @{inheritDoc}
      */
     public function writeEOL()
     {

@@ -17,4 +17,26 @@ namespace cloak\writer;
  */
 interface ConsoleWriterInterface extends WriterInterface
 {
+
+    /**
+     * Alias for write()
+     *
+     * @param string $text
+     * @param null|int $color
+     * @param null|int $bgColor
+     * @return void
+     */
+    public function writeText($text, $color = null, $bgColor = null);
+
+    /**
+     * Write a single line of text to console and advance cursor to the next line.
+     * If the text is longer than console width it will be truncated.
+     *
+     * @param string                   $text
+     * @param null|int $color
+     * @param null|int $bgColor
+     * @return void
+     */
+    public function writeLine($text = "", $color = null, $bgColor = null);
+
 }
