@@ -128,22 +128,6 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     }
 
     /**
-     * @param CoverageResultInterface $result
-     */
-    protected function writeCoverage(CoverageResultInterface $result)
-    {
-        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
-
-        if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
-            $this->console->writeText($text, Color::GREEN);
-        } else if ($result->isCoverageLessThan($this->lowUpperBound)) {
-            $this->console->writeText($text, Color::YELLOW);
-        } else {
-            $this->console->writeText($text, Color::NORMAL);
-        }
-    }
-
-    /**
      * @param Result $result
      */
     protected function writeTotalCoverage(Result $result)
