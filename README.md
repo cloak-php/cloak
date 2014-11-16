@@ -132,8 +132,7 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 Configuration file
 ------------------------------------
 
-The thing you want to use a [configuration file](https://gist.github.com/holyshared/06b726254ce4a2fec899), you can be the initialization process in a simple code.
-
+If you use the [configuration file](https://gist.github.com/holyshared/06b726254ce4a2fec899), you can code simple.
 
 ```php
 use cloak\Analyzer;
