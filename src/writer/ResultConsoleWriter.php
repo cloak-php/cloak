@@ -44,40 +44,15 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
      */
     public function writeResult(CoverageResultInterface $result)
     {
+        $text = $result->getCodeCoverage()->formattedValue();
+
         if ($result->isCoverageGreaterEqual($this->coverageBound->getHighCoverageBound())) {
-            $this->writeVeryGoodMessage($result);
+            $this->console->writeText($text, Color::GREEN);
         } else if ($result->isCoverageLessThan($this->coverageBound->getLowCoverageBound())) {
-            $this->writeWarningMessage($result);
+            $this->console->writeText($text, Color::YELLOW);
         } else {
-            $this->writeNormalMessage($result);
+            $this->console->writeText($text, Color::NORMAL);
         }
-    }
-
-    /**
-     * @param CoverageResultInterface $result
-     */
-    private function writeVeryGoodMessage(CoverageResultInterface $result)
-    {
-        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
-        $this->console->writeText($text, Color::GREEN);
-    }
-
-    /**
-     * @param CoverageResultInterface $result
-     */
-    private function writeWarningMessage(CoverageResultInterface $result)
-    {
-        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
-        $this->console->writeText($text, Color::YELLOW);
-    }
-
-    /**
-     * @param CoverageResultInterface $result
-     */
-    private function writeNormalMessage(CoverageResultInterface $result)
-    {
-        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
-        $this->console->writeText($text, Color::NORMAL);
     }
 
 }
