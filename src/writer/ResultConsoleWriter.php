@@ -44,14 +44,15 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
      */
     public function writeResult(CoverageResultInterface $result)
     {
-        $text = $result->getCodeCoverage()->formattedValue();
+        $coverage = $result->getCodeCoverage();
+        $coverageText = $coverage->formattedValue();
 
-        if ($result->isCoverageGreaterEqual($this->coverageBound->getHighCoverageBound())) {
-            $this->console->writeText($text, Color::GREEN);
-        } else if ($result->isCoverageLessThan($this->coverageBound->getLowCoverageBound())) {
-            $this->console->writeText($text, Color::YELLOW);
+        if ($this->coverageBound->isHighBoundGreaterThan($coverage)) {
+            $this->console->writeText($coverageText, Color::GREEN);
+        } else if ($this->coverageBound->isLowBoundLessThan($coverage)) {
+            $this->console->writeText($coverageText, Color::YELLOW);
         } else {
-            $this->console->writeText($text, Color::NORMAL);
+            $this->console->writeText($coverageText, Color::NORMAL);
         }
     }
 
