@@ -105,6 +105,16 @@ describe('Coverage', function() {
         });
     });
 
+    describe('#formattedValue', function() {
+        it('return string value', function() {
+            $v = new Coverage(11);
+            expect( $v->formattedValue() )->toEqual(' 11.00%');
+
+//        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
+
+        });
+    });
+
     describe('#__toString', function() {
         it('return string value', function() {
             $v = new Coverage(11);
