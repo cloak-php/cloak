@@ -11,14 +11,18 @@
 
 namespace cloak\writer;
 
+use cloak\value\Coverage;
+use cloak\result\CoverageResultInterface;
 use Zend\Console\Console;
 use Zend\Console\Adapter\AdapterInterface;
+use Zend\Console\ColorInterface as Color;
+
 
 /**
  * Class ConsoleWriter
  * @package cloak\writer
  */
-class ConsoleWriter implements WriterInterface
+class ConsoleWriter implements ConsoleWriterInterface
 {
 
     /**
@@ -27,11 +31,40 @@ class ConsoleWriter implements WriterInterface
     private $console;
 
     /**
+     * @var \cloak\value\Coverage
+     */
+    private $highLowerBound;
+
+    /**
+     * @var \cloak\value\Coverage
+     */
+    private $lowUpperBound;
+
+
+    /**
      * @param AdapterInterface $adapterInterface
      */
-    public function __construct(AdapterInterface $adapterInterface = null)
+    public function __construct($highLowerBound, $lowUpperBound)
     {
-        $this->console = $adapterInterface ?: Console::getInstance();
+        $this->console = Console::getInstance();
+        $this->lowUpperBound = new Coverage($lowUpperBound);
+        $this->highLowerBound = new Coverage($highLowerBound);
+    }
+
+    /**
+     * @{inheritDoc}
+     */
+    public function writeResult(CoverageResultInterface $result)
+    {
+        $text = sprintf('%6.2f%%', $result->getCodeCoverage()->value());
+
+        if ($result->isCoverageGreaterEqual($this->highLowerBound)) {
+            $this->console->writeText($text, Color::GREEN);
+        } else if ($result->isCoverageLessThan($this->lowUpperBound)) {
+            $this->console->writeText($text, Color::YELLOW);
+        } else {
+            $this->console->writeText($text, Color::NORMAL);
+        }
     }
 
     /**
