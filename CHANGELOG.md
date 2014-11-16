@@ -3,6 +3,37 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.4.0
+---------------------------------------------------------------
+* Use of **closure** argument **ConfigurationBuilder** has changed
+
+	target methods: inclueFile, inclueFiles, excludeFile, excludeFiles
+
+	```php
+	//before
+	$builder->inclueFile(function(\cloak\result\File $file) {
+    	//do something
+	});
+	```
+
+	```php
+	//after
+	$builder->inclueFile(function(\cloak\driver\result\FileResult $file) {
+    	//do something
+	});
+	```
+
+* **cloak\result\LineSet**, **cloak\result\LineSetInterface** to **LineResultCollection**, **LineResultCollectionInterface**
+* **cloak\result\Line** to **LineResult**
+* **cloak\result\File** to **FileResult**
+* **cloak\ConfigrationBuilder** to **cloak\configration\ConfigrationBuilder**
+* **cloak/DriverDetector** to **cloak/driver/DriverDetector**
+* **cloak/DriverDetectorInterface** to **cloak/driver/DriverDetectorInterface**
+* **cloak/DriverNotFoundException** to **cloak/driver/DriverNotFoundException**
+* Support configuration file (toml format)
+* Support class, trait, method code coverage
+
+
 Version 1.3.2.4
 ---------------------------------------------------------------
 * Add **MarkdownReporter** from **cloak/markdown-reporter:1.0.2**

@@ -12,20 +12,41 @@
 namespace cloak;
 
 use cloak\Result;
+use cloak\driver\Result as AnalyzeResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
 
 /**
  * Class Configuration
  * @package cloak
+ * @property-read \cloak\driver\DriverInterface $driver
+ * @property-read \cloak\reporter\ReporterInterface $reporter
+ * @property-read \Closure[] $includeFiles
+ * @property-read \Closure[] $excludeFiles
  */
 class Configuration
 {
 
-    private $driver = null;
-    private $reporter = null;
+    /**
+     * @var \cloak\driver\DriverInterface
+     */
+    private $driver;
+
+    /**
+     * @var \cloak\reporter\ReporterInterface
+     */
+    private $reporter;
+
+    /**
+     * @var \Closure[]
+     */
     private $includeFiles = [];
+
+    /**
+     * @var \Closure[]
+     */
     private $excludeFiles = [];
+
 
     /**
      * @param array $values
@@ -40,20 +61,29 @@ class Configuration
         }
     }
 
+    /**
+     * @return XdebugDriver|null
+     */
     protected function getDriver()
     {
-        $this->driver = $this->driver ?: new XdebugDriver();
+        $this->driver = $this->driver ? $this->driver : new XdebugDriver();
         return $this->driver;
     }
 
-    public function apply(Result $result)
+    /**
+     * @param \cloak\driver\Result $result
+     * @return \cloak\driver\Result
+     */
+    public function applyTo(AnalyzeResult $result)
     {
-
         return $result->includeFiles($this->includeFiles)
             ->excludeFiles($this->excludeFiles);
-
     }
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function __get($name)
     {
         $getter = 'get' . ucwords($name);

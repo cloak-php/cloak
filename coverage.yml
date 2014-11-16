@@ -1,22 +1,2 @@
 targets:
-  - spec/ConfigurationSpec.php
-  - spec/ConfigurationBuilderSpec.php
-  - spec/ResultSpec.php
-  - spec/result/FileSpec.php
-  - spec/result/LineSpec.php
-  - spec/value/CoverageSpec.php
-  - spec/result/LineSetSpec.php
-  - spec/value/LineRangeSpec.php
-  - spec/reporter/ReportableSpec.php
-  - spec/reporter/TextReporterSpec.php
-  - spec/reporter/CompositeReporterSpec.php
-  - spec/reporter/ProcessingTimeReporterSpec.php
-  - spec/reporter/LcovReporterSpec.php
-  - spec/reporter/MarkdownReporterSpec.php
-  - spec/AnalyzeLifeCycleNotifierSpec.php
-  - spec/AnalyzerSpec.php
-  - spec/DriverDetectorSpec.php
-  - spec/driver/AbstractDriverSpec.php
-  - spec/event/EventSpec.php
-  - spec/writer/ConsoleWriterSpec.php
-  - spec/writer/FileWriterSpec.php
+  - spec/driver/XdebugDriver.spec.php
