@@ -11,6 +11,10 @@
 
 namespace cloak\event;
 
+use cloak\Result;
+use \DateTime;
+
+
 /**
  * Class StopEvent
  * @package cloak\event
@@ -18,14 +22,27 @@ namespace cloak\event;
 final class StopEvent extends Event implements StopEventInterface
 {
 
-    protected $name = 'stop';
+    /**
+     * @var \cloak\Result
+     */
+    private $result;
+
+
+    /**
+     * @param Result $result
+     */
+    public function __construct(Result $result)
+    {
+        $this->result = $result;
+        $this->sendAt = new DateTime();
+    }
 
     /**
      * @return \cloak\Result
      */
     public function getResult()
     {
-        return $this->getParam('result', null);
+        return $this->result;
     }
 
 }
