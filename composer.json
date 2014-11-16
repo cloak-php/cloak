@@ -6,11 +6,10 @@
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "0.4.*",
-        "zendframework/zend-eventmanager": "2.3.*",
         "zendframework/zend-console": "2.3.*",
         "zendframework/zend-code": "2.3.*",
         "zendframework/zend-config": "2.3.*",
-        "phpextra/event-manager": "1.0.1",
+        "phpextra/event-manager": "1.0.*",
         "yosymfony/toml": "0.2.*"
     },
     "autoload": {
