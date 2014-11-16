@@ -13,22 +13,20 @@ use cloak\Result;
 use cloak\result\LineResult;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\driver\Result as AnalyzeResult;
+use PHPExtra\EventManager\EventManager;
 use \Mockery;
+
 
 describe('AnalyzeLifeCycleNotifier', function() {
 
     describe('#notifyStart', function() {
         beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
-
             $subject = $this->subject = new \stdClass();
 
             $reporter = $this->reporter = Mockery::mock('cloak\reporter\ReporterInterface');
-            $reporter->shouldReceive('attach')->once()->with(
-                Mockery::on(function($eventManager) use ($reporter) {
-                    $eventManager->attach('start', array($reporter, 'onStart'));
+            $reporter->shouldReceive('registerTo')->once()->with(
+                Mockery::on(function(EventManager $eventManager) use ($reporter) {
+                    $eventManager->addListener($reporter);
                     return true;
                 })
             );
@@ -49,16 +47,12 @@ describe('AnalyzeLifeCycleNotifier', function() {
             expect($event)->toBeAnInstanceOf('cloak\event\StartEventInterface');
         });
         it('check mock object expectations', function() {
-            call_user_func($this->verify);
+            Mockery::close();
         });
     });
 
     describe('#notifyStop', function() {
         beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
-
             $rootDirectory = __DIR__ . '/fixtures/src/';
             $coverageResults = [
                 $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED )
@@ -70,9 +64,9 @@ describe('AnalyzeLifeCycleNotifier', function() {
             $subject = $this->subject = new \stdClass();
             $reporter = $this->reporter = Mockery::mock('cloak\reporter\ReporterInterface');
 
-            $reporter->shouldReceive('attach')->once()->with(
-                Mockery::on(function($eventManager) use ($reporter) {
-                    $eventManager->attach('stop', array($reporter, 'onStop'));
+            $reporter->shouldReceive('registerTo')->once()->with(
+                Mockery::on(function(EventManager $eventManager) use ($reporter) {
+                    $eventManager->addListener($reporter);
                     return true;
                 })
             );
@@ -97,7 +91,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
             expect(count($result->getFiles()))->toEqual(1);
         });
         it('check mock object expectations', function() {
-            call_user_func($this->verify);
+            Mockery::close();
         });
     });
 

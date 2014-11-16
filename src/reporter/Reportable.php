@@ -23,7 +23,7 @@ trait Reportable
     /**
      * @param EventManagerInterface $eventManager
      */
-    public function attach(EventManagerInterface $eventManager)
+    public function registerTo(EventManagerInterface $eventManager)
     {
         $eventManager->addListener($this);
     }
