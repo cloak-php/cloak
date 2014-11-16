@@ -34,4 +34,12 @@ class RoboFile extends Tasks
         $builder->build()->save()->upload();
     }
 
+    public function exampleBasic()
+    {
+        $php = 'php';
+        $exampleScript = 'example/basic_example.php';
+
+        return $this->taskExec($php . ' ' . $exampleScript)->run();
+    }
+
 }

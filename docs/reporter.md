@@ -24,17 +24,19 @@ or
 
 ### Example code
 
-	$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+```php
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-		$builder->reporter(new TextReporter()); //Specify the reporter
+    $builder->reporter(new TextReporter()); //Specify the reporter
 
-	});
+});
 
-	$analyzer->start();
+$analyzer->start();
 
-	//To write code that want to take coverage
+//To write code that want to take coverage
 
-	$analyzer->stop();
+$analyzer->stop();
+```
 
 ### Result of the output
 

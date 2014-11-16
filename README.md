@@ -43,54 +43,49 @@ How to use
 Setup is required to take a code coverage.  
 Run the **configure** method to be set up.
 
-	<?php
+```php
+<?php
 
-	namespace Example;
+use cloak\Analyzer;
+use cloak\configuration\ConfigurationBuilder;
+use cloak\driver\result\FileResult;
 
-	require_once __DIR__ . "/../vendor/autoload.php";
-	require_once __DIR__ . "/src/functions.php";
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-	use cloak\Analyzer;
-	use cloak\ConfigurationBuilder;
-	use cloak\driver\result\File;
+    $builder->includeFile(function(FileResult $file) {
+        return $file->matchPath('/example/src');
+    })->excludeFile(function(FileResult $file) {
+        return $file->matchPath('/spec');
+    });
 
-	use Example as example;
-
-	$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-
-	    $builder->includeFile(function(File $file) {
-    	    return $file->matchPath('/example/src');
-    	})->excludeFile(function(File $file) {
-        	return $file->matchPath('/spec');
-	    });
-
-	});
-
+});
+```
 
 ### Take the code coverage
 
 Run the start / stop at the place where want to take the code coverage.  
 After you can get the report, you need to run the **getResult** method.
 
-	$analyzer->start();
+```php
+$analyzer->start();
 
-	//I write code here want to take code coverage
-	example\example1();
+//I write code here want to take code coverage
+example\example1();
 
-	$analyzer->stop();
+$analyzer->stop();
 
-	$result = $analyzer->getResult()->getFiles();
+$files = $analyzer->getResult()->getFiles();
 
-	foreach ($result as $file) {
-		$result = sprintf("%s > %0.2f%% (%d/%d)",
-        	$file->getPath(),
-        	$file->getCodeCoverage()->value(),
-        	$file->getExecutedLineCount(),
-        	$file->getExecutableLineCount()
-		);
-		echo $result . "\n";
-	}
-
+foreach ($files as $file) {
+    $result = sprintf("%s > %6.2f%% (%d/%d)",
+        $file->getName(),
+        $file->getCodeCoverage()->value(),
+        $file->getExecutedLineCount(),
+        $file->getExecutableLineCount()
+    );
+    echo $result . "\n";
+}
+```
 
 ### Reporter complex
 
@@ -105,21 +100,20 @@ Reporter that are supported by default are as follows.
 
 Usage is as follows.  
 
-	$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+```php
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+    $builder->reporter(new CompositeReporter([
+        new TextReporter(),
+        new ProcessingTimeReporter()
+    ]));
 
-	    $builder->reporter(new CompositeReporter([
-    	    new TextReporter(),
-        	new ProcessingTimeReporter()
-	    ]));
-
-	    $builder->includeFile(function(File $file) {
-    	    return $file->matchPath('/example/src');
-    	})->excludeFile(function(File $file) {
-        	return $file->matchPath('/spec');
-	    });
-
-	});
-
+    $builder->includeFile(function(FileResult $file) {
+        return $file->matchPath('/example/src');
+    })->excludeFile(function(FileResult $file) {
+        return $file->matchPath('/spec');
+    });
+});
+```
 
 #### Result of the output
 
@@ -145,13 +139,13 @@ How to run the test
 
 ### Run only unit test
 
-	vendor/bin/phake test:unit
+	composer test
 
 ### Run the code coverage display and unit test
 
-	vendor/bin/phake test:coverage
+	composer coverage
 
 How to run the example
 ------------------------------------------------
 
-	vendor/bin/phake example:basic
+	composer example
