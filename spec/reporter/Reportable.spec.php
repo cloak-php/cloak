@@ -13,95 +13,58 @@ use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\reporter\Reportable;
 use cloak\reporter\ReporterInterface;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\ListenerAggregateInterface;
+use PHPExtra\EventManager\EventManager;
 use \Mockery;
+
 
 class HaveMethodCloakReporter implements ReporterInterface
 {
     use Reportable;
 
-    public function onStart(StartEventInterface $event) {}
-    public function onStop(StopEventInterface $event) {}
-}
+    private $startEvent;
+    private $stopEvent;
 
-class HaveNotMethodCloakReporter implements ListenerAggregateInterface
-{
-    use Reportable;
-    public function onStop(StopEventInterface $event) {}
+    public function onStart(StartEventInterface $event)
+    {
+        $this->startEvent = $event;
+    }
+    public function onStop(StopEventInterface $event) {
+        $this->stopEvent = $event;
+    }
+    public function getStartEvent()
+    {
+        return $this->startEvent;
+    }
+    public function getStopEvent()
+    {
+        return $this->stopEvent;
+    }
 }
 
 describe('Reportable', function() {
-
     describe('#attach', function() {
-        context('when have recive event method', function() {
-            beforeEach(function() {
-                $this->verify = function() {
-                    Mockery::close();
-                };
-
-                $this->reporter = Mockery::mock('HaveMethodCloakReporter');
-                $this->reporter->makePartial();
-                $this->reporter->shouldReceive('onStart')->never();
-                $this->reporter->shouldReceive('onStop')->never();
-
-                $this->eventManager = new EventManager();
-                $this->eventManager->attach($this->reporter);
-                $this->events = $this->eventManager->getEvents();
-            });
-
-            it('should attach events', function() {
-                expect($this->events)->toEqual(array('start', 'stop'));
-            });
-            it('check mock object expectations', function() {
-                call_user_func($this->verify);
-            });
-        });
-        context('when have not recive event method', function() {
-            beforeEach(function() {
-                $this->verify = function() {
-                    Mockery::close();
-                };
-
-                $this->reporter = Mockery::mock('HaveNotMethodCloakReporter');
-                $this->reporter->makePartial();
-                $this->reporter->shouldReceive('onStop')->never();
-
-                $this->eventManager = new EventManager();
-                $this->eventManager->attach($this->reporter);
-                $this->events = $this->eventManager->getEvents();
-            });
-            it('should not attach events', function() {
-                expect($this->events)->toEqual(['stop']);
-            });
-            it('check mock object expectations', function() {
-                call_user_func($this->verify);
-            });
-        });
-    });
-
-    describe('#detach', function() {
         beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
+            $this->startEvent = Mockery::mock('\cloak\event\StartEventInterface');
+            $this->startEvent->shouldReceive('getSendAt')->never();
 
-            $this->reporter = Mockery::mock('HaveMethodCloakReporter');
-            $this->reporter->makePartial();
-            $this->reporter->shouldReceive('onStop')->never();
+            $this->stopEvent = Mockery::mock('\cloak\event\StopEventInterface');
+            $this->stopEvent->shouldReceive('getSendAt')->never();
+            $this->stopEvent->shouldReceive('getResult')->never();
 
+            $this->reporter = new HaveMethodCloakReporter();
             $this->eventManager = new EventManager();
-            $this->eventManager->attach($this->reporter);
-            $this->eventManager->detach($this->reporter);
-
-            $this->events = $this->eventManager->getEvents();
+            $this->eventManager->addListener($this->reporter);
+            $this->eventManager->trigger($this->startEvent);
+            $this->eventManager->trigger($this->stopEvent);
         });
-        it('should detach events', function() {
-            expect($this->events)->toBeEmpty();
+        it('should attach start event', function() {
+            expect($this->reporter->getStartEvent())->toEqual($this->startEvent);
+        });
+        it('should attach stop event', function() {
+            expect($this->reporter->getStopEvent())->toEqual($this->stopEvent);
         });
         it('check mock object expectations', function() {
-            call_user_func($this->verify);
+            Mockery::close();
         });
     });
-
 });
