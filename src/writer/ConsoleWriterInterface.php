@@ -11,18 +11,10 @@
 
 namespace cloak\writer;
 
-use cloak\result\CoverageResultInterface;
-
 /**
- * Interface ConsoleWriter
+ * Interface ConsoleWriterInterface
  * @package cloak\writer
  */
 interface ConsoleWriterInterface extends WriterInterface
 {
-
-    /**
-     * @param CoverageResultInterface $result
-     */
-    public function writeResult(CoverageResultInterface $result);
-
 }
