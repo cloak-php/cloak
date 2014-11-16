@@ -21,13 +21,8 @@ use Zend\Console\ColorInterface as Color;
  * Class ResultConsoleWriter
  * @package cloak\writer
  */
-class ResultConsoleWriter implements ResultConsoleWriterInterface
+class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsoleWriterInterface
 {
-
-    /**
-     * @var \Zend\Console\Adapter\AdapterInterface
-     */
-    private $console;
 
     /**
      * @var CoverageBound
@@ -58,30 +53,6 @@ class ResultConsoleWriter implements ResultConsoleWriterInterface
         } else {
             $this->console->writeText($text, Color::NORMAL);
         }
-    }
-
-    /**
-     * @{inheritDoc}
-     */
-    public function writeText($text, $color = null, $bgColor = null)
-    {
-        $this->console->writeText($text, $color, $bgColor);
-    }
-
-    /**
-     * @{inheritDoc}
-     */
-    public function writeLine($text = "", $color = null, $bgColor = null)
-    {
-        $this->console->writeLine($text, $color, $bgColor);
-    }
-
-    /**
-     * @{inheritDoc}
-     */
-    public function writeEOL()
-    {
-        $this->console->writeLine('');
     }
 
 }
