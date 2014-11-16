@@ -128,6 +128,27 @@ $analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 	Code Coverage: 96.70%
 	Code Coverage Finished in 1.44294 seconds
 
+
+Configuration file
+------------------------------------
+
+The thing you want to use a [configuration file](https://gist.github.com/holyshared/06b726254ce4a2fec899), you can be the initialization process in a simple code.
+
+
+```php
+use cloak\Analyzer;
+use cloak\configuration\ConfigurationLoader;
+
+$loader = new ConfigurationLoader();
+$configuration = $loader->loadConfiguration('cloak.toml');
+
+$analyzer = new Analyzer($configuration);
+$analyzer->start();
+
+$analyzer->stop();
+```
+
+
 Other documents
 ------------------------------------------------
 
