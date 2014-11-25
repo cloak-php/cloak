@@ -5,5 +5,5 @@ use expectation\peridot\ExpectationPlugin;
 
 return function(EventEmitterInterface $emitter)
 {
-    ExpectationPlugin::create()->register($emitter);
+    ExpectationPlugin::create()->registerTo($emitter);
 };

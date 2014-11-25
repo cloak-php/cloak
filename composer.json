@@ -32,8 +32,7 @@
         "symfony/yaml": "2.5.*",
         "halleck45/php-metrics": "dev-master",
         "peridot-php/peridot": "~1.8",
-        "expectation/peridot-expectation": "~1.1.1",
-        "noodlehaus/config": "dev-master",
+        "expectation/peridot-expectation": "~1.2",
         "codegyre/robo": "0.4.*"
     },
     "scripts": {
