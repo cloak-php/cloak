@@ -11,7 +11,9 @@
 
 namespace cloak;
 
+use cloak\configuration\ConfigurationBuilder;
 use cloak\ProvidesLifeCycleNotifier;
+
 
 /**
  * Class Analyzer
@@ -79,8 +81,9 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCyc
      */
     public function getResult()
     {
-        $analyzeResult = $this->driver()->getResult();
-        return $this->configuration->apply( Result::from($analyzeResult) );
+        $analyzeResult = $this->driver()->getAnalyzeResult();
+        $analyzeResult = $this->configuration->applyTo($analyzeResult);
+        return Result::fromAnalyzeResult($analyzeResult);
     }
 
     /**

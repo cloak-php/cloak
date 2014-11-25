@@ -13,14 +13,21 @@ namespace cloak\reporter;
 
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use PHPExtra\EventManager\Listener\ListenerInterface;
+use PHPExtra\EventManager\EventManagerInterface;
+
 
 /**
  * Interface ReporterInterface
  * @package cloak\reporter
  */
-interface ReporterInterface extends ListenerAggregateInterface
+interface ReporterInterface extends ListenerInterface
 {
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager);
 
     /**
      * @return void

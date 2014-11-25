@@ -15,10 +15,9 @@ use cloak\Result;
 use cloak\Reporter\ReporterInterface;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
-use Zend\EventManager\EventManagerAwareTrait;
+use PHPExtra\EventManager\EventManager;
 
 
-//TODO setReporter / getReporter
 /**
  * Class AnalyzeLifeCycleNotifier
  * @package cloak
@@ -26,22 +25,38 @@ use Zend\EventManager\EventManagerAwareTrait;
 class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
 {
 
-    use EventManagerAwareTrait;
+    /**
+     * @var \PHPExtra\EventManager\EventManagerInterface
+     */
+    private $manager;
 
     /**
      * @param ReporterInterface $reporter
      */
     public function __construct(ReporterInterface $reporter = null)
     {
+        $this->setEventManager(new EventManager());
+
         if ($reporter === null) {
             return;
         }
-        $reporter->attach( $this->getEventManager() );
+
+        $reporter->registerTo( $this->getEventManager() );
+    }
+
+    public function setEventManager(EventManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    public function getEventManager()
+    {
+        return $this->manager;
     }
 
     public function notifyStart()
     {
-        $event = new StartEvent($this);
+        $event = new StartEvent();
         $this->getEventManager()->trigger($event);
     }
 
@@ -50,7 +65,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
      */
     public function notifyStop(Result $result)
     {
-        $event = new StopEvent($this, [ 'result' => $result ]);
+        $event = new StopEvent($result);
         $this->getEventManager()->trigger($event);
     }
 

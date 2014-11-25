@@ -12,61 +12,18 @@
 namespace cloak\writer;
 
 use Zend\Console\Console;
-use Zend\Console\Adapter\AdapterInterface;
+
 
 /**
  * Class ConsoleWriter
  * @package cloak\writer
  */
-class ConsoleWriter implements WriterInterface
+class ConsoleWriter extends AbstractConsoleWriter implements ConsoleWriterInterface
 {
 
-    /**
-     * @var \Zend\Console\Adapter\AdapterInterface
-     */
-    private $console;
-
-    /**
-     * @param AdapterInterface $adapterInterface
-     */
-    public function __construct(AdapterInterface $adapterInterface = null)
+    public function __construct()
     {
-        $this->console = $adapterInterface ?: Console::getInstance();
-    }
-
-    /**
-     * Alias for write()
-     *
-     * @param string $text
-     * @param null|int $color
-     * @param null|int $bgColor
-     * @return void
-     */
-    public function writeText($text, $color = null, $bgColor = null)
-    {
-        $this->console->writeText($text, $color, $bgColor);
-    }
-
-    /**
-     * Write a single line of text to console and advance cursor to the next line.
-     * If the text is longer than console width it will be truncated.
-     *
-     * @param string                   $text
-     * @param null|int $color
-     * @param null|int $bgColor
-     * @return void
-     */
-    public function writeLine($text = "", $color = null, $bgColor = null)
-    {
-        $this->console->writeLine($text, $color, $bgColor);
-    }
-
-    /**
-     * Write a blank line
-     */
-    public function writeEOL()
-    {
-        $this->console->writeLine('');
+        $this->console = Console::getInstance();
     }
 
 }

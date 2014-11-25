@@ -11,8 +11,7 @@
 
 namespace cloak\reporter;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateTrait;
+use PHPExtra\EventManager\EventManagerInterface;
 
 /**
  * Trait Reportable
@@ -21,37 +20,12 @@ use Zend\EventManager\ListenerAggregateTrait;
 trait Reportable
 {
 
-    use ListenerAggregateTrait;
-
     /**
-     * @var array
+     * @param EventManagerInterface $eventManager
      */
-    private $acceptLifeCycleEvents = [
-        'start' => 'onStart',
-        'stop' => 'onStop'
-    ];
-
-    /**
-     * @return array
-     */
-    protected function getAcceptLifeCycleEvents()
+    public function registerTo(EventManagerInterface $eventManager)
     {
-        return $this->acceptLifeCycleEvents;
-    }
-
-    /**
-     * @param \Zend\EventManager\EventManagerInterface $eventManager
-     */
-    public function attach(EventManagerInterface $eventManager)
-    {
-        $events = $this->getAcceptLifeCycleEvents();
-
-        foreach ($events as $event => $method) {
-            if (method_exists($this, $method) === false) {
-                continue;
-            }
-            $this->listeners[] = $eventManager->attach($event, array($this, $method));
-        }
+        $eventManager->addListener($this);
     }
 
 }

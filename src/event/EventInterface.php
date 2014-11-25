@@ -11,7 +11,8 @@
 
 namespace cloak\event;
 
-use Zend\EventManager\EventInterface as BaseEventInterface;
+use PHPExtra\EventManager\Event\EventInterface as BaseEventInterface;
+
 
 /**
  * Interface EventInterface

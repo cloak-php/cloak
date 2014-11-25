@@ -4,8 +4,9 @@ Cloak
 [![Build Status](https://travis-ci.org/cloak-php/cloak.svg?branch=master)](https://travis-ci.org/cloak-php/cloak)
 [![Stories in Ready](https://badge.waffle.io/cloak-php/cloak.png?label=ready&title=Ready)](https://waffle.io/cloak-php/cloak)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cloak-php/cloak/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cloak-php/cloak/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/cloak-php/cloak/badge.png)](https://coveralls.io/r/cloak-php/cloak)
+[![Coverage Status](https://coveralls.io/repos/cloak-php/cloak/badge.png?branch=master)](https://coveralls.io/r/cloak-php/cloak?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/53fd5938f4df151fd300000d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53fd5938f4df151fd300000d)
+
 
 Cloak is a library that takes a code coverage.  
 This library works with **PHP5.4 or more**.
@@ -24,7 +25,7 @@ Please add a description to the **composer.json** in the configuration file.
 
 	{
 		"require-dev": {
-			"cloak/cloak": "1.3.2.4"
+			"cloak/cloak": "1.4.1"
 		}
 	}
 
@@ -42,54 +43,49 @@ How to use
 Setup is required to take a code coverage.  
 Run the **configure** method to be set up.
 
-	<?php
+```php
+<?php
 
-	namespace Example;
+use cloak\Analyzer;
+use cloak\configuration\ConfigurationBuilder;
+use cloak\driver\result\FileResult;
 
-	require_once __DIR__ . "/../vendor/autoload.php";
-	require_once __DIR__ . "/src/functions.php";
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
 
-	use cloak\Analyzer;
-	use cloak\ConfigurationBuilder;
-	use cloak\Result\File;
+    $builder->includeFile(function(FileResult $file) {
+        return $file->matchPath('/example/src');
+    })->excludeFile(function(FileResult $file) {
+        return $file->matchPath('/spec');
+    });
 
-	use Example as example;
-
-	$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-
-	    $builder->includeFile(function(File $file) {
-    	    return $file->matchPath('/example/src');
-    	})->excludeFile(function(File $file) {
-        	return $file->matchPath('/spec');
-	    });
-
-	});
-
+});
+```
 
 ### Take the code coverage
 
 Run the start / stop at the place where want to take the code coverage.  
 After you can get the report, you need to run the **getResult** method.
 
-	$analyzer->start();
+```php
+$analyzer->start();
 
-	//I write code here want to take code coverage
-	example\example1();
+//I write code here want to take code coverage
+example\example1();
 
-	$analyzer->stop();
+$analyzer->stop();
 
-	$result = $analyzer->getResult()->getFiles();
+$files = $analyzer->getResult()->getFiles();
 
-	foreach ($result as $file) {
-		$result = sprintf("%s > %0.2f%% (%d/%d)",
-        	$file->getPath(),
-        	$file->getCodeCoverage()->value(),
-        	$file->getExecutedLineCount(),
-        	$file->getExecutableLineCount()
-		);
-		echo $result . "\n";
-	}
-
+foreach ($files as $file) {
+    $result = sprintf("%s > %6.2f%% (%d/%d)",
+        $file->getName(),
+        $file->getCodeCoverage()->value(),
+        $file->getExecutedLineCount(),
+        $file->getExecutableLineCount()
+    );
+    echo $result . "\n";
+}
+```
 
 ### Reporter complex
 
@@ -100,24 +96,24 @@ Reporter that are supported by default are as follows.
 * ProcessingTimeReporter
 * LcovReporter
 * MarkdownReporter
+* TreeReporter
 
 Usage is as follows.  
 
-	$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+```php
+$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+    $builder->reporter(new CompositeReporter([
+        new TextReporter(),
+        new ProcessingTimeReporter()
+    ]));
 
-	    $builder->reporter(new CompositeReporter([
-    	    new TextReporter(),
-        	new ProcessingTimeReporter()
-	    ]));
-
-	    $builder->includeFile(function(File $file) {
-    	    return $file->matchPath('/example/src');
-    	})->excludeFile(function(File $file) {
-        	return $file->matchPath('/spec');
-	    });
-
-	});
-
+    $builder->includeFile(function(FileResult $file) {
+        return $file->matchPath('/example/src');
+    })->excludeFile(function(FileResult $file) {
+        return $file->matchPath('/spec');
+    });
+});
+```
 
 #### Result of the output
 
@@ -132,6 +128,26 @@ Usage is as follows.
 	Code Coverage: 96.70%
 	Code Coverage Finished in 1.44294 seconds
 
+
+Configuration file
+------------------------------------
+
+If you use the [configuration file](https://gist.github.com/holyshared/06b726254ce4a2fec899), you can code simple.
+
+```php
+use cloak\Analyzer;
+use cloak\configuration\ConfigurationLoader;
+
+$loader = new ConfigurationLoader();
+$configuration = $loader->loadConfiguration('cloak.toml');
+
+$analyzer = new Analyzer($configuration);
+$analyzer->start();
+
+$analyzer->stop();
+```
+
+
 Other documents
 ------------------------------------------------
 
@@ -143,13 +159,13 @@ How to run the test
 
 ### Run only unit test
 
-	vendor/bin/phake test:unit
+	composer test
 
 ### Run the code coverage display and unit test
 
-	vendor/bin/phake test:coverage
+	composer coverage
 
 How to run the example
 ------------------------------------------------
 
-	vendor/bin/phake example:basic
+	composer example
