@@ -32,7 +32,7 @@ class TextReporter implements ReporterInterface
     const DEFAULT_HIGH_BOUND = 70.0;
 
     /**
-     * @var \cloak\writer\ConsoleWriter
+     * @var \cloak\writer\ResultConsoleWriter
      */
     private $console;
 

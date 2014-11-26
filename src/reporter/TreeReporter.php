@@ -35,7 +35,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     const IDENT_SIZE = 2;
 
     /**
-     * @var \cloak\writer\ConsoleWriter
+     * @var \cloak\writer\ResultConsoleWriter
      */
     private $console;
 
