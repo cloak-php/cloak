@@ -15,12 +15,26 @@ describe('ConfigurationLoader', function() {
 
     describe('#loadConfiguration', function() {
         beforeEach(function() {
-            $this->configFile = realpath(__DIR__ . '../fixtures/config.toml');
             $this->loader = new ConfigurationLoader();
-            $this->config = $this->loader->loadConfiguration($this->configFile);
         });
-        it('return cloak\Configuration instance', function() {
-            expect($this->config)->toBeAnInstanceOf('cloak\Configuration');
+        context('when file exists', function() {
+            beforeEach(function() {
+                $this->configFile = realpath(__DIR__ . '/../fixtures/config.toml');
+                $this->config = $this->loader->loadConfiguration($this->configFile);
+            });
+            it('return cloak\Configuration instance', function() {
+                expect($this->config)->toBeAnInstanceOf('cloak\Configuration');
+            });
+        });
+        context('when file not exists', function() {
+          beforeEach(function() {
+              $this->configFile = realpath(__DIR__ . '/../fixtures/not_found_config.toml');
+          });
+          it('throw \cloak\configuration\ConfigurationFileNotFoundException', function() {
+              expect(function() {
+                  $this->loader->loadConfiguration($this->configFile);
+              })->toThrow('\cloak\configuration\ConfigurationFileNotFoundException');
+          });
         });
     });
 

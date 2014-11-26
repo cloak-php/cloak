@@ -23,10 +23,15 @@ class ConfigurationLoader
     /**
      * @param string $configFilePath
      * @return \cloak\Configuration
+     * @throws \cloak\configuration\ConfigurationFileNotFoundException
      */
     public function loadConfiguration($configFilePath)
     {
-        $configValues = Toml::Parse($configFilePath);
+        if (is_file($configFilePath) === false) {
+            throw new ConfigurationFileNotFoundException("Configuration file $configFilePath does not exist.");
+        }
+
+        $configValues = Toml::parse($configFilePath);
 
         $root = new Root($configValues);
         $builder = $root->applyTo(new ConfigurationBuilder());

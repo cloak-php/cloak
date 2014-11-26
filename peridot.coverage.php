@@ -84,7 +84,7 @@ class SuiteLoader implements SuiteLoaderInterface
 
 return function(EventEmitterInterface $emitter)
 {
-    ExpectationPlugin::create()->register($emitter);
+    ExpectationPlugin::create()->registerTo($emitter);
 
     $emitter->on('peridot.load', function(Command $command, Configuration $configuration) {
         $command->setLoader(new SuiteLoader());
