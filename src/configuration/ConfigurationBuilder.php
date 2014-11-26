@@ -24,10 +24,16 @@ use cloak\reporter\ReporterInterface;
 class ConfigurationBuilder
 {
 
-    private $driver = null;
-    private $reporter = null;
-    private $includeFiles = array();
-    private $excludeFiles = array();
+    private $driver;
+    private $reporter;
+    private $includeFiles;
+    private $excludeFiles;
+
+    public function __construct()
+    {
+        $this->includeFiles = [];
+        $this->excludeFiles = [];
+    }
 
     public function driver(DriverInterface $driver)
     {
