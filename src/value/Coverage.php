@@ -18,7 +18,11 @@ namespace cloak\value;
 class Coverage
 {
 
-    private $value = 0;
+    /**
+     * @var float
+     */
+    private $value;
+
 
     /**
      * @param float $value
