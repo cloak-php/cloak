@@ -26,7 +26,7 @@ class ConfigurationLoader
      */
     public function loadConfiguration($configFilePath)
     {
-        $configValues = Toml::Parse($configFilePath);
+        $configValues = Toml::parse($configFilePath);
 
         $root = new Root($configValues);
         $builder = $root->applyTo(new ConfigurationBuilder());
