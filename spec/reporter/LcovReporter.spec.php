@@ -17,22 +17,6 @@ use \Mockery;
 use \DateTime;
 
 describe('LcovReporter', function() {
-
-    describe('onStart', function() {
-        beforeEach(function() {
-            $this->reportFile = __DIR__ . '/../tmp/report.lcov';
-
-            $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
-            $this->startEvent->shouldReceive('getSendAt')->never();
-
-            $this->reporter = new LcovReporter($this->reportFile);
-            $this->reporter->onStart($this->startEvent);
-        });
-        it('check mock object expectations', function() {
-            Mockery::close();
-        });
-    });
-
     describe('onStop', function() {
         beforeEach(function() {
             $this->reportFile = __DIR__ . '/../tmp/report.lcov';

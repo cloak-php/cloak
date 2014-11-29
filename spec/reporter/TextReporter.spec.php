@@ -14,31 +14,9 @@ use cloak\result\LineResult;
 use cloak\reporter\TextReporter;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\event\StopEvent;
-use \Mockery;
 
 
 describe('TextReporter', function() {
-
-    describe('onStart', function() {
-        beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
-            $this->event = Mockery::mock('cloak\event\StartEventInterface');
-            $this->event->shouldReceive('getSendAt')->never();
-
-            $this->reporter = new TextReporter();
-        });
-        it('output start datetime', function() {
-            expect(function() {
-                $this->reporter->onStart($this->event);
-            })->toPrint('');
-        });
-        it('check mock object expectations', function() {
-            call_user_func($this->verify);
-        });
-    });
-
     describe('onStop', function() {
         beforeEach(function() {
             $expectResultFile = __DIR__ . '/../fixtures/report/text_report.log';

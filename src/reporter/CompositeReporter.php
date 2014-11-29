@@ -14,6 +14,8 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
+use PHPExtra\EventManager\EventManager;
+
 
 /**
  * Class CompositeReporter
@@ -24,15 +26,24 @@ class CompositeReporter implements ReporterInterface
 
     use Reportable;
 
-    private $reporters;
+
+    /**
+     * @var \PHPExtra\EventManager\EventManager
+     */
+    private $eventManager;
+
 
     /**
      * @param array $reporters
-     * @FIXME Validate parameters
      */
     public function __construct(array $reporters)
     {
-        $this->reporters = $reporters;
+        $eventManager = new EventManager();
+
+        foreach ($reporters as $reporter) {
+            $eventManager->addListener($reporter);
+        }
+        $this->eventManager = $eventManager;
     }
 
     /**
@@ -40,9 +51,7 @@ class CompositeReporter implements ReporterInterface
      */
     public function onStart(StartEventInterface $event)
     {
-        foreach ($this->reporters as $reporter) {
-            $reporter->onStart($event);
-        }
+        $this->eventManager->trigger($event);
     }
 
     /**
@@ -50,9 +59,7 @@ class CompositeReporter implements ReporterInterface
      */
     public function onStop(StopEventInterface $event)
     {
-        foreach ($this->reporters as $reporter) {
-            $reporter->onStop($event);
-        }
+        $this->eventManager->trigger($event);
     }
 
 }
