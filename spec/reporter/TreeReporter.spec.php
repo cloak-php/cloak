@@ -43,9 +43,17 @@ describe('TreeReporter', function() {
 
     describe('onStop', function() {
         beforeEach(function() {
+            $rootDirectory = realpath(__DIR__ . '/../../');
+            $expectResultFile = __DIR__ . '/../fixtures/report/tree_report.log';
+
+            $expectResult = file_get_contents($expectResultFile);
+            $expectResult = str_replace('{rootDirectory}', $rootDirectory, $expectResult);
+
+            $this->expectResult = $expectResult;
+
+
             $sourceFile1 = realpath(__DIR__ . '/../fixtures/report/src/Example1.php');
             $sourceFile2 = realpath(__DIR__ . '/../fixtures/report/src/Example2.php');
-            $expectResultFile = __DIR__ . '/../fixtures/report/tree_report.log';
 
             $coverages = [
                 $sourceFile1 => [
@@ -60,11 +68,10 @@ describe('TreeReporter', function() {
 
             $analyzeResult = AnalyzeResult::fromArray($coverages);
             $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
-            $this->expectResult = file_get_contents($expectResultFile);
 
             $this->reporter = new TreeReporter();
         });
-        it('does not output anything', function() {
+        it('output tree result', function() {
             expect(function() {
                 $this->reporter->onStop($this->stopEvent);
             })->toPrint($this->expectResult);

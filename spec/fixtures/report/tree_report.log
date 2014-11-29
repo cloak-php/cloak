@@ -1,9 +1,9 @@
 [0;36mPackage code coverage[22;39m[0;49m
-[0;32m100.00%[22;39m[0;49m /Users/shared-hat/Documents/develop/cloak/spec/fixtures/report/src/Example1.php
+[0;32m100.00%[22;39m[0;49m {rootDirectory}/spec/fixtures/report/src/Example1.php
  [0;32m100.00%[22;39m[0;49m cloak\spec\report\Example1
     [0;32m100.00%[22;39m[0;49m __construct
     [0;32m100.00%[22;39m[0;49m getName
-[22;39m 50.00%[22;39m[0;49m /Users/shared-hat/Documents/develop/cloak/spec/fixtures/report/src/Example2.php
+[22;39m 50.00%[22;39m[0;49m {rootDirectory}/spec/fixtures/report/src/Example2.php
  [22;39m 50.00%[22;39m[0;49m cloak\spec\report\Example2
     [0;32m100.00%[22;39m[0;49m __construct
     [0;33m  0.00%[22;39m[0;49m getName
