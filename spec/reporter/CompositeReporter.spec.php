@@ -12,6 +12,7 @@
 use cloak\Result;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
+use cloak\spec\reporter\ReporterFixture;
 use \Mockery;
 
 describe('CompositeReporter', function() {
@@ -19,20 +20,16 @@ describe('CompositeReporter', function() {
     describe('onStart', function() {
         beforeEach(function() {
             $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
-
-            $this->reporter1 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter1->shouldReceive('onStart')->once();
-            $this->reporter1->shouldReceive('onStop')->never();
-
-            $this->reporter2 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter2->shouldReceive('onStart')->once();
-            $this->reporter2->shouldReceive('onStop')->never();
+            $this->reporter1 = new ReporterFixture('fixture1', 'fixture reporter1');
+            $this->reporter2 = new ReporterFixture('fixture2', 'fixture reporter2');
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
             $this->reporter->onStart($this->startEvent);
         });
-        it('notify the start event', function() {
-            Mockery::close();
+        it('notify the event to the children of the reporter', function() {
+            $firstReporterEvent = $this->reporter1->getStartEvent();
+            $secondReporterEvent = $this->reporter2->getStartEvent();
+            expect($firstReporterEvent)->toEqual($secondReporterEvent);
         });
     });
 
