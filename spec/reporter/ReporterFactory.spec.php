@@ -15,13 +15,10 @@ use \ReflectionClass;
 
 describe('ReporterFactory', function() {
     beforeEach(function() {
-        $reporterName = 'cloak\spec\reporter\FixtureReporter';
-        $this->reflectionClass = new ReflectionClass($reporterName);
+        $this->reporterName = 'cloak\spec\reporter\ReporterFixture';
+        $this->reflectionClass = new ReflectionClass($this->reporterName);
     });
     describe('#fromClassName', function() {
-        beforeEach(function() {
-            $this->reporterName = 'cloak\spec\reporter\FixtureReporter';
-        });
         context('when reporter exists', function() {
             beforeEach(function() {
                 $this->factory = ReporterFactory::fromClassName($this->reporterName);
