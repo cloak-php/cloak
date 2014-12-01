@@ -15,7 +15,6 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\result\LineResult;
-use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\writer\FileWriter;
 
@@ -47,13 +46,6 @@ class LcovReporter implements ReporterInterface
     public function __construct($outputFilePath)
     {
         $this->reportWriter = new FileWriter($outputFilePath);
-    }
-
-    /**
-     * @param \cloak\event\StartEventInterface $event
-     */
-    public function onStart(StartEventInterface $event)
-    {
     }
 
     /**

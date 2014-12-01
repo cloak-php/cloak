@@ -8,7 +8,7 @@
         "zendframework/zend-console": "2.3.*",
         "zendframework/zend-code": "2.3.*",
         "zendframework/zend-config": "2.3.*",
-        "phpextra/event-manager": "1.0.*",
+        "phpextra/event-manager": "1.0.1",
         "yosymfony/toml": "0.2.*"
     },
     "autoload": {
@@ -29,6 +29,7 @@
     "require-dev": {
         "cloak/coverallskit": "1.3.*",
         "mockery/mockery": "0.9.*",
+        "phpspec/prophecy": "~1.3",
         "symfony/yaml": "2.5.*",
         "halleck45/php-metrics": "dev-master",
         "peridot-php/peridot": "~1.8",

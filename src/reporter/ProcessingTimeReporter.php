@@ -15,6 +15,7 @@ use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
+use \DateTime;
 
 
 /**
@@ -47,7 +48,8 @@ class ProcessingTimeReporter implements ReporterInterface
      */
     public function onStart(StartEventInterface $event)
     {
-        $this->start($event);
+        $sendAt = $event->getSendAt();
+        $this->start($sendAt);
     }
 
     /**
@@ -58,10 +60,13 @@ class ProcessingTimeReporter implements ReporterInterface
         $this->finish();
     }
 
-    private function start(StartEventInterface $event)
+    /**
+     * @param DateTime $startAt
+     */
+    private function start(DateTime $startAt)
     {
         $this->console->writeEOL();
-        $this->writeStartDateTime($event);
+        $this->writeStartDateTime($startAt);
 
         $this->startAt = microtime(true);
     }
@@ -78,11 +83,10 @@ class ProcessingTimeReporter implements ReporterInterface
     }
 
     /**
-     * @param StartEventInterface $event
+     * @param DateTime $startAt
      */
-    private function writeStartDateTime(StartEventInterface $event)
+    private function writeStartDateTime(DateTime $startAt)
     {
-        $startAt = $event->getSendAt();
         $formatStartTime = $startAt->format('j F Y \a\t H:i');
 
         $this->console->writeText('Code Coverage Started: ');

@@ -12,7 +12,6 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\FileResult;
 use cloak\value\CoverageBound;
@@ -46,13 +45,6 @@ class TextReporter implements ReporterInterface
     {
         $coverageBound = new CoverageBound($lowUpperBound, $highLowerBound);
         $this->console = new ResultConsoleWriter($coverageBound);
-    }
-
-    /**
-     * @param \cloak\event\StartEventInterface $event
-     */
-    public function onStart(StartEventInterface $event)
-    {
     }
 
     /**

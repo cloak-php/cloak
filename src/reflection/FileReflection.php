@@ -104,11 +104,18 @@ class FileReflection implements ReflectionInterface
     {
         $classes = $this->reflection->getClasses();
 
+        $excludeInterface = function(ZendClassReflection $reflection) {
+            return $reflection->isInterface() === false;
+        };
+
+        $createClassReflection = function(ZendClassReflection $reflection) {
+            return new ClassReflection($reflection->getName());
+        };
+
         $reflections = new Sequence($classes);
         $reflections = $reflections->filter($filter)
-            ->map(function(ZendClassReflection $reflection) {
-                return new ClassReflection($reflection->getName());
-            });
+            ->filter($excludeInterface)
+            ->map($createClassReflection);
 
         return new ReflectionCollection( $reflections->all() );
     }
