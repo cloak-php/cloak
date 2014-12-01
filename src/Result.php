@@ -164,8 +164,15 @@ class Result implements CoverageResultInterface
      */
     public function getCodeCoverage()
     {
+        $value = 0.0;
         $executedLineCount = $this->getExecutedLineCount();
         $executableLineCount = $this->getExecutableLineCount();
+
+        //PHP Warning:  Division by zero in ....
+        if ($executedLineCount <= 0 || $executableLineCount <= 0) {
+            return new Coverage($value);
+        }
+
         $realCoverage = ($executedLineCount / $executableLineCount) * 100;
 
         $coverage = (float) round($realCoverage, 2);
