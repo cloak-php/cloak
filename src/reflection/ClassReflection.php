@@ -113,15 +113,30 @@ class ClassReflection implements ReflectionInterface
         $filter = ZendMethodReflection::IS_PUBLIC;
         $methods = $this->reflection->getMethods($filter);
 
-        $reflections = new Sequence($methods);
-        $reflections = $reflections->filter(function(ZendMethodReflection $reflection) {
+        $targetClass = $this->reflection;
+
+        $excludeInheritedMethod = function(ZendMethodReflection $reflection) use($targetClass) {
+            $targetClassName = $targetClass->getName();
+            $declaringClassName = $reflection->getDeclaringClass()->getName();
+
+            return $declaringClassName === $targetClassName;
+        };
+
+        $excludeNativeMethod = function(ZendMethodReflection $reflection) {
             return $reflection->isUserDefined();
-        })->map(function(ZendMethodReflection $reflection) {
+        };
+
+        $makeMethodReflection = function(ZendMethodReflection $reflection) {
             $class = $reflection->getDeclaringClass()->getName();
             $methodName = $reflection->getName();
 
             return new MethodReflection($class, $methodName);
-        });
+        };
+
+        $reflections = new Sequence($methods);
+        $reflections = $reflections->filter($excludeNativeMethod)
+            ->filter($excludeInheritedMethod)
+            ->map($makeMethodReflection);
 
         return new ReflectionCollection( $reflections->all() );
     }
