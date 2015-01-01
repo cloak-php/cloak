@@ -27,19 +27,19 @@
         ]
     },
     "require-dev": {
-        "cloak/coverallskit": "~1.4",
         "mockery/mockery": "~0.9",
         "phpspec/prophecy": "~1.3",
         "symfony/yaml": "~2.6",
         "halleck45/php-metrics": "~1.1",
         "peridot-php/peridot": "~1.8",
         "expectation/peridot-expectation": "~1.2",
-        "codegyre/robo": "~0.4"
+        "codegyre/robo": "~0.4",
+        "cloak/robo-coveralls-kit": "~1.0"
     },
     "scripts": {
         "test": "vendor/bin/robo spec:all",
         "coverage": "vendor/bin/robo spec:coverage",
-        "coveralls": "vendor/bin/robo spec:coveralls",
+        "coveralls": "vendor/bin/robo coveralls:upload",
         "example": "vendor/bin/robo example:basic",
         "metrics": "vendor/bin/phpmetrics src"
     },
