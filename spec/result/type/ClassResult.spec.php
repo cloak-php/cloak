@@ -19,8 +19,8 @@ use \Mockery;
 describe('ClassResult', function() {
     beforeEach(function() {
         $lineSet = new LineResultCollection([
-            new LineResult(12, LineResult::EXECUTED),
-            new LineResult(17, LineResult::UNUSED)
+            new LineResult(24, LineResult::EXECUTED),
+            new LineResult(29, LineResult::UNUSED)
         ]);
         $classReflection = new ClassReflection('Example\\Example');
 
