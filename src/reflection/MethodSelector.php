@@ -94,7 +94,8 @@ class MethodSelector
         $traitAliasMethods = $reflectionClass->getTraitAliases();
 
         foreach ($traitAliasMethods as $aliasName => $originalName) {
-            $methodName = array_pop(explode('::', $originalName));
+            $values = explode('::', $originalName);
+            $methodName = array_pop($values);
             $traitMethods->remove($methodName);
             $traitMethods->set($aliasName, $reflectionClass->getMethod($aliasName));
         }
