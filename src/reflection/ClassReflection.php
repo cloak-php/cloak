@@ -185,14 +185,6 @@ class ClassReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getIdentityName();
-    }
-
-    /**
      * @return ReflectionCollection
      */
     private function getTraitAllMethods()
@@ -225,6 +217,14 @@ class ClassReflection implements ReflectionInterface
         }
 
         return $reflections;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getIdentityName();
     }
 
 }
