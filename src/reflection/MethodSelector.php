@@ -11,8 +11,7 @@
 
 namespace cloak\reflection;
 
-use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
-use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
+use \ReflectionMethod;
 use PhpCollection\Sequence;
 
 
@@ -30,7 +29,7 @@ class MethodSelector
 
 
     /**
-     * @param ZendMethodReflection[] $reflections
+     * @param MethodReflection[] $reflections
      */
     public function __construct(array $reflections)
     {
@@ -42,7 +41,7 @@ class MethodSelector
      */
     public function excludeNative()
     {
-        $callback = function(ZendMethodReflection $reflection) {
+        $callback = function(ReflectionMethod $reflection) {
             return $reflection->isUserDefined();
         };
         $reflections = $this->reflections->filter($callback);
@@ -55,7 +54,7 @@ class MethodSelector
      */
     public function excludeInherited($class)
     {
-        $callback = function(ZendMethodReflection $reflection) use ($class) {
+        $callback = function(ReflectionMethod $reflection) use ($class) {
             $declaringClass = $reflection->getDeclaringClass();
             return $declaringClass->isSubclassOf($class);
         };

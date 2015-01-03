@@ -10,8 +10,6 @@
  */
 
 use cloak\reflection\MethodSelector;
-use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Reflection\MethodReflection;
 
 
 describe('MethodSelector', function() {
@@ -19,8 +17,8 @@ describe('MethodSelector', function() {
         $this->parentClass = 'cloak\spec\reflection\FixtureTargetClass';
         $this->subClass = 'cloak\spec\reflection\FixtureTargetSubClass';
 
-        $reflection = new ClassReflection($this->subClass);
-        $classMethods = $reflection->getMethods(MethodReflection::IS_PUBLIC);
+        $reflection = new ReflectionClass($this->subClass);
+        $classMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
         $this->selector = new MethodSelector($classMethods);
     });
