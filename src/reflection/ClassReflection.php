@@ -126,6 +126,9 @@ class ClassReflection implements ReflectionInterface
             return $reflection->isUserDefined();
         };
 
+        $excludeTraitMethod = $this->getTraitMethodFilter();
+        $excludeTraitAliasMethod = $this->getTraitAliasMethodFilter();
+
         $makeMethodReflection = function(ZendMethodReflection $reflection) {
             $class = $reflection->getDeclaringClass()->getName();
             $methodName = $reflection->getName();
@@ -135,6 +138,8 @@ class ClassReflection implements ReflectionInterface
 
         $reflections = new Sequence($methods);
         $reflections = $reflections->filter($excludeNativeMethod)
+            ->filter($excludeTraitMethod)
+            ->filter($excludeTraitAliasMethod)
             ->filter($excludeInheritedMethod)
             ->map($makeMethodReflection);
 
@@ -198,6 +203,50 @@ class ClassReflection implements ReflectionInterface
         }
 
         return $this->createCollectionFromIterator($reflectionMethods);
+    }
+
+    private function getTraitMethodFilter()
+    {
+        $names = [];
+        $reflectionMethods = new AppendIterator;
+
+        $traits = $this->reflection->getTraits();
+
+        foreach ($traits as $trait) {
+            $methods = $trait->getMethods(ZendMethodReflection::IS_PUBLIC);
+            $reflectionMethods->append(new ArrayIterator($methods));
+        }
+
+        foreach ($reflectionMethods as $reflectionMethod) {
+            $name = $reflectionMethod->getName();
+            $names[$name] = $name;
+        }
+
+        $dictionary = new Map($names);
+
+        $filter = function(ZendMethodReflection $reflection) use ($dictionary) {
+            return $dictionary->containsKey($reflection->getName()) === false;
+        };
+
+        return $filter;
+    }
+
+    private function getTraitAliasMethodFilter()
+    {
+        $aliasNames = [];
+        $traitAliasMethods = $this->reflection->getTraitAliases();
+
+        foreach ($traitAliasMethods as $aliasName) {
+            $aliasNames[$aliasName] = $aliasName;
+        }
+
+        $dictionary = new Map($aliasNames);
+
+        $filter = function(ZendMethodReflection $reflection) use ($dictionary) {
+            return $dictionary->containsKey($reflection->getName()) === false;
+        };
+
+        return $filter;
     }
 
     /**
