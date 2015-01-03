@@ -33,7 +33,7 @@ class MethodSelector
 
 
     /**
-     * @param MethodReflection[] $reflections
+     * @param ReflectionMethod[] $reflections
      */
     public function __construct(array $reflections)
     {
