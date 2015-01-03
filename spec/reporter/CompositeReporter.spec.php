@@ -12,27 +12,37 @@
 use cloak\Result;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
-use \Mockery;
+use cloak\spec\reporter\ReporterFixture;
+use \Prophecy\Prophet;
+
 
 describe('CompositeReporter', function() {
 
+    beforeEach(function() {
+        $this->prophet = new Prophet;
+    });
+
     describe('onStart', function() {
         beforeEach(function() {
-            $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
+            $startEvent = $this->prophet->prophesize('cloak\event\StartEventInterface');
+            $startEvent->getSendAt()->shouldNotBeCalled();
 
-            $this->reporter1 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter1->shouldReceive('onStart')->once();
-            $this->reporter1->shouldReceive('onStop')->never();
+            $this->startEvent = $startEvent->reveal();
 
-            $this->reporter2 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter2->shouldReceive('onStart')->once();
-            $this->reporter2->shouldReceive('onStop')->never();
+            $this->reporter1 = new ReporterFixture('fixture1', 'fixture reporter1');
+            $this->reporter2 = new ReporterFixture('fixture2', 'fixture reporter2');
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
             $this->reporter->onStart($this->startEvent);
         });
-        it('notify the start event', function() {
-            Mockery::close();
+        afterEach(function() {
+            $this->prophet->checkPredictions();
+        });
+        it('notify the event to the children of the reporter', function() {
+            $firstReporterEvent = $this->reporter1->getStartEvent();
+            $secondReporterEvent = $this->reporter2->getStartEvent();
+
+            expect($firstReporterEvent)->toEqual($secondReporterEvent);
         });
     });
 
@@ -40,21 +50,27 @@ describe('CompositeReporter', function() {
         beforeEach(function() {
             $this->result = new Result(new Sequence());
 
-            $this->stopEvent = Mockery::mock('cloak\event\StopEventInterface');
+            $stopEvent = $this->prophet->prophesize('cloak\event\StopEventInterface');
+            $stopEvent->getSendAt()->shouldNotBeCalled();
+            $stopEvent->getResult()->shouldNotBeCalled();
 
-            $this->reporter1 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter1->shouldReceive('onStart')->never();
-            $this->reporter1->shouldReceive('onStop')->once();
+            $this->stopEvent = $stopEvent->reveal();
 
-            $this->reporter2 = Mockery::mock('cloak\reporter\ReporterInterface');
-            $this->reporter2->shouldReceive('onStart')->never();
-            $this->reporter2->shouldReceive('onStop')->once();
+            $reporter1 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
+            $reporter1->onStop($this->stopEvent)->shouldBeCalledTimes(1);
+
+            $this->reporter1 = $reporter1->reveal();
+
+            $reporter2 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
+            $reporter2->onStop($this->stopEvent)->shouldBeCalledTimes(1);
+
+            $this->reporter2 = $reporter2->reveal();
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
             $this->reporter->onStop($this->stopEvent);
         });
-        it('notify the stop event', function() {
-            Mockery::close();
+        it('notify the event to the children of the reporter', function() {
+            $this->prophet->checkPredictions();
         });
     });
 

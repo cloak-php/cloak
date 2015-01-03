@@ -19,7 +19,7 @@ use cloak\ProvidesLifeCycleNotifier;
  * Class Analyzer
  * @package cloak
  */
-class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCycleInterface
+class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterface
 {
 
     use ProvidesLifeCycleNotifier;
@@ -56,12 +56,18 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCyc
         return new Analyzer($configuration);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function start()
     {
         $this->getLifeCycleNotifier()->notifyStart();
         $this->driver()->start();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function stop()
     {
         $this->driver()->stop();
@@ -69,7 +75,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCyc
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isStarted()
     {
@@ -77,7 +83,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzeLifeCyc
     }
 
     /**
-     * @return Result
+     * {@inheritdoc}
      */
     public function getResult()
     {

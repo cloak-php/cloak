@@ -12,7 +12,6 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\value\CoverageBound;
 use cloak\result\CoverageResultInterface;
@@ -35,7 +34,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     const IDENT_SIZE = 2;
 
     /**
-     * @var \cloak\writer\ConsoleWriter
+     * @var \cloak\writer\ResultConsoleWriter
      */
     private $console;
 
@@ -54,14 +53,6 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
         $coverageBound = new CoverageBound($lowUpperBound, $highLowerBound);
         $this->console = new ResultConsoleWriter($coverageBound);
         $this->indent = 0;
-    }
-
-
-    /**
-     * @param \cloak\event\StartEventInterface $event
-     */
-    public function onStart(StartEventInterface $event)
-    {
     }
 
     /**

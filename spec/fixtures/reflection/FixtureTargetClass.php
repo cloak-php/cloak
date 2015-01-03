@@ -21,4 +21,9 @@ class FixtureTargetClass
     {
         bar as public bar1;
     }
+
+    public function bar()
+    {
+    }
+
 }

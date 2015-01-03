@@ -11,6 +11,9 @@
 
 namespace cloak\value;
 
+use cloak\result\LineResultInterface;
+
+
 /***
  * Class Coverage
  * @package cloak\value
@@ -18,7 +21,11 @@ namespace cloak\value;
 class Coverage
 {
 
-    private $value = 0;
+    /**
+     * @var float
+     */
+    private $value;
+
 
     /**
      * @param float $value
@@ -87,6 +94,27 @@ class Coverage
     public function formattedValue()
     {
         return sprintf('%6.2f%%', $this->value());
+    }
+
+    /**
+     * @param LineResultInterface $result
+     * @return \cloak\value\Coverage
+     */
+    public static function fromLineResult(LineResultInterface $result)
+    {
+        $value = 0.0;
+        $executedLineCount = $result->getExecutedLineCount();
+        $executableLineCount = $result->getExecutableLineCount();
+
+        //PHP Warning:  Division by zero in ....
+        if ($executedLineCount <= 0 || $executableLineCount <= 0) {
+            return new self($value);
+        }
+
+        $realCoverage = ($executedLineCount / $executableLineCount) * 100;
+        $coverage = (float) round($realCoverage, 2);
+
+        return new self($coverage);
     }
 
     /**

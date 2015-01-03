@@ -164,13 +164,7 @@ class Result implements CoverageResultInterface
      */
     public function getCodeCoverage()
     {
-        $executedLineCount = $this->getExecutedLineCount();
-        $executableLineCount = $this->getExecutableLineCount();
-        $realCoverage = ($executedLineCount / $executableLineCount) * 100;
-
-        $coverage = (float) round($realCoverage, 2);
-
-        return new Coverage($coverage);
+        return Coverage::fromLineResult($this);
     }
 
     /**

@@ -17,14 +17,7 @@ use cloak\result\LineResultCollectionInterface;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
 use cloak\result\AbstractTypeResultInterface;
-use PhpCollection\Sequence;
-use PhpCollection\Map;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
-use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
-use \AppendIterator;
-use \ArrayIterator;
-use \Iterator;
-
 
 /**
  * Class ClassReflection
@@ -110,20 +103,17 @@ class ClassReflection implements ReflectionInterface
      */
     public function getMethods()
     {
-        $filter = ZendMethodReflection::IS_PUBLIC;
-        $methods = $this->reflection->getMethods($filter);
+        $className = $this->reflection->getName();
+        $reflection = new \ReflectionClass($className);
+        $reflectionMethods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
 
-        $reflections = new Sequence($methods);
-        $reflections = $reflections->filter(function(ZendMethodReflection $reflection) {
-            return $reflection->isUserDefined();
-        })->map(function(ZendMethodReflection $reflection) {
-            $class = $reflection->getDeclaringClass()->getName();
-            $methodName = $reflection->getName();
+        $selector = new MethodSelector($reflectionMethods);
+        $result = $selector->excludeNative()
+            ->excludeInherited($className)
+            ->excludeTraitMethods($className)
+            ->toCollection();
 
-            return new MethodReflection($class, $methodName);
-        });
-
-        return new ReflectionCollection( $reflections->all() );
+        return $result;
     }
 
     /**
@@ -143,73 +133,11 @@ class ClassReflection implements ReflectionInterface
     }
 
     /**
-     * @return ReflectionCollection
-     */
-    public function getTraitMethods()
-    {
-        $traitMethods = $this->getTraitAllMethods();
-        $traitMethods->merge($this->getTraitAliasMethods());
-
-        return $traitMethods;
-    }
-
-    /**
-     * @return ReflectionCollection
-     */
-    public function getTraitAliasMethods()
-    {
-        $reflectionMethods = [];
-        $traitAliasMethods = $this->reflection->getTraitAliases();
-
-        foreach ($traitAliasMethods as $aliasName => $originalName) {
-            list($className, $methodName) =  explode('::', $originalName);
-            $reflectionMethods[] = new MethodReflection($className, $methodName);
-        }
-
-        return new ReflectionCollection($reflectionMethods);
-    }
-
-    /**
      * @return string
      */
     public function __toString()
     {
         return $this->getIdentityName();
-    }
-
-    /**
-     * @return ReflectionCollection
-     */
-    private function getTraitAllMethods()
-    {
-        $reflectionMethods = new AppendIterator;
-        $traits = $this->reflection->getTraits();
-
-        foreach ($traits as $trait) {
-            $methods = $trait->getMethods(ZendMethodReflection::IS_PUBLIC);
-            $reflectionMethods->append(new ArrayIterator($methods));
-        }
-
-        return $this->createCollectionFromIterator($reflectionMethods);
-    }
-
-    /**
-     * @param Iterator $methods
-     * @return ReflectionCollection
-     */
-    private function createCollectionFromIterator(Iterator $methods)
-    {
-        $reflections = new ReflectionCollection();
-
-        foreach ($methods as $method) {
-            $methodName = $method->getName();
-            $className = $method->getDeclaringClass()->getName();
-
-            $reflection = new MethodReflection($className, $methodName);
-            $reflections->add($reflection);
-        }
-
-        return $reflections;
     }
 
 }

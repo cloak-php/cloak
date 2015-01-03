@@ -13,6 +13,7 @@ use cloak\Result;
 use cloak\result\LineResult;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\driver\Result as AnalyzeResult;
+use cloak\spec\reporter\ReporterFixture;
 use PHPExtra\EventManager\EventManager;
 use \Mockery;
 
@@ -21,33 +22,15 @@ describe('AnalyzeLifeCycleNotifier', function() {
 
     describe('#notifyStart', function() {
         beforeEach(function() {
-            $subject = $this->subject = new \stdClass();
+            $this->reporter = new ReporterFixture('fixture', 'fixture reporter');
 
-            $reporter = $this->reporter = Mockery::mock('cloak\reporter\ReporterInterface');
-            $reporter->shouldReceive('registerTo')->once()->with(
-                Mockery::on(function(EventManager $eventManager) use ($reporter) {
-                    $eventManager->addListener($reporter);
-                    return true;
-                })
-            );
-
-            $reporter->shouldReceive('onStart')->once()->with(
-                Mockery::on(function($event) use($subject) {
-                    $subject->event = $event;
-                    return true;
-                })
-            );
-
-            $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporter);
+            $this->progessNotifier = new AnalyzeLifeCycleNotifier($this->reporter);
             $this->progessNotifier->notifyStart();
         });
 
         it('should notify the reporter that it has started', function() {
-            $event = $this->subject->event;
+            $event = $this->reporter->getStartEvent();
             expect($event)->toBeAnInstanceOf('cloak\event\StartEventInterface');
-        });
-        it('check mock object expectations', function() {
-            Mockery::close();
         });
     });
 

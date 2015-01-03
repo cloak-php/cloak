@@ -9,17 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
-
+namespace cloak\spec\reflection;
 
 /**
- * Interface AnalyzeLifeCycleInterface
- * @package cloak
+ * Class FixtureTargetSubClass
+ * @package cloak\spec\reflection
  */
-interface AnalyzeLifeCycleInterface
+class FixtureTargetSubClass extends FixtureTargetClass
 {
 
-    public function start();
-    public function stop();
+    public function foo1()
+    {
+        return true;
+    }
 
 }

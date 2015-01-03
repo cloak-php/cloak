@@ -91,17 +91,7 @@ class LineResultCollection implements LineResultCollectionInterface
      */
     public function getCodeCoverage()
     {
-        $executedCount = $this->getExecutedLineCount();
-        $executableCount = $this->getExecutableLineCount();
-
-        $value = (float) 100;
-
-        //PHP Warning:  Division by zero in ....
-        if ($executedCount >= 1 && $executableCount >= 1) {
-            $value = (float) $executedCount / $executableCount * 100;
-        }
-
-        return new Coverage($value);
+        return Coverage::fromLineResult($this);
     }
 
     /**

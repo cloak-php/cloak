@@ -27,7 +27,6 @@ trait PairStackable
      */
     protected $collection;
 
-
     /**
      * @return mixed|null
      */

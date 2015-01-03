@@ -25,7 +25,7 @@ describe('Root', function() {
                 ],
                 'reporter' => [
                     'lcov' => [
-                        'outputFilePath' => 'report.lcov'
+                        'outputFilePath' => __DIR__ . '/../tmp/report.lcov'
                     ],
                     'processingTime' => []
                 ]

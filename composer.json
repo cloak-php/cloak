@@ -34,7 +34,8 @@
         "peridot-php/peridot": "~1.8",
         "expectation/peridot-expectation": "~1.2",
         "codegyre/robo": "~0.4",
-        "cloak/robo-coveralls-kit": "~1.0"
+        "cloak/robo-coveralls-kit": "~1.0",
+        "robo-peridot/robo-peridot": "~1.0"
     },
     "scripts": {
         "test": "vendor/bin/robo spec:all",
