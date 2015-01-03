@@ -2,7 +2,7 @@
 
 use \Robo\Tasks;
 use \coverallskit\robo\CoverallsKitTasks;
-
+use \peridot\robo\PeridotTasks;
 
 /**
  * Class RoboFile
@@ -10,22 +10,28 @@ use \coverallskit\robo\CoverallsKitTasks;
 class RoboFile extends Tasks
 {
 
+    use PeridotTasks;
     use CoverallsKitTasks;
 
     public function specAll()
     {
-        $peridot = 'vendor/bin/peridot';
-        $peridotSpecDirectory = 'spec';
+        $result = $this->taskPeridot()
+            ->directoryPath('spec')
+            ->bail()
+            ->run();
 
-        return $this->taskExec($peridot . ' ' . $peridotSpecDirectory)->run();
+        return $result;
     }
 
     public function specCoverage()
     {
-        $peridot = 'vendor/bin/peridot';
-        $configurationFileOption = '--configuration peridot.coverage.php';
+        $result = $this->taskPeridot()
+            ->configuration('peridot.coverage.php')
+            ->directoryPath('spec')
+            ->bail()
+            ->run();
 
-        return $this->taskExec($peridot . ' ' . $configurationFileOption)->run();
+        return $result;
     }
 
     public function coverallsUpload()
