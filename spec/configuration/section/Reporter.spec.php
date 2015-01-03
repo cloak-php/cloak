@@ -20,7 +20,7 @@ describe('Reporter', function() {
             $this->builder = new ConfigurationBuilder();
             $this->config = new Reporter([
                 'lcov' => [
-                    'outputFilePath' => 'report.lcov'
+                    'outputFilePath' => __DIR__ . '/../../tmp/report.lcov'
                 ],
                 'processingTime' => []
             ]);
