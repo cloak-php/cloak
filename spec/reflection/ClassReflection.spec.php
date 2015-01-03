@@ -104,17 +104,4 @@ describe('ClassReflection', function() {
             });
         });
     });
-    describe('getTraitMethods', function() {
-        beforeEach(function() {
-            $this->classReflection = new ClassReflection('cloak\spec\reflection\FixtureTargetClass');
-            $this->methods = $this->classReflection->getTraitMethods();
-        });
-        it('return cloak\reflection\collection\ReflectionCollection', function() {
-            expect($this->methods)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
-        });
-        it('return trait methods', function() {
-            expect($this->methods->count())->toEqual(2);
-        });
-    });
-
 });

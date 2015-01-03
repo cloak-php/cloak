@@ -27,12 +27,6 @@ trait PairStackable
      */
     protected $collection;
 
-
-    public function containsKey($key)
-    {
-        return $this->collection->containsKey($key);
-    }
-
     /**
      * @return mixed|null
      */
