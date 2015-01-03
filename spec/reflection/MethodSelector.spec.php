@@ -34,4 +34,18 @@ describe('MethodSelector', function() {
             expect($selector->count())->toBe(1);
         });
     });
+    describe('#excludeTraitMethods', function() {
+        beforeEach(function() {
+            $this->class = 'cloak\spec\reflection\FixtureTargetClass';
+
+            $reflection = new ReflectionClass($this->class);
+            $classMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+
+            $this->selector = new MethodSelector($classMethods);
+        });
+        it('return filter result', function() {
+            $selector = $this->selector->excludeTraitMethods($this->class);
+            expect($selector->count())->toBe(2);
+        });
+    });
 });

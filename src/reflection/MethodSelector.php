@@ -11,7 +11,9 @@
 
 namespace cloak\reflection;
 
+use PhpCollection\Map;
 use \ReflectionMethod;
+use \ReflectionClass;
 use PhpCollection\Sequence;
 
 
@@ -57,6 +59,29 @@ class MethodSelector
         $callback = function(ReflectionMethod $reflection) use ($class) {
             $declaringClass = $reflection->getDeclaringClass();
             return $declaringClass->isSubclassOf($class);
+        };
+
+        $reflections = $this->reflections->filter($callback);
+
+        return new self( $reflections->all() );
+    }
+
+    public function excludeTraitMethods($class)
+    {
+        return $this->excludeTraitAliasMethods($class);
+    }
+
+
+    private function excludeTraitAliasMethods($class)
+    {
+        $reflectionClass = new ReflectionClass($class);
+        $traitAliases = $reflectionClass->getTraitAliases();
+
+        $dictionary = new Map($traitAliases);
+
+        $callback = function(ReflectionMethod $reflection) use ($dictionary) {
+            $name = $reflection->getName();
+            return $dictionary->containsKey($name) === false;
         };
 
         $reflections = $this->reflections->filter($callback);
