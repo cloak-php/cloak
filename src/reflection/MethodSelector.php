@@ -66,18 +66,13 @@ class MethodSelector
         return new self( $reflections->all() );
     }
 
+    /**
+     * @param $class
+     * @return MethodSelector
+     */
     public function excludeTraitMethods($class)
     {
-        return $this->excludeTraitAliasMethods($class);
-    }
-
-
-    private function excludeTraitAliasMethods($class)
-    {
-        $reflectionClass = new ReflectionClass($class);
-        $traitAliases = $reflectionClass->getTraitAliases();
-
-        $dictionary = new Map($traitAliases);
+        $dictionary = $this->getTraitMethods($class);
 
         $callback = function(ReflectionMethod $reflection) use ($dictionary) {
             $name = $reflection->getName();
@@ -87,6 +82,61 @@ class MethodSelector
         $reflections = $this->reflections->filter($callback);
 
         return new self( $reflections->all() );
+    }
+
+
+    /**
+     * @param $class
+     * @return Map
+     */
+    private function getTraitMethods($class)
+    {
+        $traitMethods = $this->getTraitMethodsFromClass($class);
+
+        $reflectionClass = new ReflectionClass($class);
+        $traitAliasMethods = $reflectionClass->getTraitAliases();
+
+        foreach ($traitAliasMethods as $aliasName => $originalName) {
+            list($className, $methodName) = explode('::', $originalName);
+            $traitMethods->remove($methodName);
+            $traitMethods->set($aliasName, $reflectionClass->getMethod($aliasName));
+        }
+
+        return $traitMethods;
+    }
+
+    /**
+     * @param $class
+     * @return Map
+     */
+    private function getTraitMethodsFromClass($class)
+    {
+        $result = new Map();
+        $reflectionClass = new ReflectionClass($class);
+
+        foreach ($reflectionClass->getTraits() as $trait) {
+            $methods = $this->getMethodsFromTrait($trait);
+            $result->addMap($methods);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param ReflectionClass $trait
+     * @return Map
+     */
+    private function getMethodsFromTrait($trait)
+    {
+        $result = new Map();
+        $methods = $trait->getMethods(ReflectionMethod::IS_PUBLIC);
+
+        foreach ($methods as $method) {
+            $name = $method->getName();
+            $result->set($name, $method);
+        }
+
+        return $result;
     }
 
     /**

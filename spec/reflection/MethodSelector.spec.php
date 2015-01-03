@@ -45,7 +45,7 @@ describe('MethodSelector', function() {
         });
         it('return filter result', function() {
             $selector = $this->selector->excludeTraitMethods($this->class);
-            expect($selector->count())->toBe(2);
+            expect($selector->count())->toBe(1);
         });
     });
 });
