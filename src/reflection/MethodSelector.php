@@ -11,6 +11,8 @@
 
 namespace cloak\reflection;
 
+
+use cloak\reflection\collection\ReflectionCollection;
 use PhpCollection\Map;
 use \ReflectionMethod;
 use \ReflectionClass;
@@ -137,6 +139,21 @@ class MethodSelector
         }
 
         return $result;
+    }
+
+    /**
+     * @return ReflectionCollection
+     */
+    public function toCollection()
+    {
+        $methods = $this->reflections->map(function(ReflectionMethod $method) {
+            $className = $method->getDeclaringClass()->getName();
+            $methodName = $method->getName();
+
+            return new MethodReflection($className, $methodName);
+        });
+
+        return new ReflectionCollection( $methods->all() );
     }
 
     /**

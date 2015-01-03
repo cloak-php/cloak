@@ -48,4 +48,19 @@ describe('MethodSelector', function() {
             expect($selector->count())->toBe(1);
         });
     });
+    describe('#toCollection', function() {
+        beforeEach(function() {
+            $this->class = 'cloak\spec\reflection\FixtureTargetClass';
+
+            $reflection = new ReflectionClass($this->class);
+            $classMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+
+            $this->selector = new MethodSelector($classMethods);
+            $this->collection = $this->selector->toCollection();
+        });
+        it('return cloak\reflection\collection\ReflectionCollection instance', function() {
+            expect($this->collection->count())->toBe(2);
+            expect($this->collection)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+        });
+    });
 });
