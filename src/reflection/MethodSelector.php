@@ -48,9 +48,8 @@ class MethodSelector
         $callback = function(ReflectionMethod $reflection) {
             return $reflection->isUserDefined();
         };
-        $reflections = $this->reflections->filter($callback);
 
-        return new self( $reflections->all() );
+        return $this->applyFilter($callback);
     }
 
     /**
@@ -63,9 +62,7 @@ class MethodSelector
             return $declaringClass->getName() === $class;
         };
 
-        $reflections = $this->reflections->filter($callback);
-
-        return new self( $reflections->all() );
+        return $this->applyFilter($callback);
     }
 
     /**
@@ -81,9 +78,7 @@ class MethodSelector
             return $dictionary->containsKey($name) === false;
         };
 
-        $reflections = $this->reflections->filter($callback);
-
-        return new self( $reflections->all() );
+        return $this->applyFilter($callback);
     }
 
 
@@ -154,6 +149,17 @@ class MethodSelector
         });
 
         return new ReflectionCollection( $methods->all() );
+    }
+
+    /**
+     * @param callable $callback
+     * @return MethodSelector
+     */
+    private function applyFilter(\Closure $callback)
+    {
+        $reflections = $this->reflections->filter($callback);
+
+        return new self( $reflections->all() );
     }
 
     /**
