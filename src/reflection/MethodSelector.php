@@ -60,7 +60,7 @@ class MethodSelector
     {
         $callback = function(ReflectionMethod $reflection) use ($class) {
             $declaringClass = $reflection->getDeclaringClass();
-            return $declaringClass->isSubclassOf($class);
+            return $declaringClass->getName() === $class;
         };
 
         $reflections = $this->reflections->filter($callback);

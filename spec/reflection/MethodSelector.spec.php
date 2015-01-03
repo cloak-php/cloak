@@ -14,7 +14,6 @@ use cloak\reflection\MethodSelector;
 
 describe('MethodSelector', function() {
     beforeEach(function() {
-        $this->parentClass = 'cloak\spec\reflection\FixtureTargetClass';
         $this->subClass = 'cloak\spec\reflection\FixtureTargetSubClass';
 
         $reflection = new ReflectionClass($this->subClass);
@@ -30,7 +29,7 @@ describe('MethodSelector', function() {
     });
     describe('#excludeInherited', function() {
         it('return filter result', function() {
-            $selector = $this->selector->excludeInherited($this->parentClass);
+            $selector = $this->selector->excludeInherited($this->subClass);
             expect($selector->count())->toBe(1);
         });
     });
