@@ -41,7 +41,7 @@ class MarkdownReporter implements ReporterInterface
     ];
 
     private $columnHeaderAlignments = [
-        self::ALIGN_LEFT,
+        self::ALIGN_RIGTH,
         self::ALIGN_LEFT,
         self::ALIGN_RIGTH,
         self::ALIGN_RIGTH
