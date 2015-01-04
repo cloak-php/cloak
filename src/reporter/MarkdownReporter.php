@@ -30,8 +30,8 @@ class MarkdownReporter implements ReporterInterface
 
     const TABLE_SEPARATOR_CHAR = '|';
 
-    const ALIGN_LEFT = ':-';
-    const ALIGN_RIGTH = '-:';
+    const ALIGN_LEFT = ':--';
+    const ALIGN_RIGTH = '--:';
 
     private $columnHeaders = [
         ' No. ',
