@@ -42,7 +42,7 @@ class CoverageBound
     /**
      * @return Coverage
      */
-    public function getLowCoverageBound()
+    public function getCriticalCoverage()
     {
         return $this->criticalCoverage;
     }
@@ -50,19 +50,21 @@ class CoverageBound
     /**
      * @return Coverage
      */
-    public function getHighCoverageBound()
+    public function getSatisfactoryCoverage()
     {
         return $this->satisfactoryCoverage;
     }
 
     public function isHighBoundGreaterThan(Coverage $coverage)
     {
-        return $coverage->greaterEqual($this->getHighCoverageBound());
+        $satisfactoryCoverage = $this->getSatisfactoryCoverage();
+        return $coverage->greaterEqual($satisfactoryCoverage);
     }
 
     public function isLowBoundLessThan(Coverage $coverage)
     {
-        return $coverage->lessThan($this->getLowCoverageBound());
+        $criticalCoverage = $this->getCriticalCoverage();
+        return $coverage->lessThan($criticalCoverage);
     }
 
 }

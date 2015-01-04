@@ -124,11 +124,11 @@ class MarkdownReporter implements ReporterInterface
     {
         $files = $result->getFiles();
 
-        $lowCoverage = $this->bounds->getLowCoverageBound();
-        $criticalResults = $files->selectByCoverageLessThan($lowCoverage);
+        $criticalValue = $this->bounds->getCriticalCoverage();
+        $criticalResults = $files->selectByCoverageLessThan($criticalValue);
 
-        $highCoverage = $this->bounds->getHighCoverageBound();
-        $satisfactoryResults = $files->selectByCoverageGreaterEqual($highCoverage);
+        $satisfactoryValue = $this->bounds->getSatisfactoryCoverage();
+        $satisfactoryResults = $files->selectByCoverageGreaterEqual($satisfactoryValue);
 
         $warningResults = $files->exclude($criticalResults)
             ->exclude($satisfactoryResults);

@@ -16,17 +16,17 @@ describe('CoverageBound', function() {
     beforeEach(function() {
         $this->coverageBound = new CoverageBound(30.0, 75.0);
     });
-    describe('#getLowCoverageBound', function() {
+    describe('#getCriticalCoverage', function() {
         beforeEach(function() {
-            $this->coverage = $this->coverageBound->getLowCoverageBound();
+            $this->coverage = $this->coverageBound->getCriticalCoverage();
         });
         it('return low coverage bound', function() {
             expect($this->coverage->value())->toEqual(30.0);
         });
     });
-    describe('#getHighCoverageBound', function() {
+    describe('#getSatisfactoryCoverage', function() {
         beforeEach(function() {
-            $this->coverage = $this->coverageBound->getHighCoverageBound();
+            $this->coverage = $this->coverageBound->getSatisfactoryCoverage();
         });
         it('return high coverage bound', function() {
             expect($this->coverage->value())->toEqual(75.0);
