@@ -18,29 +18,25 @@ namespace cloak\value;
 class CoverageBound
 {
 
-    const CRITICAL = 0;
-    const WARNING = 1;
-    const SATISFACTORY = 2;
+    /**
+     * @var Coverage
+     */
+    private $satisfactoryCoverage;
 
     /**
      * @var Coverage
      */
-    private $highCoverageBound;
-
-    /**
-     * @var Coverage
-     */
-    private $lowCoverageBound;
+    private $criticalCoverage;
 
 
     /**
-     * @param float $lowCoverageBound
-     * @param float $highCoverageBound
+     * @param float $critical
+     * @param float $satisfactory
      */
-    public function __construct($lowCoverageBound, $highCoverageBound)
+    public function __construct($critical, $satisfactory)
     {
-        $this->lowCoverageBound = new Coverage($lowCoverageBound);
-        $this->highCoverageBound = new Coverage($highCoverageBound);
+        $this->criticalCoverage = new Coverage($critical);
+        $this->satisfactoryCoverage = new Coverage($satisfactory);
     }
 
     /**
@@ -48,7 +44,7 @@ class CoverageBound
      */
     public function getLowCoverageBound()
     {
-        return $this->lowCoverageBound;
+        return $this->criticalCoverage;
     }
 
     /**
@@ -56,7 +52,7 @@ class CoverageBound
      */
     public function getHighCoverageBound()
     {
-        return $this->highCoverageBound;
+        return $this->satisfactoryCoverage;
     }
 
     public function isHighBoundGreaterThan(Coverage $coverage)
