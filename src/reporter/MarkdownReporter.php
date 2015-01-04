@@ -17,7 +17,6 @@ use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\collection\CoverageResultCollection;
-use cloak\value\Coverage;
 use cloak\value\CoverageBound;
 
 
@@ -132,19 +131,25 @@ class MarkdownReporter implements ReporterInterface
         $warningResults = $files->exclude($criticalResults)
             ->exclude($satisfactoryResults);
 
-        $this->writeResultHeader('Critical');
-        $this->writeFilesResultHeader();
-        $this->writeFilesResult($criticalResults);
-
-        $this->writeResultHeader('Warning');
-        $this->writeFilesResultHeader();
-        $this->writeFilesResult($warningResults);
-
-        $this->writeResultHeader('Satisfactory');
-        $this->writeFilesResultHeader();
-        $this->writeFilesResult($satisfactoryResults);
+        $this->writeGroup('Critical', $criticalResults);
+        $this->writeGroup('Warning', $warningResults);
+        $this->writeGroup('Satisfactory', $satisfactoryResults);
     }
 
+    /**
+     * @param string $title
+     * @param CoverageResultCollection $files
+     */
+    private function writeGroup($title, CoverageResultCollection $files)
+    {
+        $this->writeResultHeader($title);
+        $this->writeFilesResultHeader();
+        $this->writeFilesResult($files);
+    }
+
+    /**
+     * @param string $title
+     */
     private function writeResultHeader($title)
     {
         $this->reportWriter->writeLine('## ' . $title);
