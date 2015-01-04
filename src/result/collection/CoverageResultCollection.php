@@ -68,6 +68,23 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
+     * @param CoverageResultCollectionInterface $excludeResults
+     * @return CoverageResultCollection
+     */
+    public function exclude(CoverageResultCollectionInterface $excludeResults)
+    {
+        $results = clone $this->collection;
+
+        foreach ($excludeResults as $excludeResult) {
+            $key = $excludeResult->getName();
+            $results->remove($key);
+        }
+        $results = $this->createArray($results);
+
+        return new self($results);
+    }
+
+    /**
      * @param Coverage $coverage
      * @return CoverageResultCollection
      */

@@ -61,6 +61,27 @@ describe('CoverageResultCollection', function() {
         });
     });
 
+    describe('#exclude', function() {
+        beforeEach(function() {
+            $lineSet = new LineResultCollection([
+                new LineResult(29, LineResult::UNUSED)
+            ]);
+            $classReflection = new ClassReflection('Example\\Example');
+            $classResult = new ClassResult($classReflection, $lineSet);
+
+            $originalResult = new CoverageResultCollection();
+            $originalResult->add($classResult);
+
+            $excludeResult = new CoverageResultCollection();
+            $excludeResult->add($classResult);
+
+            $this->result = $originalResult->exclude($excludeResult);
+        });
+        it('return excluded new collection', function() {
+            expect($this->result->isEmpty())->toBeTruthy();
+        });
+    });
+
     describe('#selectByCoverageLessThan', function() {
         beforeEach(function() {
             $lineSet = new LineResultCollection([
