@@ -18,6 +18,10 @@ namespace cloak\value;
 class CoverageBound
 {
 
+    const CRITICAL = 0;
+    const WARNING = 1;
+    const SATISFACTORY = 2;
+
     /**
      * @var Coverage
      */
