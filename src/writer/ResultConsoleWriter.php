@@ -27,16 +27,16 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
     /**
      * @var CoverageBound
      */
-    private $coverageBound;
+    private $bounds;
 
 
     /**
-     * @param CoverageBound $coverageBound
+     * @param CoverageBound $coverageBounds
      */
-    public function __construct(CoverageBound $coverageBound)
+    public function __construct(CoverageBound $coverageBounds)
     {
         $this->console = Console::getInstance();
-        $this->coverageBound = $coverageBound;
+        $this->bounds = $coverageBounds;
     }
 
     /**
@@ -47,9 +47,9 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
         $coverage = $result->getCodeCoverage();
         $coverageText = $coverage->formattedValue();
 
-        if ($this->coverageBound->isSatisfactory($coverage)) {
+        if ($this->bounds->isSatisfactory($coverage)) {
             $this->console->writeText($coverageText, Color::GREEN);
-        } else if ($this->coverageBound->isCritical($coverage)) {
+        } else if ($this->bounds->isCritical($coverage)) {
             $this->console->writeText($coverageText, Color::YELLOW);
         } else {
             $this->console->writeText($coverageText, Color::NORMAL);
