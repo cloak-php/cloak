@@ -11,7 +11,7 @@
 
 namespace cloak\writer;
 
-use cloak\value\CoverageBound;
+use cloak\value\CoverageBounds;
 use cloak\result\CoverageResultInterface;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
@@ -25,15 +25,15 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
 {
 
     /**
-     * @var CoverageBound
+     * @var CoverageBounds
      */
     private $bounds;
 
 
     /**
-     * @param CoverageBound $coverageBounds
+     * @param CoverageBounds $coverageBounds
      */
-    public function __construct(CoverageBound $coverageBounds)
+    public function __construct(CoverageBounds $coverageBounds)
     {
         $this->console = Console::getInstance();
         $this->bounds = $coverageBounds;

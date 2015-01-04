@@ -12,10 +12,10 @@
 namespace cloak\value;
 
 /**
- * Class CoverageBound
+ * Class CoverageBounds
  * @package cloak\value
  */
-class CoverageBound
+class CoverageBounds
 {
 
     /**

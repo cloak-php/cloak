@@ -10,15 +10,16 @@
  */
 
 use cloak\value\Coverage;
-use cloak\value\CoverageBound;
+use cloak\value\CoverageBounds;
 
-describe('CoverageBound', function() {
+
+describe('CoverageBounds', function() {
     beforeEach(function() {
-        $this->coverageBound = new CoverageBound(30.0, 75.0);
+        $this->bounds = new CoverageBounds(30.0, 75.0);
     });
     describe('#getCriticalCoverage', function() {
         beforeEach(function() {
-            $this->coverage = $this->coverageBound->getCriticalCoverage();
+            $this->coverage = $this->bounds->getCriticalCoverage();
         });
         it('return low coverage bound', function() {
             expect($this->coverage->value())->toEqual(30.0);
@@ -26,7 +27,7 @@ describe('CoverageBound', function() {
     });
     describe('#getSatisfactoryCoverage', function() {
         beforeEach(function() {
-            $this->coverage = $this->coverageBound->getSatisfactoryCoverage();
+            $this->coverage = $this->bounds->getSatisfactoryCoverage();
         });
         it('return high coverage bound', function() {
             expect($this->coverage->value())->toEqual(75.0);
@@ -35,7 +36,7 @@ describe('CoverageBound', function() {
     describe('#isSatisfactory', function() {
         context('when less than', function() {
             beforeEach(function() {
-                $this->returnValue = $this->coverageBound->isSatisfactory(new Coverage(74.0));
+                $this->returnValue = $this->bounds->isSatisfactory(new Coverage(74.0));
             });
             it('return false', function() {
                 expect($this->returnValue)->toBeFalse();
@@ -43,7 +44,7 @@ describe('CoverageBound', function() {
         });
         context('when greater equal than', function() {
             beforeEach(function() {
-                $this->returnValue = $this->coverageBound->isSatisfactory(new Coverage(75.0));
+                $this->returnValue = $this->bounds->isSatisfactory(new Coverage(75.0));
             });
             it('return true', function() {
                 expect($this->returnValue)->toBeTrue();
@@ -53,7 +54,7 @@ describe('CoverageBound', function() {
     describe('#isCritical', function() {
         context('when greater than', function() {
             beforeEach(function() {
-                $this->returnValue = $this->coverageBound->isCritical(new Coverage(31.0));
+                $this->returnValue = $this->bounds->isCritical(new Coverage(31.0));
             });
             it('return false', function() {
                 expect($this->returnValue)->toBeFalse();
@@ -61,7 +62,7 @@ describe('CoverageBound', function() {
         });
         context('when equal', function() {
             beforeEach(function() {
-                $this->returnValue = $this->coverageBound->isCritical(new Coverage(30.0));
+                $this->returnValue = $this->bounds->isCritical(new Coverage(30.0));
             });
             it('return false', function() {
                 expect($this->returnValue)->toBeFalse();
@@ -69,7 +70,7 @@ describe('CoverageBound', function() {
         });
         context('when less than', function() {
             beforeEach(function() {
-                $this->returnValue = $this->coverageBound->isCritical(new Coverage(29.0));
+                $this->returnValue = $this->bounds->isCritical(new Coverage(29.0));
             });
             it('return true', function() {
                 expect($this->returnValue)->toBeTrue();

@@ -13,7 +13,7 @@ namespace cloak\reporter;
 
 use cloak\Result;
 use cloak\event\StopEventInterface;
-use cloak\value\CoverageBound;
+use cloak\value\CoverageBounds;
 use cloak\result\CoverageResultInterface;
 use cloak\result\CoverageResultVisitorInterface;
 use cloak\writer\ResultConsoleWriter;
@@ -52,7 +52,7 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
         $critical = self::DEFAULT_LOW_BOUND
     )
     {
-        $bounds = new CoverageBound($critical, $satisfactory);
+        $bounds = new CoverageBounds($critical, $satisfactory);
         $this->console = new ResultConsoleWriter($bounds);
         $this->indent = 0;
     }

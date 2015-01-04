@@ -17,7 +17,7 @@ use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\collection\CoverageResultCollection;
-use cloak\value\CoverageBound;
+use cloak\value\CoverageBounds;
 
 
 /**
@@ -49,7 +49,7 @@ class MarkdownReporter implements ReporterInterface
     ];
 
     /**
-     * @var CoverageBound
+     * @var CoverageBounds
      */
     private $bounds;
 
@@ -75,7 +75,7 @@ class MarkdownReporter implements ReporterInterface
         $critical = self::DEFAULT_LOW_BOUND
     )
     {
-        $this->bounds = new CoverageBound($critical, $satisfactory);
+        $this->bounds = new CoverageBounds($critical, $satisfactory);
         $this->reportWriter = new FileWriter($outputFilePath);
     }
 

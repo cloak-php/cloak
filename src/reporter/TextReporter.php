@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\StopEventInterface;
 use cloak\result\FileResult;
-use cloak\value\CoverageBound;
+use cloak\value\CoverageBounds;
 use cloak\writer\ResultConsoleWriter;
 
 
@@ -44,7 +44,7 @@ class TextReporter implements ReporterInterface
         $critical = self::DEFAULT_LOW_BOUND
     )
     {
-        $bounds = new CoverageBound($critical, $satisfactory);
+        $bounds = new CoverageBounds($critical, $satisfactory);
         $this->console = new ResultConsoleWriter($bounds);
     }
 
