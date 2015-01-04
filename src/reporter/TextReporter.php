@@ -36,13 +36,16 @@ class TextReporter implements ReporterInterface
 
 
     /**
-     * @param float $highLowerBound
-     * @param float $lowUpperBound
+     * @param float $satisfactory
+     * @param float $critical
      */
-    public function __construct($highLowerBound = self::DEFAULT_HIGH_BOUND, $lowUpperBound = self::DEFAULT_LOW_BOUND)
+    public function __construct(
+        $satisfactory = self::DEFAULT_HIGH_BOUND,
+        $critical = self::DEFAULT_LOW_BOUND
+    )
     {
-        $coverageBound = new CoverageBound($lowUpperBound, $highLowerBound);
-        $this->console = new ResultConsoleWriter($coverageBound);
+        $bounds = new CoverageBound($critical, $satisfactory);
+        $this->console = new ResultConsoleWriter($bounds);
     }
 
     /**

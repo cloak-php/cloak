@@ -66,6 +66,8 @@ class MarkdownReporter implements ReporterInterface
 
     /**
      * @param string $outputFilePath
+     * @param float $satisfactory
+     * @param float $critical
      */
     public function __construct (
         $outputFilePath,
