@@ -52,7 +52,7 @@ class MarkdownReporter implements ReporterInterface
     /**
      * @var CoverageBound
      */
-    private $coverageBound;
+    private $bounds;
 
     /**
      * @var \cloak\writer\FileWriter
@@ -68,12 +68,13 @@ class MarkdownReporter implements ReporterInterface
     /**
      * @param string $outputFilePath
      */
-    public function __construct($outputFilePath)
+    public function __construct (
+        $outputFilePath,
+        $satisfactory = self::DEFAULT_HIGH_BOUND,
+        $critical = self::DEFAULT_LOW_BOUND
+    )
     {
-        $this->coverageBound = new CoverageBound(
-            self::DEFAULT_LOW_BOUND,
-            self::DEFAULT_HIGH_BOUND
-        );
+        $this->bounds = new CoverageBound($critical, $satisfactory);
         $this->reportWriter = new FileWriter($outputFilePath);
     }
 
@@ -122,10 +123,10 @@ class MarkdownReporter implements ReporterInterface
     {
         $files = $result->getFiles();
 
-        $lowCoverage = $this->coverageBound->getLowCoverageBound();
+        $lowCoverage = $this->bounds->getLowCoverageBound();
         $criticalResults = $files->selectByCoverageLessThan($lowCoverage);
 
-        $highCoverage = $this->coverageBound->getHighCoverageBound();
+        $highCoverage = $this->bounds->getHighCoverageBound();
         $satisfactoryResults = $files->selectByCoverageGreaterEqual($highCoverage);
 
         $warningResults = $files->exclude($criticalResults)
