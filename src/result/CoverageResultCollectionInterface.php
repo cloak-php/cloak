@@ -12,6 +12,8 @@
 namespace cloak\result;
 
 use cloak\CollectionInterface as CommonCollectionInterface;
+use cloak\value\Coverage;
+
 
 /**
  * Interface CoverageResultCollectionInterface
@@ -30,5 +32,23 @@ interface CoverageResultCollectionInterface extends CommonCollectionInterface
      * @return CoverageResultCollectionInterface
      */
     public function merge(CoverageResultCollectionInterface $results);
+
+    /**
+     * @param CoverageResultCollectionInterface $excludeResults
+     * @return CoverageResultCollectionInterface
+     */
+    public function exclude(CoverageResultCollectionInterface $excludeResults);
+
+    /**
+     * @param Coverage $coverage
+     * @return CoverageResultCollectionInterface
+     */
+    public function selectByCoverageLessThan(Coverage $coverage);
+
+    /**
+     * @param Coverage $coverage
+     * @return CoverageResultCollectionInterface
+     */
+    public function selectByCoverageGreaterEqual(Coverage $coverage);
 
 }
