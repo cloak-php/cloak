@@ -89,4 +89,32 @@ describe('CoverageResultCollection', function() {
         });
     });
 
+    describe('#selectByCoverageGreaterEqual', function() {
+        beforeEach(function() {
+            $lineSet = new LineResultCollection([
+                new LineResult(24, LineResult::EXECUTED),
+                new LineResult(29, LineResult::UNUSED)
+            ]);
+            $classReflection = new ClassReflection('Example\\Example');
+            $classResult = new ClassResult($classReflection, $lineSet);
+
+            $result = new CoverageResultCollection();
+            $result->add($classResult);
+
+            $this->result = $result;
+        });
+        context('when have higher result', function() {
+            it('return select new collection', function() {
+                $selectResult = $this->result->selectByCoverageGreaterEqual(new Coverage(50.0));
+                expect($selectResult->count())->toEqual(1);
+            });
+        });
+        context('when have not higher result', function() {
+            it('return empty collection', function() {
+                $selectResult = $this->result->selectByCoverageGreaterEqual(new Coverage(51.0));
+                expect($selectResult->isEmpty())->toBeTruthy();
+            });
+        });
+    });
+
 });

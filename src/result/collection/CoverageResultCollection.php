@@ -13,6 +13,7 @@ namespace cloak\result\collection;
 
 use cloak\result\CoverageResultCollectionInterface;
 use cloak\result\CoverageResultInterface;
+use Mockery\Matcher\Closure;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
 use cloak\value\Coverage;
@@ -76,6 +77,28 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
             return $result->isCoverageLessThan($coverage);
         };
 
+        return $this->selectByCallback($callback);
+    }
+
+    /**
+     * @param Coverage $coverage
+     * @return CoverageResultCollection
+     */
+    public function selectByCoverageGreaterEqual(Coverage $coverage)
+    {
+        $callback = function(CoverageResultInterface $result) use ($coverage) {
+            return $result->isCoverageGreaterEqual($coverage);
+        };
+
+        return $this->selectByCallback($callback);
+    }
+
+    /**
+     * @param Closure $callback
+     * @return CoverageResultCollection
+     */
+    private function selectByCallback(Closure $callback)
+    {
         $results = $this->collection->filter($callback);
         $results = $this->createArray($results);
 
