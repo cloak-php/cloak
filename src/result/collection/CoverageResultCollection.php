@@ -13,7 +13,7 @@ namespace cloak\result\collection;
 
 use cloak\result\CoverageResultCollectionInterface;
 use cloak\result\CoverageResultInterface;
-use Mockery\Matcher\Closure;
+use Closure;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
 use cloak\value\Coverage;
