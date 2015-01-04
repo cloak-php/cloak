@@ -23,6 +23,9 @@ use PHPExtra\EventManager\EventManagerInterface;
 interface ReporterInterface extends ListenerInterface
 {
 
+    const DEFAULT_LOW_BOUND = 35.0;
+    const DEFAULT_HIGH_BOUND = 70.0;
+
     /**
      * @param EventManagerInterface $eventManager
      */

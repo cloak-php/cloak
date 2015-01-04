@@ -27,8 +27,6 @@ class TextReporter implements ReporterInterface
 
     use Reportable;
 
-    const DEFAULT_LOW_BOUND = 35.0;
-    const DEFAULT_HIGH_BOUND = 70.0;
 
     /**
      * @var \cloak\writer\ResultConsoleWriter

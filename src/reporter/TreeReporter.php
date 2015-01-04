@@ -29,8 +29,6 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
 
     use Reportable;
 
-    const DEFAULT_LOW_BOUND = 35.0;
-    const DEFAULT_HIGH_BOUND = 70.0;
     const IDENT_SIZE = 2;
 
     /**

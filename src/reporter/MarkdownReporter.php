@@ -70,7 +70,10 @@ class MarkdownReporter implements ReporterInterface
      */
     public function __construct($outputFilePath)
     {
-        $this->coverageBound = new CoverageBound(35.0, 70.0);
+        $this->coverageBound = new CoverageBound(
+            self::DEFAULT_LOW_BOUND,
+            self::DEFAULT_HIGH_BOUND
+        );
         $this->reportWriter = new FileWriter($outputFilePath);
     }
 
