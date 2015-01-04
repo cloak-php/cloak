@@ -17,6 +17,8 @@ use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\collection\CoverageResultCollection;
+use cloak\value\Coverage;
+use cloak\value\CoverageBound;
 
 
 /**
@@ -48,6 +50,11 @@ class MarkdownReporter implements ReporterInterface
     ];
 
     /**
+     * @var CoverageBound
+     */
+    private $coverageBound;
+
+    /**
      * @var \cloak\writer\FileWriter
      */
     private $reportWriter;
@@ -63,6 +70,7 @@ class MarkdownReporter implements ReporterInterface
      */
     public function __construct($outputFilePath)
     {
+        $this->coverageBound = new CoverageBound(35.0, 70.0);
         $this->reportWriter = new FileWriter($outputFilePath);
     }
 
@@ -107,19 +115,35 @@ class MarkdownReporter implements ReporterInterface
         $this->reportWriter->writeEOL();
     }
 
-    /**
-     * @param Result $result
-     */
     private function writeResult(Result $result)
     {
-        $this->writeResultHeader();
+        $files = $result->getFiles();
+
+        $lowCoverage = $this->coverageBound->getLowCoverageBound();
+        $criticalResults = $files->selectByCoverageLessThan($lowCoverage);
+
+        $highCoverage = $this->coverageBound->getHighCoverageBound();
+        $satisfactoryResults = $files->selectByCoverageGreaterEqual($highCoverage);
+
+        $warningResults = $files->exclude($criticalResults)
+            ->exclude($satisfactoryResults);
+
+        $this->writeResultHeader('Critical');
         $this->writeFilesResultHeader();
-        $this->writeFilesResult($result->getFiles());
+        $this->writeFilesResult($criticalResults);
+
+        $this->writeResultHeader('Warning');
+        $this->writeFilesResultHeader();
+        $this->writeFilesResult($warningResults);
+
+        $this->writeResultHeader('Satisfactory');
+        $this->writeFilesResultHeader();
+        $this->writeFilesResult($satisfactoryResults);
     }
 
-    private function writeResultHeader()
+    private function writeResultHeader($title)
     {
-        $this->reportWriter->writeLine('## Result');
+        $this->reportWriter->writeLine('## ' . $title);
         $this->reportWriter->writeEOL();
     }
 
@@ -143,6 +167,8 @@ class MarkdownReporter implements ReporterInterface
             $this->writeFileResult($orderNumber, $file);
             $orderNumber++;
         }
+
+        $this->reportWriter->writeEOL();
     }
 
     /**
