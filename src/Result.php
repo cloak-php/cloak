@@ -66,7 +66,7 @@ class Result implements CoverageResultInterface
             $lineResults = LineResultCollection::from( $fileResult->getLineResults() );
 
             $file = new FileResult($path, $lineResults);
-            $files[] = $file;
+            $files[$path] = $file;
         }
 
         return $files;
