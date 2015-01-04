@@ -15,6 +15,7 @@ use cloak\result\CoverageResultCollectionInterface;
 use cloak\result\CoverageResultInterface;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
+use cloak\value\Coverage;
 
 
 /**
@@ -63,6 +64,22 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
             $this->add($result);
         }
         return $this;
+    }
+
+    /**
+     * @param Coverage $coverage
+     * @return CoverageResultCollection
+     */
+    public function selectByCoverageLessThan(Coverage $coverage)
+    {
+        $callback = function(CoverageResultInterface $result) use ($coverage) {
+            return $result->isCoverageLessThan($coverage);
+        };
+
+        $results = $this->collection->filter($callback);
+        $results = $this->createArray($results);
+
+        return new self($results);
     }
 
 }

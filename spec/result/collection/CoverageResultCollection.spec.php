@@ -14,6 +14,7 @@ use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
+use cloak\value\Coverage;
 use cloak\reflection\ClassReflection;
 
 
@@ -57,6 +58,34 @@ describe('CoverageResultCollection', function() {
         });
         it('merge coverage result', function() {
             expect($this->result->count())->toEqual(2);
+        });
+    });
+
+    describe('#selectByCoverageLessThan', function() {
+        beforeEach(function() {
+            $lineSet = new LineResultCollection([
+                new LineResult(24, LineResult::EXECUTED),
+                new LineResult(29, LineResult::UNUSED)
+            ]);
+            $classReflection = new ClassReflection('Example\\Example');
+            $classResult = new ClassResult($classReflection, $lineSet);
+
+            $result = new CoverageResultCollection();
+            $result->add($classResult);
+
+            $this->result = $result;
+        });
+        context('when have lower result', function() {
+            it('return select new collection', function() {
+                $selectResult = $this->result->selectByCoverageLessThan(new Coverage(51.0));
+                expect($selectResult->count())->toEqual(1);
+            });
+        });
+        context('when have not lower result', function() {
+            it('return empty collection', function() {
+                $selectResult = $this->result->selectByCoverageLessThan(new Coverage(50.0));
+                expect($selectResult->isEmpty())->toBeTruthy();
+            });
         });
     });
 
