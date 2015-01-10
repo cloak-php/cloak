@@ -146,7 +146,7 @@ class MarkdownReporter implements ReporterInterface
     {
         $this->writeResultHeader($title);
         $this->writeFilesResultHeader();
-        $this->writeFilesResult($files);
+        $this->writeFileResults($files);
     }
 
     /**
@@ -170,7 +170,7 @@ class MarkdownReporter implements ReporterInterface
     /**
      * @param CoverageResultCollection $files
      */
-    private function writeFilesResult(CoverageResultCollection $files)
+    private function writeFileResults(CoverageResultCollection $files)
     {
         $orderNumber = 1;
 
