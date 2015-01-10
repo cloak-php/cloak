@@ -27,6 +27,11 @@ class MethodSelector
 {
 
     /**
+     * @var ReflectionClass
+     */
+    private $reflection;
+
+    /**
      * @var Sequence
      */
     private $reflections;
@@ -34,10 +39,12 @@ class MethodSelector
 
     /**
      * @param ReflectionMethod[] $reflections
+     * @param ReflectionClass $reflection
      */
-    public function __construct(array $reflections)
+    public function __construct(array $reflections, ReflectionClass $reflection)
     {
         $this->reflections = new Sequence($reflections);
+        $this->reflection = $reflection;
     }
 
     /**
@@ -177,6 +184,18 @@ class MethodSelector
     public function isEmpty()
     {
         return $this->reflections->isEmpty();
+    }
+
+    /**
+     * @param string $className
+     * @return MethodSelector
+     */
+    public static function fromClassName($className)
+    {
+        $reflection = new ReflectionClass($className);
+        $reflectionMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+
+        return new self($reflectionMethods, $reflection);
     }
 
 }

@@ -104,10 +104,8 @@ class ClassReflection implements ReflectionInterface
     public function getMethods()
     {
         $className = $this->reflection->getName();
-        $reflection = new \ReflectionClass($className);
-        $reflectionMethods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+        $selector = MethodSelector::fromClassName($className);
 
-        $selector = new MethodSelector($reflectionMethods);
         $result = $selector->excludeNative()
             ->excludeInherited($className)
             ->excludeTraitMethods($className)
