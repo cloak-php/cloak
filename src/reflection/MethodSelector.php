@@ -27,12 +27,6 @@ class MethodSelector
 {
 
     /**
-     * @var ReflectionClass
-     */
-    private $reflection;
-
-
-    /**
      * @var Sequence
      */
     private $reflections;
@@ -40,12 +34,10 @@ class MethodSelector
 
     /**
      * @param ReflectionMethod[] $reflections
-     * @param ReflectionClass $reflection
      */
-    public function __construct(array $reflections, ReflectionClass $reflection)
+    public function __construct(array $reflections)
     {
         $this->reflections = new Sequence($reflections);
-        $this->reflection = $reflection;
     }
 
     /**
@@ -63,13 +55,11 @@ class MethodSelector
     /**
      * @param string $class
      */
-    public function excludeInherited()
+    public function excludeInherited($class)
     {
-        $classClassName = $this->reflection->getName();
-
-        $callback = function(ReflectionMethod $reflection) use ($classClassName) {
+        $callback = function(ReflectionMethod $reflection) use ($class) {
             $declaringClass = $reflection->getDeclaringClass();
-            return $declaringClass->getName() === $classClassName;
+            return $declaringClass->getName() === $class;
         };
 
         return $this->applyFilter($callback);
@@ -81,9 +71,7 @@ class MethodSelector
      */
     public function excludeTraitMethods($class)
     {
-        $classClassName = $this->reflection->getName();
-
-        $dictionary = $this->getTraitMethods($classClassName);
+        $dictionary = $this->getTraitMethods($class);
 
         $callback = function(ReflectionMethod $reflection) use ($dictionary) {
             $name = $reflection->getName();
@@ -98,16 +86,18 @@ class MethodSelector
      * @param $class
      * @return Map
      */
-    private function getTraitMethods()
+    private function getTraitMethods($class)
     {
-        $traitMethods = $this->getAllTraitMethods();
-        $traitAliasMethods = $this->reflection->getTraitAliases();
+        $traitMethods = $this->getTraitMethodsFromClass($class);
+
+        $reflectionClass = new ReflectionClass($class);
+        $traitAliasMethods = $reflectionClass->getTraitAliases();
 
         foreach ($traitAliasMethods as $aliasName => $originalName) {
             $values = explode('::', $originalName);
             $methodName = array_pop($values);
             $traitMethods->remove($methodName);
-            $traitMethods->set($aliasName, $this->reflection->getMethod($aliasName));
+            $traitMethods->set($aliasName, $reflectionClass->getMethod($aliasName));
         }
 
         return $traitMethods;
@@ -117,11 +107,12 @@ class MethodSelector
      * @param $class
      * @return Map
      */
-    private function getAllTraitMethods()
+    private function getTraitMethodsFromClass($class)
     {
         $result = new Map();
+        $reflectionClass = new ReflectionClass($class);
 
-        foreach ($this->reflection->getTraits() as $trait) {
+        foreach ($reflectionClass->getTraits() as $trait) {
             $methods = $this->getMethodsFromTrait($trait);
             $result->addMap($methods);
         }
@@ -169,7 +160,7 @@ class MethodSelector
     {
         $reflections = $this->reflections->filter($callback);
 
-        return new self( $reflections->all(), $this->reflection );
+        return new self( $reflections->all() );
     }
 
     /**
@@ -186,18 +177,6 @@ class MethodSelector
     public function isEmpty()
     {
         return $this->reflections->isEmpty();
-    }
-
-    /**
-     * @param string $className
-     * @return MethodSelector
-     */
-    public static function fromClassName($className)
-    {
-        $reflection = new ReflectionClass($className);
-        $reflectionMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-
-        return new self($reflectionMethods, $reflection);
     }
 
 }
