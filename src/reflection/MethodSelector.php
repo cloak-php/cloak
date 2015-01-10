@@ -59,6 +59,9 @@ class MethodSelector
         return $this->applyFilter($callback);
     }
 
+    /**
+     * @return MethodSelector
+     */
     public function excludeInherited()
     {
         $className = $this->reflection->getName();
