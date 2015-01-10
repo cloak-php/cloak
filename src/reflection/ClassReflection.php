@@ -107,8 +107,8 @@ class ClassReflection implements ReflectionInterface
         $selector = MethodSelector::fromClassName($className);
 
         $result = $selector->excludeNative()
-            ->excludeInherited($className)
-            ->excludeTraitMethods($className)
+            ->excludeInherited()
+            ->excludeTraitMethods()
             ->toCollection();
 
         return $result;

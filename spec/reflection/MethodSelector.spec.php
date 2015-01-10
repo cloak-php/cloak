@@ -35,7 +35,7 @@ describe('MethodSelector', function() {
             $this->selector = MethodSelector::fromClassName($this->class);
         });
         it('return filter result', function() {
-            $selector = $this->selector->excludeTraitMethods($this->class);
+            $selector = $this->selector->excludeTraitMethods();
             expect($selector->count())->toBe(1);
         });
     });
