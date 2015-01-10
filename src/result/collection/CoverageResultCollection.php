@@ -93,8 +93,9 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
         $callback = function(CoverageResultInterface $result) use ($coverage) {
             return $result->isCoverageLessThan($coverage);
         };
+        $result = $this->selectByCallback($callback);
 
-        return $this->selectByCallback($callback);
+        return $result->sortByCodeCoverage();
     }
 
     /**
@@ -106,8 +107,9 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
         $callback = function(CoverageResultInterface $result) use ($coverage) {
             return $result->isCoverageGreaterEqual($coverage);
         };
+        $result = $this->selectByCallback($callback);
 
-        return $this->selectByCallback($callback);
+        return $result->sortByCodeCoverage();
     }
 
     /**
@@ -120,6 +122,36 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
         $results = $this->createArray($results);
 
         return new self($results);
+    }
+
+    /**
+     * @return CoverageResultCollection
+     */
+    private function sortByCodeCoverage()
+    {
+        $results = clone $this->collection;
+        $results = $this->createArray($results);
+
+        uasort($results, [$this, 'compareCoverage']);
+
+        return new self($results);
+    }
+
+    /**
+     * @param CoverageResultInterface $resultA
+     * @param CoverageResultInterface $resultB
+     * @return int
+     */
+    private function compareCoverage(CoverageResultInterface $resultA, CoverageResultInterface $resultB)
+    {
+        $coverageA = $resultA->getCodeCoverage();
+        $coverageB = $resultB->getCodeCoverage();
+
+        if ($coverageA === $coverageB) {
+            return 0;
+        }
+
+        return ($coverageA < $coverageB) ? -1 : 1;
     }
 
 }
