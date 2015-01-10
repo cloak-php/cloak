@@ -167,7 +167,7 @@ class MethodSelector
     {
         $reflections = $this->reflections->filter($callback);
 
-        return new self( $reflections->all() );
+        return new self( $reflections->all(), $this->reflection );
     }
 
     /**
