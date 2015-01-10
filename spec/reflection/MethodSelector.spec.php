@@ -15,11 +15,7 @@ use cloak\reflection\MethodSelector;
 describe('MethodSelector', function() {
     beforeEach(function() {
         $this->subClass = 'cloak\spec\reflection\FixtureTargetSubClass';
-
-        $reflection = new ReflectionClass($this->subClass);
-        $classMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-
-        $this->selector = new MethodSelector($classMethods);
+        $this->selector = MethodSelector::fromClassName($this->subClass);
     });
     describe('#excludeNative', function() {
         it('return filter result', function() {
@@ -29,18 +25,14 @@ describe('MethodSelector', function() {
     });
     describe('#excludeInherited', function() {
         it('return filter result', function() {
-            $selector = $this->selector->excludeInherited($this->subClass);
+            $selector = $this->selector->excludeInherited();
             expect($selector->count())->toBe(1);
         });
     });
     describe('#excludeTraitMethods', function() {
         beforeEach(function() {
             $this->class = 'cloak\spec\reflection\FixtureTargetClass';
-
-            $reflection = new ReflectionClass($this->class);
-            $classMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-
-            $this->selector = new MethodSelector($classMethods);
+            $this->selector = MethodSelector::fromClassName($this->class);
         });
         it('return filter result', function() {
             $selector = $this->selector->excludeTraitMethods($this->class);
@@ -51,10 +43,7 @@ describe('MethodSelector', function() {
         beforeEach(function() {
             $this->class = 'cloak\spec\reflection\FixtureTargetClass';
 
-            $reflection = new ReflectionClass($this->class);
-            $classMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-
-            $this->selector = new MethodSelector($classMethods);
+            $this->selector = MethodSelector::fromClassName($this->class);
             $this->collection = $this->selector->toCollection();
         });
         it('return cloak\reflection\collection\ReflectionCollection instance', function() {

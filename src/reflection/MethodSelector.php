@@ -59,14 +59,13 @@ class MethodSelector
         return $this->applyFilter($callback);
     }
 
-    /**
-     * @param string $class
-     */
-    public function excludeInherited($class)
+    public function excludeInherited()
     {
-        $callback = function(ReflectionMethod $reflection) use ($class) {
+        $className = $this->reflection->getName();
+
+        $callback = function(ReflectionMethod $reflection) use ($className) {
             $declaringClass = $reflection->getDeclaringClass();
-            return $declaringClass->getName() === $class;
+            return $declaringClass->getName() === $className;
         };
 
         return $this->applyFilter($callback);
