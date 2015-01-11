@@ -78,7 +78,7 @@ class ReporterFactory
     }
 
     /**
-     * @param array $arguments
+     * @param Map $assignValues
      * @return array
      */
     private function assmebleArguments(Map $assignValues)

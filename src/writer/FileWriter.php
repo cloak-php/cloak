@@ -25,8 +25,9 @@ class FileWriter implements WriterInterface
      */
     private $file;
 
+
     /**
-     * @param AdapterInterface $adapterInterface
+     * @param string $filePath
      */
     public function __construct($filePath)
     {

@@ -42,8 +42,8 @@ class FileResult implements CoverageResultInterface
 
 
     /**
-     * @param $path
-     * @param \cloak\result\LineResultCollectionInterface $lineResults
+     * @param string $path
+     * @param LineResultCollectionInterface $lineCoverages
      */
     public function __construct($path, LineResultCollectionInterface $lineCoverages)
     {

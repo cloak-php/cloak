@@ -23,8 +23,7 @@ class Satisfactory extends CoverageSpecification implements SpecificationInterfa
 {
 
     /**
-     * @param CoverageResultInterface $result
-     * @return bool
+     * {@inheritdoc}
      */
     public function match(CoverageResultInterface $coverageResult)
     {

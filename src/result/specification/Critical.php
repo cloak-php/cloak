@@ -23,8 +23,7 @@ class Critical extends CoverageSpecification implements SpecificationInterface
 {
 
     /**
-     * @param CoverageResultInterface $result
-     * @return bool
+     * {@inheritdoc}
      */
     public function match(CoverageResultInterface $coverageResult)
     {

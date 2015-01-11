@@ -31,7 +31,7 @@ final class MethodResult implements CoverageResultInterface
 
 
     /**
-     * @param MethodReflection $classReflection
+     * @param MethodReflection $methodReflection
      * @param LineResultCollectionInterface $methodLineResults
      */
     public function __construct(MethodReflection $methodReflection, LineResultCollectionInterface $methodLineResults)
