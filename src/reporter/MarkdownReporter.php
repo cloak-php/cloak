@@ -120,6 +120,9 @@ class MarkdownReporter implements ReporterInterface
         $this->reportWriter->writeEOL();
     }
 
+    /**
+     * @param Result $result
+     */
     private function writeResult(Result $result)
     {
         $files = $result->getFiles();
