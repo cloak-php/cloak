@@ -17,8 +17,6 @@ use cloak\writer\FileWriter;
 use cloak\event\StartEventInterface;
 use cloak\event\StopEventInterface;
 use cloak\result\collection\CoverageResultCollection;
-use cloak\result\specification\Critical;
-use cloak\result\specification\Satisfactory;
 use cloak\value\CoverageBounds;
 
 
@@ -122,17 +120,18 @@ class MarkdownReporter implements ReporterInterface
         $this->reportWriter->writeEOL();
     }
 
+    /**
+     * @param Result $result
+     */
     private function writeResult(Result $result)
     {
         $files = $result->getFiles();
 
         $criticalValue = $this->bounds->getCriticalCoverage();
-        $criticalValue = Critical::createFromCoverage($criticalValue);
-        $criticalResults = $files->select($criticalValue);
+        $criticalResults = $files->selectByCoverageLessThan($criticalValue);
 
         $satisfactoryValue = $this->bounds->getSatisfactoryCoverage();
-        $satisfactoryValue = Satisfactory::createFromCoverage($satisfactoryValue);
-        $satisfactoryResults = $files->select($satisfactoryValue);
+        $satisfactoryResults = $files->selectByCoverageGreaterEqual($satisfactoryValue);
 
         $warningResults = $files->exclude($criticalResults)
             ->exclude($satisfactoryResults);

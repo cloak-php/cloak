@@ -11,14 +11,14 @@
 
 namespace cloak\result\collection;
 
-
+use cloak\value\Coverage;
+use cloak\collection\PairStackable;
 use cloak\result\SpecificationInterface;
 use cloak\result\CoverageResultCollectionInterface;
 use cloak\result\CoverageResultInterface;
-use Closure;
+use cloak\result\specification\Critical;
+use cloak\result\specification\Satisfactory;
 use PhpCollection\Map;
-use cloak\collection\PairStackable;
-use cloak\value\Coverage;
 
 
 /**
@@ -105,12 +105,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
      */
     public function selectByCoverageLessThan(Coverage $coverage)
     {
-        $callback = function(CoverageResultInterface $result) use ($coverage) {
-            return $result->isCoverageLessThan($coverage);
-        };
-        $result = $this->selectByCallback($callback);
+        $specification = Critical::createFromCoverage($coverage);
+        $result = $this->select($specification)->sortByCodeCoverage();
 
-        return $result->sortByCodeCoverage();
+        return $result;
     }
 
     /**
@@ -119,24 +117,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
      */
     public function selectByCoverageGreaterEqual(Coverage $coverage)
     {
-        $callback = function(CoverageResultInterface $result) use ($coverage) {
-            return $result->isCoverageGreaterEqual($coverage);
-        };
-        $result = $this->selectByCallback($callback);
+        $specification = Satisfactory::createFromCoverage($coverage);
+        $result = $this->select($specification)->sortByCodeCoverage();
 
-        return $result->sortByCodeCoverage();
-    }
-
-    /**
-     * @param Closure $callback
-     * @return CoverageResultCollection
-     */
-    private function selectByCallback(Closure $callback)
-    {
-        $results = $this->collection->filter($callback);
-        $results = $this->createArray($results);
-
-        return new self($results);
+        return $result;
     }
 
     /**

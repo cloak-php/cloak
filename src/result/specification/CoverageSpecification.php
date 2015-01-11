@@ -39,7 +39,7 @@ abstract class CoverageSpecification implements SpecificationInterface
 
     /**
      * @param Coverage $coverage
-     * @return \cloak\result\specification\SpecificationInterface
+     * @return \cloak\result\SpecificationInterface
      */
     public static function createFromCoverage(Coverage $coverage)
     {
