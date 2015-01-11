@@ -3,6 +3,24 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.4.4
+---------------------------------------------------------------
+* Changed **MarkdownReporter** of format
+* Add **satisfactory**, **critical** on the setting of the **MarkdownReporter**
+* Bug fixes coverage of calculation logic
+* Fixed output result of **TreeReporter**
+* Changed parameter name of **TreeReporter** and **TextReporter** 
+	* before
+	```toml
+	highLowerBound = 70.0
+	lowUpperBound = 35.0
+	```
+	* after
+	```toml
+	satisfactory = 70.0
+	critical = 35.0
+	```
+
 Version 1.4.0
 ---------------------------------------------------------------
 * Use of **closure** argument **ConfigurationBuilder** has changed
