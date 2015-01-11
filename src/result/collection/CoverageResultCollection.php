@@ -11,6 +11,8 @@
 
 namespace cloak\result\collection;
 
+
+use cloak\result\SpecificationInterface;
 use cloak\result\CoverageResultCollectionInterface;
 use cloak\result\CoverageResultInterface;
 use Closure;
@@ -79,6 +81,19 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
             $key = $excludeResult->getName();
             $results->remove($key);
         }
+        $results = $this->createArray($results);
+
+        return new self($results);
+    }
+
+    /**
+     * @param SpecificationInterface $specification
+     * @return CoverageResultCollection
+     */
+    public function select(SpecificationInterface $specification)
+    {
+        $arguments = [$specification, 'match'];
+        $results = $this->collection->filter($arguments);
         $results = $this->createArray($results);
 
         return new self($results);
