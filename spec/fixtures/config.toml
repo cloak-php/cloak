@@ -13,16 +13,18 @@ excludes = ["vendor", "spec"]
 
 # TextReporter
 [reporter.text]
-highLowerBound = 70.0
-lowUpperBound = 35.0
+satisfactory = 70.0
+critical = 35.0
 
 # TreeReporter
 [reporter.tree]
-highLowerBound = 70.0
-lowUpperBound = 35.0
- 
+satisfactory = 70.0
+critical = 35.0
+
 # MarkdownReporter
 [reporter.markdown]
+satisfactory = 70.0
+critical = 35.0
 outputFilePath = "/../tmp/report.md"
 
 # LcovReporter
