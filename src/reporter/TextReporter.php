@@ -12,6 +12,7 @@
 namespace cloak\reporter;
 
 use cloak\Result;
+use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\result\FileResult;
 use cloak\value\CoverageBounds;
@@ -22,7 +23,8 @@ use cloak\writer\ResultConsoleWriter;
  * Class TextReporter
  * @package cloak\reporter
  */
-class TextReporter implements ReporterInterface, StopEventListener
+class TextReporter
+    implements ReporterInterface, InitEventListener, StopEventListener
 {
 
     use Reportable;
@@ -46,6 +48,13 @@ class TextReporter implements ReporterInterface, StopEventListener
     {
         $bounds = new CoverageBounds($critical, $satisfactory);
         $this->console = new ResultConsoleWriter($bounds);
+    }
+
+    /**
+     * @param \cloak\event\InitEvent $event
+     */
+    public function onInit(InitEvent $event)
+    {
     }
 
     /**

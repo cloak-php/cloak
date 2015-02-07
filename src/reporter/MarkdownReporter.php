@@ -14,6 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
+use cloak\event\InitEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\result\collection\CoverageResultCollection;
@@ -78,6 +79,13 @@ class MarkdownReporter
     {
         $this->bounds = new CoverageBounds($critical, $satisfactory);
         $this->reportWriter = new FileWriter($outputFilePath);
+    }
+
+    /**
+     * @param \cloak\event\InitEvent $event
+     */
+    public function onInit(InitEvent $event)
+    {
     }
 
     /**
