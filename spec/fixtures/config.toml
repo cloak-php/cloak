@@ -6,7 +6,12 @@ includes = ["src"]
 # Exclude source files.
 excludes = ["vendor", "spec"]
 
+[report]
+directory = "/tmp"
 
+[report.bounds]
+satisfactory = 70.0
+critical = 35.0
 
 
 [reporter]
