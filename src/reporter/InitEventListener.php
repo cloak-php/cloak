@@ -14,10 +14,10 @@ namespace cloak\reporter;
 use cloak\event\InitEvent;
 
 /**
- * Interface Initializable
+ * Interface InitEventListener
  * @package cloak\reporter
  */
-interface Initializable
+interface InitEventListener
 {
 
     /**

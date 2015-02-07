@@ -26,7 +26,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement('cloak\reporter\Initializable');
+            $reporter->willImplement('cloak\reporter\InitEventListener');
             $reporter->willImplement('cloak\reporter\ReporterInterface');
 
             $reporterMock = $reporter->reveal();
