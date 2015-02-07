@@ -58,7 +58,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
 
     public function notifyInit(Configuration $configuration)
     {
-        $event = new InitEvent();
+        $event = new InitEvent($configuration);
         $this->getEventManager()->trigger($event);
     }
 

@@ -11,7 +11,9 @@
 
 namespace cloak\event;
 
+use cloak\Configuration;
 use \DateTime;
+
 
 /**
  * Class InitEvent
@@ -20,9 +22,19 @@ use \DateTime;
 final class InitEvent extends Event implements EventInterface
 {
 
-    public function __construct()
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+
+    /**
+     * @param Configuration $configuration
+     */
+    public function __construct(Configuration $configuration)
     {
         $this->sendAt = new DateTime();
+        $this->configuration = $configuration;
     }
 
 }
