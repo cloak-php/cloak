@@ -14,63 +14,78 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
-use cloak\result\FileResult;
-use \Mockery;
 use \Prophecy\Prophet;
+use \Prophecy\Argument;
 
 
 describe('Analyzer', function() {
-
-    beforeEach(function() {
-        $subject = $this->subject = new \stdClass();
-        $subject->called = 0;
-        $subject->configuration = null;
-
-        $this->builder = function(ConfigurationBuilder $builder) use ($subject) {
-            $subject->called++;
-            $subject->builder = $builder;
-        };
-    });
-
-    describe('#factory', function() {
-        beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
-            $subject = $this->subject = new \stdClass();
-            $subject->called = 0;
-            $subject->configuration = null;
-
-            $this->builder = function(ConfigurationBuilder $builder) use ($subject) {
-                $subject->called++;
-                $subject->builder = $builder;
-            };
-            $this->returnValue = Analyzer::factory($this->builder);
-        });
-
-        it('should called once', function() {
-            expect($this->subject->called)->toEqual(1);
-        });
-        it('should argument is an instance of cloak\configuration\ConfigurationBuilder', function() {
-            expect($this->subject->builder)->toBeAnInstanceOf('cloak\configuration\ConfigurationBuilder');
-        });
-        it('should return an instance of cloak\Analyzer', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Analyzer');
-        });
-        it('check mock object expectations', function() {
-            call_user_func($this->verify);
-        });
-    });
-
     describe('#stop', function() {
         beforeEach(function() {
+            $rootDirectory = __DIR__ . '/fixtures/src/';
 
-            $this->verify = function() {
-                Mockery::close();
-            };
+            $analyzeResult = AnalyzeResult::fromArray([
+                $rootDirectory . 'foo.php' => [
+                    1 => LineResult::EXECUTED
+                ]
+            ]);
 
-            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+            $this->prophet = new Prophet();
 
+            $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+            $driver->start()->shouldBeCalled();
+            $driver->stop()->shouldBeCalled();
+            $driver->getAnalyzeResult()->willReturn($analyzeResult);
+            $driver->isStarted()->shouldNotBeCalled();
+
+            $notifier = $this->prophet->prophesize('cloak\AnalyzeLifeCycleNotifierInterface');
+            $notifier->notifyStart()->shouldBeCalled();
+            $notifier->notifyStop(Argument::type('cloak\Result'))->shouldBeCalled();
+
+            $builder = new ConfigurationBuilder();
+            $builder->driver( $driver->reveal() );
+
+            $config = $builder->build();
+
+            $this->analyzer = new Analyzer($config);
+            $this->analyzer->setLifeCycleNotifier( $notifier->reveal() );
+            $this->analyzer->start();
+            $this->analyzer->stop();
+        });
+        it('return cloak\Result instance', function() {
+            expect($this->result)->toBeAnInstanceOf('cloak\Result');
+        });
+        it('notify stop event', function() {
+            $this->prophet->checkPredictions();
+        });
+    });
+
+    describe('#isStarted', function() {
+        context('when started', function() {
+            beforeEach(function() {
+                $this->prophet = new Prophet();
+
+                $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+                $driver->start()->shouldBeCalled();
+                $driver->stop()->shouldNotBeCalled();
+                $driver->getAnalyzeResult()->shouldNotBeCalled();
+                $driver->isStarted()->willReturn(true);
+
+                $builder = new ConfigurationBuilder();
+                $builder->driver( $driver->reveal() );
+
+                $config = $builder->build();
+
+                $this->analyzer = new Analyzer($config);
+                $this->analyzer->start();
+
+                $this->started = $this->analyzer->isStarted();
+            });
+            it('return true', function() {
+                expect($this->started)->toBeTrue();
+            });
+        });
+        context('when stoped', function() {
+            beforeEach(function() {
                 $rootDirectory = __DIR__ . '/fixtures/src/';
 
                 $analyzeResult = AnalyzeResult::fromArray([
@@ -79,94 +94,28 @@ describe('Analyzer', function() {
                     ]
                 ]);
 
-                $driver = Mockery::mock('cloak\Driver\DriverInterface');
-                $driver->shouldReceive('start')->once();
-                $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getAnalyzeResult')
-                    ->once()->andReturn($analyzeResult);
+                $this->prophet = new Prophet();
 
-                $builder->driver($driver);
-            });
+                $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+                $driver->start()->shouldBeCalled();
+                $driver->stop()->shouldBeCalled();
 
-            $subject = $this->subject = new \stdClass();
+                $driver->getAnalyzeResult()->willReturn($analyzeResult);
+                $driver->isStarted()->willReturn(false);
 
-            $this->notifier = Mockery::mock('cloak\AnalyzeLifeCycleNotifierInterface');
-            $this->notifier->shouldReceive('notifyStart')->once();
-            $this->notifier->shouldReceive('notifyStop')->once()->with(Mockery::on(function($result) use ($subject) {
-                $subject->result = $result;
-                return true;
-            }));
+                $builder = new ConfigurationBuilder();
+                $builder->driver( $driver->reveal() );
 
-            $this->analyzer->setLifeCycleNotifier($this->notifier);
-            $this->analyzer->start();
-            $this->analyzer->stop();
-        });
-        it('should return cloak\Result instance', function() {
-            expect($this->subject->result)->toBeAnInstanceOf('cloak\Result');
-        });
-        it('check mock object expectations', function() {
-            call_user_func($this->verify);
-        });
-    });
+                $config = $builder->build();
 
-    describe('#isStarted', function() {
-        context('when started', function() {
-            beforeEach(function() {
-                $this->verify = function() {
-                    Mockery::close();
-                };
-                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                    $driver = Mockery::mock('cloak\driver\DriverInterface');
-                    $driver->shouldReceive('start')->once();
-                    $driver->shouldReceive('isStarted')->once()->andReturn(true);
-                    $builder->driver($driver);
-                });
-                $this->analyzer->start();
-
-                $this->started = $this->analyzer->isStarted();
-            });
-            it('should return true', function() {
-                expect($this->started)->toBeTrue();
-            });
-            it('check mock object expectations', function() {
-                call_user_func($this->verify);
-            });
-        });
-        context('when stoped', function() {
-            beforeEach(function() {
-                $this->verify = function() {
-                    Mockery::close();
-                };
-
-                $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-
-                    $rootDirectory = __DIR__ . '/fixtures/src/';
-
-                    $analyzeResult = AnalyzeResult::fromArray([
-                        $rootDirectory . 'foo.php' => [
-                            1 => LineResult::EXECUTED
-                        ]
-                    ]);
-
-                    $driver = Mockery::mock('cloak\driver\DriverInterface');
-                    $driver->shouldReceive('start')->once();
-                    $driver->shouldReceive('stop')->once();
-                    $driver->shouldReceive('isStarted')->once()->andReturn(false);
-                    $driver->shouldReceive('getAnalyzeResult')->once()->andReturn($analyzeResult);
-
-                    $builder->driver($driver);
-                });
-
+                $this->analyzer = new Analyzer($config);
                 $this->analyzer->start();
                 $this->analyzer->stop();
 
                 $this->started = $this->analyzer->isStarted();
             });
-            it('should return false', function() {
+            it('return false', function() {
                 expect($this->started)->toBeFalse();
-            });
-            it('check mock object expectations', function() {
-                call_user_func($this->verify);
             });
         });
     });
