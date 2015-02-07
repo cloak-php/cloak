@@ -11,7 +11,6 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StopEventInterface;
 use PHPExtra\EventManager\Listener\ListenerInterface;
 use PHPExtra\EventManager\EventManagerInterface;
 
@@ -30,10 +29,5 @@ interface ReporterInterface extends ListenerInterface
      * @param EventManagerInterface $eventManager
      */
     public function registerTo(EventManagerInterface $eventManager);
-
-    /**
-     * @return void
-     */
-    public function onStop(StopEventInterface $event);
 
 }

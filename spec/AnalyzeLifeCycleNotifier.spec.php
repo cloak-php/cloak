@@ -37,7 +37,6 @@ describe('AnalyzeLifeCycleNotifier', function() {
             }))->shouldBeCalled();
 
             $reporter->onInit(Argument::type('\cloak\event\InitEvent'))->shouldBeCalled();
-            $reporter->onStop()->shouldNotBeCalled();
 
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
             $this->progessNotifier->notifyInit();
@@ -87,6 +86,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
+            $reporter->willImplement('cloak\reporter\StopEventListener');
             $reporter->willImplement('cloak\reporter\ReporterInterface');
 
             $reporterMock = $reporter->reveal();
