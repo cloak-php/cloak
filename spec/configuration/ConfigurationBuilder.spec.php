@@ -80,20 +80,20 @@ describe('ConfigurationBuilder', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Configuration');
         });
         it('should apply driver configration', function() {
-            $driver = $this->returnValue->driver;
+            $driver = $this->returnValue->getDriver();
             expect($driver)->toEqual($this->driver);
         });
         it('should apply reporter configration', function() {
-            $reporter = $this->returnValue->reporter;
+            $reporter = $this->returnValue->getReporter();
             expect($reporter)->toEqual($this->reporter);
         });
         it('should apply includeFiles configration', function() {
-            $filters = $this->returnValue->includeFiles;
+            $filters = $this->returnValue->getIncludeFiles();
             expect($filters[0])->toEqual($this->filter1);
             expect($filters[1])->toEqual($this->filter2);
         });
         it('should apply excludeFiles configration', function() {
-            $filters = $this->returnValue->excludeFiles;
+            $filters = $this->returnValue->getExcludeFiles();
             expect($filters[0])->toEqual($this->filter3);
             expect($filters[1])->toEqual($this->filter4);
         });

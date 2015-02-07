@@ -12,7 +12,6 @@
 namespace cloak;
 
 use cloak\configuration\ConfigurationBuilder;
-use cloak\ProvidesLifeCycleNotifier;
 
 
 /**
@@ -62,7 +61,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     public function start()
     {
         $this->getLifeCycleNotifier()->notifyStart();
-        $this->driver()->start();
+        $this->getDriver()->start();
     }
 
     /**
@@ -70,7 +69,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     public function stop()
     {
-        $this->driver()->stop();
+        $this->getDriver()->stop();
         $this->getLifeCycleNotifier()->notifyStop( $this->getResult() );
     }
 
@@ -79,7 +78,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     public function isStarted()
     {
-        return $this->driver()->isStarted();
+        return $this->getDriver()->isStarted();
     }
 
     /**
@@ -87,7 +86,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     public function getResult()
     {
-        $analyzeResult = $this->driver()->getAnalyzeResult();
+        $analyzeResult = $this->getDriver()->getAnalyzeResult();
         $analyzeResult = $this->configuration->applyTo($analyzeResult);
         return Result::fromAnalyzeResult($analyzeResult);
     }
@@ -95,9 +94,9 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     /**
      * @return \cloak\driver\DriverInterface
      */
-    protected function driver()
+    protected function getDriver()
     {
-        return $this->configuration->driver;
+        return $this->configuration->getDriver();
     }
 
     /**
@@ -106,7 +105,8 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     protected function init(Configuration $configuration)
     {
         $this->configuration = $configuration;
-        $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($configuration->reporter) );
+        $reporter = $configuration->getReporter();
+        $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($reporter) );
     }
 
 }

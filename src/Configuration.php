@@ -64,10 +64,34 @@ class Configuration
     /**
      * @return XdebugDriver|null
      */
-    protected function getDriver()
+    public function getDriver()
     {
         $this->driver = $this->driver ? $this->driver : new XdebugDriver();
         return $this->driver;
+    }
+
+    /**
+     * @return reporter\ReporterInterface
+     */
+    public function getReporter()
+    {
+        return $this->reporter;
+    }
+
+    /**
+     * @return \Closure[]
+     */
+    public function getIncludeFiles()
+    {
+        return $this->includeFiles;
+    }
+
+    /**
+     * @return \Closure[]
+     */
+    public function getExcludeFiles()
+    {
+        return $this->excludeFiles;
     }
 
     /**
@@ -78,20 +102,6 @@ class Configuration
     {
         return $result->includeFiles($this->includeFiles)
             ->excludeFiles($this->excludeFiles);
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        $getter = 'get' . ucwords($name);
-
-        if (method_exists($this, $getter) === true) {
-            return $this->$getter();
-        }
-        return $this->$name;
     }
 
 }
