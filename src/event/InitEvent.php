@@ -12,6 +12,7 @@
 namespace cloak\event;
 
 use cloak\Configuration;
+use cloak\value\CoverageBounds;
 use \DateTime;
 
 
@@ -25,16 +26,33 @@ final class InitEvent extends Event implements EventInterface
     /**
      * @var Configuration
      */
-    private $configuration;
+    private $config;
 
 
     /**
-     * @param Configuration $configuration
+     * @param Configuration $config
      */
-    public function __construct(Configuration $configuration)
+    public function __construct(Configuration $config)
     {
         $this->sendAt = new DateTime();
-        $this->configuration = $configuration;
+        $this->config = $config;
+    }
+
+    /**
+     * @return CoverageBounds
+     */
+    public function getCoverageBounds()
+    {
+        //FIXME That reference configuration!!!!!
+        return new CoverageBounds(35.0, 80.0);
+    }
+
+    /**
+     * return string
+     * FIXME That reference configuration!!!!!
+     */
+    public function getReportDirectory()
+    {
     }
 
 }
