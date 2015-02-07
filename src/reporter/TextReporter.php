@@ -12,7 +12,7 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\StopEventInterface;
+use cloak\event\StopEvent;
 use cloak\result\FileResult;
 use cloak\value\CoverageBounds;
 use cloak\writer\ResultConsoleWriter;
@@ -49,9 +49,9 @@ class TextReporter implements ReporterInterface
     }
 
     /**
-     * @param \cloak\event\StopEventInterface $event
+     * @param \cloak\event\StopEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onStop(StopEvent $event)
     {
         $this->reportResult($event->getResult());
     }

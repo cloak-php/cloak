@@ -11,10 +11,11 @@
 
 use cloak\Result;
 use cloak\result\LineResult;
+use cloak\event\StopEvent;
 use cloak\reporter\LcovReporter;
 use cloak\driver\Result as AnalyzeResult;
-use \Mockery;
 use \DateTime;
+
 
 describe('LcovReporter', function() {
     describe('onStop', function() {
@@ -37,10 +38,7 @@ describe('LcovReporter', function() {
             ]);
 
             $this->result = Result::fromAnalyzeResult($analyzeResult);
-
-            $this->stopEvent = Mockery::mock('\cloak\event\StopEventInterface');
-            $this->stopEvent->shouldReceive('getResult')->once()->andReturn($this->result);
-
+            $this->stopEvent = new StopEvent($this->result);
             $this->reporter->onStop($this->stopEvent);
 
             $output  = "";
@@ -62,9 +60,6 @@ describe('LcovReporter', function() {
         it('should output lcov report file', function() {
             $result = file_get_contents($this->reportFile);
             expect($result)->toEqual($this->output);
-        });
-        it('check mock object expectations', function() {
-            Mockery::close();
         });
     });
 

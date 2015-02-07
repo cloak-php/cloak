@@ -11,9 +11,10 @@
 
 use cloak\Result;
 use cloak\result\LineResult;
+use cloak\event\StartEvent;
+use cloak\event\StopEvent;
 use cloak\reporter\MarkdownReporter;
 use cloak\driver\Result as AnalyzeResult;
-use \Mockery;
 use \DateTime;
 
 
@@ -44,11 +45,8 @@ describe('MarkdownReporter', function() {
 
     describe('onStop', function() {
         beforeEach(function() {
-            $this->startEvent = Mockery::mock('cloak\event\StartEventInterface');
-            $this->startEvent->shouldReceive('getSendAt')->once()->andReturn($this->startDateTime);
-
-            $this->stopEvent = Mockery::mock('cloak\event\StopEventInterface');
-            $this->stopEvent->shouldReceive('getResult')->once()->andReturn($this->result);
+            $this->startEvent = new StartEvent($this->startDateTime);
+            $this->stopEvent = new StopEvent($this->result);
 
             $this->directoryPath = realpath(__DIR__ . '/../tmp/');
             $this->filePath = $this->directoryPath . '/report.md';
@@ -62,9 +60,6 @@ describe('MarkdownReporter', function() {
 
         it('output the markdown report', function() {
             expect(file_get_contents($this->filePath))->toEqual($this->outputReport);
-        });
-        it('check mock object expectations', function() {
-            Mockery::close();
         });
     });
 

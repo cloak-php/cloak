@@ -12,7 +12,7 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\StopEventInterface;
+use cloak\event\StopEvent;
 use cloak\value\CoverageBounds;
 use cloak\result\CoverageResultInterface;
 use cloak\result\CoverageResultVisitorInterface;
@@ -58,9 +58,9 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     }
 
     /**
-     * @param \cloak\event\StopEventInterface $event
+     * @param \cloak\event\StopEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onStop(StopEvent $event)
     {
         $result = $event->getResult();
 

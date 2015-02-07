@@ -14,8 +14,8 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
-use cloak\event\StartEventInterface;
-use cloak\event\StopEventInterface;
+use cloak\event\StartEvent;
+use cloak\event\StopEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
 
@@ -80,17 +80,17 @@ class MarkdownReporter implements ReporterInterface
     }
 
     /**
-     * @param StartEventInterface $event
+     * @param StartEvent $event
      */
-    public function onStart(StartEventInterface $event)
+    public function onStart(StartEvent $event)
     {
         $this->generatedAt = $event->getSendAt();
     }
 
     /**
-     * @param StopEventInterface $event
+     * @param StopEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onStop(StopEvent $event)
     {
         $this->writeMarkdownReport($event->getResult());
     }
