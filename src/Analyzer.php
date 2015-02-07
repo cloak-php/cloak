@@ -107,6 +107,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
         $this->configuration = $configuration;
         $reporter = $configuration->getReporter();
         $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($reporter) );
+        $this->getLifeCycleNotifier()->notifyInit($this->configuration);
     }
 
 }

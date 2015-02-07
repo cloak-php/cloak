@@ -12,6 +12,7 @@
 namespace cloak;
 
 use cloak\Result;
+use cloak\Configuration;
 use cloak\Reporter\ReporterInterface;
 use cloak\event\InitEvent;
 use cloak\event\StartEvent;
@@ -55,7 +56,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
         return $this->manager;
     }
 
-    public function notifyInit()
+    public function notifyInit(Configuration $configuration)
     {
         $event = new InitEvent();
         $this->getEventManager()->trigger($event);

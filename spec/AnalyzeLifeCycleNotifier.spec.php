@@ -10,6 +10,7 @@
  */
 
 use cloak\Result;
+use cloak\Configuration;
 use cloak\result\LineResult;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\driver\Result as AnalyzeResult;
@@ -39,7 +40,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
             $reporter->onInit(Argument::type('\cloak\event\InitEvent'))->shouldBeCalled();
 
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
-            $this->progessNotifier->notifyInit();
+            $this->progessNotifier->notifyInit(new Configuration([]));
         });
         it('should notify the reporter that it has init', function() {
             $this->prophet->checkPredictions();
