@@ -175,31 +175,30 @@ describe('Analyzer', function() {
                 Mockery::close();
             };
 
-            $this->analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-                $rootDirectory = __DIR__ . '/fixtures/src/';
+            $rootDirectory = __DIR__ . '/fixtures/src/';
 
-                $coverageResults = [
-                    $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED ),
-                    $rootDirectory . 'bar.php' => array( 1 => LineResult::EXECUTED ),
-                    $rootDirectory . 'vendor/foo1.php' => array( 1 => LineResult::EXECUTED ),
-                    $rootDirectory . 'vendor/foo2.php' => array( 1 => LineResult::EXECUTED )
-                ];
+            $coverageResults = [
+                $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED ),
+                $rootDirectory . 'bar.php' => array( 1 => LineResult::EXECUTED ),
+                $rootDirectory . 'vendor/foo1.php' => array( 1 => LineResult::EXECUTED ),
+                $rootDirectory . 'vendor/foo2.php' => array( 1 => LineResult::EXECUTED )
+            ];
 
-                $analyzeResult = AnalyzeResult::fromArray($coverageResults);
+            $analyzeResult = AnalyzeResult::fromArray($coverageResults);
 
-                $driver = Mockery::mock('cloak\driver\DriverInterface');
-                $driver->shouldReceive('start')->once();
-                $driver->shouldReceive('stop')->once();
-                $driver->shouldReceive('getAnalyzeResult')->twice()->andReturn($analyzeResult);
+            $driver = Mockery::mock('cloak\driver\DriverInterface');
+            $driver->shouldReceive('start')->once();
+            $driver->shouldReceive('stop')->once();
+            $driver->shouldReceive('getAnalyzeResult')->twice()->andReturn($analyzeResult);
 
-                $builder->driver($driver)
-                    ->includeFile(function(FileResult $file) {
-                        return $file->matchPath('src');
-                    })->excludeFile(function(FileResult $file) {
-                        return $file->matchPath('vendor');
-                    });
-            });
+            $builder = new ConfigurationBuilder();
+            $builder->driver($driver)
+                ->includeFile('src')
+                ->excludeFile('vendor');
 
+            $config = $builder->build();
+
+            $this->analyzer = new Analyzer($config);
             $this->analyzer->start();
             $this->analyzer->stop();
 
