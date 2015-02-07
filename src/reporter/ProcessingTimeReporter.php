@@ -22,7 +22,8 @@ use \DateTime;
  * Class ProcessingTimeReporter
  * @package cloak\reporter
  */
-class ProcessingTimeReporter implements ReporterInterface
+class ProcessingTimeReporter
+    implements ReporterInterface, StartEventListener, StopEventListener
 {
 
     use Reportable;
