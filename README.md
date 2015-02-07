@@ -41,7 +41,8 @@ How to use
 ### Setup for the report of code coverage
 
 Setup is required to take a code coverage.  
-Run the **configure** method to be set up.
+You can use the **ConfigurationBuilder**, and to apply the settings to the analyzer.
+
 
 ```php
 <?php
@@ -50,15 +51,11 @@ use cloak\Analyzer;
 use cloak\configuration\ConfigurationBuilder;
 use cloak\driver\result\FileResult;
 
-$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+$builder = new ConfigurationBuilder();
+$builder->includeFile('/example/src')
+	->excludeFile('/spec');
 
-    $builder->includeFile(function(FileResult $file) {
-        return $file->matchPath('/example/src');
-    })->excludeFile(function(FileResult $file) {
-        return $file->matchPath('/spec');
-    });
-
-});
+$analyzer = new Analyzer( $builder->build() );
 ```
 
 ### Take the code coverage
@@ -87,7 +84,7 @@ foreach ($files as $file) {
 }
 ```
 
-### Reporter complex
+### Support multiple reporter
 
 You can use at the same time more than one reporter.  
 Reporter that are supported by default are as follows.  
@@ -101,18 +98,17 @@ Reporter that are supported by default are as follows.
 Usage is as follows.  
 
 ```php
-$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-    $builder->reporter(new CompositeReporter([
-        new TextReporter(),
-        new ProcessingTimeReporter()
-    ]));
+$reporter = new CompositeReporter([
+	new TextReporter(),
+	new ProcessingTimeReporter()
+]);
 
-    $builder->includeFile(function(FileResult $file) {
-        return $file->matchPath('/example/src');
-    })->excludeFile(function(FileResult $file) {
-        return $file->matchPath('/spec');
-    });
-});
+$builder = new ConfigurationBuilder();
+$builder->includeFile('/example/src')
+	->excludeFile('/spec')
+	->reporter(reporter);
+
+$analyzer = new Analyzer( $builder->build() );
 ```
 
 #### Result of the output
