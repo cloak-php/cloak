@@ -13,8 +13,10 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
+use cloak\driver\result\FileResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
+
 
 /**
  * Class Configuration
@@ -38,12 +40,12 @@ class Configuration
     private $reporter;
 
     /**
-     * @var \Closure[]
+     * @var string[]
      */
     private $includeFiles = [];
 
     /**
-     * @var \Closure[]
+     * @var string[]
      */
     private $excludeFiles = [];
 
@@ -79,7 +81,7 @@ class Configuration
     }
 
     /**
-     * @return \Closure[]
+     * @return string[]
      */
     public function getIncludeFiles()
     {
@@ -87,7 +89,7 @@ class Configuration
     }
 
     /**
-     * @return \Closure[]
+     * @return string[]
      */
     public function getExcludeFiles()
     {
@@ -100,8 +102,25 @@ class Configuration
      */
     public function applyTo(AnalyzeResult $result)
     {
-        return $result->includeFiles($this->includeFiles)
-            ->excludeFiles($this->excludeFiles);
+        $includeCallback = $this->createCallback($this->includeFiles);
+        $excludeCallback = $this->createCallback($this->excludeFiles);
+
+        return $result->includeFile($includeCallback)
+            ->excludeFile($excludeCallback);
+    }
+
+
+    /**
+     * @param string[] $patterns
+     * @return callable
+     */
+    private function createCallback(array $patterns)
+    {
+        $filterCallback = function (FileResult $file) use ($patterns) {
+            return $file->matchPaths($patterns);
+        };
+
+        return $filterCallback;
     }
 
 }

@@ -14,7 +14,6 @@ use cloak\configuration\section\Target;
 
 
 describe('Target', function() {
-
     describe('#applyTo', function() {
         beforeEach(function() {
             $this->builder = new ConfigurationBuilder();
@@ -24,12 +23,11 @@ describe('Target', function() {
             ]);
             $this->config->applyTo($this->builder);
         });
-        it('applied includes filters', function() {
+        it('apply include patterns', function() {
             expect($this->builder->includeFiles)->toHaveLength(1);
         });
-        it('applied excludes filters', function() {
-            expect($this->builder->excludeFiles)->toHaveLength(1);
+        it('apply exclude patterns', function() {
+            expect($this->builder->excludeFiles)->toHaveLength(2);
         });
     });
-
 });

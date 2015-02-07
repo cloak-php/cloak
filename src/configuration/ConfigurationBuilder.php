@@ -47,30 +47,46 @@ class ConfigurationBuilder
         return $this;
     }
 
-    public function includeFile(\Closure $filter)
+    /**
+     * @param string $pattern
+     * @return $this
+     */
+    public function includeFile($pattern)
     {
-        $this->includeFiles[] = $filter;
+        $this->includeFiles[] = $pattern;
         return $this;
     }
 
-    public function excludeFile(\Closure $filter)
+    /**
+     * @param string $pattern
+     * @return $this
+     */
+    public function excludeFile($pattern)
     {
-        $this->excludeFiles[] = $filter;
+        $this->excludeFiles[] = $pattern;
         return $this;
     }
 
-    public function includeFiles(array $filters)
+    /**
+     * @param string[] $patterns
+     * @return $this
+     */
+    public function includeFiles(array $patterns)
     {
-        foreach ($filters as $filter) {
-            $this->includeFile($filter);
+        foreach ($patterns as $pattern) {
+            $this->includeFile($pattern);
         }
         return $this;
     }
 
-    public function excludeFiles(array $filters)
+    /**
+     * @param string[] $patterns
+     * @return $this
+     */
+    public function excludeFiles(array $patterns)
     {
-        foreach ($filters as $filter) {
-            $this->excludeFile($filter);
+        foreach ($patterns as $pattern) {
+            $this->excludeFile($pattern);
         }
         return $this;
     }

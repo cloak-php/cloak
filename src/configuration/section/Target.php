@@ -14,7 +14,6 @@ namespace cloak\configuration\section;
 use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\AbstractSection;
 use cloak\configuration\SectionInterface;
-use cloak\driver\result\FileResult;
 use Zend\Config\Config;
 
 
@@ -30,29 +29,13 @@ final class Target extends AbstractSection implements SectionInterface
      */
     public function applyTo(ConfigurationBuilder $builder)
     {
-        $includeCallback = $this->createCallback('includes');
-        $excludeCallback = $this->createCallback('excludes');
+        $includes = $this->values->get('includes', new Config([]));
+        $excludes = $this->values->get('excludes', new Config([]));
 
-        $builder->includeFile($includeCallback)
-            ->excludeFile($excludeCallback);
+        $builder->includeFiles( $includes->toArray() )
+            ->excludeFiles( $excludes->toArray() );
 
         return $builder;
-    }
-
-    /**
-     * @param string $key
-     * @return \Closure
-     */
-    private function createCallback($key)
-    {
-        $targetPaths = $this->values->get($key, new Config([]));
-
-        $filterCallback = function (FileResult $file) use ($targetPaths) {
-            $paths = $targetPaths->toArray();
-            return $file->matchPaths($paths);
-        };
-
-        return $filterCallback;
     }
 
 }

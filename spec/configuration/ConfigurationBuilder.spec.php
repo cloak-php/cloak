@@ -11,94 +11,86 @@
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
-use \Mockery;
+use \Prophecy\Prophet;
+
 
 describe('ConfigurationBuilder', function() {
 
     describe('#includeFiles', function() {
         beforeEach(function() {
-            $this->filter1 = function(File $file){};
-            $this->filter2 = function(File $file){};
+            $filePatterns = [ 'src', 'lib' ];
+
             $this->builder = new ConfigurationBuilder();
-            $this->returnValue = $this->builder->includeFiles([
-                $this->filter1, $this->filter2
-            ]);
+            $this->returnValue = $this->builder->includeFiles($filePatterns);
         });
-        it('should add filters', function() {
+        it('add filter patterns', function() {
             $filters = $this->builder->includeFiles;
             expect(count($filters))->toEqual(2);
         });
-        it('should return cloak\ConfigurationBuilder instance', function() {
+        it('return cloak\ConfigurationBuilder instance', function() {
             expect($this->returnValue)->toEqual($this->builder);
         });
     });
 
     describe('#excludeFiles', function() {
         beforeEach(function() {
-            $this->filter1 = function(File $file){};
-            $this->filter2 = function(File $file){};
+            $filePatterns = [ 'spec', 'tmp' ];
+
             $this->builder = new ConfigurationBuilder();
-            $this->returnValue = $this->builder->excludeFiles([
-                $this->filter1, $this->filter2
-            ]);
+            $this->returnValue = $this->builder->excludeFiles($filePatterns);
         });
-        it('should add filters', function() {
+        it('add filter patterns', function() {
             $filters = $this->builder->excludeFiles;
             expect(count($filters))->toEqual(2);
         });
-        it('should return cloak\ConfigurationBuilder instance', function() {
+        it('return cloak\ConfigurationBuilder instance', function() {
             expect($this->returnValue)->toEqual($this->builder);
         });
     });
 
     describe('#build', function() {
         beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
+            $this->prophet = new Prophet();
 
-            $this->filter1 = function(File $file){};
-            $this->filter2 = function(File $file){};
-            $this->filter3 = function(File $file){};
-            $this->filter4 = function(File $file){};
+            $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+            $driver->start()->shouldNotBeCalled();
+            $driver->stop()->shouldNotBeCalled();
+
+            $this->driver = $driver->reveal();
 
             $this->reporter = new TextReporter();
 
-            $this->driver = Mockery::mock('cloak\driver\DriverInterface');
-            $this->driver->shouldReceive('start')->never();
-            $this->driver->shouldReceive('stop')->never();
+            $includePatterns = [ 'src', 'lib' ];
+            $excludePatterns = [ 'spec', 'tmp' ];
 
             $this->builder = new ConfigurationBuilder();
-            $this->builder->driver($this->driver)
+            $this->builder->driver( $this->driver )
                 ->reporter($this->reporter)
-                ->includeFiles(array( $this->filter1, $this->filter2 ))
-                ->excludeFiles(array( $this->filter3, $this->filter4 ));
+                ->includeFiles($includePatterns)
+                ->excludeFiles($excludePatterns);
 
             $this->returnValue = $this->builder->build();
         });
-        it('should return cloak\Configuration instance', function() {
+        it('return cloak\Configuration instance', function() {
             expect($this->returnValue)->toBeAnInstanceOf('cloak\Configuration');
         });
-        it('should apply driver configration', function() {
+        it('apply driver configration', function() {
+            $this->prophet->checkPredictions();
+
             $driver = $this->returnValue->getDriver();
             expect($driver)->toEqual($this->driver);
         });
-        it('should apply reporter configration', function() {
+        it('apply reporter configration', function() {
             $reporter = $this->returnValue->getReporter();
             expect($reporter)->toEqual($this->reporter);
         });
-        it('should apply includeFiles configration', function() {
+        it('apply includeFiles configration', function() {
             $filters = $this->returnValue->getIncludeFiles();
-            expect($filters[0])->toEqual($this->filter1);
-            expect($filters[1])->toEqual($this->filter2);
+            expect($filters)->toHaveLength(2);
         });
-        it('should apply excludeFiles configration', function() {
+        it('apply excludeFiles configration', function() {
             $filters = $this->returnValue->getExcludeFiles();
-            expect($filters[0])->toEqual($this->filter3);
-            expect($filters[1])->toEqual($this->filter4);
-        });
-        it('check mock object expectations', function() {
-            call_user_func($this->verify);
+            expect($filters)->toHaveLength(2);
         });
     });
 
