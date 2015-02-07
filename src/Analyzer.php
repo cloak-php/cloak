@@ -11,8 +11,6 @@
 
 namespace cloak;
 
-use cloak\configuration\ConfigurationBuilder;
-
 
 /**
  * Class Analyzer
@@ -40,19 +38,6 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     public function __construct(Configuration $config)
     {
         $this->init($config);
-    }
-
-    /**
-     * @param \Closure $configurator
-     * @return Analyzer
-     */
-    public static function factory(\Closure $configurator)
-    {
-        $builder = new ConfigurationBuilder();
-        $configurator($builder);
-        $configuration = $builder->build();
-
-        return new Analyzer($configuration);
     }
 
     /**
