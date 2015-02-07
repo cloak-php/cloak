@@ -96,7 +96,8 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     protected function getDriver()
     {
-        return $this->configuration->getDriver();
+        $driver = $this->configuration->getDriver();
+        return $driver;
     }
 
     /**

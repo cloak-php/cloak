@@ -16,9 +16,11 @@ use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
 use cloak\result\FileResult;
 use \Mockery;
+use \Prophecy\Prophet;
 
 
 describe('Analyzer', function() {
+
     beforeEach(function() {
         $subject = $this->subject = new \stdClass();
         $subject->called = 0;
@@ -171,10 +173,6 @@ describe('Analyzer', function() {
 
     describe('#getResult', function() {
         beforeEach(function() {
-            $this->verify = function() {
-                Mockery::close();
-            };
-
             $rootDirectory = __DIR__ . '/fixtures/src/';
 
             $coverageResults = [
@@ -186,13 +184,16 @@ describe('Analyzer', function() {
 
             $analyzeResult = AnalyzeResult::fromArray($coverageResults);
 
-            $driver = Mockery::mock('cloak\driver\DriverInterface');
-            $driver->shouldReceive('start')->once();
-            $driver->shouldReceive('stop')->once();
-            $driver->shouldReceive('getAnalyzeResult')->twice()->andReturn($analyzeResult);
+            $this->prophet = new Prophet();
+
+            $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+            $driver->start()->shouldBeCalledTimes(1);
+            $driver->stop()->shouldBeCalledTimes(1);
+            $driver->getAnalyzeResult()->willReturn($analyzeResult);
+            $driver->isStarted()->shouldNotBeCalled();
 
             $builder = new ConfigurationBuilder();
-            $builder->driver($driver)
+            $builder->driver( $driver->reveal() )
                 ->includeFile('src')
                 ->excludeFile('vendor');
 
@@ -203,14 +204,12 @@ describe('Analyzer', function() {
             $this->analyzer->stop();
 
             $this->result = $this->analyzer->getResult();
+
         });
         it('should return an instance of cloak\Result', function() {
             $files = $this->result->getFiles();
             expect($files->count())->toEqual(2);
             expect($this->result)->toBeAnInstanceOf('cloak\Result');
-        });
-        it('check mock object expectations', function() {
-            call_user_func($this->verify);
         });
     });
 
