@@ -3,6 +3,12 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+
+Version 1.5.0
+---------------------------------------------------------------
+* Remove **Analyzer::factory** method
+* Support **init event** for reporter
+
 Version 1.4.4
 ---------------------------------------------------------------
 * Changed **MarkdownReporter** of format
