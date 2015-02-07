@@ -24,6 +24,11 @@ interface AnalyzeLifeCycleNotifierInterface extends EventManagerAwareInterface
     /**
      * @return void
      */
+    public function notifyInit();
+
+    /**
+     * @return void
+     */
     public function notifyStart();
 
     /**

@@ -14,11 +14,42 @@ use cloak\result\LineResult;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\spec\reporter\ReporterFixture;
+use cloak\event\InitEvent;
+use PHPExtra\EventManager\EventManagerInterface;
 use PHPExtra\EventManager\EventManager;
 use \Mockery;
+use Prophecy\Prophet;
+use Prophecy\Argument;
 
 
 describe('AnalyzeLifeCycleNotifier', function() {
+
+    describe('#notifyInit', function() {
+        beforeEach(function() {
+            $this->prophet = new Prophet();
+
+            $reporter = $this->prophet->prophesize('Reporter');
+            $reporter->willImplement('cloak\reporter\Initializable');
+            $reporter->willImplement('cloak\reporter\ReporterInterface');
+
+            $reporterMock = $reporter->reveal();
+
+            $reporter->registerTo(Argument::that(function(EventManagerInterface $em) use($reporterMock) {
+                $em->addListener($reporterMock);
+                return true;
+            }))->shouldBeCalled();
+
+            $reporter->onInit(Argument::type('\cloak\event\InitEvent'))->shouldBeCalled();
+            $reporter->onStop()->shouldNotBeCalled();
+
+            $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
+            $this->progessNotifier->notifyInit();
+        });
+        it('should notify the reporter that it has init', function() {
+            $this->prophet->checkPredictions();
+        });
+    });
+
 
     describe('#notifyStart', function() {
         beforeEach(function() {
