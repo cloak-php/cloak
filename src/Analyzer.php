@@ -26,7 +26,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     /**
      * @var Configuration
      */
-    protected $configuration;
+    protected $config;
 
     /**
      * @var Result
@@ -35,11 +35,11 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
 
 
     /**
-     * @param Configuration $configuration
+     * @param Configuration $config
      */
-    public function __construct(Configuration $configuration)
+    public function __construct(Configuration $config)
     {
-        $this->init($configuration);
+        $this->init($config);
     }
 
     /**
@@ -87,7 +87,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     public function getResult()
     {
         $analyzeResult = $this->getDriver()->getAnalyzeResult();
-        $analyzeResult = $this->configuration->applyTo($analyzeResult);
+        $analyzeResult = $this->config->applyTo($analyzeResult);
         return Result::fromAnalyzeResult($analyzeResult);
     }
 
@@ -96,19 +96,19 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     protected function getDriver()
     {
-        $driver = $this->configuration->getDriver();
+        $driver = $this->config->getDriver();
         return $driver;
     }
 
     /**
-     * @param Configuration $configuration
+     * @param Configuration $config
      */
-    protected function init(Configuration $configuration)
+    protected function init(Configuration $config)
     {
-        $this->configuration = $configuration;
-        $reporter = $configuration->getReporter();
+        $this->config = $config;
+        $reporter = $config->getReporter();
         $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($reporter) );
-        $this->getLifeCycleNotifier()->notifyInit($this->configuration);
+        $this->getLifeCycleNotifier()->notifyInit($this->config);
     }
 
 }
