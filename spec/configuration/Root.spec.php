@@ -40,16 +40,16 @@ describe('Root', function() {
             $this->config->applyTo($this->builder);
         });
         it('return cloak\reporter\CompositeReporter instance', function() {
-            expect($this->builder->reporter)->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
+            expect($this->builder->getReporter())->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
         });
         it('apply output directory path', function() {
-            expect($this->builder->reportDirectory)->toBe('/tmp');
+            expect($this->builder->getReportDirectory())->toBe('/tmp');
         });
         it('applied includes filters', function() {
-            expect($this->builder->includeFiles)->toHaveLength(1);
+            expect($this->builder->getIncludeFiles())->toHaveLength(1);
         });
         it('applied excludes filters', function() {
-            expect($this->builder->excludeFiles)->toHaveLength(1);
+            expect($this->builder->getExcludeFiles())->toHaveLength(1);
         });
     });
 

@@ -27,10 +27,10 @@ describe('Report', function() {
             $this->config->applyTo($this->builder);
         });
         it('apply output directory path', function() {
-            expect($this->builder->reportDirectory)->toBe('/tmp');
+            expect($this->builder->getReportDirectory())->toBe('/tmp');
         });
         it('apply coverage bounds', function() {
-            $coverageBounds = $this->builder->coverageBounds;
+            $coverageBounds = $this->builder->getCoverageBounds();
             $criticalCoverage = $coverageBounds->getCriticalCoverage();
             $satisfactoryCoverage = $coverageBounds->getSatisfactoryCoverage();
             expect($criticalCoverage->value())->toBe(35.0);
