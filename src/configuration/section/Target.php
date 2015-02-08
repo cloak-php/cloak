@@ -29,8 +29,8 @@ final class Target extends AbstractSection implements SectionInterface
      */
     public function applyTo(ConfigurationBuilder $builder)
     {
-        $includes = $this->values->get('includes', new Config([]));
-        $excludes = $this->values->get('excludes', new Config([]));
+        $includes = $this->getValue('includes', new Config([]));
+        $excludes = $this->getValue('excludes', new Config([]));
 
         $builder->includeFiles( $includes->toArray() )
             ->excludeFiles( $excludes->toArray() );

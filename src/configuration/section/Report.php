@@ -40,7 +40,7 @@ final class Report extends AbstractSection implements SectionInterface
      */
     private function applyReportDirectory(ConfigurationBuilder $builder)
     {
-        $reportDirectory = $this->get('reportDirectory', getcwd());
+        $reportDirectory = $this->getValue('reportDirectory', getcwd());
         $builder->reportDirectory($reportDirectory);
 
         return $this;
@@ -57,7 +57,7 @@ final class Report extends AbstractSection implements SectionInterface
             'satisfactory' => 70.0
         ]);
 
-        $coverageBounds = $this->get('coverageBounds', $default);
+        $coverageBounds = $this->getValue('coverageBounds', $default);
         $critical = $coverageBounds->get('critical');
         $satisfactory = $coverageBounds->get('satisfactory');
 
