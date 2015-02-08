@@ -8,6 +8,26 @@ Version 1.5.0
 ---------------------------------------------------------------
 * Remove **Analyzer::factory** method
 * Support **init event** for reporter
+* Changed the format of the configuration file.
+	* Added the report section
+		```toml
+		[report]
+		reportDirectory = "./tmp"
+
+		[report.coverageBounds]
+		satisfactory = 70.0
+		critical = 35.0
+		```
+	* Removed the option of text reporter and tree reporter.
+		* Removed **critical** option
+		* Removed **satisfactory** option
+	* Changed the **outputFilePath** of **lcov reporter** and **markdown reporter** to **fileName**.
+
+### Other documents
+
+* [Cloak-1.5.0 configuration file format](https://gist.github.com/holyshared/5eaa313b2df78818dbad)
+* [Cloak-1.4.x configuration file format](https://gist.github.com/holyshared/06b726254ce4a2fec899)
+
 
 Version 1.4.4
 ---------------------------------------------------------------
