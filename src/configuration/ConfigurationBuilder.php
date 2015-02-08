@@ -138,7 +138,9 @@ class ConfigurationBuilder
             'driver' => $this->driver,
             'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
-            'excludeFiles' => $this->excludeFiles
+            'excludeFiles' => $this->excludeFiles,
+            'coverageBounds' => $this->coverageBounds,
+            'reportDirectory' => $this->reportDirectory
         ];
 
         return new Configuration($values);

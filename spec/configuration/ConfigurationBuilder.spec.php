@@ -67,7 +67,9 @@ describe('ConfigurationBuilder', function() {
             $this->builder->driver( $this->driver )
                 ->reporter($this->reporter)
                 ->includeFiles($includePatterns)
-                ->excludeFiles($excludePatterns);
+                ->excludeFiles($excludePatterns)
+                ->coverageBounds(35.0, 70.0)
+                ->reportDirectory('/tmp');
 
             $this->returnValue = $this->builder->build();
         });
@@ -91,6 +93,18 @@ describe('ConfigurationBuilder', function() {
         it('apply excludeFiles configration', function() {
             $filters = $this->returnValue->getExcludeFiles();
             expect($filters)->toHaveLength(2);
+        });
+        it('apply report directory', function() {
+            $directory = $this->returnValue->getReportDirectory();
+            expect($directory)->toBe('/tmp');
+        });
+        it('apply coverage bounds', function() {
+            $bounds = $this->returnValue->getCoverageBounds();
+            $criticalCoverage = $bounds->getCriticalCoverage();
+            $satisfactoryCoverage = $bounds->getSatisfactoryCoverage();
+
+            expect($criticalCoverage->value())->toBe(35.0);
+            expect($satisfactoryCoverage->value())->toBe(70.0);
         });
     });
 

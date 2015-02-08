@@ -49,6 +49,16 @@ class Configuration
      */
     private $excludeFiles = [];
 
+    /**
+     * @var \cloak\value\CoverageBounds
+     */
+    private $coverageBounds;
+
+    /**
+     * @var string
+     */
+    private $reportDirectory;
+
 
     /**
      * @param array $values
@@ -94,6 +104,22 @@ class Configuration
     public function getExcludeFiles()
     {
         return $this->excludeFiles;
+    }
+
+    /**
+     * @return value\CoverageBounds
+     */
+    public function getCoverageBounds()
+    {
+        return $this->coverageBounds;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportDirectory()
+    {
+        return $this->reportDirectory;
     }
 
     /**
