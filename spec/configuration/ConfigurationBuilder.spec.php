@@ -24,7 +24,7 @@ describe('ConfigurationBuilder', function() {
             $this->returnValue = $this->builder->includeFiles($filePatterns);
         });
         it('add filter patterns', function() {
-            $filters = $this->builder->includeFiles;
+            $filters = $this->builder->getIncludeFiles();
             expect(count($filters))->toEqual(2);
         });
         it('return cloak\ConfigurationBuilder instance', function() {
@@ -40,7 +40,7 @@ describe('ConfigurationBuilder', function() {
             $this->returnValue = $this->builder->excludeFiles($filePatterns);
         });
         it('add filter patterns', function() {
-            $filters = $this->builder->excludeFiles;
+            $filters = $this->builder->getExcludeFiles();
             expect(count($filters))->toEqual(2);
         });
         it('return cloak\ConfigurationBuilder instance', function() {

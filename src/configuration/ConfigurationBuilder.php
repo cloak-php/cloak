@@ -25,12 +25,36 @@ use cloak\reporter\ReporterInterface;
 class ConfigurationBuilder
 {
 
+    /**
+     * @var \cloak\driver\DriverInterface
+     */
     private $driver;
+
+    /**
+     * @var \cloak\reporter\ReporterInterface
+     */
     private $reporter;
+
+    /**
+     * @var string[]
+     */
     private $includeFiles;
+
+    /**
+     * @var string[]
+     */
     private $excludeFiles;
+
+    /**
+     * @var \cloak\value\CoverageBounds
+     */
     private $coverageBounds;
+
+    /**
+     * @var string
+     */
     private $reportDirectory;
+
 
     public function __construct()
     {
@@ -38,12 +62,20 @@ class ConfigurationBuilder
         $this->excludeFiles = [];
     }
 
+    /**
+     * @param DriverInterface $driver
+     * @return $this
+     */
     public function driver(DriverInterface $driver)
     {
         $this->driver = $driver;
         return $this;
     }
 
+    /**
+     * @param ReporterInterface $reporter
+     * @return $this
+     */
     public function reporter(ReporterInterface $reporter)
     {
         $this->reporter = $reporter;
@@ -130,6 +162,57 @@ class ConfigurationBuilder
         $this->driver = $driver;
     }
 
+    /**
+     * @return DriverInterface
+     */
+    public function getDriver()
+    {
+        return $this->driver;
+    }
+
+    /**
+     * @return ReporterInterface
+     */
+    public function getReporter()
+    {
+        return $this->reporter;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getIncludeFiles()
+    {
+        return $this->includeFiles;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getExcludeFiles()
+    {
+        return $this->excludeFiles;
+    }
+
+    /**
+     * @return CoverageBounds
+     */
+    public function getCoverageBounds()
+    {
+        return $this->coverageBounds;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportDirectory()
+    {
+        return $this->reportDirectory;
+    }
+
+    /**
+     * @return Configuration
+     */
     public function build()
     {
         $this->detectDriver();
@@ -144,11 +227,6 @@ class ConfigurationBuilder
         ];
 
         return new Configuration($values);
-    }
-
-    public function __get($name)
-    {
-        return $this->$name;
     }
 
 }
