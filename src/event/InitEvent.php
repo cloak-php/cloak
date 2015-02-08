@@ -43,16 +43,15 @@ final class InitEvent extends Event implements EventInterface
      */
     public function getCoverageBounds()
     {
-        //FIXME That reference configuration!!!!!
-        return new CoverageBounds(35.0, 80.0);
+        return $this->config->getCoverageBounds();
     }
 
     /**
      * return string
-     * FIXME That reference configuration!!!!!
      */
     public function getReportDirectory()
     {
+        return $this->config->getReportDirectory();
     }
 
 }

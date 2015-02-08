@@ -15,7 +15,6 @@ use cloak\Result;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\result\FileResult;
-use cloak\value\CoverageBounds;
 use cloak\writer\ResultConsoleWriter;
 
 
@@ -46,8 +45,6 @@ class TextReporter
         $critical = self::DEFAULT_LOW_BOUND
     )
     {
-        $bounds = new CoverageBounds($critical, $satisfactory);
-        $this->console = new ResultConsoleWriter($bounds);
     }
 
     /**
@@ -55,6 +52,8 @@ class TextReporter
      */
     public function onInit(InitEvent $event)
     {
+        $coverageBounds = $event->getCoverageBounds();
+        $this->console = new ResultConsoleWriter($coverageBounds);
     }
 
     /**
