@@ -50,6 +50,8 @@ describe('Analyzer', function() {
             $this->analyzer->setLifeCycleNotifier( $notifier->reveal() );
             $this->analyzer->start();
             $this->analyzer->stop();
+
+            $this->result = $this->analyzer->getResult();
         });
         it('return cloak\Result instance', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\Result');
