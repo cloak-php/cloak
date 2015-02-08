@@ -23,6 +23,13 @@ describe('Root', function() {
                     'includes' => ['src'],
                     'excludes' => ['vendor']
                 ],
+                'report' => [
+                    'reportDirectory' => '/tmp',
+                    'coverageBounds' => [
+                        'satisfactory' => 70.0,
+                        'critical' => 35.0
+                    ]
+                ],
                 'reporter' => [
                     'lcov' => [
                         'outputFilePath' => __DIR__ . '/../tmp/report.lcov'
@@ -34,6 +41,9 @@ describe('Root', function() {
         });
         it('return cloak\reporter\CompositeReporter instance', function() {
             expect($this->builder->reporter)->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
+        });
+        it('apply output directory path', function() {
+            expect($this->builder->reportDirectory)->toBe('/tmp');
         });
         it('applied includes filters', function() {
             expect($this->builder->includeFiles)->toHaveLength(1);
