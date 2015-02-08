@@ -51,6 +51,11 @@ class MarkdownReporter
     ];
 
     /**
+     * @var string Report file name
+     */
+    private $fileName;
+
+    /**
      * @var CoverageBounds
      */
     private $bounds;
@@ -67,17 +72,11 @@ class MarkdownReporter
 
 
     /**
-     * @param string $outputFilePath
-     * @param float $satisfactory
-     * @param float $critical
+     * @param string $fileName
      */
-    public function __construct (
-        $outputFilePath,
-        $satisfactory = self::DEFAULT_HIGH_BOUND,
-        $critical = self::DEFAULT_LOW_BOUND
-    )
+    public function __construct ($fileName)
     {
-        $this->outputFilePath = $outputFilePath;
+        $this->fileName = $fileName;
     }
 
     /**
@@ -88,9 +87,9 @@ class MarkdownReporter
         $this->bounds = $event->getCoverageBounds();
 
         $directoryPath = $event->getReportDirectory();
-        $outputFilePath = $directoryPath . '/' . $this->outputFilePath;
+        $reportFilePath = $directoryPath . '/' . $this->fileName;
 
-        $this->reportWriter = new FileWriter($outputFilePath);
+        $this->reportWriter = new FileWriter($reportFilePath);
     }
 
     /**

@@ -25,9 +25,7 @@ critical = 35.0
 
 # MarkdownReporter
 [reporter.markdown]
-satisfactory = 80.0
-critical = 50.0
-outputFilePath = "report.md"
+fileName = "report.md"
 
 # LcovReporter
 [reporter.lcov]
