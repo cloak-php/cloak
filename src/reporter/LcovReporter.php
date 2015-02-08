@@ -35,24 +35,25 @@ class LcovReporter
     use Reportable;
 
     /**
+     * @var string Report file name
+     */
+    private $fileName;
+
+
+    /**
      * @var \cloak\writer\FileWriter
      */
     private $reportWriter;
 
-    /**
-     * @var string
-     */
-    private $outputFilePath;
-
 
     /**
-     * @param string|null $outputFilePath
+     * @param string|null $fileName
      * @throws \cloak\writer\DirectoryNotFoundException
      * @throws \cloak\writer\DirectoryNotWritableException
      */
-    public function __construct($outputFilePath)
+    public function __construct($fileName)
     {
-        $this->outputFilePath = $outputFilePath;
+        $this->fileName = $fileName;
     }
 
     /**
@@ -61,9 +62,9 @@ class LcovReporter
     public function onInit(InitEvent $event)
     {
         $directoryPath = $event->getReportDirectory();
-        $outputFilePath = $directoryPath . '/' . $this->outputFilePath;
+        $reportFilePath = $directoryPath . '/' . $this->fileName;
 
-        $this->reportWriter = new FileWriter($outputFilePath);
+        $this->reportWriter = new FileWriter($reportFilePath);
     }
 
     /**

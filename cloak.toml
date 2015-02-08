@@ -31,7 +31,7 @@ outputFilePath = "report.md"
 
 # LcovReporter
 [reporter.lcov]
-outputFilePath = "report.lcov"
+fileName = "report.lcov"
 
 # ProcessingTimeReporter
 [reporter.processingTime]
