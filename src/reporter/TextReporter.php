@@ -35,18 +35,6 @@ class TextReporter
     private $console;
 
 
-
-    /**
-     * @param float $satisfactory
-     * @param float $critical
-     */
-    public function __construct(
-        $satisfactory = self::DEFAULT_HIGH_BOUND,
-        $critical = self::DEFAULT_LOW_BOUND
-    )
-    {
-    }
-
     /**
      * @param \cloak\event\InitEvent $event
      */
