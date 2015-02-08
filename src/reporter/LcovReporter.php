@@ -15,6 +15,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\result\LineResult;
+use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\writer\FileWriter;
 
@@ -23,7 +24,8 @@ use cloak\writer\FileWriter;
  * Class LcovReporter
  * @package cloak\reporter
  */
-class LcovReporter implements ReporterInterface, StopEventListener
+class LcovReporter
+    implements ReporterInterface, InitEventListener, StopEventListener
 {
 
     const SOURCE_FILE_PREFIX = 'SF:';
@@ -37,6 +39,11 @@ class LcovReporter implements ReporterInterface, StopEventListener
      */
     private $reportWriter;
 
+    /**
+     * @var string
+     */
+    private $outputFilePath;
+
 
     /**
      * @param string|null $outputFilePath
@@ -45,6 +52,17 @@ class LcovReporter implements ReporterInterface, StopEventListener
      */
     public function __construct($outputFilePath)
     {
+        $this->outputFilePath = $outputFilePath;
+    }
+
+    /**
+     * @param InitEvent $event
+     */
+    public function onInit(InitEvent $event)
+    {
+        $directoryPath = $event->getReportDirectory();
+        $outputFilePath = $directoryPath . '/' . $this->outputFilePath;
+
         $this->reportWriter = new FileWriter($outputFilePath);
     }
 
