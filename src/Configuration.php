@@ -21,10 +21,6 @@ use \InvalidArgumentException;
 /**
  * Class Configuration
  * @package cloak
- * @property-read \cloak\driver\DriverInterface $driver
- * @property-read \cloak\reporter\ReporterInterface $reporter
- * @property-read \Closure[] $includeFiles
- * @property-read \Closure[] $excludeFiles
  */
 class Configuration
 {
