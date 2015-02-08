@@ -12,6 +12,7 @@
 namespace cloak\configuration;
 
 use cloak\Configuration;
+use cloak\value\CoverageBounds;
 use cloak\driver\DriverDetector;
 use cloak\driver\DriverInterface;
 use cloak\reporter\ReporterInterface;
@@ -28,6 +29,8 @@ class ConfigurationBuilder
     private $reporter;
     private $includeFiles;
     private $excludeFiles;
+    private $coverageBounds;
+    private $reportDirectory;
 
     public function __construct()
     {
@@ -88,6 +91,27 @@ class ConfigurationBuilder
         foreach ($patterns as $pattern) {
             $this->excludeFile($pattern);
         }
+        return $this;
+    }
+
+    /**
+     * @param string $directoryPath
+     * @return $this
+     */
+    public function reportDirectory($directoryPath)
+    {
+        $this->reportDirectory = $directoryPath;
+        return $this;
+    }
+
+    /**
+     * @param float $critical
+     * @param float $satisfactory
+     * @return $this
+     */
+    public function coverageBounds($critical, $satisfactory)
+    {
+        $this->coverageBounds = new CoverageBounds($critical, $satisfactory);
         return $this;
     }
 
