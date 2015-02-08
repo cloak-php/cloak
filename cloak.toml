@@ -22,8 +22,6 @@ critical = 35.0
 
 # TreeReporter
 [reporter.tree]
-satisfactory = 80.0
-critical = 50.0
 
 # MarkdownReporter
 [reporter.markdown]

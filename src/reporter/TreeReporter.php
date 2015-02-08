@@ -44,14 +44,7 @@ class TreeReporter
     private $indent;
 
 
-    /**
-     * @param float $satisfactory
-     * @param float $critical
-     */
-    public function __construct(
-        $satisfactory = self::DEFAULT_HIGH_BOUND,
-        $critical = self::DEFAULT_LOW_BOUND
-    )
+    public function __construct()
     {
         $this->indent = 0;
     }
