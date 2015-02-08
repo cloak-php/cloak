@@ -10,7 +10,10 @@
  */
 
 use cloak\Result;
+use cloak\Configuration;
+use cloak\value\CoverageBounds;
 use cloak\result\LineResult;
+use cloak\event\InitEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\MarkdownReporter;
@@ -45,13 +48,19 @@ describe('MarkdownReporter', function() {
 
     describe('onStop', function() {
         beforeEach(function() {
+            $this->directoryPath = realpath(__DIR__ . '/../tmp/');
+            $this->fileName = 'report.md';
+            $this->filePath = $this->directoryPath . '/' . $this->fileName;
+
+            $this->initEvent = new InitEvent(new Configuration([
+                'reportDirectory' => $this->directoryPath,
+                'coverageBounds' => new CoverageBounds(35.0, 70.0)
+            ]));
             $this->startEvent = new StartEvent($this->startDateTime);
             $this->stopEvent = new StopEvent($this->result);
 
-            $this->directoryPath = realpath(__DIR__ . '/../tmp/');
-            $this->filePath = $this->directoryPath . '/report.md';
-
-            $this->reporter = new MarkdownReporter($this->filePath);
+            $this->reporter = new MarkdownReporter($this->fileName);
+            $this->reporter->onInit($this->initEvent);
             $this->reporter->onStart($this->startEvent);
             $this->reporter->onStop($this->stopEvent);
 

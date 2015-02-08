@@ -26,7 +26,7 @@ use cloak\value\CoverageBounds;
  * @package cloak\reporter
  */
 class MarkdownReporter
-    implements ReporterInterface, StartEventListener, StopEventListener
+    implements ReporterInterface, InitEventListener, StartEventListener, StopEventListener
 {
 
     use Reportable;
@@ -77,8 +77,7 @@ class MarkdownReporter
         $critical = self::DEFAULT_LOW_BOUND
     )
     {
-        $this->bounds = new CoverageBounds($critical, $satisfactory);
-        $this->reportWriter = new FileWriter($outputFilePath);
+        $this->outputFilePath = $outputFilePath;
     }
 
     /**
@@ -86,6 +85,12 @@ class MarkdownReporter
      */
     public function onInit(InitEvent $event)
     {
+        $this->bounds = $event->getCoverageBounds();
+
+        $directoryPath = $event->getReportDirectory();
+        $outputFilePath = $directoryPath . '/' . $this->outputFilePath;
+
+        $this->reportWriter = new FileWriter($outputFilePath);
     }
 
     /**
