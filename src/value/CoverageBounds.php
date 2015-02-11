@@ -18,6 +18,9 @@ namespace cloak\value;
 class CoverageBounds
 {
 
+    const DEFAULT_CRITICAL_VALUE = 35.0;
+    const DEFAULT_SATISFACTORY_VALUE = 70.0;
+
     /**
      * @var Coverage
      */
@@ -33,7 +36,9 @@ class CoverageBounds
      * @param float $critical
      * @param float $satisfactory
      */
-    public function __construct($critical, $satisfactory)
+    public function __construct(
+        $critical = self::DEFAULT_CRITICAL_VALUE,
+        $satisfactory = self::DEFAULT_SATISFACTORY_VALUE)
     {
         $this->criticalCoverage = new Coverage($critical);
         $this->satisfactoryCoverage = new Coverage($satisfactory);
