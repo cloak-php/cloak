@@ -13,6 +13,8 @@ namespace cloak\event;
 
 use cloak\Configuration;
 use cloak\value\CoverageBounds;
+use cloak\value\Path;
+
 use \DateTime;
 
 
@@ -47,11 +49,12 @@ final class InitEvent extends Event implements EventInterface
     }
 
     /**
-     * return string
+     * @return Path
      */
     public function getReportDirectory()
     {
-        return $this->config->getReportDirectory();
+        $reportDirectory = $this->config->getReportDirectory();
+        return Path::fromString($reportDirectory);
     }
 
 }

@@ -16,13 +16,18 @@ use cloak\event\InitEvent;
 describe('InitEvent', function() {
     beforeEach(function() {
         $configuration = new Configuration([
-
+            'reportDirectory' => __DIR__
         ]);
         $this->initEvent = new InitEvent($configuration);
     });
     describe('#getSendAt', function() {
-        it('should return time send the event', function() {
+        it('return time send the event', function() {
             expect($this->initEvent->getSendAt())->toBeAnInstanceOf('\DateTime');
+        });
+    });
+    describe('#getReportDirectory', function() {
+        it('return report directory path', function() {
+            expect($this->initEvent->getReportDirectory())->toBeAnInstanceOf('cloak\value\Path');
         });
     });
 });
