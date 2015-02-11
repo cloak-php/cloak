@@ -94,7 +94,7 @@ $reporter = new CompositeReporter([
 $builder = new ConfigurationBuilder();
 $builder->includeFile('/example/src')
 	->excludeFile('/spec')
-	->reporter(reporter);
+	->reporter($reporter);
 
 $analyzer = new Analyzer( $builder->build() );
 ```
