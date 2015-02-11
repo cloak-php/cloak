@@ -18,22 +18,10 @@ Requirements
 Installation
 ------------------------------------------------
 
-### Composer setting
+1. Install the [composer](https://getcomposer.org/).  
+2. Install the cloak.
 
-Cloak can be installed using [Composer](https://getcomposer.org/).  
-Please add a description to the **composer.json** in the configuration file.
-
-	{
-		"require-dev": {
-			"cloak/cloak": "1.4.4"
-		}
-	}
-
-### Install Cloak
-
-Please execute **composer install** command.
-
-	composer install
+		composer require cloak/cloak:1.5.0 --dev
 
 How to use
 ------------------------------------------------
