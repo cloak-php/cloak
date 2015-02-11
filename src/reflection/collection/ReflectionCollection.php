@@ -60,7 +60,7 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
-     * @param ReflectionCollection $collection
+     * @param ReflectionCollection $reflections
      */
     public function merge(ReflectionCollection $reflections)
     {
