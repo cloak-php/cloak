@@ -14,7 +14,9 @@ namespace cloak\configuration\section;
 use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\AbstractSection;
 use cloak\configuration\SectionInterface;
+use Eloquent\Pathogen\Factory\PathFactory;
 use Zend\Config\Config;
+
 
 /**
  * Class Report
@@ -41,7 +43,11 @@ final class Report extends AbstractSection implements SectionInterface
     private function applyReportDirectory(ConfigurationBuilder $builder)
     {
         $reportDirectory = $this->getValue('reportDirectory', getcwd());
-        $builder->reportDirectory($reportDirectory);
+
+        $path = PathFactory::instance()->create($reportDirectory);
+        $directoryPath = $path->normalize()->string();
+
+        $builder->reportDirectory($directoryPath);
 
         return $this;
     }
