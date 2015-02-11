@@ -12,6 +12,7 @@
 namespace cloak\configuration;
 
 use cloak\Configuration;
+use cloak\value\CoverageBounds;
 use cloak\driver\DriverDetector;
 use cloak\driver\DriverInterface;
 use cloak\reporter\ReporterInterface;
@@ -24,10 +25,36 @@ use cloak\reporter\ReporterInterface;
 class ConfigurationBuilder
 {
 
+    /**
+     * @var \cloak\driver\DriverInterface
+     */
     private $driver;
+
+    /**
+     * @var \cloak\reporter\ReporterInterface
+     */
     private $reporter;
+
+    /**
+     * @var string[]
+     */
     private $includeFiles;
+
+    /**
+     * @var string[]
+     */
     private $excludeFiles;
+
+    /**
+     * @var \cloak\value\CoverageBounds
+     */
+    private $coverageBounds;
+
+    /**
+     * @var string
+     */
+    private $reportDirectory;
+
 
     public function __construct()
     {
@@ -35,43 +62,88 @@ class ConfigurationBuilder
         $this->excludeFiles = [];
     }
 
+    /**
+     * @param DriverInterface $driver
+     * @return $this
+     */
     public function driver(DriverInterface $driver)
     {
         $this->driver = $driver;
         return $this;
     }
 
+    /**
+     * @param ReporterInterface $reporter
+     * @return $this
+     */
     public function reporter(ReporterInterface $reporter)
     {
         $this->reporter = $reporter;
         return $this;
     }
 
-    public function includeFile(\Closure $filter)
+    /**
+     * @param string $pattern
+     * @return $this
+     */
+    public function includeFile($pattern)
     {
-        $this->includeFiles[] = $filter;
+        $this->includeFiles[] = $pattern;
         return $this;
     }
 
-    public function excludeFile(\Closure $filter)
+    /**
+     * @param string $pattern
+     * @return $this
+     */
+    public function excludeFile($pattern)
     {
-        $this->excludeFiles[] = $filter;
+        $this->excludeFiles[] = $pattern;
         return $this;
     }
 
-    public function includeFiles(array $filters)
+    /**
+     * @param string[] $patterns
+     * @return $this
+     */
+    public function includeFiles(array $patterns)
     {
-        foreach ($filters as $filter) {
-            $this->includeFile($filter);
+        foreach ($patterns as $pattern) {
+            $this->includeFile($pattern);
         }
         return $this;
     }
 
-    public function excludeFiles(array $filters)
+    /**
+     * @param string[] $patterns
+     * @return $this
+     */
+    public function excludeFiles(array $patterns)
     {
-        foreach ($filters as $filter) {
-            $this->excludeFile($filter);
+        foreach ($patterns as $pattern) {
+            $this->excludeFile($pattern);
         }
+        return $this;
+    }
+
+    /**
+     * @param string $directoryPath
+     * @return $this
+     */
+    public function reportDirectory($directoryPath)
+    {
+        $this->reportDirectory = $directoryPath;
+        return $this;
+    }
+
+    /**
+     * @param float $critical
+     * @param float $satisfactory
+     * @return $this
+     */
+    public function coverageBounds($critical, $satisfactory)
+    {
+        $this->coverageBounds = new CoverageBounds($critical, $satisfactory);
         return $this;
     }
 
@@ -90,6 +162,57 @@ class ConfigurationBuilder
         $this->driver = $driver;
     }
 
+    /**
+     * @return DriverInterface
+     */
+    public function getDriver()
+    {
+        return $this->driver;
+    }
+
+    /**
+     * @return ReporterInterface
+     */
+    public function getReporter()
+    {
+        return $this->reporter;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getIncludeFiles()
+    {
+        return $this->includeFiles;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getExcludeFiles()
+    {
+        return $this->excludeFiles;
+    }
+
+    /**
+     * @return CoverageBounds
+     */
+    public function getCoverageBounds()
+    {
+        return $this->coverageBounds;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportDirectory()
+    {
+        return $this->reportDirectory;
+    }
+
+    /**
+     * @return Configuration
+     */
     public function build()
     {
         $this->detectDriver();
@@ -98,15 +221,12 @@ class ConfigurationBuilder
             'driver' => $this->driver,
             'reporter' => $this->reporter,
             'includeFiles' => $this->includeFiles,
-            'excludeFiles' => $this->excludeFiles
+            'excludeFiles' => $this->excludeFiles,
+            'coverageBounds' => $this->coverageBounds,
+            'reportDirectory' => $this->reportDirectory
         ];
 
         return new Configuration($values);
-    }
-
-    public function __get($name)
-    {
-        return $this->$name;
     }
 
 }

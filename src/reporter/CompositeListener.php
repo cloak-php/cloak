@@ -9,18 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\event;
+namespace cloak\reporter;
 
 /**
- * Interface StopEventInterface
- * @package cloak\event
+ * Interface CompositeListener
+ * @package cloak\reporter
  */
-interface StopEventInterface extends EventInterface
+interface CompositeListener extends InitEventListener, StartEventListener, StopEventListener
 {
-
-    /**
-     * @return \cloak\Result
-     */
-    public function getResult();
-
 }

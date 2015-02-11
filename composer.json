@@ -9,7 +9,8 @@
         "zendframework/zend-code": "~2.3",
         "zendframework/zend-config": "~2.3",
         "phpextra/event-manager": "1.0.1",
-        "yosymfony/toml": "~0.2"
+        "yosymfony/toml": "~0.2",
+        "eloquent/pathogen": "~0.6"
     },
     "autoload": {
         "psr-4": { "cloak\\": "src/" }

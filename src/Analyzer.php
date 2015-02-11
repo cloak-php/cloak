@@ -11,9 +11,6 @@
 
 namespace cloak;
 
-use cloak\configuration\ConfigurationBuilder;
-use cloak\ProvidesLifeCycleNotifier;
-
 
 /**
  * Class Analyzer
@@ -27,7 +24,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     /**
      * @var Configuration
      */
-    protected $configuration;
+    protected $config;
 
     /**
      * @var Result
@@ -36,24 +33,11 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
 
 
     /**
-     * @param Configuration $configuration
+     * @param Configuration $config
      */
-    public function __construct(Configuration $configuration)
+    public function __construct(Configuration $config)
     {
-        $this->init($configuration);
-    }
-
-    /**
-     * @param \Closure $configurator
-     * @return Analyzer
-     */
-    public static function factory(\Closure $configurator)
-    {
-        $builder = new ConfigurationBuilder();
-        $configurator($builder);
-        $configuration = $builder->build();
-
-        return new Analyzer($configuration);
+        $this->init($config);
     }
 
     /**
@@ -62,7 +46,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     public function start()
     {
         $this->getLifeCycleNotifier()->notifyStart();
-        $this->driver()->start();
+        $this->getDriver()->start();
     }
 
     /**
@@ -70,7 +54,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     public function stop()
     {
-        $this->driver()->stop();
+        $this->getDriver()->stop();
         $this->getLifeCycleNotifier()->notifyStop( $this->getResult() );
     }
 
@@ -79,7 +63,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     public function isStarted()
     {
-        return $this->driver()->isStarted();
+        return $this->getDriver()->isStarted();
     }
 
     /**
@@ -87,26 +71,29 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
      */
     public function getResult()
     {
-        $analyzeResult = $this->driver()->getAnalyzeResult();
-        $analyzeResult = $this->configuration->applyTo($analyzeResult);
+        $analyzeResult = $this->getDriver()->getAnalyzeResult();
+        $analyzeResult = $this->config->applyTo($analyzeResult);
         return Result::fromAnalyzeResult($analyzeResult);
     }
 
     /**
      * @return \cloak\driver\DriverInterface
      */
-    protected function driver()
+    protected function getDriver()
     {
-        return $this->configuration->driver;
+        $driver = $this->config->getDriver();
+        return $driver;
     }
 
     /**
-     * @param Configuration $configuration
+     * @param Configuration $config
      */
-    protected function init(Configuration $configuration)
+    protected function init(Configuration $config)
     {
-        $this->configuration = $configuration;
-        $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($configuration->reporter) );
+        $this->config = $config;
+        $reporter = $config->getReporter();
+        $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($reporter) );
+        $this->getLifeCycleNotifier()->notifyInit($this->config);
     }
 
 }

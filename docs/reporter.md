@@ -7,29 +7,15 @@ TextReporter
 -------------------------------------
 
 You specify the **TextReporter** and to reporter to use.  
-You can specify the reference value of the coverage in the argument.
 
-### Syntax
-
-	new TextReporter()
-
-or
-
-	new TextReporter(70, 35)
-
-### Arguments
-
-1. The standard value estimated that coverage is high.
-2. The standard value estimated that coverage is low.
 
 ### Example code
 
 ```php
-$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
-
-    $builder->reporter(new TextReporter()); //Specify the reporter
-
-});
+$builder = new ConfigurationBuilder();
+$builder->includeFile('/example/src')
+	->excludeFile('/spec')
+	->reporter(new TextReporter());
 
 $analyzer->start();
 

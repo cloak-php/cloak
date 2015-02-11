@@ -35,4 +35,22 @@ abstract class AbstractSection implements SectionInterface
         $this->values = new Config($values);
     }
 
+    /**
+     * @param string $key
+     * @param mixed $defaultValue
+     * @return mixed
+     */
+    public function getValue($key, $defaultValue)
+    {
+        return $this->values->get($key, $defaultValue);
+    }
+
+    /**
+     * @return Config
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
 }

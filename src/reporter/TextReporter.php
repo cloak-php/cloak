@@ -12,9 +12,9 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\StopEventInterface;
+use cloak\event\InitEvent;
+use cloak\event\StopEvent;
 use cloak\result\FileResult;
-use cloak\value\CoverageBounds;
 use cloak\writer\ResultConsoleWriter;
 
 
@@ -22,7 +22,8 @@ use cloak\writer\ResultConsoleWriter;
  * Class TextReporter
  * @package cloak\reporter
  */
-class TextReporter implements ReporterInterface
+class TextReporter
+    implements ReporterInterface, InitEventListener, StopEventListener
 {
 
     use Reportable;
@@ -34,24 +35,19 @@ class TextReporter implements ReporterInterface
     private $console;
 
 
-
     /**
-     * @param float $satisfactory
-     * @param float $critical
+     * @param \cloak\event\InitEvent $event
      */
-    public function __construct(
-        $satisfactory = self::DEFAULT_HIGH_BOUND,
-        $critical = self::DEFAULT_LOW_BOUND
-    )
+    public function onInit(InitEvent $event)
     {
-        $bounds = new CoverageBounds($critical, $satisfactory);
-        $this->console = new ResultConsoleWriter($bounds);
+        $coverageBounds = $event->getCoverageBounds();
+        $this->console = new ResultConsoleWriter($coverageBounds);
     }
 
     /**
-     * @param \cloak\event\StopEventInterface $event
+     * @param \cloak\event\StopEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onStop(StopEvent $event)
     {
         $this->reportResult($event->getResult());
     }

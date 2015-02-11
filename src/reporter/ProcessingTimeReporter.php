@@ -11,8 +11,8 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StartEventInterface;
-use cloak\event\StopEventInterface;
+use cloak\event\StartEvent;
+use cloak\event\StopEvent;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 use \DateTime;
@@ -22,7 +22,8 @@ use \DateTime;
  * Class ProcessingTimeReporter
  * @package cloak\reporter
  */
-class ProcessingTimeReporter implements ReporterInterface
+class ProcessingTimeReporter
+    implements ReporterInterface, StartEventListener, StopEventListener
 {
 
     use Reportable;
@@ -44,18 +45,18 @@ class ProcessingTimeReporter implements ReporterInterface
     }
 
     /**
-     * @param \cloak\event\StartEventInterface $event
+     * @param \cloak\event\StartEvent $event
      */
-    public function onStart(StartEventInterface $event)
+    public function onStart(StartEvent $event)
     {
         $sendAt = $event->getSendAt();
         $this->start($sendAt);
     }
 
     /**
-     * @param \cloak\event\StopEventInterface $event
+     * @param \cloak\event\StopEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onStop(StopEvent $event)
     {
         $this->finish();
     }
