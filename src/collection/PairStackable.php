@@ -68,7 +68,7 @@ trait PairStackable
     }
 
     /**
-     * @param \PhpCollection\AbstractMap $files
+     * @param AbstractMap $collection
      * @return array
      */
     protected function createArray(AbstractMap $collection)
