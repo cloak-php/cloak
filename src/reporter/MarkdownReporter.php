@@ -19,6 +19,9 @@ use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
+use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\RelativePath;
+
 
 
 /**
@@ -86,10 +89,15 @@ class MarkdownReporter
     {
         $this->bounds = $event->getCoverageBounds();
 
-        $directoryPath = $event->getReportDirectory();
-        $reportFilePath = $directoryPath . '/' . $this->fileName;
+        $factory = PathFactory::instance();
+        $reportDirectoryPath = $factory->create( $event->getReportDirectory() );
 
-        $this->reportWriter = new FileWriter($reportFilePath);
+        $fileRelativePath = RelativePath::fromString($this->fileName);
+
+        $reportFile = $reportDirectoryPath->join($fileRelativePath);
+        $absoluteReportFilePath = $reportFile->normalize()->string();
+
+        $this->reportWriter = new FileWriter($absoluteReportFilePath);
     }
 
     /**
