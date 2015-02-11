@@ -18,6 +18,8 @@ use cloak\result\LineResult;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\writer\FileWriter;
+use Eloquent\Pathogen\Factory\PathFactory;
+use Eloquent\Pathogen\RelativePath;
 
 
 /**
@@ -61,10 +63,15 @@ class LcovReporter
      */
     public function onInit(InitEvent $event)
     {
-        $directoryPath = $event->getReportDirectory();
-        $reportFilePath = $directoryPath . '/' . $this->fileName;
+        $factory = PathFactory::instance();
+        $reportDirectoryPath = $factory->create( $event->getReportDirectory() );
 
-        $this->reportWriter = new FileWriter($reportFilePath);
+        $fileRelativePath = RelativePath::fromString($this->fileName);
+
+        $reportFile = $reportDirectoryPath->join($fileRelativePath);
+        $absoluteReportFilePath = $reportFile->normalize()->string();
+
+        $this->reportWriter = new FileWriter($absoluteReportFilePath);
     }
 
     /**
