@@ -73,7 +73,7 @@ describe('Driver', function() {
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
-                $this->dirver = new Driver($adaptor->reveal());
+                $this->driver = new Driver($adaptor->reveal());
             });
             it('return cloak\driver\Result', function() {
                 $result = $this->driver->getAnalyzeResult();

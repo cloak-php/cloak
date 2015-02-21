@@ -13,7 +13,8 @@ namespace cloak\configuration;
 
 use cloak\Configuration;
 use cloak\value\CoverageBounds;
-use cloak\driver\DriverDetector;
+use cloak\driver\AdaptorDetector;
+use cloak\driver\Driver;
 use cloak\driver\DriverInterface;
 use cloak\reporter\ReporterInterface;
 
@@ -153,13 +154,13 @@ class ConfigurationBuilder
             return;
         }
 
-        $driverDetector = new DriverDetector([
-            '\cloak\driver\XdebugDriver',
-            '\cloak\driver\HHVMDriver'
+        $adaptorDetector = new AdaptorDetector([
+            '\cloak\driver\adaptor\XdebugAdaptor',
+            '\cloak\driver\adaptor\HHVMAdaptor'
         ]);
-        $driver = $driverDetector->detect();
+        $adaptor = $adaptorDetector->detect();
 
-        $this->driver = $driver;
+        $this->driver = new Driver($adaptor);
     }
 
     /**
