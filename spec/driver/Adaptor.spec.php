@@ -27,7 +27,38 @@ describe('Driver', function() {
 
                 $this->dirver = new Driver($adaptor->reveal());
             });
-            it('should return false', function() {
+            it('return false', function() {
+                expect($this->dirver->isStarted())->toBeFalse();
+            });
+        });
+        context('when started', function() {
+            beforeEach(function() {
+                $this->prophet = new Prophet();
+
+                $adaptor = $this->prophet->prophesize('cloak\driver\AdaptorInterface');
+                $adaptor->start()->shouldBeCalled();
+                $adaptor->stop()->shouldNotBeCalled();
+
+                $this->dirver = new Driver($adaptor->reveal());
+            });
+            it('return true', function() {
+                $this->dirver->start();
+                expect($this->dirver->isStarted())->toBeTrue();
+            });
+        });
+        context('when stoped', function() {
+            beforeEach(function() {
+                $this->prophet = new Prophet();
+
+                $adaptor = $this->prophet->prophesize('cloak\driver\AdaptorInterface');
+                $adaptor->start()->shouldBeCalled();
+                $adaptor->stop()->shouldBeCalled();
+
+                $this->dirver = new Driver($adaptor->reveal());
+            });
+            it('return true', function() {
+                $this->dirver->start();
+                $this->dirver->stop();
                 expect($this->dirver->isStarted())->toBeFalse();
             });
         });
