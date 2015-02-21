@@ -26,27 +26,14 @@ describe('ReflectionCollection', function() {
             $lineSetMock->resolveLineResults(Argument::type('cloak\reflection\ClassReflection'))
                 ->willReturn(new LineResultCollection());
 
-
-            $lineSetMock->selectRange()->shouldNotBeCalled();
-            $lineSetMock->getCodeCoverage()->shouldNotBeCalled();
-            $lineSetMock->isCoverageLessThan()->shouldNotBeCalled();
-            $lineSetMock->isCoverageGreaterEqual()->shouldNotBeCalled();
-            $lineSetMock->getLineCount()->shouldNotBeCalled();
-            $lineSetMock->getDeadLineCount()->shouldNotBeCalled();
-            $lineSetMock->getUnusedLineCount()->shouldNotBeCalled();
-            $lineSetMock->getExecutedLineCount()->shouldNotBeCalled();
-            $lineSetMock->getExecutableLineCount()->shouldNotBeCalled();
-            $lineSetMock->first()->shouldNotBeCalled();
-            $lineSetMock->last()->shouldNotBeCalled();
-            $lineSetMock->isEmpty()->shouldNotBeCalled();
-            $lineSetMock->toArray()->shouldNotBeCalled();
-
             $this->classReflection = new ReflectionCollection();
             $this->classReflection->add(new ClassReflection('Example\Example'));
+
             $this->result = $this->classReflection->assembleBy( $lineSetMock->reveal() );
         });
         it('return cloak\result\collection\CoverageResultCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\result\collection\CoverageResultCollection');
+            expect($this->result->count())->toBe(1);
         });
     });
 });
