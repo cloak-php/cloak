@@ -11,12 +11,19 @@
 
 namespace cloak\driver;
 
-use Exception;
 
 /**
- * Class DriverNotAvailableException
+ * Interface AdaptorInterface
  * @package cloak\driver
  */
-class DriverNotAvailableException extends Exception
+interface AdaptorInterface
 {
+
+    public function start();
+
+    /**
+     * @return array
+     */
+    public function stop();
+
 }
