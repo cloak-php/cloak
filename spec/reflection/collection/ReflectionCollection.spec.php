@@ -22,14 +22,16 @@ describe('ReflectionCollection', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
+            $this->reflection = new ClassReflection('Example\Example');
+
+            $this->collection = new ReflectionCollection();
+            $this->collection->add($this->reflection);
+
             $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
-            $selector->selectByReflection($this->classReflection)
+            $selector->selectByReflection($this->reflection)
                 ->willReturn(new LineResultCollection());
 
-            $this->classReflection = new ReflectionCollection();
-            $this->classReflection->add(new ClassReflection('Example\Example'));
-
-            $this->result = $this->classReflection->convertToResult( $selector->reveal() );
+            $this->result = $this->collection->convertToResult( $selector->reveal() );
         });
         it('return cloak\result\collection\CoverageResultCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\result\collection\CoverageResultCollection');
