@@ -12,6 +12,7 @@
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
+use \Prophecy\Prophet;
 
 
 describe('ClassReflection', function() {
@@ -67,9 +68,18 @@ describe('ClassReflection', function() {
     describe('#convertToResult', function() {
         context('when class reflection', function() {
             beforeEach(function() {
-                $result = $this->classReflection->convertToResult(new LineResultCollection([
+                $this->prophet = new Prophet();
+
+                $results = new LineResultCollection([
                     new LineResult(29, LineResult::UNUSED)
-                ]));
+                ]);
+
+                $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+                $selector->selectRange()->shouldNotBeCalled();
+                $selector->selectByReflection($this->classReflection)
+                    ->willReturn($results);
+
+                $result = $this->classReflection->convertToResult($selector->reveal());
                 $this->result = $result;
             });
             it('return cloak\result\type\ClassResult', function() {
@@ -86,9 +96,18 @@ describe('ClassReflection', function() {
         });
         context('when trait reflection', function() {
             beforeEach(function() {
-                $result = $this->traitReflection->convertToResult(new LineResultCollection([
+                $this->prophet = new Prophet();
+
+                $results = new LineResultCollection([
                     new LineResult(11, LineResult::UNUSED)
-                ]));
+                ]);
+
+                $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+                $selector->selectRange()->shouldNotBeCalled();
+                $selector->selectByReflection($this->traitReflection)
+                    ->willReturn($results);
+
+                $result = $this->traitReflection->convertToResult($selector->reveal());
                 $this->result = $result;
             });
             it('return cloak\result\type\TraitResult', function() {

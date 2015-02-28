@@ -32,7 +32,7 @@ abstract class AbstractTypeResult
 
     /**
      * @param ClassReflection $reflection
-     * @param LineResultResolverInterface $resolver
+     * @param LineResultSelectable $selector
      */
     public function __construct(ClassReflection $reflection, LineResultSelectable $selector)
     {
