@@ -12,12 +12,12 @@
 namespace cloak\reflection;
 
 use cloak\reflection\collection\ReflectionCollection;
+use cloak\result\LineResultSelectable;
 use cloak\value\LineRange;
-use cloak\result\LineResultCollectionInterface;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
-use cloak\result\AbstractTypeResultInterface;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
+
 
 /**
  * Class ClassReflection
@@ -115,16 +115,15 @@ class ClassReflection implements ReflectionInterface
     }
 
     /**
-     * @param LineResultCollectionInterface $lineResults
-     * @return AbstractTypeResultInterface
+     * {@inheritdoc}
      */
-    public function assembleBy(LineResultCollectionInterface $lineResults)
+    public function assembleBy(LineResultSelectable $selector)
     {
 
         if ($this->isClass()) {
-            $result = new ClassResult($this, $lineResults);
+            $result = new ClassResult($this, $selector);
         } else {
-            $result = new TraitResult($this, $lineResults);
+            $result = new TraitResult($this, $selector);
         }
 
         return $result;

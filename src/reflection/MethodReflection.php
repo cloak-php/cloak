@@ -12,7 +12,7 @@
 namespace cloak\reflection;
 
 use cloak\value\LineRange;
-use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResultSelectable;
 use cloak\result\MethodResult;
 use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
 
@@ -93,12 +93,11 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
-     * @param LineResultCollectionInterface $lineResults
-     * @return MethodResult
+     * {@inheritdoc}
      */
-    public function assembleBy(LineResultCollectionInterface $lineResults)
+    public function assembleBy(LineResultSelectable $selector)
     {
-        return new MethodResult($this, $lineResults);
+        return new MethodResult($this, $selector);
     }
 
     /**

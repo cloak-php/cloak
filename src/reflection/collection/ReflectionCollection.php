@@ -16,7 +16,7 @@ use PhpCollection\Map;
 use cloak\collection\PairStackable;
 use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
-use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResultSelectable;
 use cloak\result\collection\CoverageResultCollection;
 use \Closure;
 use \Iterator;
@@ -88,16 +88,15 @@ class ReflectionCollection implements CollectionInterface
     }
 
     /**
-     * @param LineResultCollectionInterface $lineResults
-     * @return CoverageResultCollection
+     * {@inheritdoc}
      */
-    public function assembleBy(LineResultCollectionInterface $lineResults)
+    public function assembleBy(LineResultSelectable $selector)
     {
         $values = $this->collection->values();
         $collection = new Sequence($values);
 
-        $assembleCallback = function(ReflectionInterface $reflection) use($lineResults) {
-            return $reflection->assembleBy($lineResults);
+        $assembleCallback = function(ReflectionInterface $reflection) use($selector) {
+            return $reflection->assembleBy($selector);
         };
         $results = $collection->map($assembleCallback);
 

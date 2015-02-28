@@ -14,7 +14,7 @@ namespace cloak\reflection;
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\value\LineRange;
 use cloak\result\FileResult;
-use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResultSelectable;
 use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\FileReflection as ZendFileReflection;
@@ -121,12 +121,11 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @param LineResultCollectionInterface $lineResults
-     * @return FileResult
+     * {@inheritdoc}
      */
-    public function assembleBy(LineResultCollectionInterface $lineResults)
+    public function assembleBy(LineResultSelectable $selector)
     {
-        return new FileResult($this->getName(), $lineResults);
+        return new FileResult($this->getName(), $selector);
     }
 
     /**
