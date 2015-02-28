@@ -29,7 +29,7 @@ use \ArrayIterator;
  * Class ReflectionCollection
  * @package cloak\reflection\collection
  */
-class ReflectionCollection implements CollectionInterface
+class ReflectionCollection implements CollectionInterface, ResultCollectionConvertible
 {
 
     use PairStackable;
@@ -89,6 +89,10 @@ class ReflectionCollection implements CollectionInterface
         return new self( $collection->values() );
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
     public function convertToResult(LineResultSelectable $selector)
     {
         $values = $this->collection->values();
