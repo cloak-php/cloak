@@ -4,6 +4,21 @@ ChangeLog
 This is a list of changes from 1.3.1.
 
 
+Version 1.6.0
+---------------------------------------------------------------
+* Remove **ReflectionInterface::assembleBy** method
+* Add **cloak\reflection\LineResultSelectable** interface
+* Add **cloak\reflection\collectionResultCollectionConvertible** interface
+* Changed reporter colors 
+	* before
+		* critical - yellow
+		* warning - normal(white)
+		* satisfactory - green
+	* after
+		* critical - red
+		* warning - yellow
+		* satisfactory - green
+
 Version 1.5.0
 ---------------------------------------------------------------
 * Remove **Analyzer::factory** method
