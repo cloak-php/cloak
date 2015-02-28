@@ -31,14 +31,13 @@ final class MethodResult implements CoverageResultInterface
 
 
     /**
-     * @param MethodReflection $methodReflection
-     * @param LineResultCollectionInterface $methodLineResults
+     * @param MethodReflection $reflection
+     * @param LineResultSelectable $selector
      */
-    public function __construct(MethodReflection $methodReflection, LineResultCollectionInterface $methodLineResults)
+    public function __construct(MethodReflection $reflection, LineResultSelectable $selector)
     {
-        $rangeResults = $methodLineResults->resolveLineResults($methodReflection);
-        $this->reflection = $methodReflection;
-        $this->lineResults = $rangeResults;
+        $this->reflection = $reflection;
+        $this->lineResults = $selector->selectByReflection($reflection);
     }
 
     /**
