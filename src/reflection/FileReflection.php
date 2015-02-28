@@ -53,7 +53,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getIdentityName()
     {
@@ -61,7 +61,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -89,7 +89,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return LineRange
+     * {@inheritdoc}
      */
     public function getLineRange()
     {

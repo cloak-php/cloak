@@ -40,7 +40,7 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getIdentityName()
     {
@@ -56,7 +56,7 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -82,7 +82,7 @@ class MethodReflection implements ReflectionInterface
     }
 
     /**
-     * @return LineRange
+     * {@inheritdoc}
      */
     public function getLineRange()
     {
