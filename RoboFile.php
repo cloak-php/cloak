@@ -18,6 +18,7 @@ class RoboFile extends Tasks
     {
         $result = $this->taskPeridot()
             ->directoryPath('spec')
+            ->reporter('dot')
             ->bail()
             ->run();
 
@@ -29,6 +30,7 @@ class RoboFile extends Tasks
         $result = $this->taskPeridot()
             ->configuration('peridot.coverage.php')
             ->directoryPath('spec')
+            ->reporter('dot')
             ->bail()
             ->run();
 
