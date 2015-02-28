@@ -117,21 +117,6 @@ class ClassReflection implements ReflectionInterface, ResultConvertible
     /**
      * {@inheritdoc}
      */
-    public function assembleBy(LineResultSelectable $selector)
-    {
-
-        if ($this->isClass()) {
-            $result = new ClassResult($this, $selector);
-        } else {
-            $result = new TraitResult($this, $selector);
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function convertToResult(LineResultSelectable $selector)
     {
         if ($this->isClass()) {

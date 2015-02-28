@@ -54,9 +54,9 @@ describe('FileReflection', function() {
         });
     });
 
-    describe('#assembleBy', function() {
+    describe('#convertToResult', function() {
         beforeEach(function() {
-            $result = $this->reflection->assembleBy(new LineResultCollection([
+            $result = $this->reflection->convertToResult(new LineResultCollection([
                 new LineResult(11, LineResult::UNUSED)
             ]));
             $this->result = $result;

@@ -18,9 +18,9 @@ describe('MethodReflection', function() {
     beforeEach(function() {
         $this->reflection = new MethodReflection('Example\Example', 'getValue');
     });
-    describe('#assembleBy', function() {
+    describe('#convertToResult', function() {
         beforeEach(function() {
-            $result = $this->reflection->assembleBy(new LineResultCollection([
+            $result = $this->reflection->convertToResult(new LineResultCollection([
                 new LineResult(29, LineResult::UNUSED)
             ]));
             $this->result = $result;

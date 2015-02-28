@@ -123,14 +123,6 @@ class FileReflection implements ReflectionInterface, ResultConvertible
     /**
      * {@inheritdoc}
      */
-    public function assembleBy(LineResultSelectable $selector)
-    {
-        return new FileResult($this->getName(), $selector);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function convertToResult(LineResultSelectable $selector)
     {
         return new FileResult($this->getName(), $selector);

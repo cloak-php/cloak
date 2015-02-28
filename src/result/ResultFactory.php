@@ -45,7 +45,7 @@ class ResultFactory
     public function createClassResults(LineResultCollectionInterface $lineCoverages)
     {
         $reflections = $this->fileReflection->getClasses();
-        return $reflections->assembleBy($lineCoverages);
+        return $reflections->convertToResult($lineCoverages);
     }
 
     /**
@@ -55,7 +55,7 @@ class ResultFactory
     public function createTraitResults(LineResultCollectionInterface $lineCoverages)
     {
         $reflections = $this->fileReflection->getTraits();
-        return $reflections->assembleBy($lineCoverages);
+        return $reflections->convertToResult($lineCoverages);
     }
 
 }

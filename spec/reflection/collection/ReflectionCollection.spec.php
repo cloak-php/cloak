@@ -18,7 +18,7 @@ use Prophecy\Argument;
 
 
 describe('ReflectionCollection', function() {
-    describe('assembleBy', function() {
+    describe('#convertToResult', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
@@ -29,7 +29,7 @@ describe('ReflectionCollection', function() {
             $this->classReflection = new ReflectionCollection();
             $this->classReflection->add(new ClassReflection('Example\Example'));
 
-            $this->result = $this->classReflection->assembleBy( $lineSetMock->reveal() );
+            $this->result = $this->classReflection->convertToResult( $lineSetMock->reveal() );
         });
         it('return cloak\result\collection\CoverageResultCollection', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\result\collection\CoverageResultCollection');

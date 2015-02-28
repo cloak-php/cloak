@@ -64,10 +64,10 @@ describe('ClassReflection', function() {
             expect($this->result->isEmpty())->toBeFalse();
         });
     });
-    describe('assembleBy', function() {
+    describe('#convertToResult', function() {
         context('when class reflection', function() {
             beforeEach(function() {
-                $result = $this->classReflection->assembleBy(new LineResultCollection([
+                $result = $this->classReflection->convertToResult(new LineResultCollection([
                     new LineResult(29, LineResult::UNUSED)
                 ]));
                 $this->result = $result;
@@ -86,7 +86,7 @@ describe('ClassReflection', function() {
         });
         context('when trait reflection', function() {
             beforeEach(function() {
-                $result = $this->traitReflection->assembleBy(new LineResultCollection([
+                $result = $this->traitReflection->convertToResult(new LineResultCollection([
                     new LineResult(11, LineResult::UNUSED)
                 ]));
                 $this->result = $result;

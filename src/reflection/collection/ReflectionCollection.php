@@ -89,23 +89,6 @@ class ReflectionCollection implements CollectionInterface
         return new self( $collection->values() );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function assembleBy(LineResultSelectable $selector)
-    {
-        $values = $this->collection->values();
-        $collection = new Sequence($values);
-
-        $assembleCallback = function(ReflectionInterface $reflection) use($selector) {
-            return $reflection->assembleBy($selector);
-        };
-        $results = $collection->map($assembleCallback);
-
-        return new CoverageResultCollection( $results->all() );
-    }
-
-
     public function convertToResult(LineResultSelectable $selector)
     {
         $values = $this->collection->values();

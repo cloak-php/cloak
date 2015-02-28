@@ -95,14 +95,6 @@ class MethodReflection implements ReflectionInterface, ResultConvertible
     /**
      * {@inheritdoc}
      */
-    public function assembleBy(LineResultSelectable $selector)
-    {
-        return new MethodResult($this, $selector);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function convertToResult(LineResultSelectable $selector)
     {
         return new MethodResult($this, $selector);
