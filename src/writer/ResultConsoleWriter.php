@@ -50,9 +50,9 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
         if ($this->bounds->isSatisfactory($coverage)) {
             $this->console->writeText($coverageText, Color::GREEN);
         } else if ($this->bounds->isCritical($coverage)) {
-            $this->console->writeText($coverageText, Color::YELLOW);
+            $this->console->writeText($coverageText, Color::RED);
         } else {
-            $this->console->writeText($coverageText, Color::NORMAL);
+            $this->console->writeText($coverageText, Color::YELLOW);
         }
     }
 

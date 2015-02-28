@@ -9,17 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\spec\driver;
+namespace cloak\spec\driver\adaptor;
 
-use cloak\driver\DriverInterface;
-use cloak\driver\DriverNotAvailableException;
 
-class FixtureDriver implements DriverInterface
+use cloak\driver\AdaptorInterface;
+use cloak\driver\adaptor\AdaptorNotAvailableException;
+
+
+class FixtureAdaptor implements AdaptorInterface
 {
 
     public function __construct()
     {
-        throw new DriverNotAvailableException();
+        throw new AdaptorNotAvailableException();
     }
 
     public function start()
@@ -27,14 +29,6 @@ class FixtureDriver implements DriverInterface
     }
 
     public function stop()
-    {
-    }
-
-    public function isStarted()
-    {
-    }
-
-    public function getAnalyzeResult()
     {
     }
 

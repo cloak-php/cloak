@@ -11,12 +11,14 @@
 
 namespace cloak\reflection\collection;
 
+
 use PhpCollection\Sequence;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
 use cloak\reflection\ReflectionInterface;
+use cloak\reflection\ResultConvertible;
 use cloak\CollectionInterface;
-use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResultSelectable;
 use cloak\result\collection\CoverageResultCollection;
 use \Closure;
 use \Iterator;
@@ -27,7 +29,7 @@ use \ArrayIterator;
  * Class ReflectionCollection
  * @package cloak\reflection\collection
  */
-class ReflectionCollection implements CollectionInterface
+class ReflectionCollection implements CollectionInterface, ResultCollectionConvertible
 {
 
     use PairStackable;
@@ -87,19 +89,19 @@ class ReflectionCollection implements CollectionInterface
         return new self( $collection->values() );
     }
 
+
     /**
-     * @param LineResultCollectionInterface $lineResults
-     * @return CoverageResultCollection
+     * {@inheritdoc}
      */
-    public function assembleBy(LineResultCollectionInterface $lineResults)
+    public function convertToResult(LineResultSelectable $selector)
     {
         $values = $this->collection->values();
         $collection = new Sequence($values);
 
-        $assembleCallback = function(ReflectionInterface $reflection) use($lineResults) {
-            return $reflection->assembleBy($lineResults);
+        $convertCallback = function(ResultConvertible $reflection) use($selector) {
+            return $reflection->convertToResult($selector);
         };
-        $results = $collection->map($assembleCallback);
+        $results = $collection->map($convertCallback);
 
         return new CoverageResultCollection( $results->all() );
     }

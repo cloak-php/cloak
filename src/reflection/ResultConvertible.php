@@ -11,29 +11,20 @@
 
 namespace cloak\reflection;
 
-use cloak\value\LineRange;
+use cloak\result\LineResultSelectable;
 
 
 /**
- * Interface ReflectionInterface
+ * Interface ResultConvertible
  * @package cloak\reflection
  */
-interface ReflectionInterface
+interface ResultConvertible
 {
 
     /**
-     * @return string
+     * @param LineResultSelectable $selector
+     * @return \cloak\result\CoverageResultInterface
      */
-    public function getName();
-
-    /**
-     * @return string
-     */
-    public function getIdentityName();
-
-    /**
-     * @return LineRange
-     */
-    public function getLineRange();
+    public function convertToResult(LineResultSelectable $selector);
 
 }

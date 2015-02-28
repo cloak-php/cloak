@@ -1,2 +1,2 @@
 targets:
-  - spec/driver/XdebugDriver.spec.php
+  - spec/driver/adaptor/XdebugAdaptor.spec.php

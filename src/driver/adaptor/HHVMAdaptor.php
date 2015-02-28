@@ -9,26 +9,27 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\driver;
+namespace cloak\driver\adaptor;
+use cloak\driver\AdaptorInterface;
+
 
 /**
- * Class HHVMDriver
- * @package cloak\driver
+ * Class HHVMAdaptor
+ * @package cloak\driver\adaptor
  */
-class HHVMDriver extends AbstractDriver
+class HHVMAdaptor implements AdaptorInterface
 {
 
     public function __construct()
     {
         if (defined('HHVM_VERSION') === false) {
-            throw new DriverNotAvailableException('This driver requires hhvm');
+            throw new AdaptorNotAvailableException('This adaptor requires hhvm');
         }
     }
 
     public function start()
     {
         fb_enable_code_coverage();
-        $this->started = true;
     }
 
     public function stop()
@@ -36,8 +37,7 @@ class HHVMDriver extends AbstractDriver
         $result = fb_get_code_coverage(true);
         fb_disable_code_coverage();
 
-        $this->analyzeResult = $result;
-        $this->started = false;
+        return $result;
     }
 
 }
