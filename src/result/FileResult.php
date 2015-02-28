@@ -43,12 +43,12 @@ class FileResult implements CoverageResultInterface
 
     /**
      * @param string $path
-     * @param LineResultCollectionInterface $lineCoverages
+     * @param LineResultSelectable $selector
      */
-    public function __construct($path, LineResultCollectionInterface $lineCoverages)
+    public function __construct($path, LineResultSelectable $selector)
     {
         $this->path = $path;
-        $this->resolveLineRange($lineCoverages);
+        $this->resolveLineRange($selector);
     }
 
     /**
@@ -115,21 +115,21 @@ class FileResult implements CoverageResultInterface
     }
 
     /**
-     * @param LineResultCollectionInterface $lineCoverages
+     * @param LineResultSelectable $selector
      */
-    protected function resolveLineRange(LineResultCollectionInterface $lineCoverages)
+    protected function resolveLineRange(LineResultCollectionInterface $selector)
     {
         $fileReflection = new FileReflection($this->getPath());
         $this->lineRange = $fileReflection->getLineRange();
 
         $this->factory = new ResultFactory($fileReflection);
 
-        $cleanUpResults = $lineCoverages->selectRange($this->lineRange);
+        $cleanUpResults = $selector->selectRange($this->lineRange);
         $this->lineResults = $cleanUpResults;
     }
 
     /**
-     * @return \cloak\result\collection\NamedResultCollection
+     * @return CoverageResultCollectionInterface
      */
     public function getClassResults()
     {
@@ -137,7 +137,7 @@ class FileResult implements CoverageResultInterface
     }
 
     /**
-     * @return \cloak\result\collection\NamedResultCollection
+     * @return \cloak\result\collection\CoverageResultCollection
      */
     public function getTraitResults()
     {
@@ -153,7 +153,7 @@ class FileResult implements CoverageResultInterface
     }
 
     /**
-     * @return NamedResultCollectionInterface
+     * @return CoverageResultCollectionInterface
      */
     public function getChildResults()
     {

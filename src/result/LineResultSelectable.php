@@ -11,14 +11,21 @@
 
 namespace cloak\result;
 
-use cloak\CollectionInterface;
+
+use cloak\value\LineRange;
 
 
 /**
- * Interface LineResultCollectionInterface
+ * Interface LineResultSelectable
  * @package cloak\result
  */
-interface LineResultCollectionInterface
-    extends CodeCoverageResultInterface, LineResultSelectable, LineResultInterface, LineResultResolverInterface, CollectionInterface
+interface LineResultSelectable
 {
+
+    /**
+     * @param LineRange $lineRange
+     * @return LineResultCollectionInterface
+     */
+    public function selectRange(LineRange $lineRange);
+
 }
