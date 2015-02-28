@@ -31,14 +31,13 @@ abstract class AbstractTypeResult
 
 
     /**
-     * @param ClassReflection $classReflection
+     * @param ClassReflection $reflection
      * @param LineResultResolverInterface $resolver
      */
-    public function __construct(ClassReflection $classReflection, LineResultResolverInterface $resolver)
+    public function __construct(ClassReflection $reflection, LineResultSelectable $selector)
     {
-        $rangeResults = $resolver->resolveLineResults($classReflection);
-        $this->reflection = $classReflection;
-        $this->lineResults = $rangeResults;
+        $this->reflection = $reflection;
+        $this->lineResults = $selector->selectByReflection($this->reflection);
     }
 
     /**

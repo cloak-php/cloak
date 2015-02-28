@@ -23,7 +23,7 @@ describe('ReflectionCollection', function() {
             $this->prophet = new Prophet();
 
             $lineSetMock = $this->prophet->prophesize('cloak\result\LineResultCollectionInterface');
-            $lineSetMock->resolveLineResults(Argument::type('cloak\reflection\ClassReflection'))
+            $lineSetMock->selectByReflection(Argument::type('cloak\reflection\ClassReflection'))
                 ->willReturn(new LineResultCollection());
 
             $this->classReflection = new ReflectionCollection();
