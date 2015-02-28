@@ -25,7 +25,7 @@ use Closure;
  * Class FileReflection
  * @package cloak\reflection
  */
-class FileReflection implements ReflectionInterface
+class FileReflection implements ReflectionInterface, ResultConvertible
 {
 
     /**
@@ -73,7 +73,7 @@ class FileReflection implements ReflectionInterface
      */
     public function getClasses()
     {
-        return $this->selectClassReflections(function(ZendClassReflection $reflection) {
+        return $this->selectClassReflections(function (ZendClassReflection $reflection) {
             return $reflection->isTrait();
         });
     }
@@ -83,7 +83,7 @@ class FileReflection implements ReflectionInterface
      */
     public function getTraits()
     {
-        return $this->selectClassReflections(function(ZendClassReflection $reflection) {
+        return $this->selectClassReflections(function (ZendClassReflection $reflection) {
             return $reflection->isTrait() === false;
         });
     }
@@ -104,11 +104,11 @@ class FileReflection implements ReflectionInterface
     {
         $classes = $this->reflection->getClasses();
 
-        $excludeInterface = function(ZendClassReflection $reflection) {
+        $excludeInterface = function (ZendClassReflection $reflection) {
             return $reflection->isInterface() === false;
         };
 
-        $createClassReflection = function(ZendClassReflection $reflection) {
+        $createClassReflection = function (ZendClassReflection $reflection) {
             return new ClassReflection($reflection->getName());
         };
 
@@ -117,13 +117,21 @@ class FileReflection implements ReflectionInterface
             ->filter($excludeInterface)
             ->map($createClassReflection);
 
-        return new ReflectionCollection( $reflections->all() );
+        return new ReflectionCollection($reflections->all());
     }
 
     /**
      * {@inheritdoc}
      */
     public function assembleBy(LineResultSelectable $selector)
+    {
+        return new FileResult($this->getName(), $selector);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function convertToResult(LineResultSelectable $selector)
     {
         return new FileResult($this->getName(), $selector);
     }

@@ -21,7 +21,7 @@ use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
  * Class MethodReflection
  * @package cloak\reflection
  */
-class MethodReflection implements ReflectionInterface
+class MethodReflection implements ReflectionInterface, ResultConvertible
 {
 
     /**
@@ -96,6 +96,14 @@ class MethodReflection implements ReflectionInterface
      * {@inheritdoc}
      */
     public function assembleBy(LineResultSelectable $selector)
+    {
+        return new MethodResult($this, $selector);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function convertToResult(LineResultSelectable $selector)
     {
         return new MethodResult($this, $selector);
     }

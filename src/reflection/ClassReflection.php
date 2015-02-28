@@ -23,7 +23,7 @@ use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
  * Class ClassReflection
  * @package cloak\reflection
  */
-class ClassReflection implements ReflectionInterface
+class ClassReflection implements ReflectionInterface, ResultConvertible
 {
 
     /**
@@ -120,6 +120,20 @@ class ClassReflection implements ReflectionInterface
     public function assembleBy(LineResultSelectable $selector)
     {
 
+        if ($this->isClass()) {
+            $result = new ClassResult($this, $selector);
+        } else {
+            $result = new TraitResult($this, $selector);
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function convertToResult(LineResultSelectable $selector)
+    {
         if ($this->isClass()) {
             $result = new ClassResult($this, $selector);
         } else {

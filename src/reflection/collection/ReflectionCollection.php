@@ -11,10 +11,12 @@
 
 namespace cloak\reflection\collection;
 
+
 use PhpCollection\Sequence;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
 use cloak\reflection\ReflectionInterface;
+use cloak\reflection\ResultConvertible;
 use cloak\CollectionInterface;
 use cloak\result\LineResultSelectable;
 use cloak\result\collection\CoverageResultCollection;
@@ -99,6 +101,20 @@ class ReflectionCollection implements CollectionInterface
             return $reflection->assembleBy($selector);
         };
         $results = $collection->map($assembleCallback);
+
+        return new CoverageResultCollection( $results->all() );
+    }
+
+
+    public function convertToResult(LineResultSelectable $selector)
+    {
+        $values = $this->collection->values();
+        $collection = new Sequence($values);
+
+        $convertCallback = function(ResultConvertible $reflection) use($selector) {
+            return $reflection->convertToResult($selector);
+        };
+        $results = $collection->map($convertCallback);
 
         return new CoverageResultCollection( $results->all() );
     }
