@@ -75,7 +75,6 @@ describe('ClassReflection', function() {
                 ]);
 
                 $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
-                $selector->selectRange()->shouldNotBeCalled();
                 $selector->selectByReflection($this->classReflection)
                     ->willReturn($results);
 
@@ -103,7 +102,6 @@ describe('ClassReflection', function() {
                 ]);
 
                 $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
-                $selector->selectRange()->shouldNotBeCalled();
                 $selector->selectByReflection($this->traitReflection)
                     ->willReturn($results);
 

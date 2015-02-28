@@ -119,13 +119,11 @@ class FileResult implements CoverageResultInterface
      */
     protected function resolveLineRange(LineResultCollectionInterface $selector)
     {
-        $fileReflection = new FileReflection($this->getPath());
-        $this->lineRange = $fileReflection->getLineRange();
+        $reflection = new FileReflection($this->getPath());
+        $this->lineRange = $reflection->getLineRange();
 
-        $this->factory = new ResultFactory($fileReflection);
-
-        $cleanUpResults = $selector->selectRange($this->lineRange);
-        $this->lineResults = $cleanUpResults;
+        $this->factory = new ResultFactory($reflection);
+        $this->lineResults = $selector->selectByReflection($reflection);
     }
 
     /**

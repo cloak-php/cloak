@@ -13,6 +13,7 @@ use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
+use \Prophecy\Prophet;
 
 
 describe('FileReflection', function() {
@@ -56,10 +57,17 @@ describe('FileReflection', function() {
 
     describe('#convertToResult', function() {
         beforeEach(function() {
-            $result = $this->reflection->convertToResult(new LineResultCollection([
+            $this->prophet = new Prophet();
+
+            $results = new LineResultCollection([
                 new LineResult(11, LineResult::UNUSED)
-            ]));
-            $this->result = $result;
+            ]);
+
+            $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+            $selector->selectByReflection($this->reflection)
+                ->willReturn($results);
+
+            $this->result = $this->reflection->convertToResult($selector->reveal());
         });
         it('return cloak\result\FileResult', function() {
             expect($this->result)->toBeAnInstanceOf('cloak\result\FileResult');
