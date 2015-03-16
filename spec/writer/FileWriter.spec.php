@@ -14,11 +14,15 @@ use cloak\writer\FileWriter;
 describe('FileWriter', function() {
 
     beforeEach(function() {
-        $this->directory = __DIR__ . '/../tmp/';
+        $this->directory = realpath(__DIR__ . '/../tmp/') . '/';
         $this->filePath = $this->directory . 'output.txt';
     });
 
     describe('#__construct', function() {
+        beforeEach(function() {
+            $this->readOnlyDirectory = $this->directory . 'tmp/';
+            rmdir($this->readOnlyDirectory);
+        });
         context('when directory not found', function() {
             it('throw cloak\writer\DirectoryNotFoundException', function() {
                 expect(function() {
@@ -28,12 +32,8 @@ describe('FileWriter', function() {
         });
         context('when directory not writable', function() {
             beforeEach(function() {
-                $this->readOnlyDirectory = $this->directory . 'tmp/';
                 mkdir($this->readOnlyDirectory, 0444);
                 $this->outputFilePath = $this->readOnlyDirectory . 'file.txt';
-            });
-            afterEach(function() {
-                rmdir($this->readOnlyDirectory);
             });
             it('throw cloak\writer\DirectoryNotWritableException', function() {
                 expect(function() {
