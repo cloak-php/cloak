@@ -21,6 +21,12 @@ use cloak\driver\AdaptorInterface;
 class XdebugAdaptor implements AdaptorInterface
 {
 
+    /**
+     * @var int
+     */
+    private $optionValue;
+
+
     public function __construct()
     {
         if (!extension_loaded('xdebug')) {
@@ -30,11 +36,13 @@ class XdebugAdaptor implements AdaptorInterface
         if ($this->isSupportXdebugVersion() && $this->isXdebugCoverageEnabled()) {
             throw new AdaptorNotAvailableException('xdebug.coverage_enable=On has to be set in php.ini');
         }
+
+        $this->optionValue = defined('HHVM_VERSION') ? 0 : XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE;
     }
 
     public function start()
     {
-        xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
+        xdebug_start_code_coverage($this->optionValue);
     }
 
     public function stop()
