@@ -48,6 +48,7 @@ class AdaptorDetector implements AdaptorDetectorInterface
         foreach ($this->adaptors as $adaptor) {
             try {
                 $result = new $adaptor();
+                break;
             } catch (AdaptorNotAvailableException $exception) {
                 $exceptions[] = $exception->getMessage();
             }
