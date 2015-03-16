@@ -21,6 +21,13 @@ describe('FileResult', function() {
                 })->toThrow('cloak\driver\result\FileNotFoundException');
             });
         });
+        context('when not the path of the file', function() {
+            it('cloak\driver\result\InvalidPathException', function() {
+                expect(function() {
+                    new FileResult('systemlib.phpxml');
+                })->toThrow('cloak\driver\result\InvalidPathException');
+            });
+        });
     });
     describe('#matchPath', function() {
         beforeEach(function() {
