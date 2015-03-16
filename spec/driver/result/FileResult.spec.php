@@ -22,10 +22,10 @@ describe('FileResult', function() {
             });
         });
         context('when not the path of the file', function() {
-            it('cloak\driver\result\InvalidPathException', function() {
+            it('cloak\driver\result\FileNotFoundException', function() {
                 expect(function() {
                     new FileResult('systemlib.phpxml');
-                })->toThrow('cloak\driver\result\InvalidPathException');
+                })->toThrow('cloak\driver\result\FileNotFoundException');
             });
         });
     });
