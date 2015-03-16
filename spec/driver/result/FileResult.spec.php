@@ -15,7 +15,7 @@ use cloak\driver\result\FileResult;
 describe('FileResult', function() {
     describe('#__construct', function() {
         context('when file not found', function() {
-            it('return true', function() {
+            it('throw cloak\driver\result\FileNotFoundException', function() {
                 expect(function() {
                     new FileResult(__DIR__ . '/not_found.php');
                 })->toThrow('cloak\driver\result\FileNotFoundException');
