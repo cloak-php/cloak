@@ -37,7 +37,10 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
      */
     public function __construct(ReporterInterface $reporter = null)
     {
-        $this->setEventManager(new EventManager());
+        $eventManager = new EventManager();
+        $eventManager->setThrowExceptions(true);
+
+        $this->setEventManager($eventManager);
 
         if ($reporter === null) {
             return;

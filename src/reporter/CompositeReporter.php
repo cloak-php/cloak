@@ -40,6 +40,7 @@ class CompositeReporter implements ReporterInterface, CompositeListener
     public function __construct(array $reporters)
     {
         $eventManager = new EventManager();
+        $eventManager->setThrowExceptions(true);
 
         foreach ($reporters as $reporter) {
             $eventManager->addListener($reporter);
