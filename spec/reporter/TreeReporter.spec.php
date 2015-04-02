@@ -10,9 +10,12 @@
  */
 
 use cloak\Result;
+use cloak\Configuration;
 use cloak\result\LineResult;
 use cloak\reporter\TreeReporter;
 use cloak\driver\Result as AnalyzeResult;
+use cloak\value\CoverageBounds;
+use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 
 
@@ -45,7 +48,13 @@ describe('TreeReporter', function() {
             $analyzeResult = AnalyzeResult::fromArray($coverages);
             $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
 
+            $config = new Configuration([
+                'coverageBounds' => new CoverageBounds(35.0, 70.0)
+            ]);
+            $initEvent = new InitEvent($config);
+
             $this->reporter = new TreeReporter();
+            $this->reporter->onInit($initEvent);
         });
         it('output tree result', function() {
             expect(function() {

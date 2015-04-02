@@ -15,7 +15,8 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\result\LineResult;
-use cloak\event\StopEventInterface;
+use cloak\event\InitEvent;
+use cloak\event\StopEvent;
 use cloak\writer\FileWriter;
 
 
@@ -23,7 +24,8 @@ use cloak\writer\FileWriter;
  * Class LcovReporter
  * @package cloak\reporter
  */
-class LcovReporter implements ReporterInterface
+class LcovReporter
+    implements ReporterInterface, InitEventListener, StopEventListener
 {
 
     const SOURCE_FILE_PREFIX = 'SF:';
@@ -33,25 +35,42 @@ class LcovReporter implements ReporterInterface
     use Reportable;
 
     /**
+     * @var string Report file name
+     */
+    private $fileName;
+
+
+    /**
      * @var \cloak\writer\FileWriter
      */
     private $reportWriter;
 
 
     /**
-     * @param string|null $outputFilePath
+     * @param string|null $fileName
      * @throws \cloak\writer\DirectoryNotFoundException
      * @throws \cloak\writer\DirectoryNotWritableException
      */
-    public function __construct($outputFilePath)
+    public function __construct($fileName)
     {
-        $this->reportWriter = new FileWriter($outputFilePath);
+        $this->fileName = $fileName;
     }
 
     /**
-     * @param \cloak\event\StopEventInterface $event
+     * @param InitEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onInit(InitEvent $event)
+    {
+        $reportDirectory = $event->getReportDirectory();
+        $reportFile = $reportDirectory->join($this->fileName);
+
+        $this->reportWriter = new FileWriter( $reportFile->stringify() );
+    }
+
+    /**
+     * @param \cloak\event\StopEvent $event
+     */
+    public function onStop(StopEvent $event)
     {
         $result = $event->getResult();
         $this->writeResult($result);

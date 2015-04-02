@@ -10,17 +10,22 @@
  */
 
 use cloak\Result;
+use cloak\Configuration;
 use cloak\result\LineResult;
+use cloak\event\InitEvent;
+use cloak\event\StopEvent;
 use cloak\reporter\LcovReporter;
 use cloak\driver\Result as AnalyzeResult;
-use \Mockery;
 use \DateTime;
+
 
 describe('LcovReporter', function() {
     describe('onStop', function() {
         beforeEach(function() {
+            $this->reportDirectory = __DIR__ . '/../tmp';
+            $this->reportFileName = 'report.lcov';
             $this->reportFile = __DIR__ . '/../tmp/report.lcov';
-            $this->reporter = new LcovReporter($this->reportFile);
+            $this->reporter = new LcovReporter($this->reportFileName);
 
             $this->source1 = realpath(__DIR__ . '/../fixtures/Example1.php');
             $this->source2 = realpath(__DIR__ . '/../fixtures/Example2.php');
@@ -36,11 +41,13 @@ describe('LcovReporter', function() {
                 ]
             ]);
 
+            $initEvent = new InitEvent(new Configuration([
+                'reportDirectory' => $this->reportDirectory
+            ]));
+            $this->reporter->onInit($initEvent);
+
             $this->result = Result::fromAnalyzeResult($analyzeResult);
-
-            $this->stopEvent = Mockery::mock('\cloak\event\StopEventInterface');
-            $this->stopEvent->shouldReceive('getResult')->once()->andReturn($this->result);
-
+            $this->stopEvent = new StopEvent($this->result);
             $this->reporter->onStop($this->stopEvent);
 
             $output  = "";
@@ -62,9 +69,6 @@ describe('LcovReporter', function() {
         it('should output lcov report file', function() {
             $result = file_get_contents($this->reportFile);
             expect($result)->toEqual($this->output);
-        });
-        it('check mock object expectations', function() {
-            Mockery::close();
         });
     });
 

@@ -12,8 +12,8 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\StopEventInterface;
-use cloak\value\CoverageBounds;
+use cloak\event\InitEvent;
+use cloak\event\StopEvent;
 use cloak\result\CoverageResultInterface;
 use cloak\result\CoverageResultVisitorInterface;
 use cloak\writer\ResultConsoleWriter;
@@ -24,7 +24,8 @@ use Zend\Console\ColorInterface as Color;
  * Class TreeReporter
  * @package cloak\reporter
  */
-class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
+class TreeReporter
+    implements ReporterInterface, StopEventListener, CoverageResultVisitorInterface
 {
 
     use Reportable;
@@ -43,24 +44,24 @@ class TreeReporter implements ReporterInterface, CoverageResultVisitorInterface
     private $indent;
 
 
-    /**
-     * @param float $satisfactory
-     * @param float $critical
-     */
-    public function __construct(
-        $satisfactory = self::DEFAULT_HIGH_BOUND,
-        $critical = self::DEFAULT_LOW_BOUND
-    )
+    public function __construct()
     {
-        $bounds = new CoverageBounds($critical, $satisfactory);
-        $this->console = new ResultConsoleWriter($bounds);
         $this->indent = 0;
     }
 
     /**
-     * @param \cloak\event\StopEventInterface $event
+     * @param \cloak\event\InitEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onInit(InitEvent $event)
+    {
+        $coverageBounds = $event->getCoverageBounds();
+        $this->console = new ResultConsoleWriter($coverageBounds);
+    }
+
+    /**
+     * @param \cloak\event\StopEvent $event
+     */
+    public function onStop(StopEvent $event)
     {
         $result = $event->getResult();
 

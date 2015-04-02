@@ -78,7 +78,7 @@ describe('CoverageResultCollection', function() {
             $this->result = $originalResult->exclude($excludeResult);
         });
         it('return excluded new collection', function() {
-            expect($this->result->isEmpty())->toBeTruthy();
+            expect($this->result->isEmpty())->toBeTrue();
         });
     });
 
@@ -105,7 +105,7 @@ describe('CoverageResultCollection', function() {
         context('when have not lower result', function() {
             it('return empty collection', function() {
                 $selectResult = $this->result->selectByCoverageLessThan(new Coverage(50.0));
-                expect($selectResult->isEmpty())->toBeTruthy();
+                expect($selectResult->isEmpty())->toBeTrue();
             });
         });
     });
@@ -133,7 +133,7 @@ describe('CoverageResultCollection', function() {
         context('when have not higher result', function() {
             it('return empty collection', function() {
                 $selectResult = $this->result->selectByCoverageGreaterEqual(new Coverage(51.0));
-                expect($selectResult->isEmpty())->toBeTruthy();
+                expect($selectResult->isEmpty())->toBeTrue();
             });
         });
     });

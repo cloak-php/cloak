@@ -13,16 +13,14 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
+use cloak\driver\result\FileResult;
 use cloak\driver\XdebugDriver;
 use \InvalidArgumentException;
+
 
 /**
  * Class Configuration
  * @package cloak
- * @property-read \cloak\driver\DriverInterface $driver
- * @property-read \cloak\reporter\ReporterInterface $reporter
- * @property-read \Closure[] $includeFiles
- * @property-read \Closure[] $excludeFiles
  */
 class Configuration
 {
@@ -38,14 +36,24 @@ class Configuration
     private $reporter;
 
     /**
-     * @var \Closure[]
+     * @var string[]
      */
     private $includeFiles = [];
 
     /**
-     * @var \Closure[]
+     * @var string[]
      */
     private $excludeFiles = [];
+
+    /**
+     * @var \cloak\value\CoverageBounds
+     */
+    private $coverageBounds;
+
+    /**
+     * @var string
+     */
+    private $reportDirectory;
 
 
     /**
@@ -64,10 +72,50 @@ class Configuration
     /**
      * @return XdebugDriver|null
      */
-    protected function getDriver()
+    public function getDriver()
     {
         $this->driver = $this->driver ? $this->driver : new XdebugDriver();
         return $this->driver;
+    }
+
+    /**
+     * @return reporter\ReporterInterface
+     */
+    public function getReporter()
+    {
+        return $this->reporter;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getIncludeFiles()
+    {
+        return $this->includeFiles;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getExcludeFiles()
+    {
+        return $this->excludeFiles;
+    }
+
+    /**
+     * @return value\CoverageBounds
+     */
+    public function getCoverageBounds()
+    {
+        return $this->coverageBounds;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportDirectory()
+    {
+        return $this->reportDirectory;
     }
 
     /**
@@ -76,22 +124,25 @@ class Configuration
      */
     public function applyTo(AnalyzeResult $result)
     {
-        return $result->includeFiles($this->includeFiles)
-            ->excludeFiles($this->excludeFiles);
+        $includeCallback = $this->createCallback($this->includeFiles);
+        $excludeCallback = $this->createCallback($this->excludeFiles);
+
+        return $result->includeFile($includeCallback)
+            ->excludeFile($excludeCallback);
     }
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        $getter = 'get' . ucwords($name);
 
-        if (method_exists($this, $getter) === true) {
-            return $this->$getter();
-        }
-        return $this->$name;
+    /**
+     * @param string[] $patterns
+     * @return callable
+     */
+    private function createCallback(array $patterns)
+    {
+        $filterCallback = function (FileResult $file) use ($patterns) {
+            return $file->matchPaths($patterns);
+        };
+
+        return $filterCallback;
     }
 
 }

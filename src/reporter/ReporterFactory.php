@@ -106,6 +106,11 @@ class ReporterFactory
     private function getConstructorArguments()
     {
         $constructor = $this->reflection->getConstructor();
+
+        if ($constructor === null) {
+            return [];
+        }
+
         $parameters = $constructor->getParameters();
 
         return $parameters;

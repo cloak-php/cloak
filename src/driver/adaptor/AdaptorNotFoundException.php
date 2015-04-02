@@ -9,17 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\driver;
+namespace cloak\driver\adaptor;
 
 use Exception;
 
+
 /**
- * Class DriverNotFoundException
- * @package cloak\driver
+ * Class AdaptorNotFoundException
+ * @package cloak\driver\adaptor
  */
-class DriverNotFoundException extends Exception
+class AdaptorNotFoundException extends Exception
 {
 
+    /**
+     * @param array $messages
+     */
     public function __construct(array $messages)
     {
         parent::__construct(implode("\n", $messages));

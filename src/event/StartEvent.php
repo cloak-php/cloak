@@ -17,12 +17,17 @@ use \DateTime;
  * Class StartEvent
  * @package cloak\event
  */
-final class StartEvent extends Event implements StartEventInterface
+final class StartEvent extends Event implements EventInterface
 {
 
-    public function __construct()
+    public function __construct($sendAt = null)
     {
-        $this->sendAt = new DateTime();
+        $sendDateTime = $sendAt;
+
+        if ($sendDateTime === null) {
+            $sendDateTime = new DateTime();
+        }
+        $this->sendAt = $sendDateTime;
     }
 
 }

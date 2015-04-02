@@ -14,17 +14,20 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
-use cloak\event\StartEventInterface;
-use cloak\event\StopEventInterface;
+use cloak\event\InitEvent;
+use cloak\event\StartEvent;
+use cloak\event\StopEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
+
 
 
 /**
  * Class MarkdownReporter
  * @package cloak\reporter
  */
-class MarkdownReporter implements ReporterInterface
+class MarkdownReporter
+    implements ReporterInterface, InitEventListener, StartEventListener, StopEventListener
 {
 
     use Reportable;
@@ -49,6 +52,11 @@ class MarkdownReporter implements ReporterInterface
     ];
 
     /**
+     * @var string Report file name
+     */
+    private $fileName;
+
+    /**
      * @var CoverageBounds
      */
     private $bounds;
@@ -65,32 +73,38 @@ class MarkdownReporter implements ReporterInterface
 
 
     /**
-     * @param string $outputFilePath
-     * @param float $satisfactory
-     * @param float $critical
+     * @param string $fileName
      */
-    public function __construct (
-        $outputFilePath,
-        $satisfactory = self::DEFAULT_HIGH_BOUND,
-        $critical = self::DEFAULT_LOW_BOUND
-    )
+    public function __construct ($fileName)
     {
-        $this->bounds = new CoverageBounds($critical, $satisfactory);
-        $this->reportWriter = new FileWriter($outputFilePath);
+        $this->fileName = $fileName;
     }
 
     /**
-     * @param StartEventInterface $event
+     * @param \cloak\event\InitEvent $event
      */
-    public function onStart(StartEventInterface $event)
+    public function onInit(InitEvent $event)
+    {
+        $this->bounds = $event->getCoverageBounds();
+
+        $reportDirectory = $event->getReportDirectory();
+        $reportFile = $reportDirectory->join($this->fileName);
+
+        $this->reportWriter = new FileWriter( $reportFile->stringify() );
+    }
+
+    /**
+     * @param StartEvent $event
+     */
+    public function onStart(StartEvent $event)
     {
         $this->generatedAt = $event->getSendAt();
     }
 
     /**
-     * @param StopEventInterface $event
+     * @param StopEvent $event
      */
-    public function onStop(StopEventInterface $event)
+    public function onStop(StopEvent $event)
     {
         $this->writeMarkdownReport($event->getResult());
     }

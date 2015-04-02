@@ -11,8 +11,6 @@
 
 namespace cloak\result;
 
-use cloak\value\LineRange;
-use cloak\reflection\ReflectionInterface;
 use cloak\CollectionInterface;
 
 
@@ -20,19 +18,7 @@ use cloak\CollectionInterface;
  * Interface LineResultCollectionInterface
  * @package cloak\result
  */
-interface LineResultCollectionInterface extends CodeCoverageResultInterface, LineResultInterface, CollectionInterface
+interface LineResultCollectionInterface
+    extends CodeCoverageResultInterface, LineResultSelectable, LineResultInterface, CollectionInterface
 {
-
-    /**
-     * @param LineRange $lineRange
-     * @return LineResultCollectionInterface
-     */
-    public function selectRange(LineRange $lineRange);
-
-    /**
-     * @param ReflectionInterface $reflection
-     * @return LineResultCollectionInterface
-     */
-    public function resolveLineResults(ReflectionInterface $reflection);
-
 }

@@ -32,13 +32,6 @@ describe('Configuration', function() {
 
     describe('#applyTo', function() {
         beforeEach(function() {
-            $filter1 = function(FileResult $file) {
-                return $file->matchPath('foo');
-            };
-            $filter2 = function(FileResult $file) {
-                return $file->matchPath('vendor/foo1.php');
-            };
-
             $rootDirectory = __DIR__ . '/fixtures/src/';
 
             $this->result = new Result();
@@ -47,11 +40,12 @@ describe('Configuration', function() {
             $this->result->addFile(new FileResult($rootDirectory . 'vendor/foo1.php',  []));
 
             $builder = new ConfigurationBuilder();
-            $this->configuration = $builder->includeFile($filter1)
-                ->excludeFile($filter2)
+
+            $config = $builder->includeFiles(['foo'])
+                ->excludeFiles(['vendor/foo1.php'])
                 ->build();
 
-            $this->returnValue = $this->configuration->applyTo($this->result);
+            $this->returnValue = $config->applyTo($this->result);
         });
 
         it('apply configuration', function() {

@@ -17,20 +17,16 @@ require_once __DIR__ . "/src/functions.php";
 
 use cloak\Analyzer;
 use cloak\configuration\ConfigurationBuilder;
-use cloak\driver\result\FileResult;
+
 
 use Example as example;
 
-$analyzer = Analyzer::factory(function(ConfigurationBuilder $builder) {
+$builder = new ConfigurationBuilder();
 
-    $builder->includeFile(function(FileResult $file) {
-        return $file->matchPath('/example/src');
-    })->excludeFile(function(FileResult $file) {
-        return $file->matchPath('/spec');
-    });
+$builder->includeFile('/example/src')
+    ->excludeFile('/spec');
 
-});
-
+$analyzer = new Analyzer( $builder->build() );
 $analyzer->start();
 
 //I write code here want to take code coverage
