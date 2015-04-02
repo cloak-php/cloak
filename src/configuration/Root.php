@@ -13,6 +13,7 @@ namespace cloak\configuration;
 
 use Zend\Config\Config;
 use cloak\configuration\section\Target;
+use cloak\configuration\section\Report;
 use cloak\configuration\section\Reporter;
 
 
@@ -39,6 +40,9 @@ final class Root implements SectionInterface
 
         $target = $config->get('target', $emptyConfig)->toArray();
         $this->configurations[] = new Target($target);
+
+        $target = $config->get('report', $emptyConfig)->toArray();
+        $this->configurations[] = new Report($target);
 
         $reporter = $config->get('reporter', $emptyConfig)->toArray();
         $this->configurations[] = new Reporter($reporter);

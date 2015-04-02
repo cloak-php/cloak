@@ -8,6 +8,8 @@ use Peridot\Console\Command;
 use Peridot\Runner\SuiteLoaderInterface;
 use expectation\peridot\ExpectationPlugin;
 use Symfony\Component\Yaml\Yaml;
+use Peridot\Reporter\Dot\DotReporterPlugin;
+
 use \RecursiveDirectoryIterator;
 use \FilesystemIterator;
 use \RecursiveIteratorIterator;
@@ -85,6 +87,7 @@ class SuiteLoader implements SuiteLoaderInterface
 return function(EventEmitterInterface $emitter)
 {
     ExpectationPlugin::create()->registerTo($emitter);
+    new DotReporterPlugin($emitter);
 
     $emitter->on('peridot.load', function(Command $command, Configuration $configuration) {
         $command->setLoader(new SuiteLoader());

@@ -10,9 +10,10 @@
  */
 
 use cloak\Result;
+use cloak\event\StartEvent;
+use cloak\event\StopEvent;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
-use cloak\spec\reporter\ReporterFixture;
 use \Prophecy\Prophet;
 
 
@@ -22,46 +23,43 @@ describe('CompositeReporter', function() {
         $this->prophet = new Prophet;
     });
 
-    describe('onStart', function() {
+    describe('#onStart', function() {
         beforeEach(function() {
-            $startEvent = $this->prophet->prophesize('cloak\event\StartEventInterface');
-            $startEvent->getSendAt()->shouldNotBeCalled();
+            $this->startEvent = new StartEvent();
 
-            $this->startEvent = $startEvent->reveal();
+            $reporter1 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
+            $reporter1->willImplement('cloak\reporter\StartEventListener');
+            $reporter1->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
-            $this->reporter1 = new ReporterFixture('fixture1', 'fixture reporter1');
-            $this->reporter2 = new ReporterFixture('fixture2', 'fixture reporter2');
+            $this->reporter1 = $reporter1->reveal();
+
+            $reporter2 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
+            $reporter2->willImplement('cloak\reporter\StartEventListener');
+            $reporter2->onStart($this->startEvent)->shouldBeCalledTimes(1);
+
+            $this->reporter2 = $reporter2->reveal();
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
             $this->reporter->onStart($this->startEvent);
         });
-        afterEach(function() {
-            $this->prophet->checkPredictions();
-        });
         it('notify the event to the children of the reporter', function() {
-            $firstReporterEvent = $this->reporter1->getStartEvent();
-            $secondReporterEvent = $this->reporter2->getStartEvent();
-
-            expect($firstReporterEvent)->toEqual($secondReporterEvent);
+            $this->prophet->checkPredictions();
         });
     });
 
     describe('onStop', function() {
         beforeEach(function() {
             $this->result = new Result(new Sequence());
-
-            $stopEvent = $this->prophet->prophesize('cloak\event\StopEventInterface');
-            $stopEvent->getSendAt()->shouldNotBeCalled();
-            $stopEvent->getResult()->shouldNotBeCalled();
-
-            $this->stopEvent = $stopEvent->reveal();
+            $this->stopEvent = new StopEvent($this->result);
 
             $reporter1 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
+            $reporter1->willImplement('cloak\reporter\StopEventListener');
             $reporter1->onStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
             $reporter2 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
+            $reporter2->willImplement('cloak\reporter\StopEventListener');
             $reporter2->onStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter2 = $reporter2->reveal();

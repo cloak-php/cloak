@@ -130,7 +130,7 @@ class LineResultCollection implements LineResultCollectionInterface
      * @param ReflectionInterface $reflection
      * @return LineResultCollectionInterface
      */
-    public function resolveLineResults(ReflectionInterface $reflection)
+    public function selectByReflection(ReflectionInterface $reflection)
     {
         $lineRange = $reflection->getLineRange();
         return $this->selectRange($lineRange);

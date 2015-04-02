@@ -78,7 +78,7 @@ class ReporterFactory
     }
 
     /**
-     * @param array $arguments
+     * @param Map $assignValues
      * @return array
      */
     private function assmebleArguments(Map $assignValues)
@@ -106,6 +106,11 @@ class ReporterFactory
     private function getConstructorArguments()
     {
         $constructor = $this->reflection->getConstructor();
+
+        if ($constructor === null) {
+            return [];
+        }
+
         $parameters = $constructor->getParameters();
 
         return $parameters;

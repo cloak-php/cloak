@@ -40,7 +40,7 @@ final class Reporter extends AbstractSection implements SectionInterface
     {
         $reporters = [];
 
-        foreach ($this->values as $reporterName => $arguments) {
+        foreach ($this->getValues() as $reporterName => $arguments) {
             $factory = ReporterFactory::fromName($reporterName);
             $reporter = $factory->createWithArguments( $arguments->toArray() );
 

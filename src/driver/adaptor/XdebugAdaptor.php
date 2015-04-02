@@ -9,30 +9,32 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\driver;
+namespace cloak\driver\adaptor;
+
+use cloak\driver\AdaptorInterface;
+
 
 /**
- * Class XdebugDriver
+ * Class XdebugAdaptor
  * @package cloak\driver
  */
-class XdebugDriver extends AbstractDriver
+class XdebugAdaptor implements AdaptorInterface
 {
 
     public function __construct()
     {
         if (!extension_loaded('xdebug')) {
-            throw new DriverNotAvailableException('This driver requires Xdebug');
+            throw new AdaptorNotAvailableException('This adaptor requires Xdebug');
         }
 
         if ($this->isSupportXdebugVersion() && $this->isXdebugCoverageEnabled()) {
-            throw new DriverNotAvailableException('xdebug.coverage_enable=On has to be set in php.ini');
+            throw new AdaptorNotAvailableException('xdebug.coverage_enable=On has to be set in php.ini');
         }
     }
 
     public function start()
     {
         xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-        $this->started = true;
     }
 
     public function stop()
@@ -40,8 +42,7 @@ class XdebugDriver extends AbstractDriver
         $result = xdebug_get_code_coverage();
         xdebug_stop_code_coverage();
 
-        $this->analyzeResult = $result;
-        $this->started = false;
+        return $result;
     }
 
     /**

@@ -11,7 +11,6 @@
 
 namespace cloak\result;
 
-use cloak\value\LineRange;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\reflection\ClassReflection;
 
@@ -32,14 +31,13 @@ abstract class AbstractTypeResult
 
 
     /**
-     * @param ClassReflection $classReflection
-     * @param LineResultCollectionInterface $classLineResults
+     * @param ClassReflection $reflection
+     * @param LineResultSelectable $selector
      */
-    public function __construct(ClassReflection $classReflection, LineResultCollectionInterface $classLineResults)
+    public function __construct(ClassReflection $reflection, LineResultSelectable $selector)
     {
-        $rangeResults = $classLineResults->resolveLineResults($classReflection);
-        $this->reflection = $classReflection;
-        $this->lineResults = $rangeResults;
+        $this->reflection = $reflection;
+        $this->lineResults = $selector->selectByReflection($this->reflection);
     }
 
     /**

@@ -11,98 +11,110 @@
 
 use cloak\value\Coverage;
 use cloak\spec\result\FixtureCoverageResult;
-use \Mockery;
+use Prophecy\Prophet;
 
 
 describe('CoverageResult', function() {
     describe('#getLineCount', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('getLineCount')->once();
+            $this->prophet = new Prophet();
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->getLineCount();
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->getLineCount()->willReturn(10);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#getLineCount', function() {
-            Mockery::close();
+            expect($this->result->getLineCount())->toBe(10);
         });
     });
 
     describe('#getDeadLineCount', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('getDeadLineCount')->once();
+            $this->prophet = new Prophet();
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->getDeadLineCount();
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->getDeadLineCount()->willReturn(10);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#getDeadLineCount', function() {
-            Mockery::close();
+            expect($this->result->getDeadLineCount())->toBe(10);
         });
     });
 
     describe('#getUnusedLineCount', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('getUnusedLineCount')->once();
+            $this->prophet = new Prophet();
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->getUnusedLineCount();
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->getUnusedLineCount()->willReturn(10);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#getUnusedLineCount', function() {
-            Mockery::close();
+            expect($this->result->getUnusedLineCount())->toBe(10);
         });
     });
 
     describe('#getExecutedLineCount', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('getExecutedLineCount')->once();
+            $this->prophet = new Prophet();
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->getExecutedLineCount();
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->getExecutedLineCount()->willReturn(10);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#getExecutedLineCount', function() {
-            Mockery::close();
+            expect($this->result->getExecutedLineCount())->toBe(10);
         });
     });
 
     describe('#getCodeCoverage', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('getCodeCoverage')->once();
+            $this->prophet = new Prophet();
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->getCodeCoverage();
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->getCodeCoverage()->willReturn(100);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#getCodeCoverage', function() {
-            Mockery::close();
+            expect($this->result->getCodeCoverage())->toBe(100);
         });
     });
 
     describe('#isCoverageLessThan', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('isCoverageLessThan')->once();
+            $this->prophet = new Prophet();
+            $this->coverage = new Coverage(51);
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->isCoverageLessThan(new Coverage(51));
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->isCoverageLessThan($this->coverage)->willReturn(true);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#isCoverageLessThan', function() {
-            Mockery::close();
+            $result = $this->result->isCoverageLessThan($this->coverage);
+            expect($result)->toBeTrue();
         });
     });
 
     describe('#isCoverageGreaterEqual', function() {
         beforeEach(function() {
-            $lineResult = Mockery::mock('\cloak\result\LineResultCollectionInterface');
-            $lineResult->shouldReceive('isCoverageGreaterEqual')->once();
+            $this->prophet = new Prophet();
+            $this->coverage = new Coverage(51);
 
-            $result = new FixtureCoverageResult($lineResult);
-            $result->isCoverageGreaterEqual(new Coverage(51));
+            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult->isCoverageGreaterEqual($this->coverage)
+                ->willReturn(false);
+
+            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
         });
         it('delegate to LineResultCollectionInterface#isCoverageGreaterEqual', function() {
-            Mockery::close();
+            $result = $this->result->isCoverageGreaterEqual($this->coverage);
+            expect($result)->toBeFalse();
         });
     });
 

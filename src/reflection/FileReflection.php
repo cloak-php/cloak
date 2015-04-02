@@ -14,7 +14,7 @@ namespace cloak\reflection;
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\value\LineRange;
 use cloak\result\FileResult;
-use cloak\result\LineResultCollectionInterface;
+use cloak\result\LineResultSelectable;
 use PhpCollection\Sequence;
 use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
 use Zend\Code\Reflection\FileReflection as ZendFileReflection;
@@ -25,7 +25,7 @@ use Closure;
  * Class FileReflection
  * @package cloak\reflection
  */
-class FileReflection implements ReflectionInterface
+class FileReflection implements ReflectionInterface, ResultConvertible
 {
 
     /**
@@ -53,7 +53,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getIdentityName()
     {
@@ -61,7 +61,7 @@ class FileReflection implements ReflectionInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -73,7 +73,7 @@ class FileReflection implements ReflectionInterface
      */
     public function getClasses()
     {
-        return $this->selectClassReflections(function(ZendClassReflection $reflection) {
+        return $this->selectClassReflections(function (ZendClassReflection $reflection) {
             return $reflection->isTrait();
         });
     }
@@ -83,13 +83,13 @@ class FileReflection implements ReflectionInterface
      */
     public function getTraits()
     {
-        return $this->selectClassReflections(function(ZendClassReflection $reflection) {
+        return $this->selectClassReflections(function (ZendClassReflection $reflection) {
             return $reflection->isTrait() === false;
         });
     }
 
     /**
-     * @return LineRange
+     * {@inheritdoc}
      */
     public function getLineRange()
     {
@@ -104,11 +104,11 @@ class FileReflection implements ReflectionInterface
     {
         $classes = $this->reflection->getClasses();
 
-        $excludeInterface = function(ZendClassReflection $reflection) {
+        $excludeInterface = function (ZendClassReflection $reflection) {
             return $reflection->isInterface() === false;
         };
 
-        $createClassReflection = function(ZendClassReflection $reflection) {
+        $createClassReflection = function (ZendClassReflection $reflection) {
             return new ClassReflection($reflection->getName());
         };
 
@@ -117,16 +117,15 @@ class FileReflection implements ReflectionInterface
             ->filter($excludeInterface)
             ->map($createClassReflection);
 
-        return new ReflectionCollection( $reflections->all() );
+        return new ReflectionCollection($reflections->all());
     }
 
     /**
-     * @param LineResultCollectionInterface $lineResults
-     * @return FileResult
+     * {@inheritdoc}
      */
-    public function assembleBy(LineResultCollectionInterface $lineResults)
+    public function convertToResult(LineResultSelectable $selector)
     {
-        return new FileResult($this->getName(), $lineResults);
+        return new FileResult($this->getName(), $selector);
     }
 
     /**

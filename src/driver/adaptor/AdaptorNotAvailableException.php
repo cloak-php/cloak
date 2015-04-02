@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\driver;
+namespace cloak\driver\adaptor;
 
 use Exception;
 
 /**
- * Class DriverNotAvailableException
- * @package cloak\driver
+ * Class AdaptorNotAvailableException
+ * @package cloak\driver\adaptor
  */
-class DriverNotAvailableException extends Exception
+class AdaptorNotAvailableException extends Exception
 {
 }

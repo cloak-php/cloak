@@ -27,7 +27,7 @@ describe('Reporter', function() {
             $this->config->applyTo($this->builder);
         });
         it('return cloak\reporter\CompositeReporter instance', function() {
-            expect($this->builder->reporter)->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
+            expect($this->builder->getReporter())->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
         });
     });
 

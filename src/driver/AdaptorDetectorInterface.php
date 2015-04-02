@@ -12,15 +12,15 @@
 namespace cloak\driver;
 
 /**
- * Interface DriverDetectorInterface
+ * Interface AdaptorDetectorInterface
  * @package cloak\driver
  */
-interface DriverDetectorInterface
+interface AdaptorDetectorInterface
 {
 
     /**
-     * @return \cloak\driver\DriverInterface
-     * @throws \cloak\driver\DriverNotFoundException
+     * @return \cloak\driver\AdaptorInterface
+     * @throws \cloak\driver\adaptor\AdaptorNotFoundException
      */
     public function detect();
 

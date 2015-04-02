@@ -19,7 +19,7 @@ use \DateTime;
  * Class StopEvent
  * @package cloak\event
  */
-final class StopEvent extends Event implements StopEventInterface
+final class StopEvent extends Event implements EventInterface
 {
 
     /**

@@ -9,18 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\event;
+namespace cloak\driver;
+
 
 /**
- * Interface StopEventInterface
- * @package cloak\event
+ * Interface AdaptorInterface
+ * @package cloak\driver
  */
-interface StopEventInterface extends EventInterface
+interface AdaptorInterface
 {
 
+    public function start();
+
     /**
-     * @return \cloak\Result
+     * @return array
      */
-    public function getResult();
+    public function stop();
 
 }

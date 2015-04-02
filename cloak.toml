@@ -7,27 +7,29 @@ includes = ["src"]
 excludes = ["vendor", "spec"]
 
 
+[report]
+reportDirectory = "./tmp"
+
+[report.coverageBounds]
+satisfactory = 80.0
+critical = 50.0
+
+
 [reporter]
 
 # TextReporter
 [reporter.text]
-satisfactory = 80.0
-critical = 50.0
 
 # TreeReporter
 [reporter.tree]
-satisfactory = 80.0
-critical = 50.0
 
 # MarkdownReporter
 [reporter.markdown]
-satisfactory = 80.0
-critical = 50.0
-outputFilePath = "tmp/report.md"
+fileName = "report.md"
 
 # LcovReporter
 [reporter.lcov]
-outputFilePath = "tmp/report.lcov"
+fileName = "report.lcov"
 
 # ProcessingTimeReporter
 [reporter.processingTime]
