@@ -24,6 +24,7 @@ class FileWriter implements WriterInterface
      * @var \SplFileObject
      */
     private $file;
+    private $writeSize = 0;
 
 
     /**
@@ -49,7 +50,7 @@ class FileWriter implements WriterInterface
      */
     public function writeText($text)
     {
-        $this->file->fwrite($text);
+        $this->write($text);
     }
 
     /**
@@ -57,7 +58,7 @@ class FileWriter implements WriterInterface
      */
     public function writeLine($text)
     {
-        $this->file->fwrite($text . PHP_EOL);
+        $this->writeText($text . PHP_EOL);
     }
 
     /**
@@ -65,7 +66,13 @@ class FileWriter implements WriterInterface
      */
     public function writeEOL()
     {
-        $this->file->fwrite(PHP_EOL);
+        $this->write(PHP_EOL);
+    }
+
+    private function write($text)
+    {
+        $writeBytes = $this->file->fwrite($text);
+        $this->writeSize += $writeBytes;
     }
 
     /**
@@ -73,7 +80,7 @@ class FileWriter implements WriterInterface
      */
     public function getWriteSize()
     {
-        return $this->file->getSize();
+        return $this->writeSize;
     }
 
 }

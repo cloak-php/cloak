@@ -48,12 +48,13 @@ describe('MarkdownReporter', function() {
 
     describe('onStop', function() {
         beforeEach(function() {
-            $this->directoryPath = realpath(__DIR__ . '/../tmp/');
+            $this->reportDirectory = $this->makeDirectory();
+
             $this->fileName = 'report.md';
-            $this->filePath = $this->directoryPath . '/' . $this->fileName;
+            $this->filePath = $this->reportDirectory->getPath() . '/' . $this->fileName;
 
             $this->initEvent = new InitEvent(new Configuration([
-                'reportDirectory' => $this->directoryPath,
+                'reportDirectory' => $this->reportDirectory->getPath(),
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));
             $this->startEvent = new StartEvent($this->startDateTime);

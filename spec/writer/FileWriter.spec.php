@@ -12,28 +12,22 @@
 use cloak\writer\FileWriter;
 
 describe('FileWriter', function() {
-
-    beforeEach(function() {
-        $this->directory = __DIR__ . '/../tmp/';
-        $this->filePath = $this->directory . 'output.txt';
-    });
-
     describe('#__construct', function() {
+        beforeEach(function() {
+            $this->directory = $this->makeDirectory();
+            $this->filePath = $this->directory->getPath() . '/output.txt';
+        });
         context('when directory not found', function() {
             it('throw cloak\writer\DirectoryNotFoundException', function() {
                 expect(function() {
-                    new FileWriter($this->directory . 'tmp/file.txt');
+                    new FileWriter($this->directory->getPath() . '/tmp/file.txt');
                 })->toThrow('cloak\writer\DirectoryNotFoundException');
             });
         });
         context('when directory not writable', function() {
             beforeEach(function() {
-                $this->readOnlyDirectory = $this->directory . 'tmp/';
-                mkdir($this->readOnlyDirectory, 0444);
-                $this->outputFilePath = $this->readOnlyDirectory . 'file.txt';
-            });
-            afterEach(function() {
-                rmdir($this->readOnlyDirectory);
+                $this->directory->chmod(0444);
+                $this->outputFilePath = $this->directory->getPath() . '/file.txt';
             });
             it('throw cloak\writer\DirectoryNotWritableException', function() {
                 expect(function() {
@@ -45,17 +39,16 @@ describe('FileWriter', function() {
 
     describe('#writeText', function() {
         beforeEach(function() {
+            $directory = $this->makeDirectory();
+            $reportFile = $directory->createFile('report.txt');
+            $reportFilePath = $reportFile->getPath();
+
             $this->text = 'text';
 
-            unlink($this->filePath);
+            $writer = new FileWriter($reportFilePath);
+            $writer->writeText($this->text);
 
-            $this->writer = new FileWriter($this->filePath);
-            $this->writer->writeText($this->text);
-
-            $this->size = $this->writer->getWriteSize();
-        });
-        afterEach(function() {
-            unlink($this->filePath);
+            $this->size = $writer->getWriteSize();
         });
         it('write text', function() {
             expect($this->size)->toEqual(strlen($this->text));
@@ -64,15 +57,14 @@ describe('FileWriter', function() {
 
     describe('#writeLine', function() {
         beforeEach(function() {
+            $directory = $this->makeDirectory();
+            $reportFile = $directory->createFile('report.txt', 0755);
+
             $this->text = 'text';
+            $writer = new FileWriter($reportFile->getPath());
+            $writer->writeLine($this->text);
 
-            $this->writer = new FileWriter($this->filePath);
-            $this->writer->writeLine($this->text);
-
-            $this->size = $this->writer->getWriteSize();
-        });
-        afterEach(function() {
-            unlink($this->filePath);
+            $this->size = $writer->getWriteSize();
         });
         it('write text', function() {
             expect($this->size)->toEqual(strlen($this->text) + 1);
@@ -81,12 +73,13 @@ describe('FileWriter', function() {
 
     describe('#writeEOL', function() {
         beforeEach(function() {
-            $this->writer = new FileWriter($this->filePath);
-            $this->writer->writeEOL();
-            $this->content = file_get_contents($this->filePath);
-        });
-        afterEach(function() {
-            unlink($this->filePath);
+            $directory = $this->makeDirectory();
+            $reportFile = $directory->createFile('report.txt');
+
+            $writer = new FileWriter($reportFile->getPath());
+            $writer->writeEOL();
+
+            $this->content = file_get_contents($reportFile->getPath());
         });
         it('write empty line', function() {
             expect($this->content)->toEqual(PHP_EOL);
