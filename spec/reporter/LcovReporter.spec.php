@@ -22,9 +22,9 @@ use \DateTime;
 describe('LcovReporter', function() {
     describe('onStop', function() {
         beforeEach(function() {
-            $this->reportDirectory = __DIR__ . '/../tmp';
+            $this->reportDirectory = $this->makeDirectory();
             $this->reportFileName = 'report.lcov';
-            $this->reportFile = __DIR__ . '/../tmp/report.lcov';
+            $this->reportFile = $this->reportDirectory->getPath() . '/report.lcov';
             $this->reporter = new LcovReporter($this->reportFileName);
 
             $this->source1 = realpath(__DIR__ . '/../fixtures/Example1.php');
@@ -42,7 +42,7 @@ describe('LcovReporter', function() {
             ]);
 
             $initEvent = new InitEvent(new Configuration([
-                'reportDirectory' => $this->reportDirectory
+                'reportDirectory' => $this->reportDirectory->getPath()
             ]));
             $this->reporter->onInit($initEvent);
 
@@ -62,9 +62,6 @@ describe('LcovReporter', function() {
             $output .= "end_of_record" . PHP_EOL;
 
             $this->output = $output;
-        });
-        afterEach(function() {
-            unlink($this->reportFile);
         });
         it('should output lcov report file', function() {
             $result = file_get_contents($this->reportFile);
