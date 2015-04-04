@@ -18,7 +18,7 @@ describe('AdaptorDetector', function() {
         context('when enabled', function() {
             beforeEach(function() {
                 $this->detector = new AdaptorDetector([
-                    'cloak\driver\adaptor\XdebugAdaptor'
+                    'cloak\spec\driver\adaptor\EnableFixtureAdaptor'
                 ]);
             });
             it('return adaptor instance', function() {

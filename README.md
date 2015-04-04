@@ -21,7 +21,7 @@ Installation
 1. Install the [composer](https://getcomposer.org/).  
 2. Install the cloak.
 
-		composer require cloak/cloak:1.5.0 --dev
+		composer require cloak/cloak --dev
 
 How to use
 ------------------------------------------------

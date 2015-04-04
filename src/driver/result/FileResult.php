@@ -11,7 +11,8 @@
 
 namespace cloak\driver\result;
 
-use Eloquent\Pathogen\AbsolutePath;
+use cloak\value\Path;
+
 
 /**
  * Class FileResult
@@ -21,7 +22,7 @@ class FileResult
 {
 
     /**
-     * @var \Eloquent\Pathogen\AbsolutePathInterface
+     * @var \cloak\value\Path
      */
     private $path;
 
@@ -34,11 +35,11 @@ class FileResult
     /**
      * @param string $path
      * @param array $resultLines
-     * @throws \Eloquent\Pathogen\Exception\NonAbsolutePathException
+     * @throws \cloak\driver\result\FileNotFoundException
      */
     public function __construct($path, $resultLines = [])
     {
-        $absolutePath = AbsolutePath::fromString($path);
+        $absolutePath = Path::fromString($path);
 
         if (file_exists($absolutePath) === false) {
             throw new FileNotFoundException("'$path' file does not exist");

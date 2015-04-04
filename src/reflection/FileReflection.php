@@ -28,6 +28,8 @@ use Closure;
 class FileReflection implements ReflectionInterface, ResultConvertible
 {
 
+    private $filename;
+
     /**
      * @var \Zend\Code\Reflection\FileReflection
      */
@@ -44,7 +46,8 @@ class FileReflection implements ReflectionInterface, ResultConvertible
      */
     public function __construct($filename)
     {
-        $this->reflection = new ZendFileReflection($filename, true);
+        $this->filename = $filename;
+        $this->reflection = new ZendFileReflection($this->filename, true);
 
         $content = $this->reflection->getContents(); //$fileReflection->getEndLine() return null....
         $totalLineCount = substr_count(trim($content), PHP_EOL) + 1;
@@ -65,7 +68,7 @@ class FileReflection implements ReflectionInterface, ResultConvertible
      */
     public function getName()
     {
-        return $this->reflection->getFileName();
+        return $this->filename;
     }
 
     /**
