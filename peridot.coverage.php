@@ -6,7 +6,7 @@ use Evenement\EventEmitterInterface;
 use Peridot\Configuration;
 use Peridot\Console\Command;
 use Peridot\Runner\SuiteLoaderInterface;
-use expectation\peridot\ExpectationPlugin;
+use expect\peridot\ExpectPlugin;
 use Symfony\Component\Yaml\Yaml;
 use Peridot\Reporter\Dot\DotReporterPlugin;
 use holyshared\peridot\temporary\TemporaryPlugin;
@@ -87,7 +87,7 @@ class SuiteLoader implements SuiteLoaderInterface
 
 return function(EventEmitterInterface $emitter)
 {
-    ExpectationPlugin::create()->registerTo($emitter);
+    ExpectPlugin::create()->registerTo($emitter);
     TemporaryPlugin::create()->registerTo($emitter);
     (new DotReporterPlugin($emitter));
 
