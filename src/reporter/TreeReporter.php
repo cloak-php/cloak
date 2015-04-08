@@ -127,7 +127,7 @@ class TreeReporter
     protected function writeTotalCoverage(Result $result)
     {
         $this->console->writeText(PHP_EOL);
-        $this->console->writeText('Code Coverage:');
+        $this->console->writeText('Code Coverage: ');
         $this->console->writeResult($result);
         $this->console->writeText(PHP_EOL);
     }
