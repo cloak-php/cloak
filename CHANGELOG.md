@@ -3,6 +3,12 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.8.2
+---------------------------------------------------------------
+* Reporter bugfix 
+	* TextReporter
+	* TreeReporter
+
 Version 1.8.1
 ---------------------------------------------------------------
 * peridot-expectation to peridot-expect-plugin
