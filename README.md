@@ -116,7 +116,7 @@ $analyzer = new Analyzer( $builder->build() );
 Configuration file
 ------------------------------------
 
-If you use the [configuration file](https://gist.github.com/holyshared/06b726254ce4a2fec899), you can code simple.
+If you use the [configuration file](https://gist.github.com/holyshared/5eaa313b2df78818dbad), you can code simple.
 
 ```php
 use cloak\Analyzer;
