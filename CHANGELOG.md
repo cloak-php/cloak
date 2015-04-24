@@ -3,9 +3,13 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.8.3
+---------------------------------------------------------------
+* Upgrade peridot-temporary-plugin ~0.3 to ~0.4
+
 Version 1.8.2
 ---------------------------------------------------------------
-* Reporter bugfix 
+* Reporter bugfix
 	* TextReporter
 	* TreeReporter
 
