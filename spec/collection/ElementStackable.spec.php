@@ -10,8 +10,9 @@
  */
 
 use cloak\spec\collection\FixtureElementStack;
+use \ArrayIterator;
 
-describe('ElementStackable', function() {
+describe(ElementStackable::class, function() {
     beforeEach(function() {
         $this->stack = new FixtureElementStack([
             'a', 'b'
@@ -63,7 +64,7 @@ describe('ElementStackable', function() {
     });
     describe('getIterator', function() {
         it('return ArrayIterator', function() {
-            expect($this->stack->getIterator())->toBeAnInstanceOf('ArrayIterator');
+            expect($this->stack->getIterator())->toBeAnInstanceOf(ArrayIterator::class);
         });
     });
 });
