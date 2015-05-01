@@ -13,7 +13,7 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\section\Report;
 
 
-describe('Report', function() {
+describe(Report::class, function() {
     describe('#applyTo', function() {
         beforeEach(function() {
             $this->builder = new ConfigurationBuilder();

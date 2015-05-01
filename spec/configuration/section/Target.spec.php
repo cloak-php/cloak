@@ -13,7 +13,7 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\section\Target;
 
 
-describe('Target', function() {
+describe(Target::class, function() {
     describe('#applyTo', function() {
         beforeEach(function() {
             $this->builder = new ConfigurationBuilder();
