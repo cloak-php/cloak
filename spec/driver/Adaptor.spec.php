@@ -12,16 +12,18 @@
 
 use Prophecy\Prophet;
 use cloak\driver\Driver;
+use cloak\driver\AdaptorInterface;
+use cloak\driver\Result;
 
 
-describe('Driver', function() {
+describe(Driver::class, function() {
 
     describe('#isStarted', function() {
         context('when after instantiation', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize('cloak\driver\AdaptorInterface');
+                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
@@ -35,7 +37,7 @@ describe('Driver', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize('cloak\driver\AdaptorInterface');
+                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
                 $adaptor->start()->shouldBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
@@ -50,7 +52,7 @@ describe('Driver', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize('cloak\driver\AdaptorInterface');
+                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
                 $adaptor->start()->shouldBeCalled();
                 $adaptor->stop()->shouldBeCalled();
 
@@ -69,7 +71,7 @@ describe('Driver', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize('cloak\driver\AdaptorInterface');
+                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
@@ -77,7 +79,7 @@ describe('Driver', function() {
             });
             it('return cloak\driver\Result', function() {
                 $result = $this->driver->getAnalyzeResult();
-                expect($result)->toBeAnInstanceOf('cloak\driver\Result');
+                expect($result)->toBeAnInstanceOf(Result::class);
             });
         });
     });

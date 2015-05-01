@@ -10,32 +10,36 @@
  */
 
 use cloak\driver\AdaptorDetector;
+use cloak\driver\AdaptorInterface;
+use cloak\driver\adaptor\AdaptorNotFoundException;
+use cloak\spec\driver\adaptor\EnableFixtureAdaptor;
+use cloak\spec\driver\adaptor\FixtureAdaptor;
 
 
-describe('AdaptorDetector', function() {
+describe(AdaptorDetector::class, function() {
 
     describe('#detect', function() {
         context('when enabled', function() {
             beforeEach(function() {
                 $this->detector = new AdaptorDetector([
-                    'cloak\spec\driver\adaptor\EnableFixtureAdaptor'
+                    EnableFixtureAdaptor::class
                 ]);
             });
             it('return adaptor instance', function() {
                 $adaptor = $this->detector->detect();
-                expect($adaptor)->toBeAnInstanceOf('cloak\driver\AdaptorInterface');
+                expect($adaptor)->toBeAnInstanceOf(AdaptorInterface::class);
             });
         });
         context('when not enabled', function() {
             beforeEach(function() {
                 $this->detector = new AdaptorDetector([
-                    'cloak\spec\driver\adaptor\FixtureAdaptor'
+                    FixtureAdaptor::class
                 ]);
             });
             it('throw cloak\driver\adaptor\AdaptorNotFoundException', function() {
                 expect(function() {
                     $this->detector->detect();
-                })->toThrow('cloak\driver\adaptor\AdaptorNotFoundException');
+                })->toThrow(AdaptorNotFoundException::class);
             });
         });
     });
