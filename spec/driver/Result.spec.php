@@ -14,7 +14,7 @@ use cloak\driver\result\FileResult;
 use cloak\result\LineResult;
 
 
-describe('Result', function() {
+describe(Result::class, function() {
     beforeEach(function() {
         $this->rootDirectory = __DIR__ . '/../fixtures/src/';
         $this->fixtureFilePath = $this->rootDirectory . 'foo.php';
@@ -30,7 +30,7 @@ describe('Result', function() {
             $this->returnValue = Result::fromArray($results);
         });
         it('return cloak\driver\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\driver\Result');
+            expect($this->returnValue)->toBeAnInstanceOf(Result::class);
         });
     });
 

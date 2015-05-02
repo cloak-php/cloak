@@ -11,9 +11,9 @@
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\section\Reporter;
+use cloak\reporter\CompositeReporter;
 
-
-describe('Reporter', function() {
+describe(Reporter::class, function() {
 
     describe('#applyTo', function() {
         beforeEach(function() {
@@ -27,7 +27,7 @@ describe('Reporter', function() {
             $this->config->applyTo($this->builder);
         });
         it('return cloak\reporter\CompositeReporter instance', function() {
-            expect($this->builder->getReporter())->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
+            expect($this->builder->getReporter())->toBeAnInstanceOf(CompositeReporter::class);
         });
     });
 

@@ -9,11 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\Root;
+use cloak\configuration\ConfigurationBuilder;
+use cloak\reporter\CompositeReporter;
 
 
-describe('Root', function() {
+describe(Root::class, function() {
 
     describe('#applyTo', function() {
         beforeEach(function() {
@@ -40,7 +41,7 @@ describe('Root', function() {
             $this->config->applyTo($this->builder);
         });
         it('return cloak\reporter\CompositeReporter instance', function() {
-            expect($this->builder->getReporter())->toBeAnInstanceOf('cloak\reporter\CompositeReporter');
+            expect($this->builder->getReporter())->toBeAnInstanceOf(CompositeReporter::class);
         });
         it('apply output directory path', function() {
             expect($this->builder->getReportDirectory())->toBe('/tmp');

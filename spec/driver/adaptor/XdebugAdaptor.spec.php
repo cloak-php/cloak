@@ -12,7 +12,7 @@
 use cloak\driver\adaptor\XdebugAdaptor;
 
 
-describe('XdebugAdaptor', function() {
+describe(XdebugAdaptor::class, function() {
     describe('#stop', function() {
         beforeEach(function() {
             $this->adaptor = new XdebugAdaptor();

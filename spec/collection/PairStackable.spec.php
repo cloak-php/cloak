@@ -10,9 +10,9 @@
  */
 
 use cloak\spec\collection\FixturePairStack;
+use \ArrayIterator;
 
-
-describe('PairStackable', function() {
+describe(PairStackable::class, function() {
     beforeEach(function() {
         $this->stack = new FixturePairStack([
             1 => 'a',
@@ -65,7 +65,7 @@ describe('PairStackable', function() {
     });
     describe('getIterator', function() {
         it('return ArrayIterator', function() {
-            expect($this->stack->getIterator())->toBeAnInstanceOf('ArrayIterator');
+            expect($this->stack->getIterator())->toBeAnInstanceOf(ArrayIterator::class);
         });
     });
 });
