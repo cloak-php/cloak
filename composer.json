@@ -3,7 +3,7 @@
     "keywords": [ "code coverage", "markdown report", "lcov report", "tree report", "text report", "php" ],
     "description": "Modern code coverage analysis library",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "phpcollection/phpcollection": "~0.4",
         "zendframework/zend-console": "~2.4",
         "zendframework/zend-code": "~2.4",
@@ -32,11 +32,11 @@
         "symfony/yaml": "~2.6",
         "halleck45/php-metrics": "~1.1",
         "peridot-php/peridot": "~1.15",
-        "expect/peridot-expect-plugin": "~2.0",
-        "holyshared/peridot-temporary-plugin": "~0.4",
+        "expect/peridot-expect-plugin": "~3.0",
+        "holyshared/peridot-temporary-plugin": "~1.0",
         "codegyre/robo": "~0.5",
-        "cloak/robo-coveralls-kit": "~1.1",
-        "robo-peridot/robo-peridot": "~1.1",
+        "cloak/robo-coveralls-kit": "~2.1",
+        "holyshared/robo-peridot": "~2.0",
         "peridot-php/peridot-dot-reporter": "~1.0"
     },
     "scripts": {

@@ -13,22 +13,23 @@ use cloak\result\type\ClassResult;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
 use cloak\reflection\ClassReflection;
-use \Mockery;
+use cloak\result\collection\CoverageResultCollection;
+use Example\Example;
 
 
-describe('ClassResult', function() {
+describe(ClassResult::class, function() {
     beforeEach(function() {
         $lineSet = new LineResultCollection([
             new LineResult(24, LineResult::EXECUTED),
             new LineResult(29, LineResult::UNUSED)
         ]);
-        $classReflection = new ClassReflection('Example\\Example');
+        $classReflection = new ClassReflection(Example::class);
 
         $this->result = new ClassResult($classReflection, $lineSet);
     });
     describe('getName', function() {
         it('return class name', function() {
-            expect($this->result->getName())->toEqual('Example\\Example');
+            expect($this->result->getName())->toEqual(Example::class);
         });
     });
     describe('getNamespaceName', function() {
@@ -41,7 +42,7 @@ describe('ClassResult', function() {
             $this->methodResults = $this->result->getMethodResults();
         });
         it('return cloak\result\collection\CoverageResultCollection instance', function() {
-            expect($this->methodResults)->toBeAnInstanceOf('cloak\result\collection\CoverageResultCollection');
+            expect($this->methodResults)->toBeAnInstanceOf(CoverageResultCollection::class);
         });
         context('when all results', function() {
             it('return results', function() {

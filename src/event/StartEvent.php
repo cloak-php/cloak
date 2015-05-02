@@ -11,7 +11,7 @@
 
 namespace cloak\event;
 
-use \DateTime;
+use \DateTimeImmutable;
 
 /**
  * Class StartEvent
@@ -25,7 +25,7 @@ final class StartEvent extends Event implements EventInterface
         $sendDateTime = $sendAt;
 
         if ($sendDateTime === null) {
-            $sendDateTime = new DateTime();
+            $sendDateTime = new DateTimeImmutable();
         }
         $this->sendAt = $sendDateTime;
     }

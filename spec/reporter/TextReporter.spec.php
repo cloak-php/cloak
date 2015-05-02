@@ -19,7 +19,7 @@ use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 
 
-describe('TextReporter', function() {
+describe(TextReporter::class, function() {
     describe('onStop', function() {
         beforeEach(function() {
             $expectResultFile = __DIR__ . '/../fixtures/report/text_report.log';

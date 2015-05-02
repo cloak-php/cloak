@@ -10,15 +10,15 @@
  */
 
 use cloak\event\StartEvent;
+use \DateTimeImmutable;
 
-
-describe('StartEvent', function() {
+describe(StartEvent::class, function() {
     beforeEach(function() {
         $this->startEvent = new StartEvent();
     });
     describe('#getSendAt', function() {
         it('should return time send the event', function() {
-            expect($this->startEvent->getSendAt())->toBeAnInstanceOf('\DateTime');
+            expect($this->startEvent->getSendAt())->toBeAnInstanceOf(DateTimeImmutable::class);
         });
     });
 });

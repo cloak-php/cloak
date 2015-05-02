@@ -2,7 +2,7 @@
 
 use \Robo\Tasks;
 use \coverallskit\robo\loadTasks as CoverallsKitTasks;
-use \peridot\robo\loadTasks as PeridotTasks;
+use \holyshared\peridot\robo\loadTasks as PeridotTasks;
 
 
 /**

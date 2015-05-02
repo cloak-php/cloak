@@ -10,22 +10,22 @@
  */
 
 use cloak\driver\result\FileResult;
+use cloak\driver\result\FileNotFoundException;
 
-
-describe('FileResult', function() {
+describe(FileResult::class, function() {
     describe('#__construct', function() {
         context('when file not found', function() {
             it('throw cloak\driver\result\FileNotFoundException', function() {
                 expect(function() {
                     new FileResult(__DIR__ . '/not_found.php');
-                })->toThrow('cloak\driver\result\FileNotFoundException');
+                })->toThrow(FileNotFoundException::class);
             });
         });
         context('when not the path of the file', function() {
             it('cloak\driver\result\FileNotFoundException', function() {
                 expect(function() {
                     new FileResult('systemlib.phpxml');
-                })->toThrow('cloak\driver\result\FileNotFoundException');
+                })->toThrow(FileNotFoundException::class);
             });
         });
     });

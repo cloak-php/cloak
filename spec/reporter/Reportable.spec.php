@@ -35,7 +35,7 @@ class Reporter implements ReporterInterface, StartEventListener
 
 }
 
-describe('Reportable', function() {
+describe(Reportable::class, function() {
     describe('#registerTo', function() {
         beforeEach(function() {
             $this->startEvent = new StartEvent();

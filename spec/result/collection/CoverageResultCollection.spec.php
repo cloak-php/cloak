@@ -16,9 +16,11 @@ use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
 use cloak\value\Coverage;
 use cloak\reflection\ClassReflection;
+use Example\Example;
+use Example\ExampleTrait;
 
 
-describe('CoverageResultCollection', function() {
+describe(CoverageResultCollection::class, function() {
 
     describe('#add', function() {
         beforeEach(function() {
@@ -26,7 +28,7 @@ describe('CoverageResultCollection', function() {
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
-            $classReflection = new ClassReflection('Example\\Example');
+            $classReflection = new ClassReflection(Example::class);
 
             $this->results = new CoverageResultCollection();
             $this->results->add(new ClassResult($classReflection, $lineSet));
@@ -41,7 +43,7 @@ describe('CoverageResultCollection', function() {
                 new LineResult(12, LineResult::EXECUTED),
                 new LineResult(17, LineResult::UNUSED)
             ]);
-            $classReflection = new ClassReflection('Example\\Example');
+            $classReflection = new ClassReflection(Example::class);
 
             $result1 = new CoverageResultCollection();
             $result1->add(new ClassResult($classReflection, $lineSet));
@@ -49,7 +51,7 @@ describe('CoverageResultCollection', function() {
             $lineSet = new LineResultCollection([
                 new LineResult(11, LineResult::EXECUTED)
             ]);
-            $traitReflection = new ClassReflection('Example\\ExampleTrait');
+            $traitReflection = new ClassReflection(ExampleTrait::class);
 
             $result2 = new CoverageResultCollection();
             $result2->add(new TraitResult($traitReflection, $lineSet));
@@ -66,7 +68,7 @@ describe('CoverageResultCollection', function() {
             $lineSet = new LineResultCollection([
                 new LineResult(29, LineResult::UNUSED)
             ]);
-            $classReflection = new ClassReflection('Example\\Example');
+            $classReflection = new ClassReflection(Example::class);
             $classResult = new ClassResult($classReflection, $lineSet);
 
             $originalResult = new CoverageResultCollection();
@@ -88,7 +90,7 @@ describe('CoverageResultCollection', function() {
                 new LineResult(24, LineResult::EXECUTED),
                 new LineResult(29, LineResult::UNUSED)
             ]);
-            $classReflection = new ClassReflection('Example\\Example');
+            $classReflection = new ClassReflection(Example::class);
             $classResult = new ClassResult($classReflection, $lineSet);
 
             $result = new CoverageResultCollection();
@@ -116,7 +118,7 @@ describe('CoverageResultCollection', function() {
                 new LineResult(24, LineResult::EXECUTED),
                 new LineResult(29, LineResult::UNUSED)
             ]);
-            $classReflection = new ClassReflection('Example\\Example');
+            $classReflection = new ClassReflection(Example::class);
             $classResult = new ClassResult($classReflection, $lineSet);
 
             $result = new CoverageResultCollection();

@@ -15,7 +15,7 @@ use cloak\Configuration;
 use cloak\value\CoverageBounds;
 use cloak\value\Path;
 
-use \DateTime;
+use \DateTimeImmutable;
 
 
 /**
@@ -36,7 +36,7 @@ final class InitEvent extends Event implements EventInterface
      */
     public function __construct(Configuration $config)
     {
-        $this->sendAt = new DateTime();
+        $this->sendAt = new DateTimeImmutable();
         $this->config = $config;
     }
 

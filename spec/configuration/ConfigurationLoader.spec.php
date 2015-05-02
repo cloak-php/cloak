@@ -9,9 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
+use cloak\Configuration;
 use cloak\configuration\ConfigurationLoader;
+use cloak\configuration\ConfigurationFileNotFoundException;
 
-describe('ConfigurationLoader', function() {
+
+describe(ConfigurationLoader::class, function() {
 
     describe('#loadConfiguration', function() {
         beforeEach(function() {
@@ -23,7 +26,7 @@ describe('ConfigurationLoader', function() {
                 $this->config = $this->loader->loadConfiguration($this->configFile);
             });
             it('return cloak\Configuration instance', function() {
-                expect($this->config)->toBeAnInstanceOf('cloak\Configuration');
+                expect($this->config)->toBeAnInstanceOf(Configuration::class);
             });
         });
         context('when file not exists', function() {
@@ -33,7 +36,7 @@ describe('ConfigurationLoader', function() {
           it('throw \cloak\configuration\ConfigurationFileNotFoundException', function() {
               expect(function() {
                   $this->loader->loadConfiguration($this->configFile);
-              })->toThrow('\cloak\configuration\ConfigurationFileNotFoundException');
+              })->toThrow(ConfigurationFileNotFoundException::class);
           });
         });
     });

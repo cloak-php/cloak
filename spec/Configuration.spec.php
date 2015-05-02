@@ -14,9 +14,10 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\Configuration;
 use cloak\driver\Result;
 use cloak\driver\result\FileResult;
+use \InvalidArgumentException;
 
 
-describe('Configuration', function() {
+describe(Configuration::class, function() {
 
     describe('#__constrcut', function() {
         context('when specify a property that does not exist', function() {
@@ -25,7 +26,7 @@ describe('Configuration', function() {
                     new Configuration([
                         'invalid_property' => ''
                     ]);
-                })->toThrow('\InvalidArgumentException');
+                })->toThrow(InvalidArgumentException::class);
             });
         });
     });
@@ -55,7 +56,7 @@ describe('Configuration', function() {
             expect($file->matchPath('/foo.php'))->toBeTrue();
         });
         it('return cloak\driver\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('\cloak\driver\Result');
+            expect($this->returnValue)->toBeAnInstanceOf(Result::class);
         });
     });
 

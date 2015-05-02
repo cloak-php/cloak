@@ -13,7 +13,7 @@ use cloak\value\Coverage;
 use cloak\value\CoverageBounds;
 
 
-describe('CoverageBounds', function() {
+describe(CoverageBounds::class, function() {
     beforeEach(function() {
         $this->bounds = new CoverageBounds(30.0, 75.0);
     });

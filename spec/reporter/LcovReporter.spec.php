@@ -19,7 +19,7 @@ use cloak\driver\Result as AnalyzeResult;
 use \DateTime;
 
 
-describe('LcovReporter', function() {
+describe(LcovReporter::class, function() {
     describe('onStop', function() {
         beforeEach(function() {
             $this->reportDirectory = $this->makeDirectory();

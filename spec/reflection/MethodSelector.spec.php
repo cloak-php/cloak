@@ -10,11 +10,13 @@
  */
 
 use cloak\reflection\MethodSelector;
+use cloak\reflection\collection\ReflectionCollection;
+use cloak\spec\reflection\FixtureTargetClass;
+use cloak\spec\reflection\FixtureTargetSubClass;
 
-
-describe('MethodSelector', function() {
+describe(MethodResult::class, function() {
     beforeEach(function() {
-        $this->subClass = 'cloak\spec\reflection\FixtureTargetSubClass';
+        $this->subClass = FixtureTargetSubClass::class;
         $this->selector = MethodSelector::fromClassName($this->subClass);
     });
     describe('#excludeNative', function() {
@@ -31,7 +33,7 @@ describe('MethodSelector', function() {
     });
     describe('#excludeTraitMethods', function() {
         beforeEach(function() {
-            $this->class = 'cloak\spec\reflection\FixtureTargetClass';
+            $this->class = FixtureTargetClass::class;
             $this->selector = MethodSelector::fromClassName($this->class);
         });
         it('return filter result', function() {
@@ -41,14 +43,14 @@ describe('MethodSelector', function() {
     });
     describe('#toCollection', function() {
         beforeEach(function() {
-            $this->class = 'cloak\spec\reflection\FixtureTargetClass';
+            $this->class = FixtureTargetClass::class;
 
             $this->selector = MethodSelector::fromClassName($this->class);
             $this->collection = $this->selector->toCollection();
         });
         it('return cloak\reflection\collection\ReflectionCollection instance', function() {
             expect($this->collection->count())->toBe(2);
-            expect($this->collection)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+            expect($this->collection)->toBeAnInstanceOf(ReflectionCollection::class);
         });
     });
 });

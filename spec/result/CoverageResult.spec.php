@@ -11,15 +11,16 @@
 
 use cloak\value\Coverage;
 use cloak\spec\result\FixtureCoverageResult;
+use cloak\result\LineResultCollectionInterface;
 use Prophecy\Prophet;
 
 
-describe('CoverageResult', function() {
+describe(CoverageResult::class, function() {
     describe('#getLineCount', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->getLineCount()->willReturn(10);
 
             $this->result = new FixtureCoverageResult( $lineResult->reveal() );
@@ -33,7 +34,7 @@ describe('CoverageResult', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->getDeadLineCount()->willReturn(10);
 
             $this->result = new FixtureCoverageResult( $lineResult->reveal() );
@@ -47,7 +48,7 @@ describe('CoverageResult', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->getUnusedLineCount()->willReturn(10);
 
             $this->result = new FixtureCoverageResult( $lineResult->reveal() );
@@ -61,7 +62,7 @@ describe('CoverageResult', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->getExecutedLineCount()->willReturn(10);
 
             $this->result = new FixtureCoverageResult( $lineResult->reveal() );
@@ -75,7 +76,7 @@ describe('CoverageResult', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->getCodeCoverage()->willReturn(100);
 
             $this->result = new FixtureCoverageResult( $lineResult->reveal() );
@@ -90,7 +91,7 @@ describe('CoverageResult', function() {
             $this->prophet = new Prophet();
             $this->coverage = new Coverage(51);
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->isCoverageLessThan($this->coverage)->willReturn(true);
 
             $this->result = new FixtureCoverageResult( $lineResult->reveal() );
@@ -106,7 +107,7 @@ describe('CoverageResult', function() {
             $this->prophet = new Prophet();
             $this->coverage = new Coverage(51);
 
-            $lineResult = $this->prophet->prophesize('\cloak\result\LineResultCollectionInterface');
+            $lineResult = $this->prophet->prophesize(LineResultCollectionInterface::class);
             $lineResult->isCoverageGreaterEqual($this->coverage)
                 ->willReturn(false);
 
