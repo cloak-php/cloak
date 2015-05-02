@@ -25,7 +25,7 @@ use Zend\Console\ColorInterface as Color;
  * @package cloak\reporter
  */
 class TreeReporter
-    implements ReporterInterface, StopEventListener, CoverageResultVisitorInterface
+    implements Reporter, StopEventListener, CoverageResultVisitorInterface
 {
 
     use Reportable;

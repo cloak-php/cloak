@@ -16,10 +16,10 @@ use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
- * Interface ReporterInterface
+ * Interface Reporter
  * @package cloak\reporter
  */
-interface ReporterInterface extends ListenerInterface
+interface Reporter extends ListenerInterface
 {
 
     /**
