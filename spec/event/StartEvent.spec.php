@@ -10,7 +10,7 @@
  */
 
 use cloak\event\StartEvent;
-use \DateTime;
+use \DateTimeImmutable;
 
 describe(StartEvent::class, function() {
     beforeEach(function() {
@@ -18,7 +18,7 @@ describe(StartEvent::class, function() {
     });
     describe('#getSendAt', function() {
         it('should return time send the event', function() {
-            expect($this->startEvent->getSendAt())->toBeAnInstanceOf(DateTime::class);
+            expect($this->startEvent->getSendAt())->toBeAnInstanceOf(DateTimeImmutable::class);
         });
     });
 });

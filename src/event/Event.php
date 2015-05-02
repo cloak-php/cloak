@@ -11,7 +11,7 @@
 
 namespace cloak\event;
 
-use DateTime;
+use DateTimeImmutable;
 
 /**
  * Class Event
@@ -21,13 +21,13 @@ abstract class Event
 {
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     protected $sendAt;
 
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function getSendAt()
     {

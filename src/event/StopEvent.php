@@ -12,7 +12,7 @@
 namespace cloak\event;
 
 use cloak\Result;
-use \DateTime;
+use \DateTimeImmutable;
 
 
 /**
@@ -34,7 +34,7 @@ final class StopEvent extends Event implements EventInterface
     public function __construct(Result $result)
     {
         $this->result = $result;
-        $this->sendAt = new DateTime();
+        $this->sendAt = new DateTimeImmutable();
     }
 
     /**

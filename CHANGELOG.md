@@ -3,6 +3,12 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+
+Version 2.0.0
+---------------------------------------------------------------
+* PHP5.4 not support
+* The return value of **getSendAt** method of event class has become **DateTimeImmutable**
+
 Version 1.8.3
 ---------------------------------------------------------------
 * Upgrade peridot-temporary-plugin ~0.3 to ~0.4

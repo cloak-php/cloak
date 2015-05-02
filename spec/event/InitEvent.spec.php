@@ -12,7 +12,7 @@
 use cloak\Configuration;
 use cloak\event\InitEvent;
 use cloak\value\Path;
-use \DateTime;
+use \DateTimeImmutable;
 
 describe(InitEvent::class, function() {
     beforeEach(function() {
@@ -23,7 +23,7 @@ describe(InitEvent::class, function() {
     });
     describe('#getSendAt', function() {
         it('return time send the event', function() {
-            expect($this->initEvent->getSendAt())->toBeAnInstanceOf(DateTime::class);
+            expect($this->initEvent->getSendAt())->toBeAnInstanceOf(DateTimeImmutable::class);
         });
     });
     describe('#getReportDirectory', function() {

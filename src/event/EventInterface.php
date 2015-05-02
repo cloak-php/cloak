@@ -22,7 +22,7 @@ interface EventInterface extends BaseEventInterface
 {
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function getSendAt();
 

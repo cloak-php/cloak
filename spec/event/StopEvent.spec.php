@@ -13,7 +13,7 @@ use cloak\event\StopEvent;
 use cloak\Result;
 use cloak\result\LineResult;
 use cloak\driver\Result as AnalyzeResult;
-use \DateTime;
+use \DateTimeImmutable;
 
 describe(StopEvent::class, function() {
     beforeEach(function() {
@@ -34,7 +34,7 @@ describe(StopEvent::class, function() {
     });
     describe('#getSendAt', function() {
         it('should return time send the event', function() {
-            expect($this->stopEvent->getSendAt())->toBeAnInstanceOf(DateTime::class);
+            expect($this->stopEvent->getSendAt())->toBeAnInstanceOf(DateTimeImmutable::class);
         });
     });
 });
