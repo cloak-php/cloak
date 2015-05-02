@@ -15,19 +15,19 @@ describe('FileWriter', function() {
     describe('#__construct', function() {
         beforeEach(function() {
             $this->directory = $this->makeDirectory();
-            $this->filePath = $this->directory->getPath() . '/output.txt';
+            $this->filePath = $this->directory->resolvePath('output.txt');
         });
         context('when directory not found', function() {
             it('throw cloak\writer\DirectoryNotFoundException', function() {
                 expect(function() {
-                    new FileWriter($this->directory->getPath() . '/tmp/file.txt');
+                    new FileWriter($this->directory->resolvePath('tmp/file.txt'));
                 })->toThrow('cloak\writer\DirectoryNotFoundException');
             });
         });
         context('when directory not writable', function() {
             beforeEach(function() {
                 $this->directory->chmod(0444);
-                $this->outputFilePath = $this->directory->getPath() . '/file.txt';
+                $this->outputFilePath = $this->directory->resolvePath('file.txt');
             });
             it('throw cloak\writer\DirectoryNotWritableException', function() {
                 expect(function() {
@@ -40,12 +40,11 @@ describe('FileWriter', function() {
     describe('#writeText', function() {
         beforeEach(function() {
             $directory = $this->makeDirectory();
-            $reportFile = $directory->createFile('report.txt');
-            $reportFilePath = $reportFile->getPath();
+            $reportFile = $directory->resolvePath('report.txt');
 
             $this->text = 'text';
 
-            $writer = new FileWriter($reportFilePath);
+            $writer = new FileWriter($reportFile);
             $writer->writeText($this->text);
 
             $this->size = $writer->getWriteSize();
@@ -58,10 +57,10 @@ describe('FileWriter', function() {
     describe('#writeLine', function() {
         beforeEach(function() {
             $directory = $this->makeDirectory();
-            $reportFile = $directory->createFile('report.txt', 0755);
+            $reportFile = $directory->resolvePath('report.txt');
 
             $this->text = 'text';
-            $writer = new FileWriter($reportFile->getPath());
+            $writer = new FileWriter($reportFile);
             $writer->writeLine($this->text);
 
             $this->size = $writer->getWriteSize();
@@ -74,12 +73,12 @@ describe('FileWriter', function() {
     describe('#writeEOL', function() {
         beforeEach(function() {
             $directory = $this->makeDirectory();
-            $reportFile = $directory->createFile('report.txt');
+            $reportFile = $directory->resolvePath('report.txt');
 
-            $writer = new FileWriter($reportFile->getPath());
+            $writer = new FileWriter($reportFile);
             $writer->writeEOL();
 
-            $this->content = file_get_contents($reportFile->getPath());
+            $this->content = file_get_contents($reportFile);
         });
         it('write empty line', function() {
             expect($this->content)->toEqual(PHP_EOL);

@@ -3,13 +3,34 @@ ChangeLog
 
 This is a list of changes from 1.3.1.
 
+Version 1.8.3
+---------------------------------------------------------------
+* Upgrade peridot-temporary-plugin ~0.3 to ~0.4
+
+Version 1.8.2
+---------------------------------------------------------------
+* Reporter bugfix
+	* TextReporter
+	* TreeReporter
+
+Version 1.8.1
+---------------------------------------------------------------
+* peridot-expectation to peridot-expect-plugin
+
+Version 1.8.0
+---------------------------------------------------------------
+* Driver detector bugfix
+
+Version 1.7.0
+---------------------------------------------------------------
+* Upgrade yosymfony/toml (v3.0)
 
 Version 1.6.0
 ---------------------------------------------------------------
 * Remove **ReflectionInterface::assembleBy** method
 * Add **cloak\reflection\LineResultSelectable** interface
 * Add **cloak\reflection\collectionResultCollectionConvertible** interface
-* Changed reporter colors 
+* Changed reporter colors
 	* before
 		* critical - yellow
 		* warning - normal(white)
@@ -50,7 +71,7 @@ Version 1.4.4
 * Add **satisfactory**, **critical** on the setting of the **MarkdownReporter**
 * Bug fixes coverage of calculation logic
 * Fixed output result of **TreeReporter**
-* Changed parameter name of **TreeReporter** and **TextReporter** 
+* Changed parameter name of **TreeReporter** and **TextReporter**
 	* before
 	```toml
 	highLowerBound = 70.0
