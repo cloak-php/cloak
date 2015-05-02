@@ -15,7 +15,7 @@ use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
-use \DateTime;
+use \DateTimeImmutable;
 
 
 /**
@@ -62,9 +62,9 @@ class ProcessingTimeReporter
     }
 
     /**
-     * @param DateTime $startAt
+     * @param DateTimeImmutable $startAt
      */
-    private function start(DateTime $startAt)
+    private function start(DateTimeImmutable $startAt)
     {
         $this->console->writeEOL();
         $this->writeStartDateTime($startAt);
@@ -84,9 +84,9 @@ class ProcessingTimeReporter
     }
 
     /**
-     * @param DateTime $startAt
+     * @param DateTimeImmutable $startAt
      */
-    private function writeStartDateTime(DateTime $startAt)
+    private function writeStartDateTime(DateTimeImmutable $startAt)
     {
         $formatStartTime = $startAt->format('j F Y \a\t H:i');
 
