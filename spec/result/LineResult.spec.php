@@ -14,7 +14,7 @@ use cloak\result\FileResult;
 use cloak\result\collection\LineResultCollection;
 
 
-describe('LineResult', function() {
+describe(LineResult::class, function() {
 
     beforeEach(function() {
         $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', new LineResultCollection);

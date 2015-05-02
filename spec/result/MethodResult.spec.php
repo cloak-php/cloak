@@ -16,7 +16,7 @@ use cloak\reflection\MethodReflection;
 use \Mockery;
 
 
-describe('MethodResult', function() {
+describe(MethodResult::class, function() {
     beforeEach(function() {
         $lineSet = new LineResultCollection([
             new LineResult(12, LineResult::EXECUTED)

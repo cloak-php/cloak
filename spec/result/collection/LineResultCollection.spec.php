@@ -15,7 +15,7 @@ use cloak\result\LineResult;
 use cloak\result\collection\LineResultCollection;
 
 
-describe('LineResultCollection', function() {
+describe(LineResultCollection::class, function() {
 
     describe('#getCodeCoverage', function() {
         beforeEach(function() {
