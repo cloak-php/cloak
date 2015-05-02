@@ -21,7 +21,7 @@ use cloak\driver\Result as AnalyzeResult;
 use \DateTime;
 
 
-describe('MarkdownReporter', function() {
+describe(MarkdownReporter::class, function() {
     beforeEach(function() {
         $fixturePath = realpath(__DIR__ . '/../fixtures/');
 

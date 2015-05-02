@@ -14,10 +14,13 @@ use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
+use cloak\reporter\ReporterInterface;
+use cloak\reporter\StartEventListener;
+use cloak\reporter\StopEventListener;
 use \Prophecy\Prophet;
 
 
-describe('CompositeReporter', function() {
+describe(CompositeReporter::class, function() {
 
     beforeEach(function() {
         $this->prophet = new Prophet;
@@ -27,14 +30,14 @@ describe('CompositeReporter', function() {
         beforeEach(function() {
             $this->startEvent = new StartEvent();
 
-            $reporter1 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
-            $reporter1->willImplement('cloak\reporter\StartEventListener');
+            $reporter1 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter1->willImplement(StartEventListener::class);
             $reporter1->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
-            $reporter2 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
-            $reporter2->willImplement('cloak\reporter\StartEventListener');
+            $reporter2 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter2->willImplement(StartEventListener::class);
             $reporter2->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter2 = $reporter2->reveal();
@@ -52,14 +55,14 @@ describe('CompositeReporter', function() {
             $this->result = new Result(new Sequence());
             $this->stopEvent = new StopEvent($this->result);
 
-            $reporter1 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
-            $reporter1->willImplement('cloak\reporter\StopEventListener');
+            $reporter1 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter1->willImplement(StopEventListener::class);
             $reporter1->onStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
-            $reporter2 = $this->prophet->prophesize('cloak\reporter\ReporterInterface');
-            $reporter2->willImplement('cloak\reporter\StopEventListener');
+            $reporter2 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter2->willImplement(StopEventListener::class);
             $reporter2->onStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter2 = $reporter2->reveal();

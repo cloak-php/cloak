@@ -19,7 +19,7 @@ use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 
 
-describe('TreeReporter', function() {
+describe(TreeReporter::class, function() {
     describe('onStop', function() {
         beforeEach(function() {
             $rootDirectory = realpath(__DIR__ . '/../../');

@@ -18,7 +18,7 @@ use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
 
 
-describe('ProcessingTimeReporter', function() {
+describe(ProcessingTimeReporter::class, function() {
 
     describe('onStart', function() {
         beforeEach(function() {

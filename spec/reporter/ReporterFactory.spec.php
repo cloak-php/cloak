@@ -10,12 +10,14 @@
  */
 
 use cloak\reporter\ReporterFactory;
+use cloak\reporter\ReporterNotFoundException;
+use cloak\spec\reporter\ReporterFixture;
 use \ReflectionClass;
 
 
-describe('ReporterFactory', function() {
+describe(ReporterFactory::class, function() {
     beforeEach(function() {
-        $this->reporterName = 'cloak\spec\reporter\ReporterFixture';
+        $this->reporterName = ReporterFixture::class;
         $this->reflectionClass = new ReflectionClass($this->reporterName);
     });
     describe('#fromClassName', function() {
@@ -24,14 +26,14 @@ describe('ReporterFactory', function() {
                 $this->factory = ReporterFactory::fromClassName($this->reporterName);
             });
             it('return cloak\reporter\ReporterFactory instance', function() {
-                expect($this->factory)->toBeAnInstanceOf('cloak\reporter\ReporterFactory');
+                expect($this->factory)->toBeAnInstanceOf(ReporterFactory::class);
             });
         });
         context('when reporter not exists', function() {
             it('throw \cloak\reporter\ReporterNotFoundException', function() {
                 expect(function() {
                     ReporterFactory::fromClassName('NotFoundClass');
-                })->toThrow('\cloak\reporter\ReporterNotFoundException');
+                })->toThrow(ReporterNotFoundException::class);
             });
         });
     });
