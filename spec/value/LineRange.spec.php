@@ -10,8 +10,11 @@
  */
 
 use cloak\value\LineRange;
+use cloak\value\LessThanLineNumberException;
+use cloak\value\UnexpectedLineNumberException;
 
-describe('LineRange', function() {
+
+describe(LineRange::class, function() {
 
     beforeEach(function() {
         $this->range = new LineRange(2, 3);
@@ -22,21 +25,21 @@ describe('LineRange', function() {
             it('throw cloak\value\LessThanLineNumberException', function() {
                 expect(function() {
                     new LineRange(5, 4);
-                })->toThrow('cloak\value\LessThanLineNumberException');
+                })->toThrow(LessThanLineNumberException::class);
             });
         });
         context('when start line number less than 1', function() {
             it('throw cloak\value\UnexpectedLineNumberException', function() {
                 expect(function() {
                     new LineRange(0, 4);
-                })->toThrow('cloak\value\UnexpectedLineNumberException');
+                })->toThrow(UnexpectedLineNumberException::class);
             });
         });
         context('when end line number less than 1', function() {
             it('throw cloak\value\UnexpectedLineNumberException', function() {
                 expect(function() {
                     new LineRange(1, 0);
-                })->toThrow('cloak\value\UnexpectedLineNumberException');
+                })->toThrow(UnexpectedLineNumberException::class);
             });
         });
     });

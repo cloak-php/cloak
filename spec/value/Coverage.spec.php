@@ -11,7 +11,7 @@
 
 use cloak\value\Coverage;
 
-describe('Coverage', function() {
+describe(Coverage::class, function() {
 
     describe('#equals', function() {
         context('when same value', function() {
