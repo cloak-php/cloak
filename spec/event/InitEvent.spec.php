@@ -11,9 +11,10 @@
 
 use cloak\Configuration;
 use cloak\event\InitEvent;
+use cloak\value\Path;
+use \DateTime;
 
-
-describe('InitEvent', function() {
+describe(InitEvent::class, function() {
     beforeEach(function() {
         $configuration = new Configuration([
             'reportDirectory' => __DIR__
@@ -22,12 +23,12 @@ describe('InitEvent', function() {
     });
     describe('#getSendAt', function() {
         it('return time send the event', function() {
-            expect($this->initEvent->getSendAt())->toBeAnInstanceOf('\DateTime');
+            expect($this->initEvent->getSendAt())->toBeAnInstanceOf(DateTime::class);
         });
     });
     describe('#getReportDirectory', function() {
         it('return report directory path', function() {
-            expect($this->initEvent->getReportDirectory())->toBeAnInstanceOf('cloak\value\Path');
+            expect($this->initEvent->getReportDirectory())->toBeAnInstanceOf(Path::class);
         });
     });
 });
