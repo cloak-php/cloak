@@ -13,7 +13,7 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\Configuration;
-use cloak\Reporter\ReporterInterface;
+use cloak\Reporter\Reporter;
 use cloak\event\InitEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
@@ -33,9 +33,9 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
     private $manager;
 
     /**
-     * @param ReporterInterface $reporter
+     * @param Reporter $reporter
      */
-    public function __construct(ReporterInterface $reporter = null)
+    public function __construct(Reporter $reporter = null)
     {
         $eventManager = new EventManager();
         $eventManager->setThrowExceptions(true);

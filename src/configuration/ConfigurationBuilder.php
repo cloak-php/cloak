@@ -16,7 +16,7 @@ use cloak\value\CoverageBounds;
 use cloak\driver\AdaptorDetector;
 use cloak\driver\Driver;
 use cloak\driver\DriverInterface;
-use cloak\reporter\ReporterInterface;
+use cloak\reporter\Reporter;
 
 
 /**
@@ -32,7 +32,7 @@ class ConfigurationBuilder
     private $driver;
 
     /**
-     * @var \cloak\reporter\ReporterInterface
+     * @var \cloak\reporter\Reporter
      */
     private $reporter;
 
@@ -74,10 +74,10 @@ class ConfigurationBuilder
     }
 
     /**
-     * @param ReporterInterface $reporter
+     * @param Reporter $reporter
      * @return $this
      */
-    public function reporter(ReporterInterface $reporter)
+    public function reporter(Reporter $reporter)
     {
         $this->reporter = $reporter;
         return $this;
