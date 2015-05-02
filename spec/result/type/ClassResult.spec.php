@@ -14,7 +14,6 @@ use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\CoverageResultCollection;
-use \Mockery;
 use Example\Example;
 
 
