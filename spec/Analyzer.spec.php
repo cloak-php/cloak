@@ -14,11 +14,13 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
+use cloak\driver\DriverInterface;
+use cloak\AnalyzeLifeCycleNotifierInterface;
 use \Prophecy\Prophet;
 use \Prophecy\Argument;
 
 
-describe('Analyzer', function() {
+describe(Analyzer::class, function() {
     describe('#stop', function() {
         beforeEach(function() {
             $rootDirectory = __DIR__ . '/fixtures/src/';
@@ -31,15 +33,15 @@ describe('Analyzer', function() {
 
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+            $driver = $this->prophet->prophesize(DriverInterface::class);
             $driver->start()->shouldBeCalled();
             $driver->stop()->shouldBeCalled();
             $driver->getAnalyzeResult()->willReturn($analyzeResult);
             $driver->isStarted()->shouldNotBeCalled();
 
-            $notifier = $this->prophet->prophesize('cloak\AnalyzeLifeCycleNotifierInterface');
+            $notifier = $this->prophet->prophesize(AnalyzeLifeCycleNotifierInterface::class);
             $notifier->notifyStart()->shouldBeCalled();
-            $notifier->notifyStop(Argument::type('cloak\Result'))->shouldBeCalled();
+            $notifier->notifyStop(Argument::type(Result::class))->shouldBeCalled();
 
             $builder = new ConfigurationBuilder();
             $builder->driver( $driver->reveal() );
@@ -54,7 +56,7 @@ describe('Analyzer', function() {
             $this->result = $this->analyzer->getResult();
         });
         it('return cloak\Result instance', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\Result');
+            expect($this->result)->toBeAnInstanceOf(Result::class);
         });
         it('notify stop event', function() {
             $this->prophet->checkPredictions();
@@ -66,7 +68,7 @@ describe('Analyzer', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+                $driver = $this->prophet->prophesize(DriverInterface::class);
                 $driver->start()->shouldBeCalled();
                 $driver->stop()->shouldNotBeCalled();
                 $driver->getAnalyzeResult()->shouldNotBeCalled();
@@ -98,7 +100,7 @@ describe('Analyzer', function() {
 
                 $this->prophet = new Prophet();
 
-                $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+                $driver = $this->prophet->prophesize(DriverInterface::class);
                 $driver->start()->shouldBeCalled();
                 $driver->stop()->shouldBeCalled();
 
@@ -137,7 +139,7 @@ describe('Analyzer', function() {
 
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize('cloak\driver\DriverInterface');
+            $driver = $this->prophet->prophesize(DriverInterface::class);
             $driver->start()->shouldBeCalledTimes(1);
             $driver->stop()->shouldBeCalledTimes(1);
             $driver->getAnalyzeResult()->willReturn($analyzeResult);
@@ -160,7 +162,7 @@ describe('Analyzer', function() {
         it('should return an instance of cloak\Result', function() {
             $files = $this->result->getFiles();
             expect($files->count())->toEqual(2);
-            expect($this->result)->toBeAnInstanceOf('cloak\Result');
+            expect($this->result)->toBeAnInstanceOf(Result::class);
         });
     });
 

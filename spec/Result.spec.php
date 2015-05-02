@@ -18,7 +18,7 @@ use cloak\result\collection\LineResultCollection;
 use cloak\driver\Result as AnalyzeResult;
 
 
-describe('Result', function() {
+describe(Result::class, function() {
 
     beforeEach(function() {
         $this->rootDirectory = __DIR__ . '/fixtures/src/';
@@ -36,7 +36,7 @@ describe('Result', function() {
         });
 
         it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf('cloak\Result');
+            expect($this->returnValue)->toBeAnInstanceOf(Result::class);
         });
     });
 
