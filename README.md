@@ -9,7 +9,7 @@ Cloak
 
 
 Cloak is a library that takes a code coverage.  
-This library works with **PHP5.4 or more**.
+This library works with **PHP5.5 or more**.
 
 Requirements
 ------------------------------------------------
