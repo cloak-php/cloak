@@ -12,10 +12,12 @@
 use cloak\reflection\MethodReflection;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\LineResult;
+use cloak\result\LineResultSelectable;
+use cloak\result\MethodResult;
 use \Prophecy\Prophet;
 
 
-describe('MethodReflection', function() {
+describe(MethodReflection::class, function() {
     beforeEach(function() {
         $this->reflection = new MethodReflection('Example\Example', 'getValue');
     });
@@ -27,14 +29,14 @@ describe('MethodReflection', function() {
                 new LineResult(29, LineResult::UNUSED)
             ]);
 
-            $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+            $selector = $this->prophet->prophesize(LineResultSelectable::class);
             $selector->selectByReflection($this->reflection)
                 ->willReturn($results);
 
             $this->result = $this->reflection->convertToResult($selector->reveal());
         });
         it('return cloak\result\MethodResult', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\MethodResult');
+            expect($this->result)->toBeAnInstanceOf(MethodResult::class);
         });
         context('when line 29 unused', function() {
             it('have unused line result', function() {
