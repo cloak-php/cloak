@@ -10,8 +10,10 @@
  */
 
 use cloak\writer\FileWriter;
+use cloak\writer\DirectoryNotFoundException;
+use cloak\writer\DirectoryNotWritableException;
 
-describe('FileWriter', function() {
+describe(FileWriter::class, function() {
     describe('#__construct', function() {
         beforeEach(function() {
             $this->directory = $this->makeDirectory();
@@ -21,7 +23,7 @@ describe('FileWriter', function() {
             it('throw cloak\writer\DirectoryNotFoundException', function() {
                 expect(function() {
                     new FileWriter($this->directory->resolvePath('tmp/file.txt'));
-                })->toThrow('cloak\writer\DirectoryNotFoundException');
+                })->toThrow(DirectoryNotFoundException::class);
             });
         });
         context('when directory not writable', function() {
@@ -32,7 +34,7 @@ describe('FileWriter', function() {
             it('throw cloak\writer\DirectoryNotWritableException', function() {
                 expect(function() {
                     new FileWriter($this->outputFilePath);
-                })->toThrow('cloak\writer\DirectoryNotWritableException');
+                })->toThrow(DirectoryNotWritableException::class);
             });
         });
     });

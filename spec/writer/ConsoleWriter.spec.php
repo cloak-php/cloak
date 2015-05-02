@@ -14,7 +14,7 @@ use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 use Zend\Console\Console;
 
-describe('ConsoleWriter', function() {
+describe(ConsoleWriter::class, function() {
 
     describe('#writeText', function() {
         beforeEach(function() {
