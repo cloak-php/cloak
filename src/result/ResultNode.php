@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /**
- * Interface ResultNodeInterface
+ * Interface ResultNode
  * @package cloak
  */
-interface ResultNodeInterface
+interface ResultNode
 {
 
     /**

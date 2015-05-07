@@ -16,6 +16,7 @@ Version 2.0.0
 * Event to AbstractEvent
 * EventInterface to Event
 * SectionInterface to Section
+* ResultNodeInterface to ResultNode
 
 Version 1.8.3
 ---------------------------------------------------------------
