@@ -22,7 +22,7 @@ use \DateTimeImmutable;
  * Class InitEvent
  * @package cloak\event
  */
-final class InitEvent extends AbstractEvent implements EventInterface
+final class InitEvent extends AbstractEvent implements Event
 {
 
     /**

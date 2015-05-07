@@ -15,10 +15,10 @@ use PHPExtra\EventManager\Event\EventInterface as BaseEventInterface;
 
 
 /**
- * Interface EventInterface
+ * Interface Event
  * @package cloak\event
  */
-interface EventInterface extends BaseEventInterface
+interface Event extends BaseEventInterface
 {
 
     /**

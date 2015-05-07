@@ -14,6 +14,7 @@ Version 2.0.0
 * Driver to AnalyzerDriver
 * DriverInterface.php to Driver
 * Event to AbstractEvent
+* EventInterface to Event
 
 Version 1.8.3
 ---------------------------------------------------------------
