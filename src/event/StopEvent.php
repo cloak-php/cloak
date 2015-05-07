@@ -19,7 +19,7 @@ use \DateTimeImmutable;
  * Class StopEvent
  * @package cloak\event
  */
-final class StopEvent extends Event implements EventInterface
+final class StopEvent extends AbstractEvent implements EventInterface
 {
 
     /**

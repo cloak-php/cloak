@@ -14,10 +14,10 @@ namespace cloak\event;
 use DateTimeImmutable;
 
 /**
- * Class Event
+ * Class AbstractEvent
  * @package cloak\event
  */
-abstract class Event
+abstract class AbstractEvent
 {
 
     /**

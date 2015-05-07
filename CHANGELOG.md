@@ -13,6 +13,7 @@ Version 2.0.0
 * AdaptorInterface to Adaptor
 * Driver to AnalyzerDriver
 * DriverInterface.php to Driver
+* Event to AbstractEvent
 
 Version 1.8.3
 ---------------------------------------------------------------
