@@ -14,10 +14,10 @@ namespace cloak\result;
 use cloak\value\Coverage;
 
 /**
- * Interface CodeCoverageResultInterface
+ * Interface CodeCoverageResult
  * @package cloak
  */
-interface CodeCoverageResultInterface
+interface CodeCoverageResult
 {
 
     /**
