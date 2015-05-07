@@ -20,6 +20,7 @@ Version 2.0.0
 * CodeCoverageResultInterface to CodeCoverageResult
 * LineResultInterface to LineCountResult
 * CoverageResultInterface to CoverageResultNode
+* CoverageResultVisitorInterface to CoverageResultVisitor
 
 Version 1.8.3
 ---------------------------------------------------------------

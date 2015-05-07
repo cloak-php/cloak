@@ -15,7 +15,7 @@ use cloak\Result;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\result\CoverageResultNode;
-use cloak\result\CoverageResultVisitorInterface;
+use cloak\result\CoverageResultVisitor;
 use cloak\writer\ResultConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 
@@ -25,7 +25,7 @@ use Zend\Console\ColorInterface as Color;
  * @package cloak\reporter
  */
 class TreeReporter
-    implements Reporter, StopEventListener, CoverageResultVisitorInterface
+    implements Reporter, StopEventListener, CoverageResultVisitor
 {
 
     use Reportable;

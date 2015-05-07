@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /**
- * Interface CoverageResultVisitorInterface
+ * Interface CoverageResultVisitor
  * @package cloak
  */
-interface CoverageResultVisitorInterface
+interface CoverageResultVisitor
 {
 
     /**
