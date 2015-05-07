@@ -11,7 +11,7 @@ Version 2.0.0
 * ReporterInterface to Reporter
 * ReflectionInterface to Reflection
 * AdaptorInterface to Adaptor
-
+* Driver to AnalyzerDriver
 
 Version 1.8.3
 ---------------------------------------------------------------
