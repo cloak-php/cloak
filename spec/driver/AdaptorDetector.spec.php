@@ -10,7 +10,7 @@
  */
 
 use cloak\driver\AdaptorDetector;
-use cloak\driver\AdaptorInterface;
+use cloak\driver\Adaptor;
 use cloak\driver\adaptor\AdaptorNotFoundException;
 use cloak\spec\driver\adaptor\EnableFixtureAdaptor;
 use cloak\spec\driver\adaptor\FixtureAdaptor;
@@ -27,7 +27,7 @@ describe(AdaptorDetector::class, function() {
             });
             it('return adaptor instance', function() {
                 $adaptor = $this->detector->detect();
-                expect($adaptor)->toBeAnInstanceOf(AdaptorInterface::class);
+                expect($adaptor)->toBeAnInstanceOf(Adaptor::class);
             });
         });
         context('when not enabled', function() {

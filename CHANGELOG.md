@@ -10,6 +10,8 @@ Version 2.0.0
 * The return value of **getSendAt** method of event class has become **DateTimeImmutable**
 * ReporterInterface to Reporter
 * ReflectionInterface to Reflection
+* AdaptorInterface to Adaptor
+
 
 Version 1.8.3
 ---------------------------------------------------------------

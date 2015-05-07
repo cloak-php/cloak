@@ -12,7 +12,7 @@
 
 use Prophecy\Prophet;
 use cloak\driver\Driver;
-use cloak\driver\AdaptorInterface;
+use cloak\driver\Adaptor;
 use cloak\driver\Result;
 
 
@@ -23,7 +23,7 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
@@ -37,7 +37,7 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
@@ -52,7 +52,7 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldBeCalled();
                 $adaptor->stop()->shouldBeCalled();
 
@@ -71,7 +71,7 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 

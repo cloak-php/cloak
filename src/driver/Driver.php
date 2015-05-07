@@ -37,9 +37,9 @@ final class Driver implements DriverInterface
 
 
     /**
-     * @param AdaptorInterface $adaptor
+     * @param Adaptor $adaptor
      */
-    public function __construct(AdaptorInterface $adaptor)
+    public function __construct(Adaptor $adaptor)
     {
         $this->adaptor = $adaptor;
     }

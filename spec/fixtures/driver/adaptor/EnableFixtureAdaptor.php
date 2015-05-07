@@ -12,10 +12,10 @@
 namespace cloak\spec\driver\adaptor;
 
 
-use cloak\driver\AdaptorInterface;
+use cloak\driver\Adaptor;
 
 
-class EnableFixtureAdaptor implements AdaptorInterface
+class EnableFixtureAdaptor implements Adaptor
 {
 
     public function __construct()

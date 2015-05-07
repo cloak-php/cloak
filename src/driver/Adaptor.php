@@ -13,10 +13,10 @@ namespace cloak\driver;
 
 
 /**
- * Interface AdaptorInterface
+ * Interface Adaptor
  * @package cloak\driver
  */
-interface AdaptorInterface
+interface Adaptor
 {
 
     public function start();
