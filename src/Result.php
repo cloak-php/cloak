@@ -13,7 +13,7 @@ namespace cloak;
 
 use cloak\value\Coverage;
 use cloak\result\FileResult;
-use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultNode;
 use cloak\result\CoverageResultVisitorInterface;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\CoverageResultCollection;
@@ -24,7 +24,7 @@ use cloak\driver\Result as AnalyzeResult;
  * Class Result
  * @package cloak
  */
-class Result implements CoverageResultInterface
+class Result implements CoverageResultNode
 {
 
     /**

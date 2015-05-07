@@ -12,7 +12,7 @@
 namespace cloak\writer;
 
 use cloak\value\CoverageBounds;
-use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultNode;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
 
@@ -42,7 +42,7 @@ class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsole
     /**
      * @{inheritDoc}
      */
-    public function writeResult(CoverageResultInterface $result)
+    public function writeResult(CoverageResultNode $result)
     {
         $coverage = $result->getCodeCoverage();
         $coverageText = $coverage->formattedValue();

@@ -19,7 +19,7 @@ use cloak\reflection\FileReflection;
  * Class FileResult
  * @package cloak\result
  */
-class FileResult implements CoverageResultInterface
+class FileResult implements CoverageResultNode
 {
 
     use CoverageResult;

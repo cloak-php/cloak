@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /***
- * Class CoverageResultInterface
+ * Class CoverageResultNode
  * @package cloak\result
  */
-interface CoverageResultInterface extends CodeCoverageResult, LineCountResult, ResultNode
+interface CoverageResultNode extends CodeCoverageResult, LineCountResult, ResultNode
 {
 
     /**

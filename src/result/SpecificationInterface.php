@@ -20,9 +20,9 @@ interface SpecificationInterface
 {
 
     /**
-     * @param CoverageResultInterface $coverageResult
+     * @param CoverageResultNode $coverageResult
      * @return bool
      */
-    public function match(CoverageResultInterface $coverageResult);
+    public function match(CoverageResultNode $coverageResult);
 
 }

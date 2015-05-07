@@ -20,8 +20,8 @@ interface CoverageResultVisitorInterface
 {
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    public function visit(CoverageResultInterface $result);
+    public function visit(CoverageResultNode $result);
 
 }

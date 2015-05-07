@@ -23,9 +23,9 @@ interface CoverageResultCollectionInterface extends CommonCollectionInterface
 {
 
     /**
-     * @param \cloak\result\CoverageResultInterface $result
+     * @param \cloak\result\CoverageResultNode $result
      */
-    public function add(CoverageResultInterface $result);
+    public function add(CoverageResultNode $result);
 
     /**
      * @param CoverageResultCollectionInterface $results

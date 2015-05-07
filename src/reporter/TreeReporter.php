@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
-use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultNode;
 use cloak\result\CoverageResultVisitorInterface;
 use cloak\writer\ResultConsoleWriter;
 use Zend\Console\ColorInterface as Color;
@@ -71,26 +71,26 @@ class TreeReporter
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    public function visit(CoverageResultInterface $result)
+    public function visit(CoverageResultNode $result)
     {
         $this->writeResult($result);
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    protected function writeHeader(CoverageResultInterface $result)
+    protected function writeHeader(CoverageResultNode $result)
     {
         $header = sprintf('%s code coverage', $result->getName());
         $this->console->writeLine($header, Color::CYAN);
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    protected function writeResult(CoverageResultInterface $result)
+    protected function writeResult(CoverageResultNode $result)
     {
         $this->writeCoverageResult($result);
         $this->indent++;
@@ -99,9 +99,9 @@ class TreeReporter
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    protected function writeChildResults(CoverageResultInterface $result)
+    protected function writeChildResults(CoverageResultNode $result)
     {
         $childResults = $result->getChildResults();
 
@@ -110,7 +110,7 @@ class TreeReporter
         }
     }
 
-    protected function writeCoverageResult(CoverageResultInterface $result)
+    protected function writeCoverageResult(CoverageResultNode $result)
     {
         $size = $this->indent * $this->indent;
         $indent = str_pad('', $size, ' ');

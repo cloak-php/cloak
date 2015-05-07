@@ -12,7 +12,7 @@
 namespace cloak\result\specification;
 
 use cloak\result\SpecificationInterface;
-use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultNode;
 
 
 /**
@@ -25,7 +25,7 @@ class Critical extends CoverageSpecification implements SpecificationInterface
     /**
      * {@inheritdoc}
      */
-    public function match(CoverageResultInterface $coverageResult)
+    public function match(CoverageResultNode $coverageResult)
     {
         return $coverageResult->isCoverageLessThan($this->coverage);
     }

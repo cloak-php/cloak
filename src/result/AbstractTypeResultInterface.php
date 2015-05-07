@@ -16,7 +16,7 @@ namespace cloak\result;
  * Interface AbstractTypeResultInterface
  * @package cloak\result
  */
-interface AbstractTypeResultInterface extends CoverageResultInterface
+interface AbstractTypeResultInterface extends CoverageResultNode
 {
 
     /**

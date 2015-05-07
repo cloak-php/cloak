@@ -15,7 +15,7 @@ use cloak\value\Coverage;
 use cloak\collection\PairStackable;
 use cloak\result\SpecificationInterface;
 use cloak\result\CoverageResultCollectionInterface;
-use cloak\result\CoverageResultInterface;
+use cloak\result\CoverageResultNode;
 use cloak\result\specification\Critical;
 use cloak\result\specification\Satisfactory;
 use PhpCollection\Map;
@@ -32,7 +32,7 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
 
 
     /**
-     * @param \cloak\result\CoverageResultInterface[] $results
+     * @param \cloak\result\CoverageResultNode[] $results
      */
     public function __construct(array $results = [])
     {
@@ -40,9 +40,9 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param \cloak\result\CoverageResultInterface $result
+     * @param \cloak\result\CoverageResultNode $result
      */
-    public function add(CoverageResultInterface $result)
+    public function add(CoverageResultNode $result)
     {
         $this->collection->set($result->getName(), $result);
     }
@@ -141,7 +141,7 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
      * @param CoverageResultInterface $resultB
      * @return int
      */
-    private function compareCoverage(CoverageResultInterface $resultA, CoverageResultInterface $resultB)
+    private function compareCoverage(CoverageResultNode $resultA, CoverageResultNode $resultB)
     {
         $coverageA = $resultA->getCodeCoverage();
         $coverageB = $resultB->getCodeCoverage();
