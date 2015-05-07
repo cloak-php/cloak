@@ -17,7 +17,7 @@ Version 2.0.0
 * EventInterface to Event
 * SectionInterface to Section
 * ResultNodeInterface to ResultNode
-* CodeCoverageResult to CodeCoverageResult
+* CodeCoverageResultInterface to CodeCoverageResult
 
 Version 1.8.3
 ---------------------------------------------------------------
