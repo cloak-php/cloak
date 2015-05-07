@@ -13,10 +13,10 @@ namespace cloak\driver;
 
 
 /**
- * Class Driver
+ * Class AnalyzerDriver
  * @package cloak\driver
  */
-final class Driver implements DriverInterface
+final class AnalyzerDriver implements DriverInterface
 {
 
     /**

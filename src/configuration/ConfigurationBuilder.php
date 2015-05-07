@@ -14,7 +14,7 @@ namespace cloak\configuration;
 use cloak\Configuration;
 use cloak\value\CoverageBounds;
 use cloak\driver\AdaptorDetector;
-use cloak\driver\Driver;
+use cloak\driver\AnalyzerDriver;
 use cloak\driver\DriverInterface;
 use cloak\reporter\Reporter;
 
@@ -160,7 +160,7 @@ class ConfigurationBuilder
         ]);
         $adaptor = $adaptorDetector->detect();
 
-        $this->driver = new Driver($adaptor);
+        $this->driver = new AnalyzerDriver($adaptor);
     }
 
     /**
