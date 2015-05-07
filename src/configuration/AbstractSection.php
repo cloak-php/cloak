@@ -18,7 +18,7 @@ use Zend\Config\Config;
  * Class AbstractNode
  * @package cloak\configuration
  */
-abstract class AbstractSection implements SectionInterface
+abstract class AbstractSection implements Section
 {
 
     /**

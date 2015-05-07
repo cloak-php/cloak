@@ -13,7 +13,7 @@ namespace cloak\configuration\section;
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\AbstractSection;
-use cloak\configuration\SectionInterface;
+use cloak\configuration\Section;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\ReporterFactory;
 
@@ -22,7 +22,7 @@ use cloak\reporter\ReporterFactory;
  * Class Reporter
  * @package cloak\configuration
  */
-final class Reporter extends AbstractSection implements SectionInterface
+final class Reporter extends AbstractSection implements Section
 {
 
     /**

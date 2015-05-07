@@ -15,6 +15,7 @@ Version 2.0.0
 * DriverInterface.php to Driver
 * Event to AbstractEvent
 * EventInterface to Event
+* SectionInterface to Section
 
 Version 1.8.3
 ---------------------------------------------------------------

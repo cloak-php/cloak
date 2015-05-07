@@ -12,10 +12,10 @@
 namespace cloak\configuration;
 
 /**
- * Interface SectionInterface
+ * Interface Section
  * @package cloak\configuration
  */
-interface SectionInterface
+interface Section
 {
 
     /**
