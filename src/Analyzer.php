@@ -77,7 +77,7 @@ class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterf
     }
 
     /**
-     * @return \cloak\driver\DriverInterface
+     * @return \cloak\driver\Driver
      */
     protected function getDriver()
     {

@@ -15,7 +15,7 @@ use cloak\Configuration;
 use cloak\value\CoverageBounds;
 use cloak\driver\AdaptorDetector;
 use cloak\driver\AnalyzerDriver;
-use cloak\driver\DriverInterface;
+use cloak\driver\Driver;
 use cloak\reporter\Reporter;
 
 
@@ -27,7 +27,7 @@ class ConfigurationBuilder
 {
 
     /**
-     * @var \cloak\driver\DriverInterface
+     * @var \cloak\driver\Driver
      */
     private $driver;
 
@@ -64,10 +64,10 @@ class ConfigurationBuilder
     }
 
     /**
-     * @param DriverInterface $driver
+     * @param Driver $driver
      * @return $this
      */
-    public function driver(DriverInterface $driver)
+    public function driver(Driver $driver)
     {
         $this->driver = $driver;
         return $this;
@@ -150,7 +150,7 @@ class ConfigurationBuilder
 
     protected function detectDriver()
     {
-        if ($this->driver instanceof DriverInterface) {
+        if ($this->driver instanceof Driver) {
             return;
         }
 
@@ -164,7 +164,7 @@ class ConfigurationBuilder
     }
 
     /**
-     * @return DriverInterface
+     * @return Driver
      */
     public function getDriver()
     {

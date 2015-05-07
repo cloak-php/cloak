@@ -14,7 +14,7 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
-use cloak\driver\DriverInterface;
+use cloak\driver\Driver;
 use cloak\AnalyzeLifeCycleNotifierInterface;
 use \Prophecy\Prophet;
 use \Prophecy\Argument;
@@ -33,7 +33,7 @@ describe(Analyzer::class, function() {
 
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize(DriverInterface::class);
+            $driver = $this->prophet->prophesize(Driver::class);
             $driver->start()->shouldBeCalled();
             $driver->stop()->shouldBeCalled();
             $driver->getAnalyzeResult()->willReturn($analyzeResult);
@@ -68,7 +68,7 @@ describe(Analyzer::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $driver = $this->prophet->prophesize(DriverInterface::class);
+                $driver = $this->prophet->prophesize(Driver::class);
                 $driver->start()->shouldBeCalled();
                 $driver->stop()->shouldNotBeCalled();
                 $driver->getAnalyzeResult()->shouldNotBeCalled();
@@ -100,7 +100,7 @@ describe(Analyzer::class, function() {
 
                 $this->prophet = new Prophet();
 
-                $driver = $this->prophet->prophesize(DriverInterface::class);
+                $driver = $this->prophet->prophesize(Driver::class);
                 $driver->start()->shouldBeCalled();
                 $driver->stop()->shouldBeCalled();
 
@@ -139,7 +139,7 @@ describe(Analyzer::class, function() {
 
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize(DriverInterface::class);
+            $driver = $this->prophet->prophesize(Driver::class);
             $driver->start()->shouldBeCalledTimes(1);
             $driver->stop()->shouldBeCalledTimes(1);
             $driver->getAnalyzeResult()->willReturn($analyzeResult);

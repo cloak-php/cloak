@@ -11,7 +11,7 @@
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
-use cloak\driver\DriverInterface;
+use cloak\driver\Driver;
 use cloak\Configuration;
 use \Prophecy\Prophet;
 
@@ -54,7 +54,7 @@ describe(ConfigurationBuilder::class, function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize(DriverInterface::class);
+            $driver = $this->prophet->prophesize(Driver::class);
             $driver->start()->shouldNotBeCalled();
             $driver->stop()->shouldNotBeCalled();
 

@@ -12,6 +12,7 @@ Version 2.0.0
 * ReflectionInterface to Reflection
 * AdaptorInterface to Adaptor
 * Driver to AnalyzerDriver
+* DriverInterface.php to Driver
 
 Version 1.8.3
 ---------------------------------------------------------------

@@ -12,10 +12,10 @@
 namespace cloak\driver;
 
 /**
- * Interface DriverInterface
+ * Interface Driver
  * @package cloak\driver
  */
-interface DriverInterface
+interface Driver
 {
 
     /**
