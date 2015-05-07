@@ -9,6 +9,7 @@ Version 2.0.0
 * PHP5.4 not support
 * The return value of **getSendAt** method of event class has become **DateTimeImmutable**
 * ReporterInterface to Reporter
+* ReflectionInterface to Reflection
 
 Version 1.8.3
 ---------------------------------------------------------------

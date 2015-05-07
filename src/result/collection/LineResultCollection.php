@@ -16,7 +16,7 @@ use cloak\value\Coverage;
 use cloak\value\LineRange;
 use cloak\result\LineResultCollectionInterface;
 use cloak\result\LineResult;
-use cloak\reflection\ReflectionInterface;
+use cloak\reflection\Reflection;
 use PhpCollection\Sequence;
 
 
@@ -127,10 +127,10 @@ class LineResultCollection implements LineResultCollectionInterface
     }
 
     /**
-     * @param ReflectionInterface $reflection
+     * @param Reflection $reflection
      * @return LineResultCollectionInterface
      */
-    public function selectByReflection(ReflectionInterface $reflection)
+    public function selectByReflection(Reflection $reflection)
     {
         $lineRange = $reflection->getLineRange();
         return $this->selectRange($lineRange);

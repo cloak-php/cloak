@@ -23,7 +23,7 @@ use Zend\Code\Reflection\ClassReflection as ZendClassReflection;
  * Class ClassReflection
  * @package cloak\reflection
  */
-class ClassReflection implements ReflectionInterface, ResultConvertible
+class ClassReflection implements Reflection, ResultConvertible
 {
 
     /**

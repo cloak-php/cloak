@@ -25,7 +25,7 @@ use Closure;
  * Class FileReflection
  * @package cloak\reflection
  */
-class FileReflection implements ReflectionInterface, ResultConvertible
+class FileReflection implements Reflection, ResultConvertible
 {
 
     private $filename;

@@ -15,7 +15,7 @@ namespace cloak\reflection\collection;
 use PhpCollection\Sequence;
 use PhpCollection\Map;
 use cloak\collection\PairStackable;
-use cloak\reflection\ReflectionInterface;
+use cloak\reflection\Reflection;
 use cloak\reflection\ResultConvertible;
 use cloak\CollectionInterface;
 use cloak\result\LineResultSelectable;
@@ -45,16 +45,16 @@ class ReflectionCollection implements CollectionInterface, ResultCollectionConve
     }
 
     /**
-     * @param ReflectionInterface $reflection
+     * @param Reflection $reflection
      */
-    public function add(ReflectionInterface $reflection)
+    public function add(Reflection $reflection)
     {
         $identityName = $reflection->getIdentityName();
         $this->collection->set($identityName, $reflection);
     }
 
     /**
-     * @param ReflectionInterface[] $reflections
+     * @param Reflection[] $reflections
      */
     public function addAll(array $reflections)
     {
