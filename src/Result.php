@@ -14,7 +14,7 @@ namespace cloak;
 use cloak\value\Coverage;
 use cloak\result\FileResult;
 use cloak\result\CoverageResultNode;
-use cloak\result\CoverageResultVisitorInterface;
+use cloak\result\CoverageResultVisitor;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\driver\Result as AnalyzeResult;
@@ -202,9 +202,9 @@ class Result implements CoverageResultNode
     }
 
     /**
-     * @param CoverageResultVisitorInterface $visitor
+     * @param CoverageResultVisitor $visitor
      */
-    public function accept(CoverageResultVisitorInterface $visitor)
+    public function accept(CoverageResultVisitor $visitor)
     {
         $visitor->visit($this);
     }
