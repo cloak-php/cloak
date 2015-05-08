@@ -18,13 +18,14 @@ use cloak\event\InitEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use PHPExtra\EventManager\EventManager;
+use PHPExtra\EventManager\EventManagerAwareInterface;
 
 
 /**
  * Class AnalyzeLifeCycleNotifier
  * @package cloak
  */
-class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
+class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface, EventManagerAwareInterface
 {
 
     /**
