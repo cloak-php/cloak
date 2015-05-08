@@ -23,6 +23,7 @@ Version 2.0.0
 * CoverageResultVisitorInterface to CoverageResultVisitor
 * WriterInterface to Writer
 * ResultConsoleWriterInterface to ResultWriter
+* ConsoleWriterInterface to StdoutWriter
 
 
 Version 1.8.3

@@ -17,7 +17,7 @@ use cloak\result\CoverageResultNode;
  * Interface ResultWriter
  * @package cloak\writer
  */
-interface ResultWriter extends ConsoleWriterInterface
+interface ResultWriter extends StdoutWriter
 {
 
     /**

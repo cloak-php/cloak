@@ -16,7 +16,7 @@ namespace cloak\writer;
  * Class AbstractConsoleWriter
  * @package cloak\writer
  */
-abstract class AbstractConsoleWriter implements ConsoleWriterInterface
+abstract class AbstractConsoleWriter implements StdoutWriter
 {
 
     /**
