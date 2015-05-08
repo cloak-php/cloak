@@ -21,7 +21,7 @@ use Zend\Console\ColorInterface as Color;
  * Class ResultConsoleWriter
  * @package cloak\writer
  */
-class ResultConsoleWriter extends AbstractConsoleWriter implements ResultConsoleWriterInterface
+class ResultConsoleWriter extends AbstractConsoleWriter implements ResultWriter
 {
 
     /**

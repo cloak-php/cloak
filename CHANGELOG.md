@@ -22,6 +22,8 @@ Version 2.0.0
 * CoverageResultInterface to CoverageResultNode
 * CoverageResultVisitorInterface to CoverageResultVisitor
 * WriterInterface to Writer
+* ResultConsoleWriterInterface to ResultWriter
+
 
 Version 1.8.3
 ---------------------------------------------------------------

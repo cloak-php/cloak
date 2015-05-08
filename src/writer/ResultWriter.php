@@ -14,10 +14,10 @@ namespace cloak\writer;
 use cloak\result\CoverageResultNode;
 
 /**
- * Interface ResultConsoleWriterInterface
+ * Interface ResultWriter
  * @package cloak\writer
  */
-interface ResultConsoleWriterInterface extends ConsoleWriterInterface
+interface ResultWriter extends ConsoleWriterInterface
 {
 
     /**
