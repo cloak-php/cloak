@@ -12,10 +12,10 @@
 namespace cloak\writer;
 
 /**
- * Interface WriterInterface
+ * Interface Writer
  * @package cloak\writer
  */
-interface WriterInterface
+interface Writer
 {
 
     /**

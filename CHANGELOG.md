@@ -21,6 +21,7 @@ Version 2.0.0
 * LineResultInterface to LineCountResult
 * CoverageResultInterface to CoverageResultNode
 * CoverageResultVisitorInterface to CoverageResultVisitor
+* WriterInterface to Writer
 
 Version 1.8.3
 ---------------------------------------------------------------

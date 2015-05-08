@@ -17,7 +17,7 @@ use SplFileObject;
  * Class FileWriter
  * @package cloak\writer
  */
-class FileWriter implements WriterInterface
+class FileWriter implements Writer
 {
 
     /**

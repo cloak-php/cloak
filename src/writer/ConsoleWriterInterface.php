@@ -15,7 +15,7 @@ namespace cloak\writer;
  * Interface ConsoleWriterInterface
  * @package cloak\writer
  */
-interface ConsoleWriterInterface extends WriterInterface
+interface ConsoleWriterInterface extends Writer
 {
 
     /**
