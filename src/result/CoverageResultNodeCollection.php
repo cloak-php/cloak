@@ -16,10 +16,10 @@ use cloak\value\Coverage;
 
 
 /**
- * Interface CoverageResultCollectionInterface
+ * Interface CoverageResultNodeCollection
  * @package cloak\result
  */
-interface CoverageResultCollectionInterface extends Collection
+interface CoverageResultNodeCollection extends Collection
 {
 
     /**
@@ -28,26 +28,26 @@ interface CoverageResultCollectionInterface extends Collection
     public function add(CoverageResultNode $result);
 
     /**
-     * @param CoverageResultCollectionInterface $results
-     * @return CoverageResultCollectionInterface
+     * @param CoverageResultNodeCollection $results
+     * @return CoverageResultNodeCollection
      */
-    public function merge(CoverageResultCollectionInterface $results);
+    public function merge(CoverageResultNodeCollection $results);
 
     /**
-     * @param CoverageResultCollectionInterface $excludeResults
-     * @return CoverageResultCollectionInterface
+     * @param CoverageResultNodeCollection $excludeResults
+     * @return CoverageResultNodeCollection
      */
-    public function exclude(CoverageResultCollectionInterface $excludeResults);
+    public function exclude(CoverageResultNodeCollection $excludeResults);
 
     /**
      * @param Coverage $coverage
-     * @return CoverageResultCollectionInterface
+     * @return CoverageResultNodeCollection
      */
     public function selectByCoverageLessThan(Coverage $coverage);
 
     /**
      * @param Coverage $coverage
-     * @return CoverageResultCollectionInterface
+     * @return CoverageResultNodeCollection
      */
     public function selectByCoverageGreaterEqual(Coverage $coverage);
 

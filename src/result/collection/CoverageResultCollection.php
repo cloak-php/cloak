@@ -14,7 +14,7 @@ namespace cloak\result\collection;
 use cloak\value\Coverage;
 use cloak\collection\PairStackable;
 use cloak\result\Specification;
-use cloak\result\CoverageResultCollectionInterface;
+use cloak\result\CoverageResultNodeCollection;
 use cloak\result\CoverageResultNode;
 use cloak\result\specification\Critical;
 use cloak\result\specification\Satisfactory;
@@ -25,7 +25,7 @@ use PhpCollection\Map;
  * Class CoverageResultCollection
  * @package cloak\result\collection
  */
-class CoverageResultCollection implements CoverageResultCollectionInterface
+class CoverageResultCollection implements CoverageResultNodeCollection
 {
 
     use PairStackable;
@@ -58,10 +58,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param CoverageResultCollectionInterface $results
-     * @return CoverageResultCollectionInterface|void
+     * @param CoverageResultNodeCollection $results
+     * @return CoverageResultCollection|void
      */
-    public function merge(CoverageResultCollectionInterface $results)
+    public function merge(CoverageResultNodeCollection $results)
     {
         foreach ($results as $result) {
             $this->add($result);
@@ -70,10 +70,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param CoverageResultCollectionInterface $excludeResults
+     * @param CoverageResultNodeCollection $excludeResults
      * @return CoverageResultCollection
      */
-    public function exclude(CoverageResultCollectionInterface $excludeResults)
+    public function exclude(CoverageResultNodeCollection $excludeResults)
     {
         $results = clone $this->collection;
 

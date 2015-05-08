@@ -31,6 +31,8 @@ Version 2.0.0
 * Analyzer to CoverageAnalyzer
 * AnalyzerInterface to Analyzer
 * AbstractTypeResultInterface to AbstractTypeResultNode
+* CoverageResultCollectionInterface to CoverageResultNodeCollection
+
 
 Version 1.8.3
 ---------------------------------------------------------------
