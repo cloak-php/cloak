@@ -11,7 +11,7 @@
 
 namespace cloak\result;
 
-use cloak\CollectionInterface as CommonCollectionInterface;
+use cloak\Collection;
 use cloak\value\Coverage;
 
 
@@ -19,7 +19,7 @@ use cloak\value\Coverage;
  * Interface CoverageResultCollectionInterface
  * @package cloak\result
  */
-interface CoverageResultCollectionInterface extends CommonCollectionInterface
+interface CoverageResultCollectionInterface extends Collection
 {
 
     /**

@@ -11,7 +11,7 @@
 
 namespace cloak\result;
 
-use cloak\CollectionInterface;
+use cloak\Collection;
 
 
 /**
@@ -19,6 +19,6 @@ use cloak\CollectionInterface;
  * @package cloak\result
  */
 interface LineResultCollectionInterface
-    extends CodeCoverageResult, LineResultSelectable, LineCountResult, CollectionInterface
+    extends CodeCoverageResult, LineResultSelectable, LineCountResult, Collection
 {
 }

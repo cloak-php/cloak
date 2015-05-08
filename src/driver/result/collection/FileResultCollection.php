@@ -11,7 +11,7 @@
 
 namespace cloak\driver\result\collection;
 
-use cloak\CollectionInterface;
+use cloak\Collection;
 use cloak\collection\PairStackable;
 use cloak\driver\result\FileResult;
 use PhpCollection\Map;
@@ -23,7 +23,7 @@ use \Closure;
  * Class FileResultCollection
  * @package cloak\driver\result\collection
  */
-class FileResultCollection implements CollectionInterface
+class FileResultCollection implements Collection
 {
 
     use PairStackable;

@@ -16,10 +16,10 @@ use Countable;
 
 
 /**
- * Interface CollectionInterface
+ * Interface Collection
  * @package cloak
  */
-interface CollectionInterface extends Countable, IteratorAggregate
+interface Collection extends Countable, IteratorAggregate
 {
 
     /**

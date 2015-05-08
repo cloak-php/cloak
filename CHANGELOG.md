@@ -24,6 +24,7 @@ Version 2.0.0
 * WriterInterface to Writer
 * ResultConsoleWriterInterface to ResultWriter
 * ConsoleWriterInterface to StdoutWriter
+* CollectionInterface to Collection
 
 
 Version 1.8.3
