@@ -11,7 +11,7 @@
 
 namespace cloak\result\specification;
 
-use cloak\result\SpecificationInterface;
+use cloak\result\Specification;
 use cloak\result\CoverageResultNode;
 
 
@@ -19,7 +19,7 @@ use cloak\result\CoverageResultNode;
  * Class Critical
  * @package cloak\result\specification
  */
-class Critical extends CoverageSpecification implements SpecificationInterface
+class Critical extends CoverageSpecification implements Specification
 {
 
     /**

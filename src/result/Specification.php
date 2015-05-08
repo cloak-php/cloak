@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /**
- * Interface SpecificationInterface
+ * Interface Specification
  * @package cloak\result
  */
-interface SpecificationInterface
+interface Specification
 {
 
     /**

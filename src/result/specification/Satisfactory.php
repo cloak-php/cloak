@@ -11,7 +11,7 @@
 
 namespace cloak\result\specification;
 
-use cloak\result\SpecificationInterface;
+use cloak\result\Specification;
 use cloak\result\CoverageResultNode;
 
 
@@ -19,7 +19,7 @@ use cloak\result\CoverageResultNode;
  * Class Satisfactory
  * @package cloak\result\specification
  */
-class Satisfactory extends CoverageSpecification implements SpecificationInterface
+class Satisfactory extends CoverageSpecification implements Specification
 {
 
     /**

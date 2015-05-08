@@ -13,7 +13,7 @@ namespace cloak\result\collection;
 
 use cloak\value\Coverage;
 use cloak\collection\PairStackable;
-use cloak\result\SpecificationInterface;
+use cloak\result\Specification;
 use cloak\result\CoverageResultCollectionInterface;
 use cloak\result\CoverageResultNode;
 use cloak\result\specification\Critical;
@@ -87,10 +87,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param SpecificationInterface $specification
+     * @param Specification $specification
      * @return CoverageResultCollection
      */
-    public function select(SpecificationInterface $specification)
+    public function select(Specification $specification)
     {
         $arguments = [$specification, 'match'];
         $results = $this->collection->filter($arguments);

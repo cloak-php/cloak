@@ -13,14 +13,14 @@ namespace cloak\result\specification;
 
 
 use cloak\value\Coverage;
-use cloak\result\SpecificationInterface;
+use cloak\result\Specification;
 
 
 /**
  * Class CoverageSpecification
  * @package cloak\result\specification
  */
-abstract class CoverageSpecification implements SpecificationInterface
+abstract class CoverageSpecification implements Specification
 {
 
     /**
@@ -39,7 +39,7 @@ abstract class CoverageSpecification implements SpecificationInterface
 
     /**
      * @param Coverage $coverage
-     * @return \cloak\result\SpecificationInterface
+     * @return \cloak\result\Specification
      */
     public static function createFromCoverage(Coverage $coverage)
     {
