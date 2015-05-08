@@ -26,6 +26,7 @@ Version 2.0.0
 * ConsoleWriterInterface to StdoutWriter
 * CollectionInterface to Collection
 * SpecificationInterface to Specification
+* AnalyzeLifeCycleNotifierAwareInterface to AnalyzeLifeCycleNotifierAware
 
 Version 1.8.3
 ---------------------------------------------------------------

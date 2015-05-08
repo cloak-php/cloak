@@ -16,7 +16,7 @@ namespace cloak;
  * Class Analyzer
  * @package cloak
  */
-class Analyzer implements AnalyzeLifeCycleNotifierAwareInterface, AnalyzerInterface
+class Analyzer implements AnalyzeLifeCycleNotifierAware, AnalyzerInterface
 {
 
     use ProvidesLifeCycleNotifier;
