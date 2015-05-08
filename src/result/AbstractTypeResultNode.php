@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /**
- * Interface AbstractTypeResultInterface
+ * Interface AbstractTypeResultNode
  * @package cloak\result
  */
-interface AbstractTypeResultInterface extends CoverageResultNode
+interface AbstractTypeResultNode extends CoverageResultNode
 {
 
     /**
