@@ -28,6 +28,7 @@ Version 2.0.0
 * SpecificationInterface to Specification
 * AnalyzeLifeCycleNotifierAwareInterface to AnalyzeLifeCycleNotifierAware
 * AnalyzeLifeCycleNotifierInterface to LifeCycleNotifier
+* Analyzer to CoverageAnalyzer
 
 Version 1.8.3
 ---------------------------------------------------------------

@@ -13,10 +13,10 @@ namespace cloak;
 
 
 /**
- * Class Analyzer
+ * Class CoverageAnalyzer
  * @package cloak
  */
-class Analyzer implements AnalyzeLifeCycleNotifierAware, AnalyzerInterface
+class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, AnalyzerInterface
 {
 
     use ProvidesLifeCycleNotifier;

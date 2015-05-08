@@ -1,6 +1,6 @@
 <?php
 
-use cloak\Analyzer;
+use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationLoader;
 use Evenement\EventEmitterInterface;
 use Peridot\Configuration;
@@ -101,7 +101,7 @@ return function(EventEmitterInterface $emitter)
         $loader = new ConfigurationLoader();
         $configuration = $loader->loadConfiguration('cloak.toml');
 
-        $analyzer = new Analyzer($configuration);
+        $analyzer = new CoverageAnalyzer($configuration);
         $analyzer->start();
     });
 

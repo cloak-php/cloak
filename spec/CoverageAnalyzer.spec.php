@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Analyzer;
+use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
@@ -20,7 +20,7 @@ use \Prophecy\Prophet;
 use \Prophecy\Argument;
 
 
-describe(Analyzer::class, function() {
+describe(CoverageAnalyzer::class, function() {
     describe('#stop', function() {
         beforeEach(function() {
             $rootDirectory = __DIR__ . '/fixtures/src/';
@@ -48,7 +48,7 @@ describe(Analyzer::class, function() {
 
             $config = $builder->build();
 
-            $this->analyzer = new Analyzer($config);
+            $this->analyzer = new CoverageAnalyzer($config);
             $this->analyzer->setLifeCycleNotifier( $notifier->reveal() );
             $this->analyzer->start();
             $this->analyzer->stop();
@@ -79,7 +79,7 @@ describe(Analyzer::class, function() {
 
                 $config = $builder->build();
 
-                $this->analyzer = new Analyzer($config);
+                $this->analyzer = new CoverageAnalyzer($config);
                 $this->analyzer->start();
 
                 $this->started = $this->analyzer->isStarted();
@@ -112,7 +112,7 @@ describe(Analyzer::class, function() {
 
                 $config = $builder->build();
 
-                $this->analyzer = new Analyzer($config);
+                $this->analyzer = new CoverageAnalyzer($config);
                 $this->analyzer->start();
                 $this->analyzer->stop();
 
@@ -152,7 +152,7 @@ describe(Analyzer::class, function() {
 
             $config = $builder->build();
 
-            $this->analyzer = new Analyzer($config);
+            $this->analyzer = new CoverageAnalyzer($config);
             $this->analyzer->start();
             $this->analyzer->stop();
 
