@@ -18,7 +18,7 @@ namespace cloak;
 interface AnalyzeLifeCycleNotifierAware
 {
 
-    public function setLifeCycleNotifier(AnalyzeLifeCycleNotifierInterface $notifier);
+    public function setLifeCycleNotifier(LifeCycleNotifier $notifier);
 
     public function getLifeCycleNotifier();
 

@@ -16,10 +16,10 @@ use cloak\Configuration;
 
 
 /**
- * Interface AnalyzeLifeCycleNotifierInterface
+ * Interface LifeCycleNotifier
  * @package cloak
  */
-interface AnalyzeLifeCycleNotifierInterface
+interface LifeCycleNotifier
 {
 
     /**

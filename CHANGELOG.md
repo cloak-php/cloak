@@ -27,6 +27,7 @@ Version 2.0.0
 * CollectionInterface to Collection
 * SpecificationInterface to Specification
 * AnalyzeLifeCycleNotifierAwareInterface to AnalyzeLifeCycleNotifierAware
+* AnalyzeLifeCycleNotifierInterface to LifeCycleNotifier
 
 Version 1.8.3
 ---------------------------------------------------------------

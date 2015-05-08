@@ -25,7 +25,7 @@ use PHPExtra\EventManager\EventManagerAwareInterface;
  * Class AnalyzeLifeCycleNotifier
  * @package cloak
  */
-class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface, EventManagerAwareInterface
+class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareInterface
 {
 
     /**

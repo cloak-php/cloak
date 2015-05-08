@@ -15,7 +15,7 @@ use cloak\Result;
 use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
 use cloak\driver\Driver;
-use cloak\AnalyzeLifeCycleNotifierInterface;
+use cloak\LifeCycleNotifier;
 use \Prophecy\Prophet;
 use \Prophecy\Argument;
 
@@ -39,7 +39,7 @@ describe(Analyzer::class, function() {
             $driver->getAnalyzeResult()->willReturn($analyzeResult);
             $driver->isStarted()->shouldNotBeCalled();
 
-            $notifier = $this->prophet->prophesize(AnalyzeLifeCycleNotifierInterface::class);
+            $notifier = $this->prophet->prophesize(LifeCycleNotifier::class);
             $notifier->notifyStart()->shouldBeCalled();
             $notifier->notifyStop(Argument::type(Result::class))->shouldBeCalled();
 
