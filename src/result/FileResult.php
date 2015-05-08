@@ -117,7 +117,7 @@ class FileResult implements CoverageResultNode
     /**
      * @param LineResultSelectable $selector
      */
-    protected function resolveLineRange(LineResultCollectionInterface $selector)
+    protected function resolveLineRange(LineResultSelectable $selector)
     {
         $reflection = new FileReflection($this->getPath());
         $this->lineRange = $reflection->getLineRange();
