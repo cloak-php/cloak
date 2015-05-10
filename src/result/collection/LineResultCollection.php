@@ -11,11 +11,14 @@
 
 namespace cloak\result\collection;
 
+use cloak\Collection;
 use cloak\collection\ElementStackable;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\result\LineResultCollectionInterface;
 use cloak\result\LineResult;
+use cloak\result\CodeCoverageResult;
+use cloak\result\LineResultSelectable;
+use cloak\result\LineCountResult;
 use cloak\reflection\Reflection;
 use PhpCollection\Sequence;
 
@@ -24,7 +27,7 @@ use PhpCollection\Sequence;
  * Class LineResultCollection
  * @package cloak\result\collection
  */
-class LineResultCollection implements LineResultCollectionInterface
+class LineResultCollection implements CodeCoverageResult, LineResultSelectable, LineCountResult, Collection
 {
 
     use ElementStackable;
@@ -114,7 +117,7 @@ class LineResultCollection implements LineResultCollectionInterface
 
     /**
      * @param LineRange $lineRange
-     * @return LineResultCollectionInterface
+     * @return LineResultCollection
      */
     public function selectRange(LineRange $lineRange)
     {
@@ -128,7 +131,7 @@ class LineResultCollection implements LineResultCollectionInterface
 
     /**
      * @param Reflection $reflection
-     * @return LineResultCollectionInterface
+     * @return LineResultCollection
      */
     public function selectByReflection(Reflection $reflection)
     {
@@ -138,7 +141,7 @@ class LineResultCollection implements LineResultCollectionInterface
 
     /**
      * @param array $analyzeResults
-     * @return LineResultCollectionInterface
+     * @return LineResultCollection
      */
     public static function from(array $analyzeResults)
     {

@@ -22,7 +22,7 @@ trait CoverageResult
 {
 
     /**
-     * @var LineResultCollectionInterface
+     * @var \cloak\result\collection\LineResultCollection
      */
     protected $lineResults;
 
