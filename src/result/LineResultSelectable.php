@@ -13,7 +13,7 @@ namespace cloak\result;
 
 
 use cloak\value\LineRange;
-use cloak\reflection\ReflectionInterface;
+use cloak\reflection\Reflection;
 
 
 /**
@@ -30,9 +30,9 @@ interface LineResultSelectable
     public function selectRange(LineRange $lineRange);
 
     /**
-     * @param ReflectionInterface $reflection
+     * @param Reflection $reflection
      * @return LineResultCollectionInterface
      */
-    public function selectByReflection(ReflectionInterface $reflection);
+    public function selectByReflection(Reflection $reflection);
 
 }

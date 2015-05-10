@@ -11,14 +11,14 @@
 
 namespace cloak\driver\adaptor;
 
-use cloak\driver\AdaptorInterface;
+use cloak\driver\Adaptor;
 
 
 /**
  * Class XdebugAdaptor
  * @package cloak\driver
  */
-class XdebugAdaptor implements AdaptorInterface
+class XdebugAdaptor implements Adaptor
 {
 
     public function __construct()

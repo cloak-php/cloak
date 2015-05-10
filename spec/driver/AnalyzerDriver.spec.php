@@ -11,23 +11,23 @@
 
 
 use Prophecy\Prophet;
-use cloak\driver\Driver;
-use cloak\driver\AdaptorInterface;
+use cloak\driver\AnalyzerDriver;
+use cloak\driver\Adaptor;
 use cloak\driver\Result;
 
 
-describe(Driver::class, function() {
+describe(AnalyzerDriver::class, function() {
 
     describe('#isStarted', function() {
         context('when after instantiation', function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
-                $this->dirver = new Driver($adaptor->reveal());
+                $this->dirver = new AnalyzerDriver($adaptor->reveal());
             });
             it('return false', function() {
                 expect($this->dirver->isStarted())->toBeFalse();
@@ -37,11 +37,11 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
-                $this->dirver = new Driver($adaptor->reveal());
+                $this->dirver = new AnalyzerDriver($adaptor->reveal());
             });
             it('return true', function() {
                 $this->dirver->start();
@@ -52,11 +52,11 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldBeCalled();
                 $adaptor->stop()->shouldBeCalled();
 
-                $this->dirver = new Driver($adaptor->reveal());
+                $this->dirver = new AnalyzerDriver($adaptor->reveal());
             });
             it('return true', function() {
                 $this->dirver->start();
@@ -71,11 +71,11 @@ describe(Driver::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $adaptor = $this->prophet->prophesize(AdaptorInterface::class);
+                $adaptor = $this->prophet->prophesize(Adaptor::class);
                 $adaptor->start()->shouldNotBeCalled();
                 $adaptor->stop()->shouldNotBeCalled();
 
-                $this->driver = new Driver($adaptor->reveal());
+                $this->driver = new AnalyzerDriver($adaptor->reveal());
             });
             it('return cloak\driver\Result', function() {
                 $result = $this->driver->getAnalyzeResult();

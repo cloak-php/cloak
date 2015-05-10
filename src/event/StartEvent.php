@@ -17,7 +17,7 @@ use \DateTimeImmutable;
  * Class StartEvent
  * @package cloak\event
  */
-final class StartEvent extends Event implements EventInterface
+final class StartEvent extends AbstractEvent implements Event
 {
 
     public function __construct($sendAt = null)

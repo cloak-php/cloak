@@ -12,16 +12,16 @@
 namespace cloak\result;
 
 
-/***
- * Class CoverageResultInterface
+/**
+ * Interface AbstractTypeResultNode
  * @package cloak\result
  */
-interface CoverageResultInterface extends CodeCoverageResultInterface, LineResultInterface, ResultNodeInterface
+interface AbstractTypeResultNode extends CoverageResultNode
 {
 
     /**
-     * @return string
+     * @return \cloak\result\CoverageResultCollectionInterface
      */
-    public function getName();
+    public function getMethodResults();
 
 }

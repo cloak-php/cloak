@@ -13,14 +13,13 @@ namespace cloak;
 
 use cloak\Result;
 use cloak\Configuration;
-use PHPExtra\EventManager\EventManagerAwareInterface;
 
 
 /**
- * Interface AnalyzeLifeCycleNotifierInterface
+ * Interface LifeCycleNotifier
  * @package cloak
  */
-interface AnalyzeLifeCycleNotifierInterface extends EventManagerAwareInterface
+interface LifeCycleNotifier
 {
 
     /**

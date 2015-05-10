@@ -12,11 +12,10 @@
 use cloak\result\FileResult;
 use cloak\result\LineResult;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResultCollectionInterface;
 use cloak\result\collection\CoverageResultCollection;
 
 
-describe(LineResultCollectionInterface::class, function() {
+describe(FileResult::class, function() {
 
     describe('#getRelativePath', function() {
         beforeEach(function() {
@@ -35,7 +34,7 @@ describe(LineResultCollectionInterface::class, function() {
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
             it('return cloak\result\LineResultCollectionInterface instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf(LineResultCollectionInterface::class);
+                expect($this->file->getLineResults())->toBeAnInstanceOf(LineResultCollection::class);
             });
         });
         context('when line is not empty', function() {
@@ -47,7 +46,7 @@ describe(LineResultCollectionInterface::class, function() {
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
             it('should return cloak\result\LineResultCollectionInterface instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf(LineResultCollectionInterface::class);
+                expect($this->file->getLineResults())->toBeAnInstanceOf(LineResultCollection::class);
             });
             it('should return cloak\result\LineResultCollectionInterface instance', function() {
                 expect($this->file->getLineResults()->getLineCount())->toEqual(2);

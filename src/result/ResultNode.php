@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /**
- * Interface ResultNodeInterface
+ * Interface ResultNode
  * @package cloak
  */
-interface ResultNodeInterface
+interface ResultNode
 {
 
     /**
@@ -30,8 +30,8 @@ interface ResultNodeInterface
     public function getChildResults();
 
     /**
-     * @param CoverageResultVisitorInterface $visitor
+     * @param CoverageResultVisitor $visitor
      */
-    public function accept(CoverageResultVisitorInterface $visitor);
+    public function accept(CoverageResultVisitor $visitor);
 
 }

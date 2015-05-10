@@ -22,7 +22,7 @@ use PHPExtra\EventManager\EventManager;
  * Class CompositeReporter
  * @package cloak\reporter
  */
-class CompositeReporter implements ReporterInterface, CompositeListener
+class CompositeReporter implements Reporter, CompositeListener
 {
 
     use Reportable;

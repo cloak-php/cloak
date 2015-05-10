@@ -11,14 +11,17 @@
 
 namespace cloak\result;
 
-use cloak\CollectionInterface;
 
-
-/**
- * Interface LineResultCollectionInterface
+/***
+ * Class CoverageResultNode
  * @package cloak\result
  */
-interface LineResultCollectionInterface
-    extends CodeCoverageResultInterface, LineResultSelectable, LineResultInterface, CollectionInterface
+interface CoverageResultNode extends CodeCoverageResult, LineCountResult, ResultNode
 {
+
+    /**
+     * @return string
+     */
+    public function getName();
+
 }

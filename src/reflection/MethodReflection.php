@@ -21,7 +21,7 @@ use Zend\Code\Reflection\MethodReflection as ZendMethodReflection;
  * Class MethodReflection
  * @package cloak\reflection
  */
-class MethodReflection implements ReflectionInterface, ResultConvertible
+class MethodReflection implements Reflection, ResultConvertible
 {
 
     /**

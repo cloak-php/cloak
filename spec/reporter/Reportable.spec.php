@@ -11,13 +11,13 @@
 
 use cloak\event\StartEvent;
 use cloak\reporter\Reportable;
-use cloak\reporter\ReporterInterface;
+use cloak\reporter\Reporter;
 use cloak\reporter\StartEventListener;
 use PHPExtra\EventManager\EventManager;
 
 
 
-class Reporter implements ReporterInterface, StartEventListener
+class ExampleReporter implements Reporter, StartEventListener
 {
     use Reportable;
 
@@ -41,7 +41,7 @@ describe(Reportable::class, function() {
             $this->startEvent = new StartEvent();
 
             $this->eventManager = new EventManager();
-            $this->reporter = new Reporter();
+            $this->reporter = new ExampleReporter();
             $this->reporter->registerTo($this->eventManager);
 
             $this->eventManager->trigger($this->startEvent);

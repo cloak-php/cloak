@@ -25,7 +25,7 @@ use cloak\writer\FileWriter;
  * @package cloak\reporter
  */
 class LcovReporter
-    implements ReporterInterface, InitEventListener, StopEventListener
+    implements Reporter, InitEventListener, StopEventListener
 {
 
     const SOURCE_FILE_PREFIX = 'SF:';

@@ -8,6 +8,32 @@ Version 2.0.0
 ---------------------------------------------------------------
 * PHP5.4 not support
 * The return value of **getSendAt** method of event class has become **DateTimeImmutable**
+* ReporterInterface to Reporter
+* ReflectionInterface to Reflection
+* AdaptorInterface to Adaptor
+* Driver to AnalyzerDriver
+* DriverInterface.php to Driver
+* Event to AbstractEvent
+* EventInterface to Event
+* SectionInterface to Section
+* ResultNodeInterface to ResultNode
+* CodeCoverageResultInterface to CodeCoverageResult
+* LineResultInterface to LineCountResult
+* CoverageResultInterface to CoverageResultNode
+* CoverageResultVisitorInterface to CoverageResultVisitor
+* WriterInterface to Writer
+* ResultConsoleWriterInterface to ResultWriter
+* ConsoleWriterInterface to StdoutWriter
+* CollectionInterface to Collection
+* SpecificationInterface to Specification
+* AnalyzeLifeCycleNotifierAwareInterface to AnalyzeLifeCycleNotifierAware
+* AnalyzeLifeCycleNotifierInterface to LifeCycleNotifier
+* Analyzer to CoverageAnalyzer
+* AnalyzerInterface to Analyzer
+* AbstractTypeResultInterface to AbstractTypeResultNode
+* CoverageResultCollectionInterface to CoverageResultNodeCollection
+* Remove LineResultCollectionInterface
+
 
 Version 1.8.3
 ---------------------------------------------------------------

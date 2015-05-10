@@ -11,67 +11,31 @@
 
 namespace cloak\driver;
 
-
 /**
- * Class Driver
+ * Interface Driver
  * @package cloak\driver
  */
-final class Driver implements DriverInterface
+interface Driver
 {
 
     /**
-     * @var AdaptorInterface
+     * @return void
      */
-    private $adaptor;
-
+    public function start();
 
     /**
-     * @var boolean
+     * @return void
      */
-    private $started = false;
-
-    /**
-     * @var array
-     */
-    private $analyzeResult = [];
-
-
-    /**
-     * @param AdaptorInterface $adaptor
-     */
-    public function __construct(AdaptorInterface $adaptor)
-    {
-        $this->adaptor = $adaptor;
-    }
-
-
-    public function start()
-    {
-        $this->adaptor->start();
-        $this->started = true;
-    }
-
-    public function stop()
-    {
-        $result = $this->adaptor->stop();
-        $this->analyzeResult = $result;
-        $this->started = false;
-    }
+    public function stop();
 
     /**
      * @return boolean
      */
-    public function isStarted()
-    {
-        return $this->started;
-    }
+    public function isStarted();
 
     /**
      * @return Result
      */
-    public function getAnalyzeResult()
-    {
-        return Result::fromArray($this->analyzeResult);
-    }
+    public function getAnalyzeResult();
 
 }

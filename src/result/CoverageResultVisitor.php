@@ -9,17 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak;
+namespace cloak\result;
+
 
 /**
- * Interface AnalyzeLifeCycleNotifierAwareInterface
+ * Interface CoverageResultVisitor
  * @package cloak
  */
-interface AnalyzeLifeCycleNotifierAwareInterface
+interface CoverageResultVisitor
 {
 
-    public function setLifeCycleNotifier(AnalyzeLifeCycleNotifierInterface $notifier);
-
-    public function getLifeCycleNotifier();
+    /**
+     * @param CoverageResultNode $result
+     */
+    public function visit(CoverageResultNode $result);
 
 }

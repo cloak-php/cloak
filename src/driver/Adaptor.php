@@ -9,19 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\result;
+namespace cloak\driver;
 
 
 /**
- * Interface CoverageResultVisitorInterface
- * @package cloak
+ * Interface Adaptor
+ * @package cloak\driver
  */
-interface CoverageResultVisitorInterface
+interface Adaptor
 {
 
+    public function start();
+
     /**
-     * @param CoverageResultInterface $result
+     * @return array
      */
-    public function visit(CoverageResultInterface $result);
+    public function stop();
 
 }

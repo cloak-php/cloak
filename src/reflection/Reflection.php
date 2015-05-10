@@ -15,10 +15,10 @@ use cloak\value\LineRange;
 
 
 /**
- * Interface ReflectionInterface
+ * Interface Reflection
  * @package cloak\reflection
  */
-interface ReflectionInterface
+interface Reflection
 {
 
     /**

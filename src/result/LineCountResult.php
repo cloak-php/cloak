@@ -13,10 +13,10 @@ namespace cloak\result;
 
 
 /**
- * Interface LineResultInterface
+ * Interface LineCountResult
  * @package cloak
  */
-interface LineResultInterface
+interface LineCountResult
 {
 
     /**

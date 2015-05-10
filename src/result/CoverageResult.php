@@ -22,7 +22,7 @@ trait CoverageResult
 {
 
     /**
-     * @var LineResultCollectionInterface
+     * @var \cloak\result\collection\LineResultCollection
      */
     protected $lineResults;
 
@@ -94,9 +94,9 @@ trait CoverageResult
     }
 
     /**
-     * @param CoverageResultVisitorInterface $visitor
+     * @param CoverageResultVisitor $visitor
      */
-    public function accept(CoverageResultVisitorInterface $visitor)
+    public function accept(CoverageResultVisitor $visitor)
     {
         $visitor->visit($this);
     }

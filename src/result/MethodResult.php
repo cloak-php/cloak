@@ -19,7 +19,7 @@ use cloak\result\collection\CoverageResultCollection;
  * Class MethodResult
  * @package cloak\result
  */
-final class MethodResult implements CoverageResultInterface
+final class MethodResult implements CoverageResultNode
 {
 
     use CoverageResult;

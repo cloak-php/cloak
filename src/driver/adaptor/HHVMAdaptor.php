@@ -10,14 +10,15 @@
  */
 
 namespace cloak\driver\adaptor;
-use cloak\driver\AdaptorInterface;
+
+use cloak\driver\Adaptor;
 
 
 /**
  * Class HHVMAdaptor
  * @package cloak\driver\adaptor
  */
-class HHVMAdaptor implements AdaptorInterface
+class HHVMAdaptor implements Adaptor
 {
 
     public function __construct()

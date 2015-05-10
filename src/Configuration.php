@@ -26,7 +26,7 @@ class Configuration
 {
 
     /**
-     * @var \cloak\driver\DriverInterface
+     * @var \cloak\driver\Driver
      */
     private $driver;
 

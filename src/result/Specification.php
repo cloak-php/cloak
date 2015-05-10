@@ -9,21 +9,20 @@
  * with this source code in the file LICENSE.
  */
 
-namespace cloak\driver;
+namespace cloak\result;
 
 
 /**
- * Interface AdaptorInterface
- * @package cloak\driver
+ * Interface Specification
+ * @package cloak\result
  */
-interface AdaptorInterface
+interface Specification
 {
 
-    public function start();
-
     /**
-     * @return array
+     * @param CoverageResultNode $coverageResult
+     * @return bool
      */
-    public function stop();
+    public function match(CoverageResultNode $coverageResult);
 
 }

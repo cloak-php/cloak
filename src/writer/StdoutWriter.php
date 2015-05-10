@@ -12,10 +12,10 @@
 namespace cloak\writer;
 
 /**
- * Interface ConsoleWriterInterface
+ * Interface StdoutWriter
  * @package cloak\writer
  */
-interface ConsoleWriterInterface extends WriterInterface
+interface StdoutWriter extends Writer
 {
 
     /**

@@ -12,11 +12,11 @@
 namespace cloak\spec\driver\adaptor;
 
 
-use cloak\driver\AdaptorInterface;
+use cloak\driver\Adaptor;
 use cloak\driver\adaptor\AdaptorNotAvailableException;
 
 
-class FixtureAdaptor implements AdaptorInterface
+class FixtureAdaptor implements Adaptor
 {
 
     public function __construct()
