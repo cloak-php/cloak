@@ -11,7 +11,7 @@
 
 use cloak\event\StopEvent;
 use cloak\Result;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
 use \DateTimeImmutable;
 

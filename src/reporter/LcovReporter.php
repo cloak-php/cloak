@@ -14,7 +14,7 @@ namespace cloak\reporter;
 
 use cloak\Result;
 use cloak\result\FileResult;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\writer\FileWriter;
@@ -124,7 +124,7 @@ class LcovReporter
     }
 
     /**
-     * @param \cloak\result\LineResult $line
+     * @param \cloak\analyzer\result\LineResult $line
      */
     private function writeLineResult(LineResult $line)
     {

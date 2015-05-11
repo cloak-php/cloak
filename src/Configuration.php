@@ -12,9 +12,10 @@
 namespace cloak;
 
 use cloak\Result;
-use cloak\driver\Result as AnalyzeResult;
-use cloak\driver\result\FileResult;
-use cloak\driver\XdebugDriver;
+use cloak\analyzer\Analyzer;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\FileResult;
+use cloak\analyzer\adapter\XdebugAdapter;
 use \InvalidArgumentException;
 
 
@@ -26,12 +27,12 @@ class Configuration
 {
 
     /**
-     * @var \cloak\driver\Driver
+     * @var \cloak\analyzer\AnalyzeDriver
      */
     private $driver;
 
     /**
-     * @var \cloak\reporter\ReporterInterface
+     * @var \cloak\reporter\Reporter
      */
     private $reporter;
 
@@ -70,16 +71,16 @@ class Configuration
     }
 
     /**
-     * @return XdebugDriver|null
+     * @return \cloak\analyzer\AnalyzeDriver|null
      */
     public function getDriver()
     {
-        $this->driver = $this->driver ? $this->driver : new XdebugDriver();
+        $this->driver = $this->driver ? $this->driver : new Analyzer(new XdebugAdapter());
         return $this->driver;
     }
 
     /**
-     * @return reporter\ReporterInterface
+     * @return reporter\Reporter
      */
     public function getReporter()
     {
@@ -119,10 +120,10 @@ class Configuration
     }
 
     /**
-     * @param \cloak\driver\Result $result
-     * @return \cloak\driver\Result
+     * @param \cloak\analyzer\AnalyzedResult $result
+     * @return \cloak\analyzer\AnalyzedResult
      */
-    public function applyTo(AnalyzeResult $result)
+    public function applyTo(AnalyzedResult $result)
     {
         $includeCallback = $this->createCallback($this->includeFiles);
         $excludeCallback = $this->createCallback($this->excludeFiles);

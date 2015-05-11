@@ -12,9 +12,9 @@
 use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
-use cloak\result\LineResult;
 use cloak\analyzer\AnalyzeDriver;
 use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\LineResult;
 use cloak\LifeCycleNotifier;
 use \Prophecy\Prophet;
 use \Prophecy\Argument;

@@ -15,7 +15,7 @@ use cloak\Collection;
 use cloak\collection\ElementStackable;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\CodeCoverageResult;
 use cloak\result\LineResultSelectable;
 use cloak\result\LineCountResult;
@@ -145,13 +145,13 @@ class LineResultCollection implements CodeCoverageResult, LineResultSelectable, 
      */
     public static function from(array $analyzeResults)
     {
-        $results = [];
+//        $results = [];
 
-        foreach ($analyzeResults as $lineNumber => $analyzeResult) {
-            $results[] = new LineResult($lineNumber, $analyzeResult);
-        }
+//        foreach ($analyzeResults as $lineNumber => $analyzeResult) {
+  //          $results[] = new LineResult($lineNumber, $analyzeResult);
+    //    }
 
-        return new self($results);
+        return new self($analyzeResults);
     }
 
     /**

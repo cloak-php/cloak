@@ -11,7 +11,7 @@
 
 use cloak\result\type\ClassResult;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\CoverageResultCollection;
 use Example\Example;

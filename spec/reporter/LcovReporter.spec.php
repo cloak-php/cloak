@@ -11,7 +11,7 @@
 
 use cloak\Result;
 use cloak\Configuration;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\LcovReporter;

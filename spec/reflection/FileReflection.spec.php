@@ -12,7 +12,7 @@
 use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\result\LineResultSelectable;
 use cloak\result\FileResult;

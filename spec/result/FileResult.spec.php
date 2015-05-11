@@ -10,7 +10,7 @@
  */
 
 use cloak\result\FileResult;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\CoverageResultCollection;
 

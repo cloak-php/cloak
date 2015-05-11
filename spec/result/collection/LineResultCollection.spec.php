@@ -11,7 +11,7 @@
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\collection\LineResultCollection;
 
 
