@@ -17,7 +17,7 @@ use cloak\result\CoverageResultNode;
 use cloak\result\CoverageResultVisitor;
 use cloak\result\collection\LineResultCollection;
 use cloak\result\collection\CoverageResultCollection;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
 
 
 /**
@@ -43,20 +43,20 @@ class Result implements CoverageResultNode
 
 
     /**
-     * @param driver\Result $result
+     * @param \cloak\analyzer\AnalyzedResult $result
      * @return Result
      */
-    public static function fromAnalyzeResult(AnalyzeResult $result)
+    public static function fromAnalyzeResult(AnalyzedResult $result)
     {
         $files = static::parseResult($result);
         return new self($files);
     }
 
     /**
-     * @param driver\Result $result
+     * @param \cloak\analyzer\AnalyzedResult $result
      * @return array
      */
-    public static function parseResult(AnalyzeResult $result)
+    public static function parseResult(AnalyzedResult $result)
     {
         $files = [];
         $fileResults = $result->getFiles();

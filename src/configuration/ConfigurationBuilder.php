@@ -13,9 +13,9 @@ namespace cloak\configuration;
 
 use cloak\Configuration;
 use cloak\value\CoverageBounds;
-use cloak\driver\AdaptorDetector;
-use cloak\driver\AnalyzerDriver;
-use cloak\driver\Driver;
+use cloak\analyzer\Analyzer;
+use cloak\analyzer\AnalyzeDriver;
+use cloak\analyzer\AdapterResolver;
 use cloak\reporter\Reporter;
 
 
@@ -27,7 +27,7 @@ class ConfigurationBuilder
 {
 
     /**
-     * @var \cloak\driver\Driver
+     * @var \cloak\analyzer\AnalyzeDriver
      */
     private $driver;
 
@@ -64,10 +64,10 @@ class ConfigurationBuilder
     }
 
     /**
-     * @param Driver $driver
+     * @param AnalyzeDriver $driver
      * @return $this
      */
-    public function driver(Driver $driver)
+    public function driver(AnalyzeDriver $driver)
     {
         $this->driver = $driver;
         return $this;
@@ -150,21 +150,21 @@ class ConfigurationBuilder
 
     protected function detectDriver()
     {
-        if ($this->driver instanceof Driver) {
+        if ($this->driver instanceof AnalyzeDriver) {
             return;
         }
 
-        $adaptorDetector = new AdaptorDetector([
-            '\cloak\driver\adaptor\XdebugAdaptor',
-            '\cloak\driver\adaptor\HHVMAdaptor'
+        $resolver = new AdapterResolver([
+            '\cloak\analyzer\adapter\XdebugAdapter',
+            '\cloak\analyzer\adapter\HHVMAdapter'
         ]);
-        $adaptor = $adaptorDetector->detect();
+        $adapter = $resolver->resolve();
 
-        $this->driver = new AnalyzerDriver($adaptor);
+        $this->driver = new Analyzer($adapter);
     }
 
     /**
-     * @return Driver
+     * @return AnalyzeDriver
      */
     public function getDriver()
     {
@@ -172,7 +172,7 @@ class ConfigurationBuilder
     }
 
     /**
-     * @return ReporterInterface
+     * @return Reporter
      */
     public function getReporter()
     {

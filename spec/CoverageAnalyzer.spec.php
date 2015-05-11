@@ -12,9 +12,9 @@
 use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationBuilder;
 use cloak\Result;
-use cloak\driver\Result as AnalyzeResult;
 use cloak\result\LineResult;
-use cloak\driver\Driver;
+use cloak\analyzer\AnalyzeDriver;
+use cloak\analyzer\AnalyzedResult;
 use cloak\LifeCycleNotifier;
 use \Prophecy\Prophet;
 use \Prophecy\Argument;
@@ -25,7 +25,7 @@ describe(CoverageAnalyzer::class, function() {
         beforeEach(function() {
             $rootDirectory = __DIR__ . '/fixtures/src/';
 
-            $analyzeResult = AnalyzeResult::fromArray([
+            $analyzeResult = AnalyzedResult::fromArray([
                 $rootDirectory . 'foo.php' => [
                     1 => LineResult::EXECUTED
                 ]
@@ -33,7 +33,7 @@ describe(CoverageAnalyzer::class, function() {
 
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize(Driver::class);
+            $driver = $this->prophet->prophesize(AnalyzeDriver::class);
             $driver->start()->shouldBeCalled();
             $driver->stop()->shouldBeCalled();
             $driver->getAnalyzeResult()->willReturn($analyzeResult);
@@ -68,7 +68,7 @@ describe(CoverageAnalyzer::class, function() {
             beforeEach(function() {
                 $this->prophet = new Prophet();
 
-                $driver = $this->prophet->prophesize(Driver::class);
+                $driver = $this->prophet->prophesize(AnalyzeDriver::class);
                 $driver->start()->shouldBeCalled();
                 $driver->stop()->shouldNotBeCalled();
                 $driver->getAnalyzeResult()->shouldNotBeCalled();
@@ -92,7 +92,7 @@ describe(CoverageAnalyzer::class, function() {
             beforeEach(function() {
                 $rootDirectory = __DIR__ . '/fixtures/src/';
 
-                $analyzeResult = AnalyzeResult::fromArray([
+                $analyzeResult = AnalyzedResult::fromArray([
                     $rootDirectory . 'foo.php' => [
                         1 => LineResult::EXECUTED
                     ]
@@ -100,7 +100,7 @@ describe(CoverageAnalyzer::class, function() {
 
                 $this->prophet = new Prophet();
 
-                $driver = $this->prophet->prophesize(Driver::class);
+                $driver = $this->prophet->prophesize(AnalyzeDriver::class);
                 $driver->start()->shouldBeCalled();
                 $driver->stop()->shouldBeCalled();
 
@@ -135,11 +135,11 @@ describe(CoverageAnalyzer::class, function() {
                 $rootDirectory . 'vendor/foo2.php' => array( 1 => LineResult::EXECUTED )
             ];
 
-            $analyzeResult = AnalyzeResult::fromArray($coverageResults);
+            $analyzeResult = AnalyzedResult::fromArray($coverageResults);
 
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize(Driver::class);
+            $driver = $this->prophet->prophesize(AnalyzeDriver::class);
             $driver->start()->shouldBeCalledTimes(1);
             $driver->stop()->shouldBeCalledTimes(1);
             $driver->getAnalyzeResult()->willReturn($analyzeResult);

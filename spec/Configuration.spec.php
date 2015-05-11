@@ -12,8 +12,8 @@
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\Configuration;
-use cloak\driver\Result;
-use cloak\driver\result\FileResult;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\FileResult;
 use \InvalidArgumentException;
 
 
@@ -35,7 +35,7 @@ describe(Configuration::class, function() {
         beforeEach(function() {
             $rootDirectory = __DIR__ . '/fixtures/src/';
 
-            $this->result = new Result();
+            $this->result = new AnalyzedResult();
             $this->result->addFile(new FileResult($rootDirectory . 'foo.php', []));
             $this->result->addFile(new FileResult($rootDirectory . 'bar.php', []));
             $this->result->addFile(new FileResult($rootDirectory . 'vendor/foo1.php',  []));
@@ -55,8 +55,8 @@ describe(Configuration::class, function() {
             expect($files->count())->toEqual(1);
             expect($file->matchPath('/foo.php'))->toBeTrue();
         });
-        it('return cloak\driver\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf(Result::class);
+        it('return cloak\analyzer\AnalyzedResult instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf(AnalyzedResult::class);
         });
     });
 

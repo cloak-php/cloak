@@ -18,7 +18,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "cloak\\spec\\driver\\adaptor\\": "spec/fixtures/driver/adaptor",
             "cloak\\spec\\result\\": "spec/fixtures/result",
             "cloak\\spec\\reflection\\": "spec/fixtures/reflection",
             "cloak\\spec\\collection\\": "spec/fixtures/collection",

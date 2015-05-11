@@ -15,7 +15,7 @@ use cloak\result\LineResult;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\LcovReporter;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
 use \DateTime;
 
 
@@ -30,7 +30,7 @@ describe(LcovReporter::class, function() {
             $this->source1 = realpath(__DIR__ . '/../fixtures/Example1.php');
             $this->source2 = realpath(__DIR__ . '/../fixtures/Example2.php');
 
-            $analyzeResult = AnalyzeResult::fromArray([
+            $analyzeResult = AnalyzedResult::fromArray([
                 $this->source1 => [
                     10 => LineResult::EXECUTED,
                     11 => LineResult::EXECUTED

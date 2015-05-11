@@ -12,14 +12,15 @@
 use cloak\event\StopEvent;
 use cloak\Result;
 use cloak\result\LineResult;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
 use \DateTimeImmutable;
+
 
 describe(StopEvent::class, function() {
     beforeEach(function() {
         $this->rootDirectory = __DIR__ . '/fixtures/src/';
 
-        $analyzeResult = AnalyzeResult::fromArray([
+        $analyzeResult = AnalyzedResult::fromArray([
             $this->rootDirectory . 'foo.php' => [
                 1 => LineResult::EXECUTED
             ]
