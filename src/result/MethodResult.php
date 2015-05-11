@@ -65,7 +65,7 @@ final class MethodResult implements CoverageResultNode
     }
 
     /**
-     * @return CoverageResultCollectionInterface
+     * @return \cloak\result\CoverageResultNodeCollection
      */
     public function getChildResults()
     {

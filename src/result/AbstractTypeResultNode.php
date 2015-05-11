@@ -20,7 +20,7 @@ interface AbstractTypeResultNode extends CoverageResultNode
 {
 
     /**
-     * @return \cloak\result\CoverageResultCollectionInterface
+     * @return \cloak\result\CoverageResultNodeCollection
      */
     public function getMethodResults();
 

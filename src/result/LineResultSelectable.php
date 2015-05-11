@@ -25,13 +25,13 @@ interface LineResultSelectable
 
     /**
      * @param LineRange $lineRange
-     * @return LineResultCollectionInterface
+     * @return \cloak\result\collection\LineResultCollection
      */
     public function selectRange(LineRange $lineRange);
 
     /**
      * @param Reflection $reflection
-     * @return LineResultCollectionInterface
+     * @return \cloak\result\collection\LineResultCollection
      */
     public function selectByReflection(Reflection $reflection);
 
