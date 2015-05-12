@@ -11,7 +11,7 @@
 
 use cloak\result\ResultFactory;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\reflection\FileReflection;
 use cloak\result\collection\CoverageResultCollection;
 

@@ -11,9 +11,9 @@
 
 use cloak\Result;
 use cloak\Configuration;
-use cloak\result\LineResult;
 use cloak\AnalyzeLifeCycleNotifier;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\LineResult;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
 use cloak\event\StartEvent;
@@ -86,7 +86,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED )
             ];
 
-            $analyzeResult = AnalyzeResult::fromArray($coverageResults);
+            $analyzeResult = AnalyzedResult::fromArray($coverageResults);
             $this->result = Result::fromAnalyzeResult($analyzeResult);
 
 

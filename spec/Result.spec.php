@@ -12,10 +12,10 @@
 
 use cloak\Result;
 use cloak\value\Coverage;
-use cloak\result\LineResult;
 use cloak\result\FileResult;
 use cloak\result\collection\LineResultCollection;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\LineResult;
 
 
 describe(Result::class, function() {
@@ -27,7 +27,7 @@ describe(Result::class, function() {
 
     describe('#fromAnalyzeResult', function() {
         beforeEach(function() {
-            $analyzeResult = AnalyzeResult::fromArray([
+            $analyzeResult = AnalyzedResult::fromArray([
                 $this->rootDirectory . 'foo.php' => [
                     1 => LineResult::EXECUTED
                 ]

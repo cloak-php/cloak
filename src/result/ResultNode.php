@@ -25,7 +25,7 @@ interface ResultNode
     public function hasChildResults();
 
     /**
-     * @return \cloak\result\CoverageResultCollectionInterface
+     * @return \cloak\result\CoverageResultNodeCollection
      */
     public function getChildResults();
 

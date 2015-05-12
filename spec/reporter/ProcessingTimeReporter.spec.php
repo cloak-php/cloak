@@ -10,7 +10,7 @@
  */
 
 use cloak\Result;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\ProcessingTimeReporter;
@@ -46,7 +46,7 @@ describe(ProcessingTimeReporter::class, function() {
             $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
             $this->startEvent = new StartEvent();
 
-            $analyzeResult = AnalyzeResult::fromArray([]);
+            $analyzeResult = AnalyzedResult::fromArray([]);
             $this->result = Result::fromAnalyzeResult($analyzeResult);
 
             $this->stopEvent = new StopEvent($this->result);

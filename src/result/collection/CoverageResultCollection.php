@@ -48,7 +48,7 @@ class CoverageResultCollection implements CoverageResultNodeCollection
     }
 
     /**
-     * @param CoverageResultInterface[] $results
+     * @param CoverageResultNode[] $results
      */
     public function addAll(array $results)
     {
@@ -137,8 +137,8 @@ class CoverageResultCollection implements CoverageResultNodeCollection
     }
 
     /**
-     * @param CoverageResultInterface $resultA
-     * @param CoverageResultInterface $resultB
+     * @param CoverageResultNode $resultA
+     * @param CoverageResultNode $resultB
      * @return int
      */
     private function compareCoverage(CoverageResultNode $resultA, CoverageResultNode $resultB)

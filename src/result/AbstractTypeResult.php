@@ -57,7 +57,7 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return \cloak\result\CoverageResultCollectionInterface
+     * @return \cloak\result\CoverageResultNodeCollection
      */
     public function getMethodResults()
     {
@@ -82,7 +82,7 @@ abstract class AbstractTypeResult
     }
 
     /**
-     * @return CoverageResultCollectionInterface
+     * @return CoverageResultNodeCollection
      */
     public function getChildResults()
     {

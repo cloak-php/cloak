@@ -11,9 +11,9 @@
 
 use cloak\Result;
 use cloak\Configuration;
-use cloak\result\LineResult;
 use cloak\reporter\TreeReporter;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\LineResult;
 use cloak\value\CoverageBounds;
 use cloak\event\InitEvent;
 use cloak\event\StopEvent;
@@ -45,7 +45,7 @@ describe(TreeReporter::class, function() {
                 ]
             ];
 
-            $analyzeResult = AnalyzeResult::fromArray($coverages);
+            $analyzeResult = AnalyzedResult::fromArray($coverages);
             $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
 
             $config = new Configuration([

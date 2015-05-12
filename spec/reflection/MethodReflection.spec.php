@@ -11,7 +11,7 @@
 
 use cloak\reflection\MethodReflection;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\LineResultSelectable;
 use cloak\result\MethodResult;
 use \Prophecy\Prophet;

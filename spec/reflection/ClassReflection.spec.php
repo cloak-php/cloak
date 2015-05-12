@@ -13,7 +13,7 @@ use cloak\reflection\ClassReflection;
 use cloak\result\collection\LineResultCollection;
 use cloak\reflection\collection\ReflectionCollection;
 use cloak\result\LineResultSelectable;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
 use Example\Example;

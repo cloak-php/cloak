@@ -13,7 +13,7 @@ use cloak\result\collection\CoverageResultCollection;
 use cloak\result\type\ClassResult;
 use cloak\result\type\TraitResult;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\value\Coverage;
 use cloak\reflection\ClassReflection;
 use Example\Example;
