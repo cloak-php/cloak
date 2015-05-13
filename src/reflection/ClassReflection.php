@@ -60,7 +60,7 @@ class ClassReflection implements Reflection, ResultConvertible
      */
     public function getName()
     {
-        return $this->reflection->getName();
+        return $this->reflection->name;
     }
 
     /**
@@ -103,7 +103,7 @@ class ClassReflection implements Reflection, ResultConvertible
      */
     public function getMethods()
     {
-        $className = $this->reflection->getName();
+        $className = $this->reflection->name;
         $selector = MethodSelector::fromClassName($className);
 
         $result = $selector->excludeNative()
