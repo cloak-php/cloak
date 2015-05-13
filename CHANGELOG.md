@@ -29,7 +29,7 @@ Version 2.0.0
 * AnalyzeLifeCycleNotifierAwareInterface to AnalyzeLifeCycleNotifierAware
 * AnalyzeLifeCycleNotifierInterface to LifeCycleNotifier
 * Analyzer to CoverageAnalyzer
-* AnalyzerInterface to Analyzer
+* AnalyzerInterface to ReportableAnalyzer
 * AbstractTypeResultInterface to AbstractTypeResultNode
 * CoverageResultCollectionInterface to CoverageResultNodeCollection
 * Remove LineResultCollectionInterface
