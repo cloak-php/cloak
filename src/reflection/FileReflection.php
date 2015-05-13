@@ -112,7 +112,7 @@ class FileReflection implements Reflection, ResultConvertible
         };
 
         $createClassReflection = function (ZendClassReflection $reflection) {
-            return new ClassReflection($reflection->getName());
+            return new ClassReflection($reflection->name);
         };
 
         $reflections = new Sequence($classes);
