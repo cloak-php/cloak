@@ -67,7 +67,7 @@ class MarkdownReporter
     private $reportWriter;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     private $generatedAt;
 
