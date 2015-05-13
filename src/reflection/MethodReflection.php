@@ -60,7 +60,7 @@ class MethodReflection implements Reflection, ResultConvertible
      */
     public function getName()
     {
-        return $this->reflection->getName();
+        return $this->reflection->name;
     }
 
     /**
@@ -78,7 +78,7 @@ class MethodReflection implements Reflection, ResultConvertible
     public function getDeclaringClassName()
     {
         $declaringClass = $this->reflection->getDeclaringClass();
-        return $declaringClass->getName();
+        return $declaringClass->name;
     }
 
     /**
