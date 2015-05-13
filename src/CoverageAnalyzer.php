@@ -77,7 +77,7 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, Analyzer
     }
 
     /**
-     * @return \cloak\driver\Driver
+     * @return \cloak\analyzer\AnalyzeDriver
      */
     protected function getDriver()
     {
