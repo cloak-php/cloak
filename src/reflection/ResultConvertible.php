@@ -23,7 +23,7 @@ interface ResultConvertible
 
     /**
      * @param LineResultSelectable $selector
-     * @return \cloak\result\CoverageResultInterface
+     * @return \cloak\result\CoverageResultNode
      */
     public function convertToResult(LineResultSelectable $selector);
 
