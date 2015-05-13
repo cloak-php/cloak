@@ -28,7 +28,7 @@ class Result implements CoverageResultNode
 {
 
     /**
-     * @var result\CoverageResultCollectionInterface
+     * @var result\CoverageResultNodeCollection
      */
     private $fileResults;
 
@@ -81,7 +81,7 @@ class Result implements CoverageResultNode
     }
 
     /**
-     * @return \cloak\result\CoverageResultCollectionInterface
+     * @return \cloak\result\CoverageResultNodeCollection
      */
     public function getFiles()
     {
@@ -194,7 +194,7 @@ class Result implements CoverageResultNode
     }
 
     /**
-     * @return result\CoverageResultCollectionInterface
+     * @return result\CoverageResultNodeCollection
      */
     public function getChildResults()
     {
