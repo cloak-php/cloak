@@ -12,10 +12,10 @@
 namespace cloak;
 
 /**
- * Interface Analyzer
+ * Interface ReportableAnalyzer
  * @package cloak
  */
-interface Analyzer
+interface ReportableAnalyzer
 {
 
     /**
