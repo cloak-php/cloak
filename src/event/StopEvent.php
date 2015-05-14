@@ -19,8 +19,10 @@ use \DateTimeImmutable;
  * Class StopEvent
  * @package cloak\event
  */
-final class StopEvent extends AbstractEvent implements Event
+final class StopEvent implements Event
 {
+
+    use DateTimeMessage;
 
     /**
      * @var \cloak\Result

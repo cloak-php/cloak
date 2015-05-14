@@ -19,8 +19,10 @@ use \DateTimeImmutable;
  * Class FinalizeEvent
  * @package cloak\event
  */
-final class FinalizeEvent extends AbstractEvent implements Event
+final class FinalizeEvent implements Event
 {
+
+    use DateTimeMessage;
 
     public function __construct()
     {

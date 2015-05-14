@@ -22,8 +22,10 @@ use \DateTimeImmutable;
  * Class InitEvent
  * @package cloak\event
  */
-final class InitEvent extends AbstractEvent implements Event
+final class InitEvent implements Event
 {
+
+    use DateTimeMessage;
 
     /**
      * @var Configuration

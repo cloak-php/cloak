@@ -14,17 +14,16 @@ namespace cloak\event;
 use DateTimeImmutable;
 
 /**
- * Class AbstractEvent
+ * Trait DateTimeMessage
  * @package cloak\event
  */
-abstract class AbstractEvent
+trait DateTimeMessage
 {
 
     /**
      * @var \DateTimeImmutable
      */
-    protected $sendAt;
-
+    private $sendAt;
 
     /**
      * @return \DateTimeImmutable

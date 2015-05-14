@@ -17,8 +17,10 @@ use \DateTimeImmutable;
  * Class StartEvent
  * @package cloak\event
  */
-final class StartEvent extends AbstractEvent implements Event
+final class StartEvent implements Event
 {
+
+    use DateTimeMessage;
 
     public function __construct($sendAt = null)
     {
