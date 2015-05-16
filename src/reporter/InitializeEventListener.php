@@ -11,19 +11,19 @@
 
 namespace cloak\reporter;
 
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 
 /**
- * Interface InitEventListener
+ * Interface InitializeEventListener
  * @package cloak\reporter
  */
-interface InitEventListener
+interface InitializeEventListener
 {
 
     /**
-     * @param InitEvent $event
+     * @param InitializeEvent $event
      * @return mixed
      */
-    public function onInit(InitEvent $event);
+    public function onInitialize(InitializeEvent $event);
 
 }

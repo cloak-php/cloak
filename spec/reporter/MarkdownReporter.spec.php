@@ -14,7 +14,7 @@ use cloak\Configuration;
 use cloak\value\CoverageBounds;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\MarkdownReporter;
@@ -53,7 +53,7 @@ describe(MarkdownReporter::class, function() {
             $this->fileName = 'report.md';
             $this->filePath = $this->reportDirectory->getPath() . '/' . $this->fileName;
 
-            $this->initEvent = new InitEvent(new Configuration([
+            $this->initEvent = new InitializeEvent(new Configuration([
                 'reportDirectory' => $this->reportDirectory->getPath(),
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));
@@ -61,7 +61,7 @@ describe(MarkdownReporter::class, function() {
             $this->stopEvent = new StopEvent($this->result);
 
             $this->reporter = new MarkdownReporter($this->fileName);
-            $this->reporter->onInit($this->initEvent);
+            $this->reporter->onInitialize($this->initEvent);
             $this->reporter->onStart($this->startEvent);
             $this->reporter->onStop($this->stopEvent);
 

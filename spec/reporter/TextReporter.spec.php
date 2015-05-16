@@ -15,7 +15,7 @@ use cloak\reporter\TextReporter;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
 use cloak\value\CoverageBounds;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\event\StopEvent;
 
 
@@ -50,10 +50,10 @@ describe(TextReporter::class, function() {
             $config = new Configuration([
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]);
-            $initEvent = new InitEvent($config);
+            $initEvent = new InitializeEvent($config);
 
             $this->reporter = new TextReporter();
-            $this->reporter->onInit($initEvent);
+            $this->reporter->onInitialize($initEvent);
         });
         it('output text report', function() {
             expect(function() {

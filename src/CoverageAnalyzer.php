@@ -93,7 +93,7 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, ReportableAnaly
         $this->config = $config;
         $reporter = $config->getReporter();
         $this->setLifeCycleNotifier( new AnalyzeLifeCycleNotifier($reporter) );
-        $this->getLifeCycleNotifier()->notifyInit($this->config);
+        $this->getLifeCycleNotifier()->notifyInitialize($this->config);
     }
 
 }

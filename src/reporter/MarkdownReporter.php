@@ -14,7 +14,7 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use cloak\result\collection\CoverageResultCollection;
@@ -27,7 +27,7 @@ use cloak\value\CoverageBounds;
  * @package cloak\reporter
  */
 class MarkdownReporter
-    implements Reporter, InitEventListener, StartEventListener, StopEventListener
+    implements Reporter, InitializeEventListener, StartEventListener, StopEventListener
 {
 
     use Reportable;
@@ -81,9 +81,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $this->bounds = $event->getCoverageBounds();
 

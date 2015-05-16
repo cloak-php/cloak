@@ -12,7 +12,7 @@
 use cloak\Result;
 use cloak\Configuration;
 use cloak\analyzer\result\LineResult;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\LcovReporter;
 use cloak\analyzer\AnalyzedResult;
@@ -41,10 +41,10 @@ describe(LcovReporter::class, function() {
                 ]
             ]);
 
-            $initEvent = new InitEvent(new Configuration([
+            $initEvent = new InitializeEvent(new Configuration([
                 'reportDirectory' => $this->reportDirectory->getPath()
             ]));
-            $this->reporter->onInit($initEvent);
+            $this->reporter->onInitialize($initEvent);
 
             $this->result = Result::fromAnalyzeResult($analyzeResult);
             $this->stopEvent = new StopEvent($this->result);

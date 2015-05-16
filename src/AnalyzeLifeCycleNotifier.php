@@ -14,7 +14,7 @@ namespace cloak;
 use cloak\Result;
 use cloak\Configuration;
 use cloak\Reporter\Reporter;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\event\StartEvent;
 use cloak\event\StopEvent;
 use PHPExtra\EventManager\EventManager;
@@ -60,9 +60,9 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
         return $this->manager;
     }
 
-    public function notifyInit(Configuration $configuration)
+    public function notifyInitialize(Configuration $configuration)
     {
-        $event = new InitEvent($configuration);
+        $event = new InitializeEvent($configuration);
         $this->getEventManager()->trigger($event);
     }
 

@@ -14,11 +14,11 @@ use cloak\Configuration;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\event\StopEvent;
 use cloak\event\StartEvent;
 use PHPExtra\EventManager\EventManagerInterface;
-use cloak\reporter\InitEventListener;
+use cloak\reporter\InitializeEventListener;
 use cloak\reporter\StartEventListener;
 use cloak\reporter\StopEventListener;
 use cloak\reporter\Reporter;
@@ -28,12 +28,12 @@ use Prophecy\Argument;
 
 describe(AnalyzeLifeCycleNotifier::class, function() {
 
-    describe('#notifyInit', function() {
+    describe('#notifyInitialize', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement(InitEventListener::class);
+            $reporter->willImplement(InitializeEventListener::class);
             $reporter->willImplement(Reporter::class);
 
             $reporterMock = $reporter->reveal();
@@ -43,10 +43,10 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onInit(Argument::type(InitEvent::class))->shouldBeCalled();
+            $reporter->onInitialize(Argument::type(InitializeEvent::class))->shouldBeCalled();
 
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
-            $this->progessNotifier->notifyInit(new Configuration([]));
+            $this->progessNotifier->notifyInitialize(new Configuration([]));
         });
         it('should notify the reporter that it has init', function() {
             $this->prophet->checkPredictions();

@@ -25,7 +25,7 @@ interface LifeCycleNotifier
     /**
      * @return void
      */
-    public function notifyInit(Configuration $configuration);
+    public function notifyInitialize(Configuration $configuration);
 
     /**
      * @return void
