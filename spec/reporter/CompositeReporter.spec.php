@@ -15,7 +15,7 @@ use cloak\event\AnalyzeStopEvent;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\Reporter;
-use cloak\reporter\StartEventListener;
+use cloak\reporter\AnalyzeStartEventListener;
 use cloak\reporter\AnalyzeStopEventListener;
 use \Prophecy\Prophet;
 
@@ -31,13 +31,13 @@ describe(CompositeReporter::class, function() {
             $this->startEvent = new AnalyzeStartEvent();
 
             $reporter1 = $this->prophet->prophesize(Reporter::class);
-            $reporter1->willImplement(StartEventListener::class);
+            $reporter1->willImplement(AnalyzeStartEventListener::class);
             $reporter1->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
             $reporter2 = $this->prophet->prophesize(Reporter::class);
-            $reporter2->willImplement(StartEventListener::class);
+            $reporter2->willImplement(AnalyzeStartEventListener::class);
             $reporter2->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter2 = $reporter2->reveal();

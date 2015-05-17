@@ -23,7 +23,7 @@ use \DateTimeImmutable;
  * @package cloak\reporter
  */
 class ProcessingTimeReporter
-    implements Reporter, StartEventListener, AnalyzeStopEventListener
+    implements Reporter, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;

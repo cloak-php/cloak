@@ -27,7 +27,7 @@ use cloak\value\CoverageBounds;
  * @package cloak\reporter
  */
 class MarkdownReporter
-    implements Reporter, InitializeEventListener, StartEventListener, AnalyzeStopEventListener
+    implements Reporter, InitializeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;

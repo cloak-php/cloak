@@ -12,12 +12,12 @@
 use cloak\event\AnalyzeStartEvent;
 use cloak\reporter\Reportable;
 use cloak\reporter\Reporter;
-use cloak\reporter\StartEventListener;
+use cloak\reporter\AnalyzeStartEventListener;
 use PHPExtra\EventManager\EventManager;
 
 
 
-class ExampleReporter implements Reporter, StartEventListener
+class ExampleReporter implements Reporter, AnalyzeStartEventListener
 {
     use Reportable;
 

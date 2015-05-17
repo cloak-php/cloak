@@ -14,10 +14,10 @@ namespace cloak\reporter;
 use cloak\event\AnalyzeStartEvent;
 
 /**
- * Interface StartEventListener
+ * Interface AnalyzeStartEventListener
  * @package cloak\reporter
  */
-interface StartEventListener
+interface AnalyzeStartEventListener
 {
 
     /**
