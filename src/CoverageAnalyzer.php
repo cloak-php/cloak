@@ -22,7 +22,7 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, ReportableAnaly
     use ProvidesLifeCycleNotifier;
 
     /**
-     * @var Configuration
+     * @var AnalyzerConfiguration
      */
     protected $config;
 
@@ -33,9 +33,9 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, ReportableAnaly
 
 
     /**
-     * @param Configuration $config
+     * @param AnalyzerConfiguration $config
      */
-    public function __construct(Configuration $config)
+    public function __construct(AnalyzerConfiguration $config)
     {
         $this->init($config);
     }
@@ -86,9 +86,9 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, ReportableAnaly
     }
 
     /**
-     * @param Configuration $config
+     * @param AnalyzerConfiguration $config
      */
-    protected function init(Configuration $config)
+    protected function init(AnalyzerConfiguration $config)
     {
         $this->config = $config;
         $reporter = $config->getReporter();

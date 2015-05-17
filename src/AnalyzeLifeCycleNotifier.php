@@ -12,7 +12,7 @@
 namespace cloak;
 
 use cloak\AnalyzedCoverageResult;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\Reporter\Reporter;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
@@ -61,7 +61,7 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
         return $this->manager;
     }
 
-    public function notifyInitialize(Configuration $configuration)
+    public function notifyInitialize(AnalyzerConfiguration $configuration)
     {
         $event = new InitializeEvent($configuration);
         $this->getEventManager()->trigger($event);

@@ -11,19 +11,19 @@
  */
 
 use cloak\configuration\ConfigurationBuilder;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\FileResult;
 use \InvalidArgumentException;
 
 
-describe(Configuration::class, function() {
+describe(AnalyzerConfiguration::class, function() {
 
     describe('#__constrcut', function() {
         context('when specify a property that does not exist', function() {
             it('throw InvalidArgumentException', function() {
                 expect(function() {
-                    new Configuration([
+                    new AnalyzerConfiguration([
                         'invalid_property' => ''
                     ]);
                 })->toThrow(InvalidArgumentException::class);

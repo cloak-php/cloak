@@ -22,7 +22,7 @@ use cloak\reporter\AnalyzeStartEventListener;
 use cloak\reporter\AnalyzeStopEventListener;
 use cloak\reporter\FinalizeEventListener;
 use cloak\value\CoverageBounds;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use \Prophecy\Prophet;
 
 
@@ -34,7 +34,7 @@ describe(CompositeReporter::class, function() {
 
     describe('#onInitialize', function() {
         beforeEach(function() {
-            $config = new Configuration([
+            $config = new AnalyzerConfiguration([
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]);
             $this->initializeEvent = new InitializeEvent($config);

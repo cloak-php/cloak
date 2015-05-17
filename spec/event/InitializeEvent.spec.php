@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\event\InitializeEvent;
 use cloak\value\Path;
 use \DateTimeImmutable;
 
 describe(InitializeEvent::class, function() {
     beforeEach(function() {
-        $configuration = new Configuration([
+        $configuration = new AnalyzerConfiguration([
             'reportDirectory' => __DIR__
         ]);
         $this->initEvent = new InitializeEvent($configuration);

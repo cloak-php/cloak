@@ -11,7 +11,7 @@
 
 namespace cloak\event;
 
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\value\CoverageBounds;
 use cloak\value\Path;
 
@@ -28,15 +28,15 @@ final class InitializeEvent implements Event
     use DateTimeMessage;
 
     /**
-     * @var Configuration
+     * @var AnalyzerConfiguration
      */
     private $config;
 
 
     /**
-     * @param Configuration $config
+     * @param AnalyzerConfiguration $config
      */
-    public function __construct(Configuration $config)
+    public function __construct(AnalyzerConfiguration $config)
     {
         $this->sendAt = new DateTimeImmutable();
         $this->config = $config;
