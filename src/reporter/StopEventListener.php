@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 
 
 /**
@@ -22,9 +22,9 @@ interface StopEventListener
 {
 
     /**
-     * @param StopEvent $event
+     * @param AnalyzeStopEvent $event
      * @return mixed
      */
-    public function onStop(StopEvent $event);
+    public function onStop(AnalyzeStopEvent $event);
 
 }

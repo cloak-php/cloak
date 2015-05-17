@@ -13,7 +13,7 @@ namespace cloak\reporter;
 
 use cloak\Result;
 use cloak\event\InitializeEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\result\FileResult;
 use cloak\writer\ResultConsoleWriter;
 
@@ -45,9 +45,9 @@ class TextReporter
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onStop(AnalyzeStopEvent $event)
     {
         $this->reportResult($event->getResult());
     }

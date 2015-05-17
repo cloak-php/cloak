@@ -16,10 +16,10 @@ use \DateTimeImmutable;
 
 
 /**
- * Class StopEvent
+ * Class AnalyzeStopEvent
  * @package cloak\event
  */
-final class StopEvent implements Event
+final class AnalyzeStopEvent implements Event
 {
 
     use DateTimeMessage;

@@ -16,7 +16,7 @@ use cloak\Configuration;
 use cloak\Reporter\Reporter;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use PHPExtra\EventManager\EventManager;
 use PHPExtra\EventManager\EventManagerAwareInterface;
 
@@ -77,7 +77,7 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
      */
     public function notifyStop(Result $result)
     {
-        $event = new StopEvent($result);
+        $event = new AnalyzeStopEvent($result);
         $this->getEventManager()->trigger($event);
     }
 

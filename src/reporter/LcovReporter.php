@@ -16,7 +16,7 @@ use cloak\Result;
 use cloak\result\FileResult;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\writer\FileWriter;
 
 
@@ -68,9 +68,9 @@ class LcovReporter
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onStop(AnalyzeStopEvent $event)
     {
         $result = $event->getResult();
         $this->writeResult($result);

@@ -13,7 +13,7 @@ namespace cloak\reporter;
 
 use cloak\Result;
 use cloak\event\InitializeEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\result\CoverageResultNode;
 use cloak\result\CoverageResultVisitor;
 use cloak\writer\ResultConsoleWriter;
@@ -59,9 +59,9 @@ class TreeReporter
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onStop(AnalyzeStopEvent $event)
     {
         $result = $event->getResult();
 
