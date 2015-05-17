@@ -9,18 +9,18 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
-use cloak\Configuration;
-use cloak\result\LineResult;
+use cloak\AnalyzedCoverageResult;
+use cloak\AnalyzerConfiguration;
 use cloak\reporter\TextReporter;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\LineResult;
 use cloak\value\CoverageBounds;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 
 
-describe('TextReporter', function() {
-    describe('onStop', function() {
+describe(TextReporter::class, function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $expectResultFile = __DIR__ . '/../fixtures/report/text_report.log';
             $this->expectResult = file_get_contents($expectResultFile);
@@ -44,20 +44,20 @@ describe('TextReporter', function() {
                 ]
             ];
 
-            $analyzeResult = AnalyzeResult::fromArray($coverages);
-            $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
+            $analyzeResult = AnalyzedResult::fromArray($coverages);
+            $this->stopEvent = new AnalyzeStopEvent(AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult));
 
-            $config = new Configuration([
+            $config = new AnalyzerConfiguration([
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]);
-            $initEvent = new InitEvent($config);
+            $initEvent = new InitializeEvent($config);
 
             $this->reporter = new TextReporter();
-            $this->reporter->onInit($initEvent);
+            $this->reporter->onInitialize($initEvent);
         });
         it('output text report', function() {
             expect(function() {
-                $this->reporter->onStop($this->stopEvent);
+                $this->reporter->onAnalyzeStop($this->stopEvent);
             })->toPrint($this->expectResult);
         });
     });

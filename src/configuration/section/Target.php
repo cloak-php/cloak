@@ -13,7 +13,7 @@ namespace cloak\configuration\section;
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\AbstractSection;
-use cloak\configuration\SectionInterface;
+use cloak\configuration\Section;
 use Zend\Config\Config;
 
 
@@ -21,7 +21,7 @@ use Zend\Config\Config;
  * Class Target
  * @package cloak\configuration
  */
-final class Target extends AbstractSection implements SectionInterface
+final class Target extends AbstractSection implements Section
 {
 
     /**

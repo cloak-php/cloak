@@ -11,11 +11,11 @@
 
 use cloak\result\ResultFactory;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\reflection\FileReflection;
+use cloak\result\collection\CoverageResultCollection;
 
-
-describe('ResultFactory', function() {
+describe(ResultFactory::class, function() {
     beforeEach(function() {
         $filePath = __DIR__ . '/../fixtures/src/foo.php';
         $reflection = new FileReflection($filePath);
@@ -30,7 +30,7 @@ describe('ResultFactory', function() {
             $this->results = $this->factory->createClassResults($lineSet);
         });
         it('return \cloak\result\collection\CoverageResultCollection', function() {
-            expect($this->results)->toBeAnInstanceOf('\cloak\result\collection\CoverageResultCollection');
+            expect($this->results)->toBeAnInstanceOf(CoverageResultCollection::class);
         });
         it('ClassResult only not included in the results', function() {
             expect(count($this->results))->toEqual(1);
@@ -44,7 +44,7 @@ describe('ResultFactory', function() {
             $this->results = $this->factory->createTraitResults($lineSet);
         });
         it('return \cloak\result\collection\CoverageResultCollection', function() {
-            expect($this->results)->toBeAnInstanceOf('\cloak\result\collection\CoverageResultCollection');
+            expect($this->results)->toBeAnInstanceOf(CoverageResultCollection::class);
         });
         it('TraitResult only not included in the results', function() {
             expect(count($this->results))->toEqual(1);

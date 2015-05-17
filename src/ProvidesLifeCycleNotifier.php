@@ -19,23 +19,23 @@ trait ProvidesLifeCycleNotifier
 {
 
     /**
-     * @var \cloak\AnalyzeLifeCycleNotifierInterface
+     * @var \cloak\LifeCycleNotifier
      */
     protected $notifier;
 
 
     /**
-     * @param \cloak\AnalyzeLifeCycleNotifierInterface $notifier
+     * @param \cloak\LifeCycleNotifier $notifier
      * @return $this
      */
-    public function setLifeCycleNotifier(AnalyzeLifeCycleNotifierInterface $notifier)
+    public function setLifeCycleNotifier(LifeCycleNotifier $notifier)
     {
         $this->notifier = $notifier;
         return $this;
     }
 
     /**
-     * @return \cloak\AnalyzeLifeCycleNotifierInterface
+     * @return \cloak\LifeCycleNotifier
      */
     public function getLifeCycleNotifier()
     {

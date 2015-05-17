@@ -64,11 +64,11 @@ class MethodSelector
      */
     public function excludeInherited()
     {
-        $className = $this->reflection->getName();
+        $className = $this->reflection->name;
 
         $callback = function(ReflectionMethod $reflection) use ($className) {
             $declaringClass = $reflection->getDeclaringClass();
-            return $declaringClass->getName() === $className;
+            return $declaringClass->name === $className;
         };
 
         return $this->applyFilter($callback);
@@ -82,7 +82,7 @@ class MethodSelector
         $dictionary = $this->getTraitMethods();
 
         $callback = function(ReflectionMethod $reflection) use ($dictionary) {
-            $name = $reflection->getName();
+            $name = $reflection->name;
             return $dictionary->containsKey($name) === false;
         };
 
@@ -133,7 +133,7 @@ class MethodSelector
         $methods = $trait->getMethods(ReflectionMethod::IS_PUBLIC);
 
         foreach ($methods as $method) {
-            $name = $method->getName();
+            $name = $method->name;
             $result->set($name, $method);
         }
 
@@ -146,8 +146,8 @@ class MethodSelector
     public function toCollection()
     {
         $methods = $this->reflections->map(function(ReflectionMethod $method) {
-            $className = $method->getDeclaringClass()->getName();
-            $methodName = $method->getName();
+            $className = $method->getDeclaringClass()->name;
+            $methodName = $method->name;
 
             return new MethodReflection($className, $methodName);
         });

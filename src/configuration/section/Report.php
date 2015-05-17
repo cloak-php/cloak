@@ -13,7 +13,7 @@ namespace cloak\configuration\section;
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\configuration\AbstractSection;
-use cloak\configuration\SectionInterface;
+use cloak\configuration\Section;
 use cloak\value\Path;
 use Zend\Config\Config;
 
@@ -22,7 +22,7 @@ use Zend\Config\Config;
  * Class Report
  * @package cloak\configuration\section
  */
-final class Report extends AbstractSection implements SectionInterface
+final class Report extends AbstractSection implements Section
 {
 
     /**

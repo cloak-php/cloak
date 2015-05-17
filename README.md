@@ -9,7 +9,7 @@ Cloak
 
 
 Cloak is a library that takes a code coverage.  
-This library works with **PHP5.4 or more**.
+This library works with **PHP5.5 or more**.
 
 Requirements
 ------------------------------------------------
@@ -35,15 +35,14 @@ You can use the **ConfigurationBuilder**, and to apply the settings to the analy
 ```php
 <?php
 
-use cloak\Analyzer;
+use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationBuilder;
-use cloak\driver\result\FileResult;
 
 $builder = new ConfigurationBuilder();
 $builder->includeFile('/example/src')
 	->excludeFile('/spec');
 
-$analyzer = new Analyzer( $builder->build() );
+$analyzer = new CoverageAnalyzer( $builder->build() );
 ```
 
 ### Take the code coverage
@@ -96,7 +95,7 @@ $builder->includeFile('/example/src')
 	->excludeFile('/spec')
 	->reporter($reporter);
 
-$analyzer = new Analyzer( $builder->build() );
+$analyzer = new CoverageAnalyzer( $builder->build() );
 ```
 
 #### Result of the output
@@ -119,13 +118,13 @@ Configuration file
 If you use the [configuration file](https://gist.github.com/holyshared/5eaa313b2df78818dbad), you can code simple.
 
 ```php
-use cloak\Analyzer;
+use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationLoader;
 
 $loader = new ConfigurationLoader();
 $configuration = $loader->loadConfiguration('cloak.toml');
 
-$analyzer = new Analyzer($configuration);
+$analyzer = new CoverageAnalyzer($configuration);
 $analyzer->start();
 
 $analyzer->stop();

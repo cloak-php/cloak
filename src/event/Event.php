@@ -11,27 +11,19 @@
 
 namespace cloak\event;
 
-use DateTime;
+use PHPExtra\EventManager\Event\EventInterface as BaseEventInterface;
+
 
 /**
- * Class Event
+ * Interface Event
  * @package cloak\event
  */
-abstract class Event
+interface Event extends BaseEventInterface
 {
 
     /**
-     * @var \DateTime
+     * @return \DateTimeImmutable
      */
-    protected $sendAt;
-
-
-    /**
-     * @return \DateTime
-     */
-    public function getSendAt()
-    {
-        return $this->sendAt;
-    }
+    public function getSendAt();
 
 }

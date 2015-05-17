@@ -11,18 +11,24 @@
 
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\reflection\collection\ReflectionCollection;
+use cloak\result\LineResultSelectable;
+use cloak\analyzer\result\LineResult;
+use cloak\result\type\ClassResult;
+use cloak\result\type\TraitResult;
+use Example\Example;
+use Example\ExampleTrait;
 use \Prophecy\Prophet;
 
 
-describe('ClassReflection', function() {
+describe(ClassReflection::class, function() {
     beforeEach(function() {
-        $this->classReflection = new ClassReflection('Example\Example');
-        $this->traitReflection = new ClassReflection('Example\ExampleTrait');
+        $this->classReflection = new ClassReflection(Example::class);
+        $this->traitReflection = new ClassReflection(ExampleTrait::class);
     });
     describe('#getName', function() {
         it('return class name', function() {
-            expect($this->classReflection->getName())->toEqual('Example\Example');
+            expect($this->classReflection->getName())->toEqual(Example::class);
         });
     });
     describe('#getNamespaceName', function() {
@@ -59,7 +65,7 @@ describe('ClassReflection', function() {
             $this->result = $this->classReflection->getMethods();
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+            expect($this->result)->toBeAnInstanceOf(ReflectionCollection::class);
         });
         it('return a collection of classes', function() {
             expect($this->result->isEmpty())->toBeFalse();
@@ -74,7 +80,7 @@ describe('ClassReflection', function() {
                     new LineResult(29, LineResult::UNUSED)
                 ]);
 
-                $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+                $selector = $this->prophet->prophesize(LineResultSelectable::class);
                 $selector->selectByReflection($this->classReflection)
                     ->willReturn($results);
 
@@ -82,7 +88,7 @@ describe('ClassReflection', function() {
                 $this->result = $result;
             });
             it('return cloak\result\type\ClassResult', function() {
-                expect($this->result)->toBeAnInstanceOf('cloak\result\type\ClassResult');
+                expect($this->result)->toBeAnInstanceOf(ClassResult::class);
             });
             context('when line 29 unused', function() {
                 it('have unused line result', function() {
@@ -101,7 +107,7 @@ describe('ClassReflection', function() {
                     new LineResult(11, LineResult::UNUSED)
                 ]);
 
-                $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+                $selector = $this->prophet->prophesize(LineResultSelectable::class);
                 $selector->selectByReflection($this->traitReflection)
                     ->willReturn($results);
 
@@ -109,7 +115,7 @@ describe('ClassReflection', function() {
                 $this->result = $result;
             });
             it('return cloak\result\type\TraitResult', function() {
-                expect($this->result)->toBeAnInstanceOf('cloak\result\type\TraitResult');
+                expect($this->result)->toBeAnInstanceOf(TraitResult::class);
             });
             context('when line 11 unused', function() {
                 it('have unused line result', function() {

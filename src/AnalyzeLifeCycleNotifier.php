@@ -11,20 +11,22 @@
 
 namespace cloak;
 
-use cloak\Result;
-use cloak\Configuration;
-use cloak\Reporter\ReporterInterface;
-use cloak\event\InitEvent;
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\AnalyzedCoverageResult;
+use cloak\AnalyzerConfiguration;
+use cloak\Reporter\Reporter;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
 use PHPExtra\EventManager\EventManager;
+use PHPExtra\EventManager\EventManagerInterface;
+use PHPExtra\EventManager\EventManagerAwareInterface;
 
 
 /**
  * Class AnalyzeLifeCycleNotifier
  * @package cloak
  */
-class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
+class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareInterface
 {
 
     /**
@@ -33,9 +35,9 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
     private $manager;
 
     /**
-     * @param ReporterInterface $reporter
+     * @param Reporter $reporter
      */
-    public function __construct(ReporterInterface $reporter = null)
+    public function __construct(Reporter $reporter = null)
     {
         $eventManager = new EventManager();
         $eventManager->setThrowExceptions(true);
@@ -49,7 +51,7 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
         $reporter->registerTo( $this->getEventManager() );
     }
 
-    public function setEventManager(EventManager $manager)
+    public function setEventManager(EventManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -59,24 +61,24 @@ class AnalyzeLifeCycleNotifier implements AnalyzeLifeCycleNotifierInterface
         return $this->manager;
     }
 
-    public function notifyInit(Configuration $configuration)
+    public function notifyInitialize(AnalyzerConfiguration $configuration)
     {
-        $event = new InitEvent($configuration);
+        $event = new InitializeEvent($configuration);
         $this->getEventManager()->trigger($event);
     }
 
     public function notifyStart()
     {
-        $event = new StartEvent();
+        $event = new AnalyzeStartEvent();
         $this->getEventManager()->trigger($event);
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    public function notifyStop(Result $result)
+    public function notifyStop(AnalyzedCoverageResult $result)
     {
-        $event = new StopEvent($result);
+        $event = new AnalyzeStopEvent($result);
         $this->getEventManager()->trigger($event);
     }
 

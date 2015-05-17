@@ -39,20 +39,20 @@ class ResultFactory
     }
 
     /**
-     * @param LineResultCollectionInterface $lineCoverages
+     * @param LineResultSelectable $lineCoverages
      * @return CoverageResultCollection
      */
-    public function createClassResults(LineResultCollectionInterface $lineCoverages)
+    public function createClassResults(LineResultSelectable $lineCoverages)
     {
         $reflections = $this->fileReflection->getClasses();
         return $reflections->convertToResult($lineCoverages);
     }
 
     /**
-     * @param LineResultCollectionInterface $lineCoverages
+     * @param LineResultSelectable $lineCoverages
      * @return CoverageResultCollection
      */
-    public function createTraitResults(LineResultCollectionInterface $lineCoverages)
+    public function createTraitResults(LineResultSelectable $lineCoverages)
     {
         $reflections = $this->fileReflection->getTraits();
         return $reflections->convertToResult($lineCoverages);

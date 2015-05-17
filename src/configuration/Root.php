@@ -21,7 +21,7 @@ use cloak\configuration\section\Reporter;
  * Class Root
  * @package cloak\configuration
  */
-final class Root implements SectionInterface
+final class Root implements Section
 {
 
     /**

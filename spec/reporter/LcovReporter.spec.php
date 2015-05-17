@@ -9,17 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
-use cloak\Configuration;
-use cloak\result\LineResult;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\AnalyzedCoverageResult;
+use cloak\AnalyzerConfiguration;
+use cloak\analyzer\result\LineResult;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\LcovReporter;
-use cloak\driver\Result as AnalyzeResult;
+use cloak\analyzer\AnalyzedResult;
 use \DateTime;
 
 
-describe('LcovReporter', function() {
+describe(LcovReporter::class, function() {
     describe('onStop', function() {
         beforeEach(function() {
             $this->reportDirectory = $this->makeDirectory();
@@ -30,7 +30,7 @@ describe('LcovReporter', function() {
             $this->source1 = realpath(__DIR__ . '/../fixtures/Example1.php');
             $this->source2 = realpath(__DIR__ . '/../fixtures/Example2.php');
 
-            $analyzeResult = AnalyzeResult::fromArray([
+            $analyzeResult = AnalyzedResult::fromArray([
                 $this->source1 => [
                     10 => LineResult::EXECUTED,
                     11 => LineResult::EXECUTED
@@ -41,14 +41,14 @@ describe('LcovReporter', function() {
                 ]
             ]);
 
-            $initEvent = new InitEvent(new Configuration([
+            $initEvent = new InitializeEvent(new AnalyzerConfiguration([
                 'reportDirectory' => $this->reportDirectory->getPath()
             ]));
-            $this->reporter->onInit($initEvent);
+            $this->reporter->onInitialize($initEvent);
 
-            $this->result = Result::fromAnalyzeResult($analyzeResult);
-            $this->stopEvent = new StopEvent($this->result);
-            $this->reporter->onStop($this->stopEvent);
+            $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
 
             $output  = "";
             $output .= "SF:" . $this->source1 . PHP_EOL;

@@ -11,21 +11,21 @@
 
 namespace cloak\result\specification;
 
-use cloak\result\SpecificationInterface;
-use cloak\result\CoverageResultInterface;
+use cloak\result\Specification;
+use cloak\result\CoverageResultNode;
 
 
 /**
  * Class Satisfactory
  * @package cloak\result\specification
  */
-class Satisfactory extends CoverageSpecification implements SpecificationInterface
+class Satisfactory extends CoverageSpecification implements Specification
 {
 
     /**
      * {@inheritdoc}
      */
-    public function match(CoverageResultInterface $coverageResult)
+    public function match(CoverageResultNode $coverageResult)
     {
         return $coverageResult->isCoverageGreaterEqual($this->coverage);
     }

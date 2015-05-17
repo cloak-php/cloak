@@ -19,7 +19,7 @@ use cloak\reflection\FileReflection;
  * Class FileResult
  * @package cloak\result
  */
-class FileResult implements CoverageResultInterface
+class FileResult implements CoverageResultNode
 {
 
     use CoverageResult;
@@ -98,7 +98,7 @@ class FileResult implements CoverageResultInterface
     }
 
     /**
-     * @return \cloak\result\LineResultCollectionInterface
+     * @return \\cloak\result\collection\LineResultCollection
      */
     public function getLineResults()
     {
@@ -117,7 +117,7 @@ class FileResult implements CoverageResultInterface
     /**
      * @param LineResultSelectable $selector
      */
-    protected function resolveLineRange(LineResultCollectionInterface $selector)
+    protected function resolveLineRange(LineResultSelectable $selector)
     {
         $reflection = new FileReflection($this->getPath());
         $this->lineRange = $reflection->getLineRange();
@@ -127,7 +127,7 @@ class FileResult implements CoverageResultInterface
     }
 
     /**
-     * @return CoverageResultCollectionInterface
+     * @return CoverageResultNodeCollection
      */
     public function getClassResults()
     {
@@ -151,7 +151,7 @@ class FileResult implements CoverageResultInterface
     }
 
     /**
-     * @return CoverageResultCollectionInterface
+     * @return CoverageResultNodeCollection
      */
     public function getChildResults()
     {

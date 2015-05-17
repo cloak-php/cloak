@@ -11,15 +11,15 @@
 
 namespace cloak\reporter;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
-use cloak\event\InitEvent;
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
+use cloak\event\FinalizeEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
-
 
 
 /**
@@ -27,7 +27,7 @@ use cloak\value\CoverageBounds;
  * @package cloak\reporter
  */
 class MarkdownReporter
-    implements ReporterInterface, InitEventListener, StartEventListener, StopEventListener
+    implements Reporter, InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;
@@ -67,7 +67,7 @@ class MarkdownReporter
     private $reportWriter;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     private $generatedAt;
 
@@ -81,9 +81,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $this->bounds = $event->getCoverageBounds();
 
@@ -94,25 +94,33 @@ class MarkdownReporter
     }
 
     /**
-     * @param StartEvent $event
+     * @param AnalyzeStartEvent $event
      */
-    public function onStart(StartEvent $event)
+    public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
         $this->generatedAt = $event->getSendAt();
     }
 
     /**
-     * @param StopEvent $event
+     * @param AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->writeMarkdownReport($event->getResult());
     }
 
     /**
-     * @param Result $result
+     * @param FinalizeEvent $event
      */
-    private function writeMarkdownReport(Result $result)
+    public function onFinalize(FinalizeEvent $event)
+    {
+        $this->reportWriter = null;
+    }
+
+    /**
+     * @param AnalyzedCoverageResult $result
+     */
+    private function writeMarkdownReport(AnalyzedCoverageResult $result)
     {
         $this->writeTitle();
         $this->writeDescription();
@@ -135,9 +143,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    private function writeResult(Result $result)
+    private function writeResult(AnalyzedCoverageResult $result)
     {
         $files = $result->getFiles();
 

@@ -9,19 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
-use cloak\Configuration;
+use cloak\AnalyzedCoverageResult;
+use cloak\AnalyzerConfiguration;
 use cloak\value\CoverageBounds;
-use cloak\result\LineResult;
-use cloak\event\InitEvent;
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\analyzer\result\LineResult;
+use cloak\analyzer\AnalyzedResult;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\MarkdownReporter;
-use cloak\driver\Result as AnalyzeResult;
 use \DateTime;
 
 
-describe('MarkdownReporter', function() {
+describe(MarkdownReporter::class, function() {
     beforeEach(function() {
         $fixturePath = realpath(__DIR__ . '/../fixtures/');
 
@@ -41,29 +41,29 @@ describe('MarkdownReporter', function() {
                 15 => LineResult::EXECUTED
             ]
         ];
-        $analyzeResult = AnalyzeResult::fromArray($coverageResults);
+        $analyzeResult = AnalyzedResult::fromArray($coverageResults);
 
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
+        $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
     });
 
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $this->reportDirectory = $this->makeDirectory();
 
             $this->fileName = 'report.md';
             $this->filePath = $this->reportDirectory->getPath() . '/' . $this->fileName;
 
-            $this->initEvent = new InitEvent(new Configuration([
+            $this->initEvent = new InitializeEvent(new AnalyzerConfiguration([
                 'reportDirectory' => $this->reportDirectory->getPath(),
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));
-            $this->startEvent = new StartEvent($this->startDateTime);
-            $this->stopEvent = new StopEvent($this->result);
+            $this->startEvent = new AnalyzeStartEvent($this->startDateTime);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $this->reporter = new MarkdownReporter($this->fileName);
-            $this->reporter->onInit($this->initEvent);
-            $this->reporter->onStart($this->startEvent);
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onInitialize($this->initEvent);
+            $this->reporter->onAnalyzeStart($this->startEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
 
             $this->outputReport = file_get_contents($this->markdownReport);
         });

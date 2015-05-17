@@ -11,11 +11,11 @@
 
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\collection\LineResultCollection;
 
 
-describe('LineResultCollection', function() {
+describe(LineResultCollection::class, function() {
 
     describe('#getCodeCoverage', function() {
         beforeEach(function() {

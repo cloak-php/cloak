@@ -25,7 +25,7 @@ use Closure;
  * Class FileReflection
  * @package cloak\reflection
  */
-class FileReflection implements ReflectionInterface, ResultConvertible
+class FileReflection implements Reflection, ResultConvertible
 {
 
     private $filename;
@@ -112,7 +112,7 @@ class FileReflection implements ReflectionInterface, ResultConvertible
         };
 
         $createClassReflection = function (ZendClassReflection $reflection) {
-            return new ClassReflection($reflection->getName());
+            return new ClassReflection($reflection->name);
         };
 
         $reflections = new Sequence($classes);

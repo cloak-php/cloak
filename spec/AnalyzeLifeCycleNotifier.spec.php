@@ -9,26 +9,32 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
-use cloak\Configuration;
-use cloak\result\LineResult;
+use cloak\AnalyzedCoverageResult;
+use cloak\AnalyzerConfiguration;
 use cloak\AnalyzeLifeCycleNotifier;
-use cloak\driver\Result as AnalyzeResult;
-use cloak\event\StopEvent;
+use cloak\analyzer\AnalyzedResult;
+use cloak\analyzer\result\LineResult;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
+use cloak\event\AnalyzeStartEvent;
 use PHPExtra\EventManager\EventManagerInterface;
+use cloak\reporter\InitializeEventListener;
+use cloak\reporter\AnalyzeStartEventListener;
+use cloak\reporter\AnalyzeStopEventListener;
+use cloak\reporter\Reporter;
 use Prophecy\Prophet;
 use Prophecy\Argument;
 
 
-describe('AnalyzeLifeCycleNotifier', function() {
+describe(AnalyzeLifeCycleNotifier::class, function() {
 
-    describe('#notifyInit', function() {
+    describe('#notifyInitialize', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement('cloak\reporter\InitEventListener');
-            $reporter->willImplement('cloak\reporter\ReporterInterface');
+            $reporter->willImplement(InitializeEventListener::class);
+            $reporter->willImplement(Reporter::class);
 
             $reporterMock = $reporter->reveal();
 
@@ -37,10 +43,10 @@ describe('AnalyzeLifeCycleNotifier', function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onInit(Argument::type('\cloak\event\InitEvent'))->shouldBeCalled();
+            $reporter->onInitialize(Argument::type(InitializeEvent::class))->shouldBeCalled();
 
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
-            $this->progessNotifier->notifyInit(new Configuration([]));
+            $this->progessNotifier->notifyInitialize(new AnalyzerConfiguration([]));
         });
         it('should notify the reporter that it has init', function() {
             $this->prophet->checkPredictions();
@@ -53,8 +59,8 @@ describe('AnalyzeLifeCycleNotifier', function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement('cloak\reporter\ReporterInterface');
-            $reporter->willImplement('cloak\reporter\StartEventListener');
+            $reporter->willImplement(Reporter::class);
+            $reporter->willImplement(AnalyzeStartEventListener::class);
 
             $reporterMock = $reporter->reveal();
 
@@ -63,7 +69,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStart(Argument::type('\cloak\event\StartEvent'))->shouldBeCalled();
+            $reporter->onAnalyzeStart(Argument::type(AnalyzeStartEvent::class))->shouldBeCalled();
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
             $this->progessNotifier->notifyStart();
         });
@@ -80,15 +86,15 @@ describe('AnalyzeLifeCycleNotifier', function() {
                 $rootDirectory . 'foo.php' => array( 1 => LineResult::EXECUTED )
             ];
 
-            $analyzeResult = AnalyzeResult::fromArray($coverageResults);
-            $this->result = Result::fromAnalyzeResult($analyzeResult);
+            $analyzeResult = AnalyzedResult::fromArray($coverageResults);
+            $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
 
 
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement('cloak\reporter\StopEventListener');
-            $reporter->willImplement('cloak\reporter\ReporterInterface');
+            $reporter->willImplement(AnalyzeStopEventListener::class);
+            $reporter->willImplement(Reporter::class);
 
             $reporterMock = $reporter->reveal();
 
@@ -97,7 +103,7 @@ describe('AnalyzeLifeCycleNotifier', function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStop(Argument::that(function(StopEvent $event) {
+            $reporter->onAnalyzeStop(Argument::that(function(AnalyzeStopEvent $event) {
                 $result = $event->getResult();
                 expect(count($result->getFiles()))->toEqual(1);
                 return true;

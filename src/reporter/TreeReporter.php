@@ -11,11 +11,11 @@
 
 namespace cloak\reporter;
 
-use cloak\Result;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
-use cloak\result\CoverageResultInterface;
-use cloak\result\CoverageResultVisitorInterface;
+use cloak\AnalyzedCoverageResult;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
+use cloak\result\CoverageResultNode;
+use cloak\result\CoverageResultVisitor;
 use cloak\writer\ResultConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 
@@ -25,7 +25,7 @@ use Zend\Console\ColorInterface as Color;
  * @package cloak\reporter
  */
 class TreeReporter
-    implements ReporterInterface, StopEventListener, CoverageResultVisitorInterface
+    implements Reporter, InitializeEventListener, AnalyzeStopEventListener, CoverageResultVisitor
 {
 
     use Reportable;
@@ -50,18 +50,18 @@ class TreeReporter
     }
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $coverageBounds = $event->getCoverageBounds();
         $this->console = new ResultConsoleWriter($coverageBounds);
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $result = $event->getResult();
 
@@ -71,26 +71,26 @@ class TreeReporter
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    public function visit(CoverageResultInterface $result)
+    public function visit(CoverageResultNode $result)
     {
         $this->writeResult($result);
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    protected function writeHeader(CoverageResultInterface $result)
+    protected function writeHeader(CoverageResultNode $result)
     {
         $header = sprintf('%s code coverage', $result->getName());
         $this->console->writeLine($header, Color::CYAN);
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    protected function writeResult(CoverageResultInterface $result)
+    protected function writeResult(CoverageResultNode $result)
     {
         $this->writeCoverageResult($result);
         $this->indent++;
@@ -99,9 +99,9 @@ class TreeReporter
     }
 
     /**
-     * @param CoverageResultInterface $result
+     * @param CoverageResultNode $result
      */
-    protected function writeChildResults(CoverageResultInterface $result)
+    protected function writeChildResults(CoverageResultNode $result)
     {
         $childResults = $result->getChildResults();
 
@@ -110,7 +110,7 @@ class TreeReporter
         }
     }
 
-    protected function writeCoverageResult(CoverageResultInterface $result)
+    protected function writeCoverageResult(CoverageResultNode $result)
     {
         $size = $this->indent * $this->indent;
         $indent = str_pad('', $size, ' ');
@@ -122,9 +122,9 @@ class TreeReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    protected function writeTotalCoverage(Result $result)
+    protected function writeTotalCoverage(AnalyzedCoverageResult $result)
     {
         $this->console->writeText(PHP_EOL);
         $this->console->writeText('Code Coverage: ');

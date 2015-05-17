@@ -11,8 +11,8 @@
 
 use cloak\configuration\ConfigurationBuilder;
 use cloak\reporter\TextReporter;
-use cloak\driver\DriverInterface;
-use cloak\Configuration;
+use cloak\analyzer\AnalyzeDriver;
+use cloak\AnalyzerConfiguration;
 use \Prophecy\Prophet;
 
 
@@ -54,7 +54,7 @@ describe(ConfigurationBuilder::class, function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
-            $driver = $this->prophet->prophesize(DriverInterface::class);
+            $driver = $this->prophet->prophesize(AnalyzeDriver::class);
             $driver->start()->shouldNotBeCalled();
             $driver->stop()->shouldNotBeCalled();
 
@@ -75,8 +75,8 @@ describe(ConfigurationBuilder::class, function() {
 
             $this->returnValue = $this->builder->build();
         });
-        it('return cloak\Configuration instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf(Configuration::class);
+        it('return cloak\AnalyzerConfiguration instance', function() {
+            expect($this->returnValue)->toBeAnInstanceOf(AnalyzerConfiguration::class);
         });
         it('apply driver configration', function() {
             $this->prophet->checkPredictions();

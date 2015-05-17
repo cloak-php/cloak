@@ -11,9 +11,9 @@
 
 namespace cloak\reporter;
 
-use cloak\Result;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\AnalyzedCoverageResult;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\result\FileResult;
 use cloak\writer\ResultConsoleWriter;
 
@@ -23,7 +23,7 @@ use cloak\writer\ResultConsoleWriter;
  * @package cloak\reporter
  */
 class TextReporter
-    implements ReporterInterface, InitEventListener, StopEventListener
+    implements Reporter, InitializeEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;
@@ -36,26 +36,26 @@ class TextReporter
 
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $coverageBounds = $event->getCoverageBounds();
         $this->console = new ResultConsoleWriter($coverageBounds);
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->reportResult($event->getResult());
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    public function reportResult(Result $result)
+    public function reportResult(AnalyzedCoverageResult $result)
     {
         $files = $result->getFiles()->getIterator();
 
@@ -88,9 +88,9 @@ class TextReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    protected function writeTotalCoverage(Result $result)
+    protected function writeTotalCoverage(AnalyzedCoverageResult $result)
     {
         $this->console->writeText(PHP_EOL);
         $this->console->writeText('Code Coverage: ');

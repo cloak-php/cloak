@@ -15,6 +15,6 @@ namespace cloak\reporter;
  * Interface CompositeListener
  * @package cloak\reporter
  */
-interface CompositeListener extends InitEventListener, StartEventListener, StopEventListener
+interface CompositeListener extends InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 }

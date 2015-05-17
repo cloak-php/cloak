@@ -11,7 +11,7 @@
 
 namespace cloak\value;
 
-use cloak\result\LineResultInterface;
+use cloak\result\LineCountResult;
 
 
 /***
@@ -97,10 +97,10 @@ class Coverage
     }
 
     /**
-     * @param LineResultInterface $result
+     * @param LineCountResult $result
      * @return \cloak\value\Coverage
      */
-    public static function fromLineResult(LineResultInterface $result)
+    public static function fromLineResult(LineCountResult $result)
     {
         $value = 0.0;
         $executedLineCount = $result->getExecutedLineCount();

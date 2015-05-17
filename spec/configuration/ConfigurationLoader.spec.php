@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\configuration\ConfigurationLoader;
 use cloak\configuration\ConfigurationFileNotFoundException;
 
@@ -25,8 +25,8 @@ describe(ConfigurationLoader::class, function() {
                 $this->configFile = realpath(__DIR__ . '/../fixtures/config.toml');
                 $this->config = $this->loader->loadConfiguration($this->configFile);
             });
-            it('return cloak\Configuration instance', function() {
-                expect($this->config)->toBeAnInstanceOf(Configuration::class);
+            it('return cloak\AnalyzerConfiguration instance', function() {
+                expect($this->config)->toBeAnInstanceOf(AnalyzerConfiguration::class);
             });
         });
         context('when file not exists', function() {

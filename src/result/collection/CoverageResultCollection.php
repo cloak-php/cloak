@@ -13,9 +13,9 @@ namespace cloak\result\collection;
 
 use cloak\value\Coverage;
 use cloak\collection\PairStackable;
-use cloak\result\SpecificationInterface;
-use cloak\result\CoverageResultCollectionInterface;
-use cloak\result\CoverageResultInterface;
+use cloak\result\Specification;
+use cloak\result\CoverageResultNodeCollection;
+use cloak\result\CoverageResultNode;
 use cloak\result\specification\Critical;
 use cloak\result\specification\Satisfactory;
 use PhpCollection\Map;
@@ -25,14 +25,14 @@ use PhpCollection\Map;
  * Class CoverageResultCollection
  * @package cloak\result\collection
  */
-class CoverageResultCollection implements CoverageResultCollectionInterface
+class CoverageResultCollection implements CoverageResultNodeCollection
 {
 
     use PairStackable;
 
 
     /**
-     * @param \cloak\result\CoverageResultInterface[] $results
+     * @param \cloak\result\CoverageResultNode[] $results
      */
     public function __construct(array $results = [])
     {
@@ -40,15 +40,15 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param \cloak\result\CoverageResultInterface $result
+     * @param \cloak\result\CoverageResultNode $result
      */
-    public function add(CoverageResultInterface $result)
+    public function add(CoverageResultNode $result)
     {
         $this->collection->set($result->getName(), $result);
     }
 
     /**
-     * @param CoverageResultInterface[] $results
+     * @param CoverageResultNode[] $results
      */
     public function addAll(array $results)
     {
@@ -58,10 +58,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param CoverageResultCollectionInterface $results
-     * @return CoverageResultCollectionInterface|void
+     * @param CoverageResultNodeCollection $results
+     * @return CoverageResultCollection|void
      */
-    public function merge(CoverageResultCollectionInterface $results)
+    public function merge(CoverageResultNodeCollection $results)
     {
         foreach ($results as $result) {
             $this->add($result);
@@ -70,10 +70,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param CoverageResultCollectionInterface $excludeResults
+     * @param CoverageResultNodeCollection $excludeResults
      * @return CoverageResultCollection
      */
-    public function exclude(CoverageResultCollectionInterface $excludeResults)
+    public function exclude(CoverageResultNodeCollection $excludeResults)
     {
         $results = clone $this->collection;
 
@@ -87,10 +87,10 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param SpecificationInterface $specification
+     * @param Specification $specification
      * @return CoverageResultCollection
      */
-    public function select(SpecificationInterface $specification)
+    public function select(Specification $specification)
     {
         $arguments = [$specification, 'match'];
         $results = $this->collection->filter($arguments);
@@ -137,11 +137,11 @@ class CoverageResultCollection implements CoverageResultCollectionInterface
     }
 
     /**
-     * @param CoverageResultInterface $resultA
-     * @param CoverageResultInterface $resultB
+     * @param CoverageResultNode $resultA
+     * @param CoverageResultNode $resultB
      * @return int
      */
-    private function compareCoverage(CoverageResultInterface $resultA, CoverageResultInterface $resultB)
+    private function compareCoverage(CoverageResultNode $resultA, CoverageResultNode $resultB)
     {
         $coverageA = $resultA->getCodeCoverage();
         $coverageB = $resultB->getCodeCoverage();

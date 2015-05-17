@@ -18,7 +18,7 @@ use Zend\Console\Console;
  * Class ConsoleWriter
  * @package cloak\writer
  */
-class ConsoleWriter extends AbstractConsoleWriter implements ConsoleWriterInterface
+class ConsoleWriter extends AbstractConsoleWriter implements StdoutWriter
 {
 
     public function __construct()

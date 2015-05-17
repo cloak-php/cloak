@@ -68,7 +68,7 @@ class ReporterFactory
 
     /**
      * @param array $arguments
-     * @return \cloak\reporter\RepoterInterface
+     * @return \cloak\reporter\Reporter
      */
     public function createWithArguments(array $arguments)
     {
@@ -87,7 +87,7 @@ class ReporterFactory
         $constructorArguments = $this->getConstructorArguments();
 
         foreach ($constructorArguments as $orderNumber => $constructorArgument) {
-            $argumentName = $constructorArgument->getName();
+            $argumentName = $constructorArgument->name;
             $assignValue = $assignValues->get($argumentName);
 
             if ($assignValue->isEmpty()) {

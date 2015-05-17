@@ -11,7 +11,7 @@
 
 namespace cloak\spec\reporter;
 
-use cloak\reporter\ReporterInterface;
+use cloak\reporter\Reporter;
 use cloak\reporter\Reportable;
 
 
@@ -19,7 +19,7 @@ use cloak\reporter\Reportable;
  * Class ReporterFixture
  * @package cloak\spec\reporter
  */
-class ReporterFixture implements ReporterInterface
+class ReporterFixture implements Reporter
 {
 
     use Reportable;

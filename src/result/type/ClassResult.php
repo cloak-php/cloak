@@ -12,12 +12,12 @@
 namespace cloak\result\type;
 
 use cloak\result\AbstractTypeResult;
-use cloak\result\AbstractTypeResultInterface;
+use cloak\result\AbstractTypeResultNode;
 
 /**
  * Class ClassResult
  * @package cloak\result\type
  */
-final class ClassResult extends AbstractTypeResult implements AbstractTypeResultInterface
+final class ClassResult extends AbstractTypeResult implements AbstractTypeResultNode
 {
 }

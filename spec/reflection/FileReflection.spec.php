@@ -12,11 +12,14 @@
 use cloak\reflection\FileReflection;
 use cloak\reflection\ClassReflection;
 use cloak\result\collection\LineResultCollection;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
+use cloak\reflection\collection\ReflectionCollection;
+use cloak\result\LineResultSelectable;
+use cloak\result\FileResult;
 use \Prophecy\Prophet;
 
 
-describe('FileReflection', function() {
+describe(FileReflection::class, function() {
 
     beforeEach(function() {
         $filePath = __DIR__ . '/../fixtures/src/foo.php';
@@ -32,7 +35,7 @@ describe('FileReflection', function() {
             $this->result = $result;
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+            expect($this->result)->toBeAnInstanceOf(ReflectionCollection::class);
         });
         it('return a collection of classes', function() {
             expect($this->result->isEmpty())->toBeFalse();
@@ -48,7 +51,7 @@ describe('FileReflection', function() {
             $this->result = $result;
         });
         it('return cloak\reflection\collection\ReflectionCollection', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\reflection\collection\ReflectionCollection');
+            expect($this->result)->toBeAnInstanceOf(ReflectionCollection::class);
         });
         it('return a collection of tratis', function() {
             expect($this->result->isEmpty())->toBeFalse();
@@ -63,14 +66,14 @@ describe('FileReflection', function() {
                 new LineResult(11, LineResult::UNUSED)
             ]);
 
-            $selector = $this->prophet->prophesize('\cloak\result\LineResultSelectable');
+            $selector = $this->prophet->prophesize(LineResultSelectable::class);
             $selector->selectByReflection($this->reflection)
                 ->willReturn($results);
 
             $this->result = $this->reflection->convertToResult($selector->reveal());
         });
         it('return cloak\result\FileResult', function() {
-            expect($this->result)->toBeAnInstanceOf('cloak\result\FileResult');
+            expect($this->result)->toBeAnInstanceOf(FileResult::class);
         });
         context('when line 11 unused', function() {
             it('have unused line result', function() {

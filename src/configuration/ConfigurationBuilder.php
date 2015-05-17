@@ -11,12 +11,12 @@
 
 namespace cloak\configuration;
 
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\value\CoverageBounds;
-use cloak\driver\AdaptorDetector;
-use cloak\driver\Driver;
-use cloak\driver\DriverInterface;
-use cloak\reporter\ReporterInterface;
+use cloak\analyzer\Analyzer;
+use cloak\analyzer\AnalyzeDriver;
+use cloak\analyzer\AdapterResolver;
+use cloak\reporter\Reporter;
 
 
 /**
@@ -27,12 +27,12 @@ class ConfigurationBuilder
 {
 
     /**
-     * @var \cloak\driver\DriverInterface
+     * @var \cloak\analyzer\AnalyzeDriver
      */
     private $driver;
 
     /**
-     * @var \cloak\reporter\ReporterInterface
+     * @var \cloak\reporter\Reporter
      */
     private $reporter;
 
@@ -64,20 +64,20 @@ class ConfigurationBuilder
     }
 
     /**
-     * @param DriverInterface $driver
+     * @param AnalyzeDriver $driver
      * @return $this
      */
-    public function driver(DriverInterface $driver)
+    public function driver(AnalyzeDriver $driver)
     {
         $this->driver = $driver;
         return $this;
     }
 
     /**
-     * @param ReporterInterface $reporter
+     * @param Reporter $reporter
      * @return $this
      */
-    public function reporter(ReporterInterface $reporter)
+    public function reporter(Reporter $reporter)
     {
         $this->reporter = $reporter;
         return $this;
@@ -150,21 +150,21 @@ class ConfigurationBuilder
 
     protected function detectDriver()
     {
-        if ($this->driver instanceof DriverInterface) {
+        if ($this->driver instanceof AnalyzeDriver) {
             return;
         }
 
-        $adaptorDetector = new AdaptorDetector([
-            '\cloak\driver\adaptor\XdebugAdaptor',
-            '\cloak\driver\adaptor\HHVMAdaptor'
+        $resolver = new AdapterResolver([
+            '\cloak\analyzer\adapter\XdebugAdapter',
+            '\cloak\analyzer\adapter\HHVMAdapter'
         ]);
-        $adaptor = $adaptorDetector->detect();
+        $adapter = $resolver->resolve();
 
-        $this->driver = new Driver($adaptor);
+        $this->driver = new Analyzer($adapter);
     }
 
     /**
-     * @return DriverInterface
+     * @return AnalyzeDriver
      */
     public function getDriver()
     {
@@ -172,7 +172,7 @@ class ConfigurationBuilder
     }
 
     /**
-     * @return ReporterInterface
+     * @return Reporter
      */
     public function getReporter()
     {
@@ -212,7 +212,7 @@ class ConfigurationBuilder
     }
 
     /**
-     * @return Configuration
+     * @return AnalyzerConfiguration
      */
     public function build()
     {
@@ -227,7 +227,7 @@ class ConfigurationBuilder
             'reportDirectory' => $this->reportDirectory
         ];
 
-        return new Configuration($values);
+        return new AnalyzerConfiguration($values);
     }
 
 }

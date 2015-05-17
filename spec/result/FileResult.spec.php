@@ -10,11 +10,12 @@
  */
 
 use cloak\result\FileResult;
-use cloak\result\LineResult;
+use cloak\analyzer\result\LineResult;
 use cloak\result\collection\LineResultCollection;
+use cloak\result\collection\CoverageResultCollection;
 
 
-describe('FileResult', function() {
+describe(FileResult::class, function() {
 
     describe('#getRelativePath', function() {
         beforeEach(function() {
@@ -33,7 +34,7 @@ describe('FileResult', function() {
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
             it('return cloak\result\LineResultCollectionInterface instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineResultCollectionInterface');
+                expect($this->file->getLineResults())->toBeAnInstanceOf(LineResultCollection::class);
             });
         });
         context('when line is not empty', function() {
@@ -45,7 +46,7 @@ describe('FileResult', function() {
                 $this->file = new FileResult(__DIR__ . '/../fixtures/src/foo.php', $this->lineSet);
             });
             it('should return cloak\result\LineResultCollectionInterface instance', function() {
-                expect($this->file->getLineResults())->toBeAnInstanceOf('cloak\result\LineResultCollectionInterface');
+                expect($this->file->getLineResults())->toBeAnInstanceOf(LineResultCollection::class);
             });
             it('should return cloak\result\LineResultCollectionInterface instance', function() {
                 expect($this->file->getLineResults()->getLineCount())->toEqual(2);
@@ -98,7 +99,7 @@ describe('FileResult', function() {
 
         });
         it('return \cloak\result\collection\CoverageResultCollection instance', function() {
-            expect($this->file->getClassResults())->toBeAnInstanceOf('\cloak\result\collection\CoverageResultCollection');
+            expect($this->file->getClassResults())->toBeAnInstanceOf(CoverageResultCollection::class);
         });
     });
 

@@ -11,12 +11,15 @@
 
 namespace cloak\result\collection;
 
+use cloak\Collection;
 use cloak\collection\ElementStackable;
 use cloak\value\Coverage;
 use cloak\value\LineRange;
-use cloak\result\LineResultCollectionInterface;
-use cloak\result\LineResult;
-use cloak\reflection\ReflectionInterface;
+use cloak\analyzer\result\LineResult;
+use cloak\result\CodeCoverageResult;
+use cloak\result\LineResultSelectable;
+use cloak\result\LineCountResult;
+use cloak\reflection\Reflection;
 use PhpCollection\Sequence;
 
 
@@ -24,7 +27,7 @@ use PhpCollection\Sequence;
  * Class LineResultCollection
  * @package cloak\result\collection
  */
-class LineResultCollection implements LineResultCollectionInterface
+class LineResultCollection implements CodeCoverageResult, LineResultSelectable, LineCountResult, Collection
 {
 
     use ElementStackable;
@@ -114,7 +117,7 @@ class LineResultCollection implements LineResultCollectionInterface
 
     /**
      * @param LineRange $lineRange
-     * @return LineResultCollectionInterface
+     * @return LineResultCollection
      */
     public function selectRange(LineRange $lineRange)
     {
@@ -127,10 +130,10 @@ class LineResultCollection implements LineResultCollectionInterface
     }
 
     /**
-     * @param ReflectionInterface $reflection
-     * @return LineResultCollectionInterface
+     * @param Reflection $reflection
+     * @return LineResultCollection
      */
-    public function selectByReflection(ReflectionInterface $reflection)
+    public function selectByReflection(Reflection $reflection)
     {
         $lineRange = $reflection->getLineRange();
         return $this->selectRange($lineRange);
@@ -138,17 +141,17 @@ class LineResultCollection implements LineResultCollectionInterface
 
     /**
      * @param array $analyzeResults
-     * @return LineResultCollectionInterface
+     * @return LineResultCollection
      */
     public static function from(array $analyzeResults)
     {
-        $results = [];
+//        $results = [];
 
-        foreach ($analyzeResults as $lineNumber => $analyzeResult) {
-            $results[] = new LineResult($lineNumber, $analyzeResult);
-        }
+//        foreach ($analyzeResults as $lineNumber => $analyzeResult) {
+  //          $results[] = new LineResult($lineNumber, $analyzeResult);
+    //    }
 
-        return new self($results);
+        return new self($analyzeResults);
     }
 
     /**
