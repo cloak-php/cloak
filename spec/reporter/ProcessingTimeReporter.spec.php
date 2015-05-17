@@ -12,7 +12,7 @@
 use cloak\Result;
 use cloak\analyzer\AnalyzedResult;
 use cloak\event\AnalyzeStartEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\ProcessingTimeReporter;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
@@ -49,7 +49,7 @@ describe(ProcessingTimeReporter::class, function() {
             $analyzeResult = AnalyzedResult::fromArray([]);
             $this->result = Result::fromAnalyzeResult($analyzeResult);
 
-            $this->stopEvent = new StopEvent($this->result);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
             $this->reporter->onStart($this->startEvent);
         });
         it('output running time', function() {

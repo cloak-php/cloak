@@ -13,7 +13,7 @@ use cloak\Result;
 use cloak\Configuration;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\LcovReporter;
 use cloak\analyzer\AnalyzedResult;
 use \DateTime;
@@ -47,7 +47,7 @@ describe(LcovReporter::class, function() {
             $this->reporter->onInitialize($initEvent);
 
             $this->result = Result::fromAnalyzeResult($analyzeResult);
-            $this->stopEvent = new StopEvent($this->result);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
             $this->reporter->onStop($this->stopEvent);
 
             $output  = "";

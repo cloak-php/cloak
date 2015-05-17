@@ -16,7 +16,7 @@ use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
 use cloak\value\CoverageBounds;
 use cloak\event\InitializeEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 
 
 describe(TextReporter::class, function() {
@@ -45,7 +45,7 @@ describe(TextReporter::class, function() {
             ];
 
             $analyzeResult = AnalyzedResult::fromArray($coverages);
-            $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
+            $this->stopEvent = new AnalyzeStopEvent(Result::fromAnalyzeResult($analyzeResult));
 
             $config = new Configuration([
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)

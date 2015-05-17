@@ -16,7 +16,7 @@ use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\MarkdownReporter;
 use \DateTime;
 
@@ -58,7 +58,7 @@ describe(MarkdownReporter::class, function() {
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));
             $this->startEvent = new AnalyzeStartEvent($this->startDateTime);
-            $this->stopEvent = new StopEvent($this->result);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $this->reporter = new MarkdownReporter($this->fileName);
             $this->reporter->onInitialize($this->initEvent);

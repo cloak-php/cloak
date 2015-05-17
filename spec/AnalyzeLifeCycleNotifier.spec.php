@@ -15,7 +15,7 @@ use cloak\AnalyzeLifeCycleNotifier;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\event\AnalyzeStartEvent;
 use PHPExtra\EventManager\EventManagerInterface;
 use cloak\reporter\InitializeEventListener;
@@ -103,7 +103,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStop(Argument::that(function(StopEvent $event) {
+            $reporter->onStop(Argument::that(function(AnalyzeStopEvent $event) {
                 $result = $event->getResult();
                 expect(count($result->getFiles()))->toEqual(1);
                 return true;

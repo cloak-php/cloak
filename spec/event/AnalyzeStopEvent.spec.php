@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\Result;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
 use \DateTimeImmutable;
 
 
-describe(StopEvent::class, function() {
+describe(AnalyzeStopEvent::class, function() {
     beforeEach(function() {
         $this->rootDirectory = __DIR__ . '/fixtures/src/';
 
@@ -26,7 +26,7 @@ describe(StopEvent::class, function() {
             ]
         ]);
         $this->result = Result::fromAnalyzeResult($analyzeResult);
-        $this->stopEvent = new StopEvent($this->result);
+        $this->stopEvent = new AnalyzeStopEvent($this->result);
     });
     describe('#getResult', function() {
         it('return result', function() {

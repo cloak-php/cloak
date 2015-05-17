@@ -11,7 +11,7 @@
 
 use cloak\Result;
 use cloak\event\AnalyzeStartEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStopEvent;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\Reporter;
@@ -53,7 +53,7 @@ describe(CompositeReporter::class, function() {
     describe('onStop', function() {
         beforeEach(function() {
             $this->result = new Result(new Sequence());
-            $this->stopEvent = new StopEvent($this->result);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $reporter1 = $this->prophet->prophesize(Reporter::class);
             $reporter1->willImplement(StopEventListener::class);
