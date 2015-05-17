@@ -12,7 +12,7 @@
 namespace cloak;
 
 use cloak\AnalyzedCoverageResult;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 
 
 /**
@@ -25,7 +25,7 @@ interface LifeCycleNotifier
     /**
      * @return void
      */
-    public function notifyInitialize(Configuration $configuration);
+    public function notifyInitialize(AnalyzerConfiguration $configuration);
 
     /**
      * @return void

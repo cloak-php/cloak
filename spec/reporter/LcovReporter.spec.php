@@ -10,7 +10,7 @@
  */
 
 use cloak\AnalyzedCoverageResult;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
@@ -41,7 +41,7 @@ describe(LcovReporter::class, function() {
                 ]
             ]);
 
-            $initEvent = new InitializeEvent(new Configuration([
+            $initEvent = new InitializeEvent(new AnalyzerConfiguration([
                 'reportDirectory' => $this->reportDirectory->getPath()
             ]));
             $this->reporter->onInitialize($initEvent);

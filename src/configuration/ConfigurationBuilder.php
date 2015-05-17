@@ -11,7 +11,7 @@
 
 namespace cloak\configuration;
 
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\value\CoverageBounds;
 use cloak\analyzer\Analyzer;
 use cloak\analyzer\AnalyzeDriver;
@@ -212,7 +212,7 @@ class ConfigurationBuilder
     }
 
     /**
-     * @return Configuration
+     * @return AnalyzerConfiguration
      */
     public function build()
     {
@@ -227,7 +227,7 @@ class ConfigurationBuilder
             'reportDirectory' => $this->reportDirectory
         ];
 
-        return new Configuration($values);
+        return new AnalyzerConfiguration($values);
     }
 
 }

@@ -10,7 +10,7 @@
  */
 
 use cloak\AnalyzedCoverageResult;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\value\CoverageBounds;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
@@ -53,7 +53,7 @@ describe(MarkdownReporter::class, function() {
             $this->fileName = 'report.md';
             $this->filePath = $this->reportDirectory->getPath() . '/' . $this->fileName;
 
-            $this->initEvent = new InitializeEvent(new Configuration([
+            $this->initEvent = new InitializeEvent(new AnalyzerConfiguration([
                 'reportDirectory' => $this->reportDirectory->getPath(),
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));

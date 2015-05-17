@@ -10,7 +10,7 @@
  */
 
 use cloak\AnalyzedCoverageResult;
-use cloak\Configuration;
+use cloak\AnalyzerConfiguration;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
@@ -46,7 +46,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
             $reporter->onInitialize(Argument::type(InitializeEvent::class))->shouldBeCalled();
 
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
-            $this->progessNotifier->notifyInitialize(new Configuration([]));
+            $this->progessNotifier->notifyInitialize(new AnalyzerConfiguration([]));
         });
         it('should notify the reporter that it has init', function() {
             $this->prophet->checkPredictions();

@@ -11,7 +11,6 @@
 
 namespace cloak;
 
-use cloak\Result;
 use cloak\analyzer\Analyzer;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\FileResult;
@@ -20,10 +19,10 @@ use \InvalidArgumentException;
 
 
 /**
- * Class Configuration
+ * Class AnalyzerConfiguration
  * @package cloak
  */
-class Configuration
+class AnalyzerConfiguration
 {
 
     /**
