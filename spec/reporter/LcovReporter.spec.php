@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\Configuration;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
@@ -46,7 +46,7 @@ describe(LcovReporter::class, function() {
             ]));
             $this->reporter->onInitialize($initEvent);
 
-            $this->result = Result::fromAnalyzeResult($analyzeResult);
+            $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
             $this->stopEvent = new AnalyzeStopEvent($this->result);
             $this->reporter->onAnalyzeStop($this->stopEvent);
 

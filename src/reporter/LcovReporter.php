@@ -12,7 +12,7 @@
 namespace cloak\reporter;
 
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\result\FileResult;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
@@ -86,9 +86,9 @@ class LcovReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    private function writeResult(Result $result)
+    private function writeResult(AnalyzedCoverageResult $result)
     {
         $files = $result->getFiles();
 

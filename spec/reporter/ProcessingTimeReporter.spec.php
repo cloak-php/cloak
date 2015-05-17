@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\analyzer\AnalyzedResult;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
@@ -47,7 +47,7 @@ describe(ProcessingTimeReporter::class, function() {
             $this->startEvent = new AnalyzeStartEvent();
 
             $analyzeResult = AnalyzedResult::fromArray([]);
-            $this->result = Result::fromAnalyzeResult($analyzeResult);
+            $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
 
             $this->stopEvent = new AnalyzeStopEvent($this->result);
             $this->reporter->onAnalyzeStart($this->startEvent);

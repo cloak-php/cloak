@@ -10,7 +10,7 @@
  */
 
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\value\Coverage;
 use cloak\result\FileResult;
 use cloak\result\collection\LineResultCollection;
@@ -18,7 +18,7 @@ use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
 
 
-describe(Result::class, function() {
+describe(AnalyzedCoverageResult::class, function() {
 
     beforeEach(function() {
         $this->rootDirectory = __DIR__ . '/fixtures/src/';
@@ -32,11 +32,11 @@ describe(Result::class, function() {
                     1 => LineResult::EXECUTED
                 ]
             ]);
-            $this->returnValue = Result::fromAnalyzeResult($analyzeResult);
+            $this->returnValue = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
         });
 
         it('should return cloak\Result instance', function() {
-            expect($this->returnValue)->toBeAnInstanceOf(Result::class);
+            expect($this->returnValue)->toBeAnInstanceOf(AnalyzedCoverageResult::class);
         });
     });
 
@@ -53,7 +53,7 @@ describe(Result::class, function() {
                 new LineResult(1, LineResult::UNUSED)
             ]));
 
-            $this->result = new Result([$file1, $file2]);
+            $this->result = new AnalyzedCoverageResult([$file1, $file2]);
         });
 
         describe('#getLineCount', function() {

@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\Configuration;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\analyzer\AnalyzedResult;
@@ -87,7 +87,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
             ];
 
             $analyzeResult = AnalyzedResult::fromArray($coverageResults);
-            $this->result = Result::fromAnalyzeResult($analyzeResult);
+            $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
 
 
             $this->prophet = new Prophet();

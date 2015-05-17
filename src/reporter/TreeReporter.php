@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\result\CoverageResultNode;
@@ -122,9 +122,9 @@ class TreeReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    protected function writeTotalCoverage(Result $result)
+    protected function writeTotalCoverage(AnalyzedCoverageResult $result)
     {
         $this->console->writeText(PHP_EOL);
         $this->console->writeText('Code Coverage: ');

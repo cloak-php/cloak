@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\Configuration;
 use cloak\reporter\TreeReporter;
 use cloak\analyzer\AnalyzedResult;
@@ -46,7 +46,7 @@ describe(TreeReporter::class, function() {
             ];
 
             $analyzeResult = AnalyzedResult::fromArray($coverages);
-            $this->stopEvent = new AnalyzeStopEvent(Result::fromAnalyzeResult($analyzeResult));
+            $this->stopEvent = new AnalyzeStopEvent(AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult));
 
             $config = new Configuration([
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)

@@ -11,7 +11,7 @@
 
 use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationBuilder;
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\analyzer\AnalyzeDriver;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
@@ -41,7 +41,7 @@ describe(CoverageAnalyzer::class, function() {
 
             $notifier = $this->prophet->prophesize(LifeCycleNotifier::class);
             $notifier->notifyStart()->shouldBeCalled();
-            $notifier->notifyStop(Argument::type(Result::class))->shouldBeCalled();
+            $notifier->notifyStop(Argument::type(AnalyzedCoverageResult::class))->shouldBeCalled();
 
             $builder = new ConfigurationBuilder();
             $builder->driver( $driver->reveal() );
@@ -56,7 +56,7 @@ describe(CoverageAnalyzer::class, function() {
             $this->result = $this->analyzer->getResult();
         });
         it('return cloak\Result instance', function() {
-            expect($this->result)->toBeAnInstanceOf(Result::class);
+            expect($this->result)->toBeAnInstanceOf(AnalyzedCoverageResult::class);
         });
         it('notify stop event', function() {
             $this->prophet->checkPredictions();
@@ -159,10 +159,10 @@ describe(CoverageAnalyzer::class, function() {
             $this->result = $this->analyzer->getResult();
 
         });
-        it('should return an instance of cloak\Result', function() {
+        it('should return an instance of cloak\AnalyzedCoverageResult', function() {
             $files = $this->result->getFiles();
             expect($files->count())->toEqual(2);
-            expect($this->result)->toBeAnInstanceOf(Result::class);
+            expect($this->result)->toBeAnInstanceOf(AnalyzedCoverageResult::class);
         });
     });
 
