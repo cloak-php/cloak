@@ -11,10 +11,19 @@
 
 namespace cloak\reporter;
 
+use cloak\event\FinalizeEvent;
+
 /**
- * Interface CompositeListener
+ * Interface FinalizeEventListener
  * @package cloak\reporter
  */
-interface CompositeListener extends InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
+interface FinalizeEventListener
 {
+
+    /**
+     * @param FinalizeEvent $event
+     * @return mixed
+     */
+    public function onFinalize(FinalizeEvent $event);
+
 }
