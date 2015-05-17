@@ -69,7 +69,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStart(Argument::type(AnalyzeStartEvent::class))->shouldBeCalled();
+            $reporter->onAnalyzeStart(Argument::type(AnalyzeStartEvent::class))->shouldBeCalled();
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
             $this->progessNotifier->notifyStart();
         });

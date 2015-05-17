@@ -96,7 +96,7 @@ class MarkdownReporter
     /**
      * @param AnalyzeStartEvent $event
      */
-    public function onStart(AnalyzeStartEvent $event)
+    public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
         $this->generatedAt = $event->getSendAt();
     }

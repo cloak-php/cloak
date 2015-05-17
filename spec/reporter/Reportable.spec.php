@@ -23,7 +23,7 @@ class ExampleReporter implements Reporter, AnalyzeStartEventListener
 
     private $startEvent;
 
-    public function onStart(AnalyzeStartEvent $event)
+    public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
         $this->startEvent = $event;
     }

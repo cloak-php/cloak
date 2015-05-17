@@ -47,7 +47,7 @@ class ProcessingTimeReporter
     /**
      * @param \cloak\event\AnalyzeStartEvent $event
      */
-    public function onStart(AnalyzeStartEvent $event)
+    public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
         $sendAt = $event->getSendAt();
         $this->start($sendAt);

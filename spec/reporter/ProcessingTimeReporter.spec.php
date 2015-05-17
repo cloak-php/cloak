@@ -34,7 +34,7 @@ describe(ProcessingTimeReporter::class, function() {
         });
         it('output start datetime', function() {
             expect(function() {
-                $this->reporter->onStart($this->startEvent);
+                $this->reporter->onAnalyzeStart($this->startEvent);
             })->toPrint($this->output);
         });
     });
@@ -50,7 +50,7 @@ describe(ProcessingTimeReporter::class, function() {
             $this->result = Result::fromAnalyzeResult($analyzeResult);
 
             $this->stopEvent = new AnalyzeStopEvent($this->result);
-            $this->reporter->onStart($this->startEvent);
+            $this->reporter->onAnalyzeStart($this->startEvent);
         });
         it('output running time', function() {
             ob_start();

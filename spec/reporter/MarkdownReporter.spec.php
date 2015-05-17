@@ -62,7 +62,7 @@ describe(MarkdownReporter::class, function() {
 
             $this->reporter = new MarkdownReporter($this->fileName);
             $this->reporter->onInitialize($this->initEvent);
-            $this->reporter->onStart($this->startEvent);
+            $this->reporter->onAnalyzeStart($this->startEvent);
             $this->reporter->onStop($this->stopEvent);
 
             $this->outputReport = file_get_contents($this->markdownReport);

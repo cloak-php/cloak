@@ -24,6 +24,6 @@ interface AnalyzeStartEventListener
      * @param AnalyzeStartEvent $event
      * @return mixed
      */
-    public function onStart(AnalyzeStartEvent $event);
+    public function onAnalyzeStart(AnalyzeStartEvent $event);
 
 }

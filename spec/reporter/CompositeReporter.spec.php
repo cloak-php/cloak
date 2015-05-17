@@ -26,24 +26,24 @@ describe(CompositeReporter::class, function() {
         $this->prophet = new Prophet;
     });
 
-    describe('#onStart', function() {
+    describe('#onAnalyzeStart', function() {
         beforeEach(function() {
             $this->startEvent = new AnalyzeStartEvent();
 
             $reporter1 = $this->prophet->prophesize(Reporter::class);
             $reporter1->willImplement(AnalyzeStartEventListener::class);
-            $reporter1->onStart($this->startEvent)->shouldBeCalledTimes(1);
+            $reporter1->onAnalyzeStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
             $reporter2 = $this->prophet->prophesize(Reporter::class);
             $reporter2->willImplement(AnalyzeStartEventListener::class);
-            $reporter2->onStart($this->startEvent)->shouldBeCalledTimes(1);
+            $reporter2->onAnalyzeStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter2 = $reporter2->reveal();
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
-            $this->reporter->onStart($this->startEvent);
+            $this->reporter->onAnalyzeStart($this->startEvent);
         });
         it('notify the event to the children of the reporter', function() {
             $this->prophet->checkPredictions();
