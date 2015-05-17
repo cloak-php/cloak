@@ -15,10 +15,10 @@ use cloak\event\AnalyzeStopEvent;
 
 
 /**
- * Interface StopEventListener
+ * Interface AnalyzeStopEventListener
  * @package cloak\reporter
  */
-interface StopEventListener
+interface AnalyzeStopEventListener
 {
 
     /**

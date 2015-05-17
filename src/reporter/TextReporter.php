@@ -23,7 +23,7 @@ use cloak\writer\ResultConsoleWriter;
  * @package cloak\reporter
  */
 class TextReporter
-    implements Reporter, InitializeEventListener, StopEventListener
+    implements Reporter, InitializeEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;

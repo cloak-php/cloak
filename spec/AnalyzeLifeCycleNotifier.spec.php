@@ -20,7 +20,7 @@ use cloak\event\AnalyzeStartEvent;
 use PHPExtra\EventManager\EventManagerInterface;
 use cloak\reporter\InitializeEventListener;
 use cloak\reporter\StartEventListener;
-use cloak\reporter\StopEventListener;
+use cloak\reporter\AnalyzeStopEventListener;
 use cloak\reporter\Reporter;
 use Prophecy\Prophet;
 use Prophecy\Argument;
@@ -93,7 +93,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement(StopEventListener::class);
+            $reporter->willImplement(AnalyzeStopEventListener::class);
             $reporter->willImplement(Reporter::class);
 
             $reporterMock = $reporter->reveal();
