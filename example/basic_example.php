@@ -15,7 +15,7 @@ namespace Example;
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/src/functions.php";
 
-use cloak\Analyzer;
+use cloak\CoverageAnalyzer;
 use cloak\configuration\ConfigurationBuilder;
 
 
@@ -26,7 +26,7 @@ $builder = new ConfigurationBuilder();
 $builder->includeFile('/example/src')
     ->excludeFile('/spec');
 
-$analyzer = new Analyzer( $builder->build() );
+$analyzer = new CoverageAnalyzer( $builder->build() );
 $analyzer->start();
 
 //I write code here want to take code coverage
