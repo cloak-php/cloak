@@ -40,6 +40,7 @@ Version 2.0.0
 * InitEvent to InitializeEvent
 * Add FinalizeEvent
 * Result to AnalyzedCoverageResult
+* Configuration to AnalyzerConfiguration
 
 
 Version 1.8.3
