@@ -8,10 +8,22 @@
         "zendframework/zend-console": "~2.4",
         "zendframework/zend-code": "~2.4",
         "zendframework/zend-config": "~2.4",
-        "phpextra/event-manager": "1.0.1",
+        "phpextra/event-manager": "~2.1.0",
         "yosymfony/toml": "~0.3",
         "eloquent/pathogen": "~0.6",
         "cloak/cloak-analyzer": "~0.1"
+    },
+    "require-dev": {
+      "phpspec/prophecy": "~1.4",
+      "symfony/yaml": "~2.6",
+      "halleck45/phpmetrics": "~1.1",
+      "peridot-php/peridot": "~1.15",
+      "expect/peridot-expect-plugin": "~3.0",
+      "holyshared/peridot-temporary-plugin": "~1.0",
+      "codegyre/robo": "~0.5",
+      "cloak/robo-coveralls-kit": "~2.1",
+      "holyshared/robo-peridot": "~2.0",
+      "peridot-php/peridot-dot-reporter": "~1.0"
     },
     "autoload": {
         "psr-4": { "cloak\\": "src/" }
@@ -26,18 +38,6 @@
         "files": [
             "spec/fixtures/src/foo.php"
         ]
-    },
-    "require-dev": {
-        "phpspec/prophecy": "~1.4",
-        "symfony/yaml": "~2.6",
-        "halleck45/phpmetrics": "~1.1",
-        "peridot-php/peridot": "~1.15",
-        "expect/peridot-expect-plugin": "~3.0",
-        "holyshared/peridot-temporary-plugin": "~1.0",
-        "codegyre/robo": "~0.5",
-        "cloak/robo-coveralls-kit": "~2.1",
-        "holyshared/robo-peridot": "~2.0",
-        "peridot-php/peridot-dot-reporter": "~1.0"
     },
     "scripts": {
         "test": "vendor/bin/robo spec:all",
