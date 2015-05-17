@@ -14,10 +14,10 @@ namespace cloak\event;
 use \DateTimeImmutable;
 
 /**
- * Class StartEvent
+ * Class AnalyzeStartEvent
  * @package cloak\event
  */
-final class StartEvent implements Event
+final class AnalyzeStartEvent implements Event
 {
 
     use DateTimeMessage;

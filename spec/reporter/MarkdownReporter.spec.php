@@ -15,7 +15,7 @@ use cloak\value\CoverageBounds;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
 use cloak\event\InitializeEvent;
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\MarkdownReporter;
 use \DateTime;
@@ -57,7 +57,7 @@ describe(MarkdownReporter::class, function() {
                 'reportDirectory' => $this->reportDirectory->getPath(),
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));
-            $this->startEvent = new StartEvent($this->startDateTime);
+            $this->startEvent = new AnalyzeStartEvent($this->startDateTime);
             $this->stopEvent = new StopEvent($this->result);
 
             $this->reporter = new MarkdownReporter($this->fileName);

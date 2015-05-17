@@ -13,7 +13,7 @@ namespace cloak\reporter;
 
 use cloak\Result;
 use cloak\event\InitializeEvent;
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\event\StopEvent;
 use PHPExtra\EventManager\EventManager;
 
@@ -57,9 +57,9 @@ class CompositeReporter implements Reporter, CompositeListener
     }
 
     /**
-     * @param StartEvent $event
+     * @param AnalyzeStartEvent $event
      */
-    public function onStart(StartEvent $event)
+    public function onStart(AnalyzeStartEvent $event)
     {
         $this->eventManager->trigger($event);
     }

@@ -16,7 +16,7 @@ use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
 use cloak\event\StopEvent;
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use PHPExtra\EventManager\EventManagerInterface;
 use cloak\reporter\InitializeEventListener;
 use cloak\reporter\StartEventListener;
@@ -69,7 +69,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStart(Argument::type(StartEvent::class))->shouldBeCalled();
+            $reporter->onStart(Argument::type(AnalyzeStartEvent::class))->shouldBeCalled();
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
             $this->progessNotifier->notifyStart();
         });

@@ -15,7 +15,7 @@ use cloak\Result;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
 use cloak\event\InitializeEvent;
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\event\StopEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
@@ -94,9 +94,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param StartEvent $event
+     * @param AnalyzeStartEvent $event
      */
-    public function onStart(StartEvent $event)
+    public function onStart(AnalyzeStartEvent $event)
     {
         $this->generatedAt = $event->getSendAt();
     }

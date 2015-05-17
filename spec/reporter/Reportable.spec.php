@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\reporter\Reportable;
 use cloak\reporter\Reporter;
 use cloak\reporter\StartEventListener;
@@ -23,7 +23,7 @@ class ExampleReporter implements Reporter, StartEventListener
 
     private $startEvent;
 
-    public function onStart(StartEvent $event)
+    public function onStart(AnalyzeStartEvent $event)
     {
         $this->startEvent = $event;
     }
@@ -38,7 +38,7 @@ class ExampleReporter implements Reporter, StartEventListener
 describe(Reportable::class, function() {
     describe('#registerTo', function() {
         beforeEach(function() {
-            $this->startEvent = new StartEvent();
+            $this->startEvent = new AnalyzeStartEvent();
 
             $this->eventManager = new EventManager();
             $this->reporter = new ExampleReporter();

@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\event\StopEvent;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
@@ -45,9 +45,9 @@ class ProcessingTimeReporter
     }
 
     /**
-     * @param \cloak\event\StartEvent $event
+     * @param \cloak\event\AnalyzeStartEvent $event
      */
-    public function onStart(StartEvent $event)
+    public function onStart(AnalyzeStartEvent $event)
     {
         $sendAt = $event->getSendAt();
         $this->start($sendAt);

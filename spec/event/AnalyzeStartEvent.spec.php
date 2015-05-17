@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use \DateTimeImmutable;
 
-describe(StartEvent::class, function() {
+describe(AnalyzeStartEvent::class, function() {
     beforeEach(function() {
-        $this->startEvent = new StartEvent();
+        $this->startEvent = new AnalyzeStartEvent();
     });
     describe('#getSendAt', function() {
         it('should return time send the event', function() {

@@ -10,11 +10,11 @@
  */
 
 use cloak\Result;
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\event\StopEvent;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
-use cloak\reporter\ReporterInterface;
+use cloak\reporter\Reporter;
 use cloak\reporter\StartEventListener;
 use cloak\reporter\StopEventListener;
 use \Prophecy\Prophet;
@@ -28,15 +28,15 @@ describe(CompositeReporter::class, function() {
 
     describe('#onStart', function() {
         beforeEach(function() {
-            $this->startEvent = new StartEvent();
+            $this->startEvent = new AnalyzeStartEvent();
 
-            $reporter1 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter1 = $this->prophet->prophesize(Reporter::class);
             $reporter1->willImplement(StartEventListener::class);
             $reporter1->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
-            $reporter2 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter2 = $this->prophet->prophesize(Reporter::class);
             $reporter2->willImplement(StartEventListener::class);
             $reporter2->onStart($this->startEvent)->shouldBeCalledTimes(1);
 
@@ -55,13 +55,13 @@ describe(CompositeReporter::class, function() {
             $this->result = new Result(new Sequence());
             $this->stopEvent = new StopEvent($this->result);
 
-            $reporter1 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter1 = $this->prophet->prophesize(Reporter::class);
             $reporter1->willImplement(StopEventListener::class);
             $reporter1->onStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
-            $reporter2 = $this->prophet->prophesize(ReporterInterface::class);
+            $reporter2 = $this->prophet->prophesize(Reporter::class);
             $reporter2->willImplement(StopEventListener::class);
             $reporter2->onStop($this->stopEvent)->shouldBeCalledTimes(1);
 

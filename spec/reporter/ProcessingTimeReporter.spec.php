@@ -11,7 +11,7 @@
 
 use cloak\Result;
 use cloak\analyzer\AnalyzedResult;
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 use cloak\event\StopEvent;
 use cloak\reporter\ProcessingTimeReporter;
 use Zend\Console\Console;
@@ -25,7 +25,7 @@ describe(ProcessingTimeReporter::class, function() {
             $this->reporter = new ProcessingTimeReporter();
 
             $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
-            $this->startEvent = new StartEvent($this->dateTime);
+            $this->startEvent = new AnalyzeStartEvent($this->dateTime);
 
             $console = Console::getInstance();
             $colorDateTime = $console->colorize('1 July 2014 at 12:00', Color::CYAN);
@@ -44,7 +44,7 @@ describe(ProcessingTimeReporter::class, function() {
             $this->reporter = new ProcessingTimeReporter();
 
             $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
-            $this->startEvent = new StartEvent();
+            $this->startEvent = new AnalyzeStartEvent();
 
             $analyzeResult = AnalyzedResult::fromArray([]);
             $this->result = Result::fromAnalyzeResult($analyzeResult);
