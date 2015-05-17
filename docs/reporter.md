@@ -17,6 +17,7 @@ $builder->includeFile('/example/src')
 	->excludeFile('/spec')
 	->reporter(new TextReporter());
 
+$analyzer = new CoverageAnalyzer( $builder->build() );
 $analyzer->start();
 
 //To write code that want to take coverage
