@@ -36,7 +36,7 @@ class ReflectionCollection implements Collection, ResultCollectionConvertible
 
 
     /**
-     * @param ReflectionInterface[] $reflections
+     * @param \cloak\reflection\Reflection[] $reflections
      */
     public function __construct(array $reflections = [])
     {

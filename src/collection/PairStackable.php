@@ -96,7 +96,7 @@ trait PairStackable
     }
 
     /**
-     * @return \ArrayIterator|\Traversable
+     * @return \ArrayIterator
      */
     public function getIterator()
     {
