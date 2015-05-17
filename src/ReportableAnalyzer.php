@@ -34,7 +34,7 @@ interface ReportableAnalyzer
     public function isStarted();
 
     /**
-     * @return \cloak\Result
+     * @return \cloak\AnalyzedCoverageResult
      */
     public function getResult();
 
