@@ -67,7 +67,7 @@ class CompositeReporter implements Reporter, CompositeListener
     /**
      * @param AnalyzeStopEvent $event
      */
-    public function onStop(AnalyzeStopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->eventManager->trigger($event);
     }

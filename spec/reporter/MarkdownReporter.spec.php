@@ -46,7 +46,7 @@ describe(MarkdownReporter::class, function() {
         $this->result = Result::fromAnalyzeResult($analyzeResult);
     });
 
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $this->reportDirectory = $this->makeDirectory();
 
@@ -63,7 +63,7 @@ describe(MarkdownReporter::class, function() {
             $this->reporter = new MarkdownReporter($this->fileName);
             $this->reporter->onInitialize($this->initEvent);
             $this->reporter->onAnalyzeStart($this->startEvent);
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
 
             $this->outputReport = file_get_contents($this->markdownReport);
         });

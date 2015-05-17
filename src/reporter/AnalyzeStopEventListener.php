@@ -25,6 +25,6 @@ interface AnalyzeStopEventListener
      * @param AnalyzeStopEvent $event
      * @return mixed
      */
-    public function onStop(AnalyzeStopEvent $event);
+    public function onAnalyzeStop(AnalyzeStopEvent $event);
 
 }

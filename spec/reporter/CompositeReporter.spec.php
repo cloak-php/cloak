@@ -50,25 +50,25 @@ describe(CompositeReporter::class, function() {
         });
     });
 
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $this->result = new Result(new Sequence());
             $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $reporter1 = $this->prophet->prophesize(Reporter::class);
             $reporter1->willImplement(AnalyzeStopEventListener::class);
-            $reporter1->onStop($this->stopEvent)->shouldBeCalledTimes(1);
+            $reporter1->onAnalyzeStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter1 = $reporter1->reveal();
 
             $reporter2 = $this->prophet->prophesize(Reporter::class);
             $reporter2->willImplement(AnalyzeStopEventListener::class);
-            $reporter2->onStop($this->stopEvent)->shouldBeCalledTimes(1);
+            $reporter2->onAnalyzeStop($this->stopEvent)->shouldBeCalledTimes(1);
 
             $this->reporter2 = $reporter2->reveal();
 
             $this->reporter = new CompositeReporter([ $this->reporter1, $this->reporter2 ]);
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
         });
         it('notify the event to the children of the reporter', function() {
             $this->prophet->checkPredictions();

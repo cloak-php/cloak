@@ -103,7 +103,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStop(Argument::that(function(AnalyzeStopEvent $event) {
+            $reporter->onAnalyzeStop(Argument::that(function(AnalyzeStopEvent $event) {
                 $result = $event->getResult();
                 expect(count($result->getFiles()))->toEqual(1);
                 return true;

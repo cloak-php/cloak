@@ -48,7 +48,7 @@ describe(LcovReporter::class, function() {
 
             $this->result = Result::fromAnalyzeResult($analyzeResult);
             $this->stopEvent = new AnalyzeStopEvent($this->result);
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
 
             $output  = "";
             $output .= "SF:" . $this->source1 . PHP_EOL;

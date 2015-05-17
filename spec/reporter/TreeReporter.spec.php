@@ -20,7 +20,7 @@ use cloak\event\AnalyzeStopEvent;
 
 
 describe(TreeReporter::class, function() {
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $rootDirectory = realpath(__DIR__ . '/../../');
             $expectResultFile = __DIR__ . '/../fixtures/report/tree_report.log';
@@ -58,7 +58,7 @@ describe(TreeReporter::class, function() {
         });
         it('output tree result', function() {
             expect(function() {
-                $this->reporter->onStop($this->stopEvent);
+                $this->reporter->onAnalyzeStop($this->stopEvent);
             })->toPrint($this->expectResult);
         });
     });

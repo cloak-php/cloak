@@ -104,7 +104,7 @@ class MarkdownReporter
     /**
      * @param AnalyzeStopEvent $event
      */
-    public function onStop(AnalyzeStopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->writeMarkdownReport($event->getResult());
     }

@@ -20,7 +20,7 @@ use cloak\event\AnalyzeStopEvent;
 
 
 describe(TextReporter::class, function() {
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $expectResultFile = __DIR__ . '/../fixtures/report/text_report.log';
             $this->expectResult = file_get_contents($expectResultFile);
@@ -57,7 +57,7 @@ describe(TextReporter::class, function() {
         });
         it('output text report', function() {
             expect(function() {
-                $this->reporter->onStop($this->stopEvent);
+                $this->reporter->onAnalyzeStop($this->stopEvent);
             })->toPrint($this->expectResult);
         });
     });

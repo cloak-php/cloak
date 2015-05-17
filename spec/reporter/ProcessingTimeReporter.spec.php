@@ -54,7 +54,7 @@ describe(ProcessingTimeReporter::class, function() {
         });
         it('output running time', function() {
             ob_start();
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
             $output = ob_get_clean();
 
             expect($output)->toMatch('/Code Coverage Finished in (.+) seconds/');

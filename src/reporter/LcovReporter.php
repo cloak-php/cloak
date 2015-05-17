@@ -70,7 +70,7 @@ class LcovReporter
     /**
      * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(AnalyzeStopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $result = $event->getResult();
         $this->writeResult($result);
