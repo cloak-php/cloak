@@ -17,9 +17,9 @@ use cloak\writer\FileWriter;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
+use cloak\event\FinalizeEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
-
 
 
 /**
@@ -27,7 +27,7 @@ use cloak\value\CoverageBounds;
  * @package cloak\reporter
  */
 class MarkdownReporter
-    implements Reporter, InitializeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
+    implements Reporter, InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;
@@ -107,6 +107,14 @@ class MarkdownReporter
     public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->writeMarkdownReport($event->getResult());
+    }
+
+    /**
+     * @param FinalizeEvent $event
+     */
+    public function onFinalize(FinalizeEvent $event)
+    {
+        $this->reportWriter = null;
     }
 
     /**

@@ -17,6 +17,7 @@ use cloak\result\FileResult;
 use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
+use cloak\event\FinalizeEvent;
 use cloak\writer\FileWriter;
 
 
@@ -25,7 +26,7 @@ use cloak\writer\FileWriter;
  * @package cloak\reporter
  */
 class LcovReporter
-    implements Reporter, InitializeEventListener, AnalyzeStopEventListener
+    implements Reporter, InitializeEventListener, FinalizeEventListener, AnalyzeStopEventListener
 {
 
     const SOURCE_FILE_PREFIX = 'SF:';
@@ -74,6 +75,14 @@ class LcovReporter
     {
         $result = $event->getResult();
         $this->writeResult($result);
+    }
+
+    /**
+     * @param FinalizeEvent $event
+     */
+    public function onFinalize(FinalizeEvent $event)
+    {
+        $this->reportWriter = null;
     }
 
     /**
