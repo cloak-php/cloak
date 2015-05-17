@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
 use cloak\event\InitializeEvent;
@@ -118,9 +118,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    private function writeMarkdownReport(Result $result)
+    private function writeMarkdownReport(AnalyzedCoverageResult $result)
     {
         $this->writeTitle();
         $this->writeDescription();
@@ -143,9 +143,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    private function writeResult(Result $result)
+    private function writeResult(AnalyzedCoverageResult $result)
     {
         $files = $result->getFiles();
 

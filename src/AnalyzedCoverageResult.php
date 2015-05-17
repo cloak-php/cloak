@@ -21,10 +21,10 @@ use cloak\analyzer\AnalyzedResult;
 
 
 /**
- * Class Result
+ * Class AnalyzedCoverageResult
  * @package cloak
  */
-class Result implements CoverageResultNode
+class AnalyzedCoverageResult implements CoverageResultNode
 {
 
     /**
@@ -44,7 +44,7 @@ class Result implements CoverageResultNode
 
     /**
      * @param \cloak\analyzer\AnalyzedResult $result
-     * @return Result
+     * @return AnalyzedCoverageResult
      */
     public static function fromAnalyzeResult(AnalyzedResult $result)
     {

@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\Configuration;
 use cloak\value\CoverageBounds;
 use cloak\analyzer\result\LineResult;
@@ -43,7 +43,7 @@ describe(MarkdownReporter::class, function() {
         ];
         $analyzeResult = AnalyzedResult::fromArray($coverageResults);
 
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
+        $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
     });
 
     describe('onAnalyzeStop', function() {

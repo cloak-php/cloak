@@ -11,7 +11,7 @@
 
 namespace cloak\event;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use \DateTimeImmutable;
 
 
@@ -25,22 +25,22 @@ final class AnalyzeStopEvent implements Event
     use DateTimeMessage;
 
     /**
-     * @var \cloak\Result
+     * @var \cloak\AnalyzedCoverageResult
      */
     private $result;
 
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    public function __construct(Result $result)
+    public function __construct(AnalyzedCoverageResult $result)
     {
         $this->result = $result;
         $this->sendAt = new DateTimeImmutable();
     }
 
     /**
-     * @return \cloak\Result
+     * @return \cloak\AnalyzedCoverageResult
      */
     public function getResult()
     {

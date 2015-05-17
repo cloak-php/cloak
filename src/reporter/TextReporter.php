@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\result\FileResult;
@@ -53,9 +53,9 @@ class TextReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    public function reportResult(Result $result)
+    public function reportResult(AnalyzedCoverageResult $result)
     {
         $files = $result->getFiles()->getIterator();
 
@@ -88,9 +88,9 @@ class TextReporter
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    protected function writeTotalCoverage(Result $result)
+    protected function writeTotalCoverage(AnalyzedCoverageResult $result)
     {
         $this->console->writeText(PHP_EOL);
         $this->console->writeText('Code Coverage: ');

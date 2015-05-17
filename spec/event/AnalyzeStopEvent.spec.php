@@ -10,7 +10,7 @@
  */
 
 use cloak\event\AnalyzeStopEvent;
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
 use \DateTimeImmutable;
@@ -25,7 +25,7 @@ describe(AnalyzeStopEvent::class, function() {
                 1 => LineResult::EXECUTED
             ]
         ]);
-        $this->result = Result::fromAnalyzeResult($analyzeResult);
+        $this->result = AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
         $this->stopEvent = new AnalyzeStopEvent($this->result);
     });
     describe('#getResult', function() {

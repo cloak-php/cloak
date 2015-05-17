@@ -27,7 +27,7 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, ReportableAnaly
     protected $config;
 
     /**
-     * @var Result
+     * @var AnalyzedCoverageResult
      */
     protected $analyzeResult;
 
@@ -73,7 +73,7 @@ class CoverageAnalyzer implements AnalyzeLifeCycleNotifierAware, ReportableAnaly
     {
         $analyzeResult = $this->getDriver()->getAnalyzeResult();
         $analyzeResult = $this->config->applyTo($analyzeResult);
-        return Result::fromAnalyzeResult($analyzeResult);
+        return AnalyzedCoverageResult::fromAnalyzeResult($analyzeResult);
     }
 
     /**

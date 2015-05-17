@@ -11,7 +11,7 @@
 
 namespace cloak;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\Configuration;
 use cloak\Reporter\Reporter;
 use cloak\event\InitializeEvent;
@@ -74,9 +74,9 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
     }
 
     /**
-     * @param Result $result
+     * @param AnalyzedCoverageResult $result
      */
-    public function notifyStop(Result $result)
+    public function notifyStop(AnalyzedCoverageResult $result)
     {
         $event = new AnalyzeStopEvent($result);
         $this->getEventManager()->trigger($event);

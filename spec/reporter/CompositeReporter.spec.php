@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
@@ -93,7 +93,7 @@ describe(CompositeReporter::class, function() {
 
     describe('onAnalyzeStop', function() {
         beforeEach(function() {
-            $this->result = new Result(new Sequence());
+            $this->result = new AnalyzedCoverageResult(new Sequence());
             $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $reporter1 = $this->prophet->prophesize(Reporter::class);

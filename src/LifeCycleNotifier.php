@@ -11,7 +11,7 @@
 
 namespace cloak;
 
-use cloak\Result;
+use cloak\AnalyzedCoverageResult;
 use cloak\Configuration;
 
 
@@ -33,9 +33,9 @@ interface LifeCycleNotifier
     public function notifyStart();
 
     /**
-     * @param \cloak\Result $result
+     * @param \cloak\AnalyzedCoverageResult $result
      * @return void
      */
-    public function notifyStop(Result $result);
+    public function notifyStop(AnalyzedCoverageResult $result);
 
 }
