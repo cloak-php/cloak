@@ -11,8 +11,8 @@
 
 use cloak\Result;
 use cloak\analyzer\AnalyzedResult;
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\ProcessingTimeReporter;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
@@ -25,7 +25,7 @@ describe(ProcessingTimeReporter::class, function() {
             $this->reporter = new ProcessingTimeReporter();
 
             $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
-            $this->startEvent = new StartEvent($this->dateTime);
+            $this->startEvent = new AnalyzeStartEvent($this->dateTime);
 
             $console = Console::getInstance();
             $colorDateTime = $console->colorize('1 July 2014 at 12:00', Color::CYAN);
@@ -34,7 +34,7 @@ describe(ProcessingTimeReporter::class, function() {
         });
         it('output start datetime', function() {
             expect(function() {
-                $this->reporter->onStart($this->startEvent);
+                $this->reporter->onAnalyzeStart($this->startEvent);
             })->toPrint($this->output);
         });
     });
@@ -44,17 +44,17 @@ describe(ProcessingTimeReporter::class, function() {
             $this->reporter = new ProcessingTimeReporter();
 
             $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
-            $this->startEvent = new StartEvent();
+            $this->startEvent = new AnalyzeStartEvent();
 
             $analyzeResult = AnalyzedResult::fromArray([]);
             $this->result = Result::fromAnalyzeResult($analyzeResult);
 
-            $this->stopEvent = new StopEvent($this->result);
-            $this->reporter->onStart($this->startEvent);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
+            $this->reporter->onAnalyzeStart($this->startEvent);
         });
         it('output running time', function() {
             ob_start();
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
             $output = ob_get_clean();
 
             expect($output)->toMatch('/Code Coverage Finished in (.+) seconds/');

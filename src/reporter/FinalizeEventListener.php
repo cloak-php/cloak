@@ -11,19 +11,19 @@
 
 namespace cloak\reporter;
 
-use cloak\event\InitEvent;
+use cloak\event\FinalizeEvent;
 
 /**
- * Interface InitEventListener
+ * Interface FinalizeEventListener
  * @package cloak\reporter
  */
-interface InitEventListener
+interface FinalizeEventListener
 {
 
     /**
-     * @param InitEvent $event
+     * @param FinalizeEvent $event
      * @return mixed
      */
-    public function onInit(InitEvent $event);
+    public function onFinalize(FinalizeEvent $event);
 
 }

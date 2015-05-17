@@ -11,10 +11,20 @@
 
 namespace cloak\reporter;
 
+use cloak\event\AnalyzeStopEvent;
+
+
 /**
- * Interface CompositeListener
+ * Interface AnalyzeStopEventListener
  * @package cloak\reporter
  */
-interface CompositeListener extends InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
+interface AnalyzeStopEventListener
 {
+
+    /**
+     * @param AnalyzeStopEvent $event
+     * @return mixed
+     */
+    public function onAnalyzeStop(AnalyzeStopEvent $event);
+
 }

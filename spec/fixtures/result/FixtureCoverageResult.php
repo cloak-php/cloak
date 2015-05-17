@@ -12,8 +12,7 @@
 namespace cloak\spec\result;
 
 use cloak\result\CoverageResult;
-use cloak\result\LineResultCollectionInterface;
-
+use cloak\result\LineResultCollection;
 
 class FixtureCoverageResult
 {
@@ -21,7 +20,7 @@ class FixtureCoverageResult
     use CoverageResult;
 
 
-    public function __construct(LineResultCollectionInterface $lineResults)
+    public function __construct(LineResultCollection $lineResults)
     {
         $this->lineResults = $lineResults;
     }

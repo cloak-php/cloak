@@ -12,8 +12,8 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\result\CoverageResultNode;
 use cloak\result\CoverageResultVisitor;
 use cloak\writer\ResultConsoleWriter;
@@ -25,7 +25,7 @@ use Zend\Console\ColorInterface as Color;
  * @package cloak\reporter
  */
 class TreeReporter
-    implements Reporter, StopEventListener, CoverageResultVisitor
+    implements Reporter, InitializeEventListener, AnalyzeStopEventListener, CoverageResultVisitor
 {
 
     use Reportable;
@@ -50,18 +50,18 @@ class TreeReporter
     }
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $coverageBounds = $event->getCoverageBounds();
         $this->console = new ResultConsoleWriter($coverageBounds);
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $result = $event->getResult();
 

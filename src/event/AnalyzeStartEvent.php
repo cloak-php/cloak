@@ -14,11 +14,13 @@ namespace cloak\event;
 use \DateTimeImmutable;
 
 /**
- * Class StartEvent
+ * Class AnalyzeStartEvent
  * @package cloak\event
  */
-final class StartEvent extends AbstractEvent implements Event
+final class AnalyzeStartEvent implements Event
 {
+
+    use DateTimeMessage;
 
     public function __construct($sendAt = null)
     {

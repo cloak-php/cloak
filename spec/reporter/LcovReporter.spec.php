@@ -12,8 +12,8 @@
 use cloak\Result;
 use cloak\Configuration;
 use cloak\analyzer\result\LineResult;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\LcovReporter;
 use cloak\analyzer\AnalyzedResult;
 use \DateTime;
@@ -41,14 +41,14 @@ describe(LcovReporter::class, function() {
                 ]
             ]);
 
-            $initEvent = new InitEvent(new Configuration([
+            $initEvent = new InitializeEvent(new Configuration([
                 'reportDirectory' => $this->reportDirectory->getPath()
             ]));
-            $this->reporter->onInit($initEvent);
+            $this->reporter->onInitialize($initEvent);
 
             $this->result = Result::fromAnalyzeResult($analyzeResult);
-            $this->stopEvent = new StopEvent($this->result);
-            $this->reporter->onStop($this->stopEvent);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
 
             $output  = "";
             $output .= "SF:" . $this->source1 . PHP_EOL;

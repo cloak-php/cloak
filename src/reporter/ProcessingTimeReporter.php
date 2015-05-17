@@ -11,8 +11,8 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
 use \DateTimeImmutable;
@@ -23,7 +23,7 @@ use \DateTimeImmutable;
  * @package cloak\reporter
  */
 class ProcessingTimeReporter
-    implements Reporter, StartEventListener, StopEventListener
+    implements Reporter, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;
@@ -45,18 +45,18 @@ class ProcessingTimeReporter
     }
 
     /**
-     * @param \cloak\event\StartEvent $event
+     * @param \cloak\event\AnalyzeStartEvent $event
      */
-    public function onStart(StartEvent $event)
+    public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
         $sendAt = $event->getSendAt();
         $this->start($sendAt);
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->finish();
     }

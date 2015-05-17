@@ -14,9 +14,9 @@ use cloak\Configuration;
 use cloak\value\CoverageBounds;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
-use cloak\event\InitEvent;
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\MarkdownReporter;
 use \DateTime;
 
@@ -46,24 +46,24 @@ describe(MarkdownReporter::class, function() {
         $this->result = Result::fromAnalyzeResult($analyzeResult);
     });
 
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $this->reportDirectory = $this->makeDirectory();
 
             $this->fileName = 'report.md';
             $this->filePath = $this->reportDirectory->getPath() . '/' . $this->fileName;
 
-            $this->initEvent = new InitEvent(new Configuration([
+            $this->initEvent = new InitializeEvent(new Configuration([
                 'reportDirectory' => $this->reportDirectory->getPath(),
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]));
-            $this->startEvent = new StartEvent($this->startDateTime);
-            $this->stopEvent = new StopEvent($this->result);
+            $this->startEvent = new AnalyzeStartEvent($this->startDateTime);
+            $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $this->reporter = new MarkdownReporter($this->fileName);
-            $this->reporter->onInit($this->initEvent);
-            $this->reporter->onStart($this->startEvent);
-            $this->reporter->onStop($this->stopEvent);
+            $this->reporter->onInitialize($this->initEvent);
+            $this->reporter->onAnalyzeStart($this->startEvent);
+            $this->reporter->onAnalyzeStop($this->stopEvent);
 
             $this->outputReport = file_get_contents($this->markdownReport);
         });

@@ -11,19 +11,19 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StartEvent;
+use cloak\event\AnalyzeStartEvent;
 
 /**
- * Interface StartEventListener
+ * Interface AnalyzeStartEventListener
  * @package cloak\reporter
  */
-interface StartEventListener
+interface AnalyzeStartEventListener
 {
 
     /**
-     * @param StartEvent $event
+     * @param AnalyzeStartEvent $event
      * @return mixed
      */
-    public function onStart(StartEvent $event);
+    public function onAnalyzeStart(AnalyzeStartEvent $event);
 
 }

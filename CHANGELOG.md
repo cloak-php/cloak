@@ -33,6 +33,12 @@ Version 2.0.0
 * AbstractTypeResultInterface to AbstractTypeResultNode
 * CoverageResultCollectionInterface to CoverageResultNodeCollection
 * Remove LineResultCollectionInterface
+* StartEventLister to AnalyzeStartEventLister
+* StopEventLister to AnalyzeStopEventLister
+* StartEvent to AnalyzeStartEvent
+* StopEvent to AnalyzeStopEvent
+* InitEvent to InitializeEvent
+* Add FinalizeEvent
 
 
 Version 1.8.3

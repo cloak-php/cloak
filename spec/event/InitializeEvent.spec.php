@@ -10,16 +10,16 @@
  */
 
 use cloak\Configuration;
-use cloak\event\InitEvent;
+use cloak\event\InitializeEvent;
 use cloak\value\Path;
 use \DateTimeImmutable;
 
-describe(InitEvent::class, function() {
+describe(InitializeEvent::class, function() {
     beforeEach(function() {
         $configuration = new Configuration([
             'reportDirectory' => __DIR__
         ]);
-        $this->initEvent = new InitEvent($configuration);
+        $this->initEvent = new InitializeEvent($configuration);
     });
     describe('#getSendAt', function() {
         it('return time send the event', function() {

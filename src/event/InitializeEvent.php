@@ -19,11 +19,13 @@ use \DateTimeImmutable;
 
 
 /**
- * Class InitEvent
+ * Class InitializeEvent
  * @package cloak\event
  */
-final class InitEvent extends AbstractEvent implements Event
+final class InitializeEvent implements Event
 {
+
+    use DateTimeMessage;
 
     /**
      * @var Configuration

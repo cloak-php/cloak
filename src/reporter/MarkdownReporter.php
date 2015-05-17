@@ -14,12 +14,12 @@ namespace cloak\reporter;
 use cloak\Result;
 use cloak\result\FileResult;
 use cloak\writer\FileWriter;
-use cloak\event\InitEvent;
-use cloak\event\StartEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStartEvent;
+use cloak\event\AnalyzeStopEvent;
+use cloak\event\FinalizeEvent;
 use cloak\result\collection\CoverageResultCollection;
 use cloak\value\CoverageBounds;
-
 
 
 /**
@@ -27,7 +27,7 @@ use cloak\value\CoverageBounds;
  * @package cloak\reporter
  */
 class MarkdownReporter
-    implements Reporter, InitEventListener, StartEventListener, StopEventListener
+    implements Reporter, InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;
@@ -81,9 +81,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $this->bounds = $event->getCoverageBounds();
 
@@ -94,19 +94,27 @@ class MarkdownReporter
     }
 
     /**
-     * @param StartEvent $event
+     * @param AnalyzeStartEvent $event
      */
-    public function onStart(StartEvent $event)
+    public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
         $this->generatedAt = $event->getSendAt();
     }
 
     /**
-     * @param StopEvent $event
+     * @param AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->writeMarkdownReport($event->getResult());
+    }
+
+    /**
+     * @param FinalizeEvent $event
+     */
+    public function onFinalize(FinalizeEvent $event)
+    {
+        $this->reportWriter = null;
     }
 
     /**

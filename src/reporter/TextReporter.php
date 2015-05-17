@@ -12,8 +12,8 @@
 namespace cloak\reporter;
 
 use cloak\Result;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 use cloak\result\FileResult;
 use cloak\writer\ResultConsoleWriter;
 
@@ -23,7 +23,7 @@ use cloak\writer\ResultConsoleWriter;
  * @package cloak\reporter
  */
 class TextReporter
-    implements Reporter, InitEventListener, StopEventListener
+    implements Reporter, InitializeEventListener, AnalyzeStopEventListener
 {
 
     use Reportable;
@@ -36,18 +36,18 @@ class TextReporter
 
 
     /**
-     * @param \cloak\event\InitEvent $event
+     * @param \cloak\event\InitializeEvent $event
      */
-    public function onInit(InitEvent $event)
+    public function onInitialize(InitializeEvent $event)
     {
         $coverageBounds = $event->getCoverageBounds();
         $this->console = new ResultConsoleWriter($coverageBounds);
     }
 
     /**
-     * @param \cloak\event\StopEvent $event
+     * @param \cloak\event\AnalyzeStopEvent $event
      */
-    public function onStop(StopEvent $event)
+    public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
         $this->reportResult($event->getResult());
     }

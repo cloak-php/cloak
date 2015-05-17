@@ -14,13 +14,13 @@ use cloak\Configuration;
 use cloak\AnalyzeLifeCycleNotifier;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
-use cloak\event\StartEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
+use cloak\event\AnalyzeStartEvent;
 use PHPExtra\EventManager\EventManagerInterface;
-use cloak\reporter\InitEventListener;
-use cloak\reporter\StartEventListener;
-use cloak\reporter\StopEventListener;
+use cloak\reporter\InitializeEventListener;
+use cloak\reporter\AnalyzeStartEventListener;
+use cloak\reporter\AnalyzeStopEventListener;
 use cloak\reporter\Reporter;
 use Prophecy\Prophet;
 use Prophecy\Argument;
@@ -28,12 +28,12 @@ use Prophecy\Argument;
 
 describe(AnalyzeLifeCycleNotifier::class, function() {
 
-    describe('#notifyInit', function() {
+    describe('#notifyInitialize', function() {
         beforeEach(function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement(InitEventListener::class);
+            $reporter->willImplement(InitializeEventListener::class);
             $reporter->willImplement(Reporter::class);
 
             $reporterMock = $reporter->reveal();
@@ -43,10 +43,10 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onInit(Argument::type(InitEvent::class))->shouldBeCalled();
+            $reporter->onInitialize(Argument::type(InitializeEvent::class))->shouldBeCalled();
 
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
-            $this->progessNotifier->notifyInit(new Configuration([]));
+            $this->progessNotifier->notifyInitialize(new Configuration([]));
         });
         it('should notify the reporter that it has init', function() {
             $this->prophet->checkPredictions();
@@ -60,7 +60,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
 
             $reporter = $this->prophet->prophesize('Reporter');
             $reporter->willImplement(Reporter::class);
-            $reporter->willImplement(StartEventListener::class);
+            $reporter->willImplement(AnalyzeStartEventListener::class);
 
             $reporterMock = $reporter->reveal();
 
@@ -69,7 +69,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStart(Argument::type(StartEvent::class))->shouldBeCalled();
+            $reporter->onAnalyzeStart(Argument::type(AnalyzeStartEvent::class))->shouldBeCalled();
             $this->progessNotifier = new AnalyzeLifeCycleNotifier($reporterMock);
             $this->progessNotifier->notifyStart();
         });
@@ -93,7 +93,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
             $this->prophet = new Prophet();
 
             $reporter = $this->prophet->prophesize('Reporter');
-            $reporter->willImplement(StopEventListener::class);
+            $reporter->willImplement(AnalyzeStopEventListener::class);
             $reporter->willImplement(Reporter::class);
 
             $reporterMock = $reporter->reveal();
@@ -103,7 +103,7 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
                 return true;
             }))->shouldBeCalled();
 
-            $reporter->onStop(Argument::that(function(StopEvent $event) {
+            $reporter->onAnalyzeStop(Argument::that(function(AnalyzeStopEvent $event) {
                 $result = $event->getResult();
                 expect(count($result->getFiles()))->toEqual(1);
                 return true;

@@ -11,20 +11,19 @@
 
 namespace cloak\reporter;
 
-use cloak\event\StopEvent;
-
+use cloak\event\InitializeEvent;
 
 /**
- * Interface StopEventListener
+ * Interface InitializeEventListener
  * @package cloak\reporter
  */
-interface StopEventListener
+interface InitializeEventListener
 {
 
     /**
-     * @param StopEvent $event
+     * @param InitializeEvent $event
      * @return mixed
      */
-    public function onStop(StopEvent $event);
+    public function onInitialize(InitializeEvent $event);
 
 }

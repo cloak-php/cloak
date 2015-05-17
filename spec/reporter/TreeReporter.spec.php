@@ -15,12 +15,12 @@ use cloak\reporter\TreeReporter;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\LineResult;
 use cloak\value\CoverageBounds;
-use cloak\event\InitEvent;
-use cloak\event\StopEvent;
+use cloak\event\InitializeEvent;
+use cloak\event\AnalyzeStopEvent;
 
 
 describe(TreeReporter::class, function() {
-    describe('onStop', function() {
+    describe('onAnalyzeStop', function() {
         beforeEach(function() {
             $rootDirectory = realpath(__DIR__ . '/../../');
             $expectResultFile = __DIR__ . '/../fixtures/report/tree_report.log';
@@ -46,19 +46,19 @@ describe(TreeReporter::class, function() {
             ];
 
             $analyzeResult = AnalyzedResult::fromArray($coverages);
-            $this->stopEvent = new StopEvent(Result::fromAnalyzeResult($analyzeResult));
+            $this->stopEvent = new AnalyzeStopEvent(Result::fromAnalyzeResult($analyzeResult));
 
             $config = new Configuration([
                 'coverageBounds' => new CoverageBounds(35.0, 70.0)
             ]);
-            $initEvent = new InitEvent($config);
+            $initEvent = new InitializeEvent($config);
 
             $this->reporter = new TreeReporter();
-            $this->reporter->onInit($initEvent);
+            $this->reporter->onInitialize($initEvent);
         });
         it('output tree result', function() {
             expect(function() {
-                $this->reporter->onStop($this->stopEvent);
+                $this->reporter->onAnalyzeStop($this->stopEvent);
             })->toPrint($this->expectResult);
         });
     });

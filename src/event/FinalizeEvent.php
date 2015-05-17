@@ -11,27 +11,22 @@
 
 namespace cloak\event;
 
-use DateTimeImmutable;
+
+use \DateTimeImmutable;
+
 
 /**
- * Class AbstractEvent
+ * Class FinalizeEvent
  * @package cloak\event
  */
-abstract class AbstractEvent
+final class FinalizeEvent implements Event
 {
 
-    /**
-     * @var \DateTimeImmutable
-     */
-    protected $sendAt;
+    use DateTimeMessage;
 
-
-    /**
-     * @return \DateTimeImmutable
-     */
-    public function getSendAt()
+    public function __construct()
     {
-        return $this->sendAt;
+        $this->sendAt = new DateTimeImmutable();
     }
 
 }
