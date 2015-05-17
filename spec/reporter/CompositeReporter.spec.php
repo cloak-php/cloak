@@ -10,13 +10,19 @@
  */
 
 use cloak\Result;
+use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
+use cloak\event\FinalizeEvent;
 use PhpCollection\Sequence;
 use cloak\reporter\CompositeReporter;
 use cloak\reporter\Reporter;
+use cloak\reporter\InitializeEventListener;
 use cloak\reporter\AnalyzeStartEventListener;
 use cloak\reporter\AnalyzeStopEventListener;
+use cloak\reporter\FinalizeEventListener;
+use cloak\value\CoverageBounds;
+use cloak\Configuration;
 use \Prophecy\Prophet;
 
 
@@ -24,6 +30,41 @@ describe(CompositeReporter::class, function() {
 
     beforeEach(function() {
         $this->prophet = new Prophet;
+    });
+
+    describe('#onInitialize', function() {
+        beforeEach(function() {
+            $config = new Configuration([
+                'coverageBounds' => new CoverageBounds(35.0, 70.0)
+            ]);
+            $this->initializeEvent = new InitializeEvent($config);
+
+            $reporter = $this->prophet->prophesize(Reporter::class);
+            $reporter->willImplement(InitializeEventListener::class);
+            $reporter->onInitialize($this->initializeEvent)->shouldBeCalledTimes(1);
+
+            $this->reporter = new CompositeReporter([ $reporter->reveal() ]);
+        });
+        it('notify the initialize event to the children of the reporter', function() {
+            $this->reporter->onInitialize($this->initializeEvent);
+            $this->prophet->checkPredictions();
+        });
+    });
+
+    describe('#onFinalize', function() {
+        beforeEach(function() {
+            $this->finalizeEvent = new FinalizeEvent();
+
+            $reporter = $this->prophet->prophesize(Reporter::class);
+            $reporter->willImplement(FinalizeEventListener::class);
+            $reporter->onFinalize($this->finalizeEvent)->shouldBeCalledTimes(1);
+
+            $this->reporter = new CompositeReporter([ $reporter->reveal() ]);
+        });
+        it('notify the finalize event to the children of the reporter', function() {
+            $this->reporter->onFinalize($this->finalizeEvent);
+            $this->prophet->checkPredictions();
+        });
     });
 
     describe('#onAnalyzeStart', function() {
