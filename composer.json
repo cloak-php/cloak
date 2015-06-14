@@ -5,9 +5,9 @@
     "require": {
         "php": ">=5.5.0",
         "phpcollection/phpcollection": "~0.4",
-        "zendframework/zend-console": "~2.4",
-        "zendframework/zend-code": "~2.4",
-        "zendframework/zend-config": "~2.4",
+        "zendframework/zend-console": "~2.5",
+        "zendframework/zend-code": "~2.5",
+        "zendframework/zend-config": "~2.5",
         "phpextra/event-manager": "~2.1.0",
         "yosymfony/toml": "~0.3",
         "eloquent/pathogen": "~0.6",
