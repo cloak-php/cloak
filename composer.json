@@ -14,7 +14,7 @@
         "cloak/cloak-analyzer": "~0.1"
     },
     "require-dev": {
-      "phpspec/prophecy": "~1.4",
+      "phpspec/prophecy": "~1.5",
       "symfony/yaml": "~2.6",
       "halleck45/phpmetrics": "~1.1",
       "peridot-php/peridot": "~1.15",
