@@ -18,7 +18,6 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\MarkdownReporter;
-use \DateTime;
 
 
 describe(MarkdownReporter::class, function() {

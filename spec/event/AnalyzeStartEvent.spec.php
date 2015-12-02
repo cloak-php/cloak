@@ -10,7 +10,6 @@
  */
 
 use cloak\event\AnalyzeStartEvent;
-use \DateTimeImmutable;
 
 describe(AnalyzeStartEvent::class, function() {
     beforeEach(function() {

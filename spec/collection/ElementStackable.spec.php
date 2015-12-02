@@ -10,7 +10,6 @@
  */
 
 use cloak\spec\collection\FixtureElementStack;
-use \ArrayIterator;
 
 describe(ElementStackable::class, function() {
     beforeEach(function() {

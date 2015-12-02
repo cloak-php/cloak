@@ -14,7 +14,6 @@ use cloak\configuration\ConfigurationBuilder;
 use cloak\AnalyzerConfiguration;
 use cloak\analyzer\AnalyzedResult;
 use cloak\analyzer\result\FileResult;
-use \InvalidArgumentException;
 
 
 describe(AnalyzerConfiguration::class, function() {

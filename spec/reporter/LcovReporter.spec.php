@@ -16,7 +16,6 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\reporter\LcovReporter;
 use cloak\analyzer\AnalyzedResult;
-use \DateTime;
 
 
 describe(LcovReporter::class, function() {
