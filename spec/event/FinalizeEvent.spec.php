@@ -10,7 +10,6 @@
  */
 
 use cloak\event\FinalizeEvent;
-use \DateTimeImmutable;
 
 describe(FinalizeEvent::class, function() {
     beforeEach(function() {

@@ -10,7 +10,6 @@
  */
 
 use cloak\spec\collection\FixturePairStack;
-use \ArrayIterator;
 
 describe(PairStackable::class, function() {
     beforeEach(function() {

@@ -13,7 +13,6 @@ use cloak\event\AnalyzeStopEvent;
 use cloak\AnalyzedCoverageResult;
 use cloak\analyzer\result\LineResult;
 use cloak\analyzer\AnalyzedResult;
-use \DateTimeImmutable;
 
 
 describe(AnalyzeStopEvent::class, function() {

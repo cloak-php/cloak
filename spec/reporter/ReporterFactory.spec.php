@@ -12,7 +12,6 @@
 use cloak\reporter\ReporterFactory;
 use cloak\reporter\ReporterNotFoundException;
 use cloak\spec\reporter\ReporterFixture;
-use \ReflectionClass;
 
 
 describe(ReporterFactory::class, function() {

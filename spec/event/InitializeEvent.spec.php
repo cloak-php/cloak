@@ -12,7 +12,6 @@
 use cloak\AnalyzerConfiguration;
 use cloak\event\InitializeEvent;
 use cloak\value\Path;
-use \DateTimeImmutable;
 
 describe(InitializeEvent::class, function() {
     beforeEach(function() {
