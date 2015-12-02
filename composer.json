@@ -53,5 +53,6 @@
             "name": "holyshared",
             "email": "holy.shared.design@gmail.com"
         }
-    ]
+    ],
+    "minimum-stability": "stable"
 }
