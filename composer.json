@@ -6,7 +6,7 @@
         "php": ">=5.5.0",
         "phpcollection/phpcollection": "~0.4",
         "zendframework/zend-console": "~2.5",
-        "zendframework/zend-code": "~2.5",
+        "zendframework/zend-code": "~2.6",
         "zendframework/zend-config": "~2.5",
         "phpextra/event-manager": "~2.1.0",
         "yosymfony/toml": "~0.3",
@@ -15,15 +15,16 @@
     },
     "require-dev": {
       "phpspec/prophecy": "~1.5",
-      "symfony/yaml": "~2.7",
-      "halleck45/phpmetrics": "~1.3",
+      "symfony/yaml": "~2.8",
+      "halleck45/phpmetrics": "~1.7",
       "peridot-php/peridot": "~1.16",
       "expect/peridot-expect-plugin": "~3.0",
       "holyshared/peridot-temporary-plugin": "~1.0",
       "codegyre/robo": "~0.6",
       "cloak/robo-coveralls-kit": "~2.1",
       "holyshared/robo-peridot": "~2.0",
-      "peridot-php/peridot-dot-reporter": "~1.0"
+      "peridot-php/peridot-dot-reporter": "~1.0",
+      "athletic/athletic": "@dev"
     },
     "autoload": {
         "psr-4": { "cloak\\": "src/" }
