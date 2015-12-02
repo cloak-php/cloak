@@ -23,8 +23,7 @@
       "codegyre/robo": "~0.6",
       "cloak/robo-coveralls-kit": "~2.1",
       "holyshared/robo-peridot": "~2.0",
-      "peridot-php/peridot-dot-reporter": "~1.0",
-      "athletic/athletic": "@dev"
+      "peridot-php/peridot-dot-reporter": "~1.0"
     },
     "autoload": {
         "psr-4": { "cloak\\": "src/" }
@@ -54,5 +53,6 @@
             "email": "holy.shared.design@gmail.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
