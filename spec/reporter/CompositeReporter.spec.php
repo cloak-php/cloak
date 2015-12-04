@@ -93,7 +93,7 @@ describe(CompositeReporter::class, function() {
 
     describe('onAnalyzeStop', function() {
         beforeEach(function() {
-            $this->result = new AnalyzedCoverageResult(new Sequence());
+            $this->result = new AnalyzedCoverageResult([]);
             $this->stopEvent = new AnalyzeStopEvent($this->result);
 
             $reporter1 = $this->prophet->prophesize(Reporter::class);

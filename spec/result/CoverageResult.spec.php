@@ -12,112 +12,103 @@
 use cloak\value\Coverage;
 use cloak\spec\result\FixtureCoverageResult;
 use cloak\result\CoverageResult;
-use cloak\result\LineCountResult;
-use cloak\result\CodeCoverageResult;
-use Prophecy\Prophet;
-
+use cloak\analyzer\result\LineResult;
+use cloak\result\collection\LineResultCollection;
 
 describe(CoverageResult::class, function() {
     describe('#getLineCount', function() {
         beforeEach(function() {
-            $this->prophet = new Prophet();
-
-            $lineResult = $this->prophet->prophesize(LineCountResult::class);
-            $lineResult->getLineCount()->willReturn(10);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
+            $this->lines = new LineResultCollection([
+                new LineResult(5, LineResult::EXECUTED),
+                new LineResult(6, LineResult::EXECUTED)
+            ]);
+            $this->result = new FixtureCoverageResult( $this->lines );
         });
-        it('delegate to LineResultCollectionInterface#getLineCount', function() {
-            expect($this->result->getLineCount())->toBe(10);
+        it('returns the line count', function() {
+            expect($this->result->getLineCount())->toBe(2);
         });
     });
-
     describe('#getDeadLineCount', function() {
         beforeEach(function() {
-            $this->prophet = new Prophet();
-
-            $lineResult = $this->prophet->prophesize(LineCountResult::class);
-            $lineResult->getDeadLineCount()->willReturn(10);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
+            $this->lines = new LineResultCollection([
+                new LineResult(5, LineResult::DEAD),
+                new LineResult(6, LineResult::EXECUTED)
+            ]);
+            $this->result = new FixtureCoverageResult( $this->lines );
         });
-        it('delegate to LineResultCollectionInterface#getDeadLineCount', function() {
-            expect($this->result->getDeadLineCount())->toBe(10);
+        it('returns the deat line count', function() {
+            expect($this->result->getDeadLineCount())->toBe(1);
         });
     });
-
     describe('#getUnusedLineCount', function() {
         beforeEach(function() {
-            $this->prophet = new Prophet();
-
-            $lineResult = $this->prophet->prophesize(LineCountResult::class);
-            $lineResult->getUnusedLineCount()->willReturn(10);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
+            $this->lines = new LineResultCollection([
+                new LineResult(5, LineResult::DEAD),
+                new LineResult(6, LineResult::UNUSED)
+            ]);
+            $this->result = new FixtureCoverageResult( $this->lines );
         });
-        it('delegate to LineResultCollectionInterface#getUnusedLineCount', function() {
-            expect($this->result->getUnusedLineCount())->toBe(10);
+        it('returns the unused line count', function() {
+            expect($this->result->getUnusedLineCount())->toBe(1);
         });
     });
-
     describe('#getExecutedLineCount', function() {
         beforeEach(function() {
-            $this->prophet = new Prophet();
-
-            $lineResult = $this->prophet->prophesize(LineCountResult::class);
-            $lineResult->getExecutedLineCount()->willReturn(10);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
+            $this->lines = new LineResultCollection([
+                new LineResult(5, LineResult::DEAD),
+                new LineResult(6, LineResult::EXECUTED)
+            ]);
+            $this->result = new FixtureCoverageResult( $this->lines );
         });
-        it('delegate to LineResultCollectionInterface#getExecutedLineCount', function() {
-            expect($this->result->getExecutedLineCount())->toBe(10);
+        it('returns the executed line count', function() {
+            expect($this->result->getExecutedLineCount())->toBe(1);
         });
     });
 
     describe('#getCodeCoverage', function() {
         beforeEach(function() {
-            $this->prophet = new Prophet();
-
-            $lineResult = $this->prophet->prophesize(CodeCoverageResult::class);
-            $lineResult->getCodeCoverage()->willReturn(100);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
+            $this->lines = new LineResultCollection([
+                new LineResult(5, LineResult::DEAD),
+                new LineResult(6, LineResult::EXECUTED)
+            ]);
+            $this->result = new FixtureCoverageResult( $this->lines );
         });
-        it('delegate to LineResultCollectionInterface#getCodeCoverage', function() {
-            expect($this->result->getCodeCoverage())->toBe(100);
+        it('returns the code coverage value', function() {
+            expect($this->result->getCodeCoverage()->value())->toBe(100.0);
         });
     });
 
     describe('#isCoverageLessThan', function() {
-        beforeEach(function() {
-            $this->prophet = new Prophet();
-            $this->coverage = new Coverage(51);
-
-            $lineResult = $this->prophet->prophesize(CodeCoverageResult::class);
-            $lineResult->isCoverageLessThan($this->coverage)->willReturn(true);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
-        });
-        it('delegate to LineResultCollectionInterface#isCoverageLessThan', function() {
-            $result = $this->result->isCoverageLessThan($this->coverage);
-            expect($result)->toBeTrue();
+        context('when coverage < 51', function () {
+            beforeEach(function() {
+                $this->coverage = new Coverage(51);
+                $this->lines = new LineResultCollection([
+                    new LineResult(5, LineResult::UNUSED),
+                    new LineResult(6, LineResult::EXECUTED)
+                ]);
+                $this->result = new FixtureCoverageResult( $this->lines );
+            });
+            it('returns true', function() {
+                $result = $this->result->isCoverageLessThan($this->coverage);
+                expect($result)->toBeTrue();
+            });
         });
     });
 
     describe('#isCoverageGreaterEqual', function() {
-        beforeEach(function() {
-            $this->prophet = new Prophet();
-            $this->coverage = new Coverage(51);
-
-            $lineResult = $this->prophet->prophesize(CodeCoverageResult::class);
-            $lineResult->isCoverageGreaterEqual($this->coverage)
-                ->willReturn(false);
-
-            $this->result = new FixtureCoverageResult( $lineResult->reveal() );
-        });
-        it('delegate to LineResultCollectionInterface#isCoverageGreaterEqual', function() {
-            $result = $this->result->isCoverageGreaterEqual($this->coverage);
-            expect($result)->toBeFalse();
+        context('when coverage < 51', function () {
+            beforeEach(function() {
+                $this->coverage = new Coverage(51);
+                $this->lines = new LineResultCollection([
+                    new LineResult(5, LineResult::UNUSED),
+                    new LineResult(6, LineResult::EXECUTED)
+                ]);
+                $this->result = new FixtureCoverageResult( $this->lines );
+            });
+            it('returns false', function() {
+                $result = $this->result->isCoverageGreaterEqual($this->coverage);
+                expect($result)->toBeFalse();
+            });
         });
     });
 

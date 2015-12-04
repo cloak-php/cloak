@@ -17,14 +17,13 @@ use cloak\reporter\ProcessingTimeReporter;
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
 
-
 describe(ProcessingTimeReporter::class, function() {
 
     describe('onStart', function() {
         beforeEach(function() {
             $this->reporter = new ProcessingTimeReporter();
 
-            $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
+            $this->dateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
             $this->startEvent = new AnalyzeStartEvent($this->dateTime);
 
             $console = Console::getInstance();
@@ -43,7 +42,7 @@ describe(ProcessingTimeReporter::class, function() {
         beforeEach(function() {
             $this->reporter = new ProcessingTimeReporter();
 
-            $this->dateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
+            $this->dateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2014-07-01 12:00:00');
             $this->startEvent = new AnalyzeStartEvent();
 
             $analyzeResult = AnalyzedResult::fromArray([]);

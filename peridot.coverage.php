@@ -11,9 +11,6 @@ use Symfony\Component\Yaml\Yaml;
 use Peridot\Reporter\Dot\DotReporterPlugin;
 use holyshared\peridot\temporary\TemporaryPlugin;
 
-use \RecursiveDirectoryIterator;
-use \FilesystemIterator;
-use \RecursiveIteratorIterator;
 
 
 class SuiteLoader implements SuiteLoaderInterface

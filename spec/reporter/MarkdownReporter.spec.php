@@ -28,7 +28,7 @@ describe(MarkdownReporter::class, function() {
         $this->source2 = $fixturePath . '/Example2.php';
         $this->markdownReport = $fixturePath . '/report.md';
 
-        $this->startDateTime = DateTime::createFromFormat('Y-m-d H:i:s', '2014-07-10 00:00:00');
+        $this->startDateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2014-07-10 00:00:00');
 
         $coverageResults = [
             $this->source1 => [
