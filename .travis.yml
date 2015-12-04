@@ -11,3 +11,5 @@ script:
 after_script:
   - composer coveralls
   - vendor/bin/phpmetrics src
+notifications:
+  email: false
