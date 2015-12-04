@@ -12,7 +12,7 @@
 namespace cloak\spec\result;
 
 use cloak\result\CoverageResult;
-use cloak\result\LineResultCollection;
+use cloak\result\collection\LineResultCollection;
 
 class FixtureCoverageResult
 {
