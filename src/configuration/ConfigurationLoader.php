@@ -22,7 +22,7 @@ class ConfigurationLoader
 
     /**
      * @param string $configFilePath
-     * @return \cloak\Configuration
+     * @return \cloak\AnalyzerConfiguration
      * @throws \cloak\configuration\ConfigurationFileNotFoundException
      */
     public function loadConfiguration($configFilePath)
