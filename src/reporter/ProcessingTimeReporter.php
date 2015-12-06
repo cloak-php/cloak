@@ -15,6 +15,7 @@ use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
+use PHPExtra\EventManager\EventManagerInterface;
 use \DateTimeImmutable;
 
 
@@ -25,8 +26,6 @@ use \DateTimeImmutable;
 class ProcessingTimeReporter
     implements Reporter, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
-
-    use Reportable;
 
     /**
      * @var \cloak\writer\ConsoleWriter
@@ -93,6 +92,14 @@ class ProcessingTimeReporter
         $this->console->writeText('Code Coverage Started: ');
         $this->console->writeText($formatStartTime, Color::CYAN);
         $this->console->writeEOL();
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }

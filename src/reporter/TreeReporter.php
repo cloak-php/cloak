@@ -18,6 +18,7 @@ use cloak\result\CoverageResultNode;
 use cloak\result\CoverageResultVisitor;
 use cloak\writer\ResultConsoleWriter;
 use Zend\Console\ColorInterface as Color;
+use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -27,8 +28,6 @@ use Zend\Console\ColorInterface as Color;
 class TreeReporter
     implements Reporter, InitializeEventListener, AnalyzeStopEventListener, CoverageResultVisitor
 {
-
-    use Reportable;
 
     const IDENT_SIZE = 2;
 
@@ -130,6 +129,14 @@ class TreeReporter
         $this->console->writeText('Code Coverage: ');
         $this->console->writeResult($result);
         $this->console->writeText(PHP_EOL);
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }

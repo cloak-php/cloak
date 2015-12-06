@@ -25,7 +25,7 @@ final class Root implements Section
 {
 
     /**
-     * @var SectionInterface[]
+     * @var Section[]
      */
     private $configurations = [];
 

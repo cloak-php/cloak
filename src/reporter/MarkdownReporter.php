@@ -18,8 +18,9 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
-use cloak\result\collection\CoverageResultCollection;
+use cloak\result\CoverageResultNodeCollection;
 use cloak\value\CoverageBounds;
+use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -30,7 +31,6 @@ class MarkdownReporter
     implements Reporter, InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
-    use Reportable;
 
     const TABLE_SEPARATOR_CHAR = '|';
 
@@ -165,9 +165,9 @@ class MarkdownReporter
 
     /**
      * @param string $title
-     * @param CoverageResultCollection $files
+     * @param CoverageResultNodeCollection $files
      */
-    private function writeGroup($title, CoverageResultCollection $files)
+    private function writeGroup($title, CoverageResultNodeCollection $files)
     {
         $this->writeResultHeader($title);
         $this->writeFilesResultHeader();
@@ -193,9 +193,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param CoverageResultCollection $files
+     * @param CoverageResultNodeCollection $files
      */
-    private function writeFileResults(CoverageResultCollection $files)
+    private function writeFileResults(CoverageResultNodeCollection $files)
     {
         $orderNumber = 1;
 
@@ -242,6 +242,14 @@ class MarkdownReporter
         $record = static::TABLE_SEPARATOR_CHAR . $record . static::TABLE_SEPARATOR_CHAR;
 
         return $record;
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }
