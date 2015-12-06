@@ -18,7 +18,7 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
-use cloak\result\collection\CoverageResultCollection;
+use cloak\result\CoverageResultNodeCollection;
 use cloak\value\CoverageBounds;
 
 
@@ -165,9 +165,9 @@ class MarkdownReporter
 
     /**
      * @param string $title
-     * @param CoverageResultCollection $files
+     * @param CoverageResultNodeCollection $files
      */
-    private function writeGroup($title, CoverageResultCollection $files)
+    private function writeGroup($title, CoverageResultNodeCollection $files)
     {
         $this->writeResultHeader($title);
         $this->writeFilesResultHeader();
@@ -193,9 +193,9 @@ class MarkdownReporter
     }
 
     /**
-     * @param CoverageResultCollection $files
+     * @param CoverageResultNodeCollection $files
      */
-    private function writeFileResults(CoverageResultCollection $files)
+    private function writeFileResults(CoverageResultNodeCollection $files)
     {
         $orderNumber = 1;
 
