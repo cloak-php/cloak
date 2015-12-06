@@ -12,7 +12,7 @@
 namespace cloak\spec\reporter;
 
 use cloak\reporter\Reporter;
-use cloak\reporter\Reportable;
+use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -21,8 +21,6 @@ use cloak\reporter\Reportable;
  */
 class ReporterFixture implements Reporter
 {
-
-    use Reportable;
 
     private $name;
     private $description;
@@ -41,6 +39,14 @@ class ReporterFixture implements Reporter
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }

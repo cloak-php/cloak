@@ -20,6 +20,7 @@ use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
 use cloak\result\CoverageResultNodeCollection;
 use cloak\value\CoverageBounds;
+use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -30,7 +31,6 @@ class MarkdownReporter
     implements Reporter, InitializeEventListener, FinalizeEventListener, AnalyzeStartEventListener, AnalyzeStopEventListener
 {
 
-    use Reportable;
 
     const TABLE_SEPARATOR_CHAR = '|';
 
@@ -242,6 +242,14 @@ class MarkdownReporter
         $record = static::TABLE_SEPARATOR_CHAR . $record . static::TABLE_SEPARATOR_CHAR;
 
         return $record;
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }

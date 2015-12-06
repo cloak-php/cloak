@@ -16,6 +16,7 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\result\FileResult;
 use cloak\writer\ResultConsoleWriter;
+use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -25,8 +26,6 @@ use cloak\writer\ResultConsoleWriter;
 class TextReporter
     implements Reporter, InitializeEventListener, AnalyzeStopEventListener
 {
-
-    use Reportable;
 
 
     /**
@@ -96,6 +95,14 @@ class TextReporter
         $this->console->writeText('Code Coverage: ');
         $this->console->writeResult($result);
         $this->console->writeText(PHP_EOL);
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }

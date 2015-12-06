@@ -19,6 +19,7 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
 use cloak\writer\FileWriter;
+use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -32,8 +33,6 @@ class LcovReporter
     const SOURCE_FILE_PREFIX = 'SF:';
     const COVERAGE_PREFIX = 'DA:';
     const END_OF_RECORD = 'end_of_record';
-
-    use Reportable;
 
     /**
      * @var string Report file name
@@ -161,6 +160,14 @@ class LcovReporter
         })->all();
 
         return $results;
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     */
+    public function registerTo(EventManagerInterface $eventManager)
+    {
+        $eventManager->addListener($this);
     }
 
 }
