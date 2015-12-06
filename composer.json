@@ -42,8 +42,7 @@
         "test": "vendor/bin/robo spec:all",
         "coverage": "vendor/bin/robo spec:coverage",
         "coveralls": "vendor/bin/robo coveralls:upload",
-        "example": "vendor/bin/robo example:basic",
-        "metrics": "vendor/bin/phpmetrics src"
+        "example": "vendor/bin/robo example:basic"
     },
     "license": "MIT",
     "authors": [
