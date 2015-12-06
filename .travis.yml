@@ -10,6 +10,6 @@ script:
   - composer coverage
 after_script:
   - composer coveralls
-  - vendor/bin/phpmetrics src
 notifications:
   email: false
+sudo: false

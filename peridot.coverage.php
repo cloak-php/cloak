@@ -51,7 +51,7 @@ class SuiteLoader implements SuiteLoaderInterface
 
     private function excludesPattern()
     {
-        $coverageConfig = Yaml::parse(__DIR__ . '/coverage.yml');
+        $coverageConfig = Yaml::parse(file_get_contents(__DIR__ . '/coverage.yml'));
         $excludeTargets = $coverageConfig['targets'];
 
         $quotePatterns = array_map(function($excludeTarget) {

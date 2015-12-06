@@ -15,8 +15,7 @@
     },
     "require-dev": {
       "phpspec/prophecy": "~1.5",
-      "symfony/yaml": "~2.8",
-      "halleck45/phpmetrics": "~1.7",
+      "symfony/yaml": "~3.0",
       "peridot-php/peridot": "~1.16",
       "expect/peridot-expect-plugin": "~3.0",
       "holyshared/peridot-temporary-plugin": "~1.0",
@@ -43,8 +42,7 @@
         "test": "vendor/bin/robo spec:all",
         "coverage": "vendor/bin/robo spec:coverage",
         "coveralls": "vendor/bin/robo coveralls:upload",
-        "example": "vendor/bin/robo example:basic",
-        "metrics": "vendor/bin/phpmetrics src"
+        "example": "vendor/bin/robo example:basic"
     },
     "license": "MIT",
     "authors": [
