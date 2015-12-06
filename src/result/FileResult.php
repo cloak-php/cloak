@@ -98,7 +98,7 @@ class FileResult implements CoverageResultNode
     }
 
     /**
-     * @return \\cloak\result\collection\LineResultCollection
+     * @return \cloak\result\collection\LineResultCollection
      */
     public function getLineResults()
     {
