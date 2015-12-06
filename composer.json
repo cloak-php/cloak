@@ -15,8 +15,7 @@
     },
     "require-dev": {
       "phpspec/prophecy": "~1.5",
-      "symfony/yaml": "~2.8",
-      "halleck45/phpmetrics": "~1.7",
+      "symfony/yaml": "~3.0",
       "peridot-php/peridot": "~1.16",
       "expect/peridot-expect-plugin": "~3.0",
       "holyshared/peridot-temporary-plugin": "~1.0",
