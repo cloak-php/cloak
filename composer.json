@@ -6,7 +6,7 @@
         "php": ">=5.5.0",
         "phpcollection/phpcollection": "~0.4",
         "zendframework/zend-console": "~2.5",
-        "zendframework/zend-code": "~2.6",
+        "zendframework/zend-code": "~3.0",
         "zendframework/zend-config": "~2.5",
         "phpextra/event-manager": "~2.1.0",
         "yosymfony/toml": "~0.3",
@@ -51,6 +51,6 @@
             "email": "holy.shared.design@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
