@@ -8,7 +8,7 @@
         "zendframework/zend-console": "~2.5",
         "zendframework/zend-code": "~3.0",
         "zendframework/zend-config": "~2.5",
-        "phpextra/event-manager": "~2.1.0",
+        "phpextra/event-manager": "~4.0.0",
         "yosymfony/toml": "~0.3",
         "eloquent/pathogen": "~0.6",
         "cloak/cloak-analyzer": "~0.1"
