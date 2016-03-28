@@ -12,7 +12,7 @@
 namespace cloak\spec\reporter;
 
 use cloak\reporter\Reporter;
-use PHPExtra\EventManager\EventManagerInterface;
+use PHPExtra\EventManager\EventManager;
 
 
 /**
@@ -42,11 +42,11 @@ class ReporterFixture implements Reporter
     }
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManager $eventManager
      */
-    public function registerTo(EventManagerInterface $eventManager)
+    public function registerTo(EventManager $eventManager)
     {
-        $eventManager->addListener($this);
+        $eventManager->add($this);
     }
 
 }

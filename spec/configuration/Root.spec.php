@@ -33,7 +33,7 @@ describe(Root::class, function() {
                 ],
                 'reporter' => [
                     'lcov' => [
-                        'outputFilePath' => __DIR__ . '/../tmp/report.lcov'
+                        'fileName' => __DIR__ . '/../tmp/report.lcov'
                     ],
                     'processingTime' => []
                 ]
