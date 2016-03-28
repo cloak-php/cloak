@@ -15,7 +15,7 @@ use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\writer\ConsoleWriter;
 use Zend\Console\ColorInterface as Color;
-use PHPExtra\EventManager\EventManagerInterface;
+use PHPExtra\EventManager\EventManager;
 use \DateTimeImmutable;
 
 
@@ -95,11 +95,11 @@ class ProcessingTimeReporter
     }
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManager $eventManager
      */
-    public function registerTo(EventManagerInterface $eventManager)
+    public function registerTo(EventManager $eventManager)
     {
-        $eventManager->addListener($this);
+        $eventManager->add($this);
     }
 
 }

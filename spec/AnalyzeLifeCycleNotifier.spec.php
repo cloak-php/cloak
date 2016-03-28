@@ -17,7 +17,7 @@ use cloak\analyzer\result\LineResult;
 use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\event\AnalyzeStartEvent;
-use PHPExtra\EventManager\EventManagerInterface;
+use PHPExtra\EventManager\EventManager;
 use cloak\reporter\InitializeEventListener;
 use cloak\reporter\AnalyzeStartEventListener;
 use cloak\reporter\AnalyzeStopEventListener;
@@ -38,8 +38,8 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
 
             $reporterMock = $reporter->reveal();
 
-            $reporter->registerTo(Argument::that(function(EventManagerInterface $em) use($reporterMock) {
-                $em->addListener($reporterMock);
+            $reporter->registerTo(Argument::that(function(EventManager $em) use($reporterMock) {
+                $em->add($reporterMock);
                 return true;
             }))->shouldBeCalled();
 
@@ -64,8 +64,8 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
 
             $reporterMock = $reporter->reveal();
 
-            $reporter->registerTo(Argument::that(function(EventManagerInterface $em) use($reporterMock) {
-                $em->addListener($reporterMock);
+            $reporter->registerTo(Argument::that(function(EventManager $em) use($reporterMock) {
+                $em->add($reporterMock);
                 return true;
             }))->shouldBeCalled();
 
@@ -98,8 +98,8 @@ describe(AnalyzeLifeCycleNotifier::class, function() {
 
             $reporterMock = $reporter->reveal();
 
-            $reporter->registerTo(Argument::that(function(EventManagerInterface $em) use($reporterMock) {
-                $em->addListener($reporterMock);
+            $reporter->registerTo(Argument::that(function(EventManager $em) use($reporterMock) {
+                $em->add($reporterMock);
                 return true;
             }))->shouldBeCalled();
 
