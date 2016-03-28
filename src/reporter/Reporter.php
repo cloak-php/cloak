@@ -11,7 +11,7 @@
 
 namespace cloak\reporter;
 
-use PHPExtra\EventManager\Listener\ListenerInterface;
+use PHPExtra\EventManager\Listener\Listener;
 use PHPExtra\EventManager\EventManagerInterface;
 
 
@@ -19,7 +19,7 @@ use PHPExtra\EventManager\EventManagerInterface;
  * Interface Reporter
  * @package cloak\reporter
  */
-interface Reporter extends ListenerInterface
+interface Reporter extends Listener
 {
 
     /**
