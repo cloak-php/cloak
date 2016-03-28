@@ -18,19 +18,17 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use PHPExtra\EventManager\EventManager;
-use PHPExtra\EventManager\EventManagerInterface;
-use PHPExtra\EventManager\EventManagerAwareInterface;
 
 
 /**
  * Class AnalyzeLifeCycleNotifier
  * @package cloak
  */
-class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareInterface
+class AnalyzeLifeCycleNotifier implements LifeCycleNotifier
 {
 
     /**
-     * @var \PHPExtra\EventManager\EventManagerInterface
+     * @var \PHPExtra\EventManager\EventManager
      */
     private $manager;
 
@@ -51,7 +49,7 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
         $reporter->registerTo( $this->getEventManager() );
     }
 
-    public function setEventManager(EventManagerInterface $manager)
+    public function setEventManager(EventManager $manager)
     {
         $this->manager = $manager;
     }
@@ -64,13 +62,13 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
     public function notifyInitialize(AnalyzerConfiguration $configuration)
     {
         $event = new InitializeEvent($configuration);
-        $this->getEventManager()->trigger($event);
+        $this->getEventManager()->emit($event);
     }
 
     public function notifyStart()
     {
         $event = new AnalyzeStartEvent();
-        $this->getEventManager()->trigger($event);
+        $this->getEventManager()->emit($event);
     }
 
     /**
@@ -79,7 +77,7 @@ class AnalyzeLifeCycleNotifier implements LifeCycleNotifier, EventManagerAwareIn
     public function notifyStop(AnalyzedCoverageResult $result)
     {
         $event = new AnalyzeStopEvent($result);
-        $this->getEventManager()->trigger($event);
+        $this->getEventManager()->emit($event);
     }
 
 }

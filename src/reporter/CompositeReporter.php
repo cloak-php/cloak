@@ -17,7 +17,6 @@ use cloak\event\AnalyzeStartEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
 use PHPExtra\EventManager\EventManager;
-use PHPExtra\EventManager\EventManagerInterface;
 
 
 /**
@@ -43,7 +42,7 @@ class CompositeReporter implements Reporter, CompositeListener
         $eventManager->setThrowExceptions(true);
 
         foreach ($reporters as $reporter) {
-            $eventManager->addListener($reporter);
+            $eventManager->add($reporter);
         }
         $this->eventManager = $eventManager;
     }
@@ -53,7 +52,7 @@ class CompositeReporter implements Reporter, CompositeListener
      */
     public function onInitialize(InitializeEvent $event)
     {
-        $this->eventManager->trigger($event);
+        $this->eventManager->emit($event);
     }
 
     /**
@@ -61,7 +60,7 @@ class CompositeReporter implements Reporter, CompositeListener
      */
     public function onAnalyzeStart(AnalyzeStartEvent $event)
     {
-        $this->eventManager->trigger($event);
+        $this->eventManager->emit($event);
     }
 
     /**
@@ -69,7 +68,7 @@ class CompositeReporter implements Reporter, CompositeListener
      */
     public function onAnalyzeStop(AnalyzeStopEvent $event)
     {
-        $this->eventManager->trigger($event);
+        $this->eventManager->emit($event);
     }
 
     /**
@@ -77,15 +76,15 @@ class CompositeReporter implements Reporter, CompositeListener
      */
     public function onFinalize(FinalizeEvent $event)
     {
-        $this->eventManager->trigger($event);
+        $this->eventManager->emit($event);
     }
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManager $eventManager
      */
-    public function registerTo(EventManagerInterface $eventManager)
+    public function registerTo(EventManager $eventManager)
     {
-        $eventManager->addListener($this);
+        $eventManager->add($this);
     }
 
 }

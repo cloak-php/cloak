@@ -19,7 +19,7 @@ use cloak\event\InitializeEvent;
 use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
 use cloak\writer\FileWriter;
-use PHPExtra\EventManager\EventManagerInterface;
+use PHPExtra\EventManager\EventManager;
 
 
 /**
@@ -163,11 +163,11 @@ class LcovReporter
     }
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManager $eventManager
      */
-    public function registerTo(EventManagerInterface $eventManager)
+    public function registerTo(EventManager $eventManager)
     {
-        $eventManager->addListener($this);
+        $eventManager->add($this);
     }
 
 }

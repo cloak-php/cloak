@@ -20,7 +20,7 @@ use cloak\event\AnalyzeStopEvent;
 use cloak\event\FinalizeEvent;
 use cloak\result\CoverageResultNodeCollection;
 use cloak\value\CoverageBounds;
-use PHPExtra\EventManager\EventManagerInterface;
+use PHPExtra\EventManager\EventManager;
 
 
 /**
@@ -245,11 +245,11 @@ class MarkdownReporter
     }
 
     /**
-     * @param EventManagerInterface $eventManager
+     * @param EventManager $eventManager
      */
-    public function registerTo(EventManagerInterface $eventManager)
+    public function registerTo(EventManager $eventManager)
     {
-        $eventManager->addListener($this);
+        $eventManager->add($this);
     }
 
 }

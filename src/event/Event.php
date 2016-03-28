@@ -11,7 +11,7 @@
 
 namespace cloak\event;
 
-use PHPExtra\EventManager\Event\EventInterface as BaseEventInterface;
+use PHPExtra\EventManager\Event\Event as BaseEventInterface;
 
 
 /**
